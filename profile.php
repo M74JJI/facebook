@@ -16,7 +16,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
    $profileInfos = $loadUser->getUserInfo($profileId);
    
 }
-
+var_dump($profileInfos->cover);
 
 ?>
 
@@ -170,7 +170,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             var file_data = $('#upload_btn').prop('files')[0];
             var file_size = file_data["size"];
             var file_type = file_data["type"].split('/').pop();
-            var userid = " <?php echo $userid ?>"
+            var userid = " <?php echo $userid; ?>"
             var image_name = 'user/' + userid + '/cover/' + name + '';
             var form_data = new FormData();
             form_data.append('file', file_data);
@@ -179,11 +179,23 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     image_name: image_name,
                     userid: userid
                 }, function(data) {
-                    alert(data);
+
 
                 })
             }
-            console.log(image_name);
+            $.ajax({
+                url: 'http://localhost/facebook/core/ajax/profile.php',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: 'post',
+                success: function(data) {
+                    $('.cover').css('background-image', 'url(' + data + ')');
+                    $('.upload_menu').hide();
+                }
+            })
+
 
         })
     })

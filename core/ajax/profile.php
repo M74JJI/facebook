@@ -10,9 +10,21 @@ if(isset($_POST['image_name'])){
   
     $loadUser->update('profile',$userid,array('cover'=>$image_name));
     
-  echo 'Cover found and set'; 
+  
 }else{
-    echo 'Cover photo not found';
+    
 }
+
+
+if(0<$_FILES['file']['error']){
+    echo "Errror: ". $_FILES['file']['error'].'';
+}else{
+    $path_directory =$_SERVER['DOCUMENT_ROOT']."/facebook/user/".$userid."/cover/";
+    if(!file_exists($path_directory) && !is_dir($path_directory)){
+    mkdir($path_directory,0777,true);
+    }
+    move_uploaded_file($_FILES['file']['tmp_name'],$path_directory.$_FILES['file']['name']);
+}
+echo 'user/'.$userid.'/cover/'.$_FILES['file']['name'];
 
 ?>
