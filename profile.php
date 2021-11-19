@@ -99,7 +99,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     <img src="<?php echo $userInfo->profile_picture ?>" alt="" />
                     <?php echo ucfirst($userInfo->first_name ) ?>
                 </a>
-                <a href="" class="rounded_link">
+                <a href="" class="rounded_link hidein_sm">
                     <svg viewBox="0 0 44 44" width="1em" height="1em">
                         <circle cx="7" cy="7" r="6"></circle>
                         <circle cx="22" cy="7" r="6"></circle>
@@ -112,7 +112,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         <circle cx="37" cy="37" r="6"></circle>
                     </svg>
                 </a>
-                <a href="" class="rounded_link">
+                <a href="" class="rounded_link hidein_sm">
                     <svg viewBox="0 0 28 28" alt="" class="a8c37x1j ms05siws hwsy1cff b7h9ocf4 fzdkajry" height="20"
                         width="20">
                         <path
@@ -120,7 +120,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         </path>
                     </svg>
                 </a>
-                <a href="" class="rounded_link">
+                <a href="" class="rounded_link hidein_sm">
                     <svg viewBox="0 0 28 28" alt="" class="a8c37x1j ms05siws hwsy1cff b7h9ocf4 fzdkajry" height="20"
                         width="20">
                         <path
@@ -128,7 +128,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         </path>
                     </svg>
                 </a>
-                <a href="" class="rounded_link">
+                <a href="" class="rounded_link ">
                     <svg style="font-size: larger" viewBox="0 0 20 20" width="1em" height="1em">
                         <path
                             d="M10 14a1 1 0 0 1-.755-.349L5.329 9.182a1.367 1.367 0 0 1-.205-1.46A1.184 1.184 0 0 1 6.2 7h7.6a1.18 1.18 0 0 1 1.074.721 1.357 1.357 0 0 1-.2 1.457l-3.918 4.473A1 1 0 0 1 10 14z">
@@ -138,59 +138,186 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             </div>
         </div>
     </header>
-    <div class="profile_container">
-        <div class="cover" style="background-image: url(<?php echo $profileInfos->cover ?>)">
-            <?php if($profileId == $userid){ ?>
-            <div class="upload_container" id="upload_container">
-                <input type="file" class="hidden" name="upload_btn" id="upload_btn" name="">
-                <div class="felx">
-                    <i class="uplaod_icon"></i>
-                    <span>Add Cover Photo</span>
-                </div>
-                <div class="uplaod_menu" id="upload_menu">
-                    <div class="menu_item">
-                        <div class="menu_icon1"></div>
-                        Select Photo
+
+    <div class="profile_top_container">
+        <div class="profile_container">
+            <div class="cover" style="background-image: url(<?php echo $profileInfos->cover ?>)">
+                <?php if($profileId == $userid){ ?>
+                <div class="upload_container" id="upload_container">
+                    <input type="file" class="hidden" name="upload_btn" id="upload_btn" name="">
+                    <div class="felx">
+                        <i class="uplaod_icon"></i>
+                        <span>Add Cover Photo</span>
                     </div>
-                    <div class="menu_item" id="upload_cover">
-                        <div class="menu_icon2"></div>
-                        Upload Photo
+                    <div class="uplaod_menu" id="upload_menu">
+                        <div class="menu_item">
+                            <div class="menu_icon1"></div>
+                            Select Photo
+                        </div>
+                        <div class="menu_item" id="upload_cover">
+                            <div class="menu_icon2"></div>
+                            Upload Photo
+                        </div>
+
                     </div>
-
                 </div>
+
+                <?php  } ?>
+
+
             </div>
 
-            <?php  } ?>
-
-
-        </div>
-
-        <div class="profile_pic_container">
-            <div class="pdp_container">
-                <img class="pdp" src="<?php echo $profileInfos->profile_picture ?>" alt="">
-                <input type="file" class="hidden" id="upload_btn_profile" name="upload_btn_profile">
-                <div class="pdp_icon" id="pdf_container">
-                    <div class="icon_pdf"></div>
+            <div class="profile_pic_container">
+                <div class="pdp_container">
+                    <img class="pdp" src="<?php echo $profileInfos->profile_picture ?>" alt="">
+                    <input type="file" class="hidden" id="upload_btn_profile" name="upload_btn_profile">
+                    <?php if($profileId == $userid){ ?>
+                    <div class="pdp_icon" id="pdf_container">
+                        <div class="icon_pdf"></div>
+                    </div>
+                    <?php } ?>
                 </div>
-            </div>
-            <div class="upper_name">
-                <div class="full_name"><?php echo $profileInfos->first_name.' '.$profileInfos->last_name ?></div>
-                <a href="#" class="friends_link">3 Friends</a>
-                <div class="friends_peak">
-                    <img src="https://scontent.frba2-1.fna.fbcdn.net/v/t1.6435-9/133575443_4841862209219963_4271163266524344012_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=Y_sRwgJzxq4AX93dUCP&tn=1gVMqtKhTUNj1UfJ&_nc_ht=scontent.frba2-1.fna&oh=8401718414d38b9ddcafa2ab3f655545&oe=61BEB7BF"
-                        alt="">
+                <div class="upper_name">
+                    <div class="full_name"><?php echo $profileInfos->first_name.' '.$profileInfos->last_name ?></div>
+                    <a href="#" class="friends_link">3 Friends</a>
+                    <div class="friends_peak">
+                        <img src="https://scontent.frba2-1.fna.fbcdn.net/v/t1.6435-9/133575443_4841862209219963_4271163266524344012_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=Y_sRwgJzxq4AX93dUCP&tn=1gVMqtKhTUNj1UfJ&_nc_ht=scontent.frba2-1.fna&oh=8401718414d38b9ddcafa2ab3f655545&oe=61BEB7BF"
+                            alt="">
+                    </div>
                 </div>
+                <?php if($profileId == $userid){ ?>
+                <div class="upper_right_link">
+                    <a href="#" class="add_to_story">
+                        <i class="fa-solid fa-circle-plus"></i>
+                        Add to Story</a>
+                    <a href="#" class="edit_profile_link">
+                        <img src="https://www.facebook.com/rsrc.php/v3/yW/r/OR6SzrfoMFg.png" alt="">
+                        Edit Profile</a>
+                </div>
+                <?php } ?>
             </div>
-            <div class="upper_right_link">
-                <a href="#" class="add_to_story">
-                    <i class="fa-solid fa-circle-plus"></i>
-                    Add to Story</a>
-                <a href="#" class="edit_profile_link">
-                    <img src="https://www.facebook.com/rsrc.php/v3/yW/r/OR6SzrfoMFg.png" alt="">
-                    Edit Profile</a>
+            <div class="profile_menu">
+                <div class="menu">
+                    <div class="menu_item1 active_menu_item">Posts</div>
+                    <div class="menu_item1">About</div>
+                    <div class="menu_item1 hidein_sm">Friends</div>
+                    <div class="menu_item1">Photos</div>
+                    <div class="menu_item1 hidein_sm">Story Archive</div>
+                    <div class="menu_item1">Videos</div>
+                    <div class="menu_item1 hidein_sm">More</div>
+                </div>
+                <div class="menu_dots "><i class="fa-solid fa-ellipsis"></i></div>
             </div>
         </div>
     </div>
+    <div class="profile_middle">
+        <div class="profile_middle_container">
+            <!-- left-->
+            <div class="left_profile">
+                <!-- Intro-->
+                <div class="intro">
+                    <h3 class="intro_title">Intro</h3>
+                    <div class="intro_item">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <div class="item_name">Studied Cybersecurity & Cybercrime at </div>
+                        <div class="item_value">ENSA de Tanger</div>
+                    </div>
+                    <div class="intro_item">
+                        <i class="fa-solid fa-house-chimney"></i>
+                        <div class="item_name">Lives in</div>
+                        <div class="item_value">Ksar eL kebir, Morocco</div>
+                    </div>
+                    <div class="intro_item">
+                        <i class="fa-solid fa-rss"></i>
+                        <div class="item_name">Followed by</div>
+                        <div class="item_value">171 people</div>
+                    </div>
+                    <div class="intro_item">
+                        <i class="fa-brands fa-instagram"></i>
+                        <a href="#" class="item_name social_link">med_hajji7</a>
+
+                    </div>
+
+                </div>
+                <div class="intro">
+                    <div class="spaced">
+                        <h3>Photos</h3>
+                        <a href="#" class="social_link">See All Photos</a>
+                    </div>
+                    <div class="photos_wrap">
+                        <img src=<?php echo $profileInfos->profile_picture ?> alt="">
+                        <img src=<?php echo $profileInfos->cover ?> alt="">
+
+                    </div>
+                </div>
+                <div class="intro">
+                    <div class="spaced">
+                        <h3>Friends</h3>
+                        <a href="#" class="social_link">See All Friends</a>
+                    </div>
+                    <span>1 Friend(s)</span>
+                    <div class="photos_wrap">
+                        <img src="https://scontent.frba2-1.fna.fbcdn.net/v/t1.6435-1/p200x200/133575443_4841862209219963_4271163266524344012_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=7206a8&_nc_ohc=Y_sRwgJzxq4AX93dUCP&_nc_ht=scontent.frba2-1.fna&oh=939ae3ded139894a3fe3a09bc465a259&oe=61BDB100"
+                            alt="">
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- right-->
+            <div class="right_profile">
+                <div class="post_wrapper">
+                    <div class="post_top">
+                        <img class="user_post_img" src=<?php echo $userInfo->profile_picture ?> alt="">
+                        <div class="post_open">
+                            <?php if($profileId === $userid){ ?>
+                            Whats' on your mind?
+                            <?php }else { ?>
+                            Write something to <?php $profileInfos->first_name ?>...
+                            <?php  } ?>
+                        </div>
+                    </div>
+                    <div class="post_bottom">
+                        <div class="choice">
+                            <svg viewBox="0 0 24 24" width="1.5rem" height="1.5rem" fill="#f3425f">
+                                <g fill-rule="evenodd" transform="translate(-444 -156)">
+                                    <g>
+                                        <path
+                                            d="M113.029 2.514c-.363-.088-.746.014-1.048.234l-2.57 1.88a.999.999 0 0 0-.411.807v8.13a1 1 0 0 0 .41.808l2.602 1.901c.219.16.477.242.737.242.253 0 .508-.077.732-.235.34-.239.519-.65.519-1.065V3.735a1.25 1.25 0 0 0-.971-1.22m-20.15 6.563c.1-.146 2.475-3.578 5.87-3.578 3.396 0 5.771 3.432 5.87 3.578a.749.749 0 0 1 0 .844c-.099.146-2.474 3.578-5.87 3.578-3.395 0-5.77-3.432-5.87-3.578a.749.749 0 0 1 0-.844zM103.75 19a3.754 3.754 0 0 0 3.75-3.75V3.75A3.754 3.754 0 0 0 103.75 0h-10A3.754 3.754 0 0 0 90 3.75v11.5A3.754 3.754 0 0 0 93.75 19h10z"
+                                            transform="translate(354 158.5)"></path>
+                                        <path
+                                            d="M98.75 12c1.379 0 2.5-1.121 2.5-2.5S100.129 7 98.75 7a2.503 2.503 0 0 0-2.5 2.5c0 1.379 1.121 2.5 2.5 2.5"
+                                            transform="translate(354 158.5)"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                            Live Video
+                        </div>
+                        <div class="choice">
+                            <svg viewBox="0 0 24 24" width="1.5rem" height="1.5rem" fill="#45bd62">
+                                <g fill-rule="evenodd" transform="translate(-444 -156)">
+                                    <g>
+                                        <path
+                                            d="m96.968 22.425-.648.057a2.692 2.692 0 0 1-1.978-.625 2.69 2.69 0 0 1-.96-1.84L92.01 4.32a2.702 2.702 0 0 1 .79-2.156c.47-.472 1.111-.731 1.774-.79l2.58-.225a.498.498 0 0 1 .507.675 4.189 4.189 0 0 0-.251 1.11L96.017 18.85a4.206 4.206 0 0 0 .977 3.091s.459.364-.026.485m8.524-16.327a1.75 1.75 0 1 1-3.485.305 1.75 1.75 0 0 1 3.485-.305m5.85 3.011a.797.797 0 0 0-1.129-.093l-3.733 3.195a.545.545 0 0 0-.062.765l.837.993a.75.75 0 1 1-1.147.966l-2.502-2.981a.797.797 0 0 0-1.096-.12L99 14.5l-.5 4.25c-.06.674.326 2.19 1 2.25l11.916 1.166c.325.026 1-.039 1.25-.25.252-.21.89-.842.917-1.166l.833-8.084-3.073-3.557z"
+                                            transform="translate(352 156.5)"></path>
+                                        <path fill-rule="nonzero"
+                                            d="m111.61 22.963-11.604-1.015a2.77 2.77 0 0 1-2.512-2.995L98.88 3.09A2.77 2.77 0 0 1 101.876.58l11.603 1.015a2.77 2.77 0 0 1 2.513 2.994l-1.388 15.862a2.77 2.77 0 0 1-2.994 2.513zm.13-1.494.082.004a1.27 1.27 0 0 0 1.287-1.154l1.388-15.862a1.27 1.27 0 0 0-1.148-1.37l-11.604-1.014a1.27 1.27 0 0 0-1.37 1.15l-1.387 15.86a1.27 1.27 0 0 0 1.149 1.37l11.603 1.016z"
+                                            transform="translate(352 156.5)"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                            Photo/video
+                        </div>
+                        <div class="choice">
+                            <div class="event_img"></div>
+                            Life Event
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="profile_box" id="pdp_box">
         <div class="box_header">
             <h3 class="header_title">Update profile picture </h3>
@@ -201,18 +328,34 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             <button class="box_btn2"><i class="frame_icon"></i> Add Frame</button>
         </div>
     </div>
+    <div class="post_box">
+        <div class="post_box_header">
+            <h3>Create Post</h3>
+            <div class="header_icon" id="close_post"><i class="fa-solid fa-xmark"></i></div>
+        </div>
+        <div class="post_user_infos">
+            <img class="box_post_img" src=<?php echo $userInfo->profile_picture ?> alt="">
+            <div class="privacy_box_box">
+                <h6><?php echo $userInfo->first_name.' '. $userInfo->last_name; ?></h6>
+                <span><i class="fa-solid fa-user-group"></i>Friends<i class="fa-solid fa-sort-down"></i></span>
+            </div>
+        </div>
+        <div class="box_area">
+            <textarea class="textarea_post" cols="30" rows="5" autofocus placeholder="Whats' on your mind ?"></textarea>
+        </div>
+    </div>
 
     <script src="assets/js/profile.js"></script>
     <script src="assets/js/jquery.js"></script>
     <script>
     $(function() {
-        $('#upload_btn').on('change', function() {
-            console.log('bbbbbbbbbbbbbbb');
+        $(document).on('change', '#upload_btn', function() {
+
             var name = $('#upload_btn').val().split('\\').pop();
             var file_data = $('#upload_btn').prop('files')[0];
             var file_size = file_data["size"];
             var file_type = file_data["type"].split('/').pop();
-            var userid = "<?php echo $userid ?>"
+            var userid = "<?php echo $userid ?>";
             var image_name = 'user/' + userid + '/cover/' + name + '';
             var form_data = new FormData();
             form_data.append('file', file_data);
@@ -241,20 +384,14 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
         })
 
+        $(document).on('change', '#upload_btn_profile', function() {
 
-
-    })
-    </script>
-    <script>
-    $(function() {
-        $('#upload_btn_profile').on('change', function() {
-            console.log('aaaaaaaaaaaaaaaaaaaaaaaaaa');
             var name = $('#upload_btn_profile').val().split('\\').pop();
             var file_data = $('#upload_btn_profile').prop('files')[0];
             var file_size = file_data['size'];
             var file_type = file_data['type'].split('/').pop();
-            var userid = <?php echo $userid; ?>
-            var image_name = 'user/' + $userid + '/profilePicture/' + name + '';
+            var userid = "<?php echo $userid ?>";
+            var image_name = 'user/' + userid + '/profilePicture/' + name + '';
             var form_data = new FormData();
             form_data.append('file', file_data);
             if (name != '') {
@@ -273,13 +410,18 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     type: 'post',
                     success: function(data) {
                         $('.pdp').attr('src', "" + data + "");
-                        $('.profile_box').hide();
+                        $('.profile_box').css('display', 'none');
                     }
                 })
             }
         })
+
     })
     </script>
+
+
+
+
 
 </body>
 
