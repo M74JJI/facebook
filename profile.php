@@ -32,7 +32,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="assets/js/jquery.js"></script>
+
 </head>
 
 <body>
@@ -168,7 +168,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
         <div class="profile_pic_container">
             <div class="pdp_container">
                 <img class="pdp" src="<?php echo $profileInfos->profile_picture ?>" alt="">
-                <input type="file" class="hidden" id="upload_btn_profile">
+                <input type="file" class="hidden" id="upload_btn_profile" name="upload_btn_profile">
                 <div class="pdp_icon" id="pdf_container">
                     <div class="icon_pdf"></div>
                 </div>
@@ -194,16 +194,20 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
     <div class="profile_box" id="pdp_box">
         <div class="box_header">
             <h3 class="header_title">Update profile picture </h3>
-            <div class="header_icon"><i class="fa-solid fa-xmark"></i></div>
+            <div class="header_icon" id="header_icon"><i class="fa-solid fa-xmark"></i></div>
         </div>
         <div class="box_buttons">
-            <button class="box_btn1"><i class="fa-solid fa-plus"></i>Upload Photo</button>
+            <button class="box_btn1" id="box_btn1"><i class="fa-solid fa-plus"></i>Upload Photo</button>
             <button class="box_btn2"><i class="frame_icon"></i> Add Frame</button>
         </div>
     </div>
+
+    <script src="assets/js/profile.js"></script>
+    <script src="assets/js/jquery.js"></script>
     <script>
     $(function() {
         $('#upload_btn').on('change', function() {
+            console.log('bbbbbbbbbbbbbbb');
             var name = $('#upload_btn').val().split('\\').pop();
             var file_data = $('#upload_btn').prop('files')[0];
             var file_size = file_data["size"];
@@ -236,18 +240,15 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
 
         })
-        $('#pdf_container').on('click', function() {
-            $('.profile_box').css('display', 'block');
 
-        })
-        $('.header_icon').on('click', function() {
-            $('.profile_box').css('display', 'none');
-        })
-        $('.box_btn1').on('click', function() {
-            $('#upload_btn_profile').click();
-        })
 
-        $(document).on('change', '#upload_btn_profile', function() {
+
+    })
+    </script>
+    <script>
+    $(function() {
+        $('#upload_btn_profile').on('change', function() {
+            console.log('aaaaaaaaaaaaaaaaaaaaaaaaaa');
             var name = $('#upload_btn_profile').val().split('\\').pop();
             var file_data = $('#upload_btn_profile').prop('files')[0];
             var file_size = file_data['size'];
@@ -277,10 +278,9 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 })
             }
         })
-
     })
     </script>
-    <script src="assets/js/profile.js"></script>
+
 </body>
 
 </html>
