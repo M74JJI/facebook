@@ -15,6 +15,8 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
    $profileId = $loadUser->getUserId($username);
    $profileInfos = $loadUser->getUserInfo($profileId);
    
+}else{
+    header('Location:index.php');
 }
 
 
@@ -341,83 +343,128 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             </div>
         </div>
         <div class="box_area">
-            <textarea class="textarea_post" cols="30" rows="5" autofocus placeholder="Whats' on your mind ?"></textarea>
+            <textarea class="textarea_post" id="post_textarea" cols="30" rows="4" autofocus
+                placeholder="Whats' on your mind ?"></textarea>
         </div>
-    </div>
+        <div class="emoji_wrapper">
+            <img style="width:40px;cursor:pointer" src="https://www.facebook.com/images/composer/SATP_Aa_square-2x.png"
+                alt="">
+            <i></i>
+        </div>
+        <div class="post_box_actions">
+            <div class="actions_name">
+                Add to your post
+            </div>
+            <div class="actions_list">
+                <div class="post_action">
+                    <div class="post_icon1"></div>
+                </div>
+                <div class="post_action">
+                    <div class="post_icon2"></div>
+                </div>
+                <div class="post_action">
+                    <div class="post_icon3"></div>
+                </div>
+                <div class="post_action">
+                    <div class="post_icon4"></div>
+                </div>
+                <div class="post_action">
+                    <div class="post_icon5"></div>
+                </div>
+                <div class="post_action">
+                    <div class="post_icon6"></div>
+                </div>
+            </div>
+        </div>
+        <input class="post_button" type="submit" value="Post" id="post_btn_submit" />
 
-    <script src="assets/js/profile.js"></script>
-    <script src="assets/js/jquery.js"></script>
-    <script>
-    $(function() {
-        $(document).on('change', '#upload_btn', function() {
 
-            var name = $('#upload_btn').val().split('\\').pop();
-            var file_data = $('#upload_btn').prop('files')[0];
-            var file_size = file_data["size"];
-            var file_type = file_data["type"].split('/').pop();
-            var userid = "<?php echo $userid ?>";
-            var image_name = 'user/' + userid + '/cover/' + name + '';
-            var form_data = new FormData();
-            form_data.append('file', file_data);
-            if (name != '') {
-                $.post('http://localhost/facebook/core/ajax/profile.php', {
-                    image_name: image_name,
-                    userid: userid
-                }, function(data) {
+        </input>
+
+        <script src="assets/js/profile.js"></script>
+        <script src="assets/js/jquery.js"></script>
+        <script>
+        $(function() {
+            $(document).on('change', '#upload_btn', function() {
+
+                var name = $('#upload_btn').val().split('\\').pop();
+                var file_data = $('#upload_btn').prop('files')[0];
+                var file_size = file_data["size"];
+                var file_type = file_data["type"].split('/').pop();
+                var userid = "<?php echo $userid ?>";
+                var image_name = 'user/' + userid + '/cover/' + name + '';
+                var form_data = new FormData();
+                form_data.append('file', file_data);
+                if (name != '') {
+                    $.post('http://localhost/facebook/core/ajax/profile.php', {
+                        image_name: image_name,
+                        userid: userid
+                    }, function(data) {
 
 
-                })
-            }
-            $.ajax({
-                url: 'http://localhost/facebook/core/ajax/profile.php',
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: form_data,
-                type: 'post',
-                success: function(data) {
-                    $('.cover').css('background-image', 'url(' + data + ')');
-                    $('.upload_menu').hide();
+                    })
                 }
-            })
-
-
-        })
-
-        $(document).on('change', '#upload_btn_profile', function() {
-
-            var name = $('#upload_btn_profile').val().split('\\').pop();
-            var file_data = $('#upload_btn_profile').prop('files')[0];
-            var file_size = file_data['size'];
-            var file_type = file_data['type'].split('/').pop();
-            var userid = "<?php echo $userid ?>";
-            var image_name = 'user/' + userid + '/profilePicture/' + name + '';
-            var form_data = new FormData();
-            form_data.append('file', file_data);
-            if (name != '') {
-                $.post('http://localhost/facebook/core/ajax/profilePicture.php', {
-                    image_name: image_name,
-                    userid: userid
-                }, function(data) {
-
-                })
                 $.ajax({
-                    url: 'http://localhost/facebook/core/ajax/profilePicture.php',
+                    url: 'http://localhost/facebook/core/ajax/profile.php',
                     cache: false,
                     contentType: false,
                     processData: false,
                     data: form_data,
                     type: 'post',
                     success: function(data) {
-                        $('.pdp').attr('src', "" + data + "");
-                        $('.profile_box').css('display', 'none');
+                        $('.cover').css('background-image', 'url(' + data + ')');
+                        $('.upload_menu').hide();
                     }
                 })
-            }
-        })
 
-    })
-    </script>
+
+            })
+
+            $(document).on('change', '#upload_btn_profile', function() {
+
+                var name = $('#upload_btn_profile').val().split('\\').pop();
+                var file_data = $('#upload_btn_profile').prop('files')[0];
+                var file_size = file_data['size'];
+                var file_type = file_data['type'].split('/').pop();
+                var userid = "<?php echo $userid ?>";
+                var image_name = 'user/' + userid + '/profilePicture/' + name + '';
+                var form_data = new FormData();
+                form_data.append('file', file_data);
+                if (name != '') {
+                    $.post('http://localhost/facebook/core/ajax/profilePicture.php', {
+                        image_name: image_name,
+                        userid: userid
+                    }, function(data) {
+
+                    })
+                    $.ajax({
+                        url: 'http://localhost/facebook/core/ajax/profilePicture.php',
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: form_data,
+                        type: 'post',
+                        success: function(data) {
+                            $('.pdp').attr('src', "" + data + "");
+                            $('.profile_box').css('display', 'none');
+                        }
+                    })
+                }
+            })
+
+            $('#post_textarea').change(function() {
+                if ($('#post_textarea').val().length > 0) {
+                    $('#post_btn_submit').css('background-color', '#1b74e4');
+                    $('#post_btn_submit').css('cursor', 'pointer');
+                } else {
+                    $('#post_btn_submit').css('background-color', '#e4e6eb');
+
+                }
+
+            })
+
+        })
+        </script>
 
 
 

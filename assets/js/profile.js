@@ -11,6 +11,8 @@ const upload_btn_profile = document.getElementById('upload_btn_profile');
 const pdp_box = document.getElementById('pdp_box');
 const header_icon = document.getElementById('header_icon');
 const pdf_container = document.getElementById('pdf_container');
+const post_textarea = document.getElementById('post_textarea');
+const post_btn_submit = document.getElementById('post_btn_submit');
 
 search_input.addEventListener('focus', () => {
     search_icon.style.display = 'none';
