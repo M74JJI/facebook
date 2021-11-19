@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #111;
+    background-color: #fff;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -153,7 +153,7 @@ header {
     background-repeat: no-repeat;
     background-size: cover;
     height: 345px;
-    width: 100%;
+
     border-radius: 0px 0px max(0px, min(8px, ((100vw - 4px) - 100%) * 9999))
         max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 0px 0px 8px 8px;
 }
@@ -196,6 +196,7 @@ header {
     padding: 10px 1rem;
     border-radius: 10px;
     display: none;
+    z-index: 99;
 }
 .menu_item {
     display: flex;
@@ -231,4 +232,190 @@ header {
 }
 .hide {
     display: none;
+}
+.profile_pic_container {
+    display: flex;
+    padding: 0 2rem;
+    border-bottom: 1px solid #ccced2;
+    position: relative;
+}
+.pdp {
+    border-radius: 50%;
+    width: 165px;
+    height: 165px;
+    object-fit: cover;
+}
+.pdp_container {
+    transform: translateY(-2rem);
+    padding: 4px;
+    background: #fff;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+.pdp_icon {
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    background-color: #e4e6eb;
+    position: absolute;
+    right: 0.4rem;
+    bottom: 0.5rem;
+    cursor: pointer;
+}
+.icon_pdf {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yg/r/s-p_NT3UwXm.png');
+    background-position: 0px -710px;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    transform: translate(9px, 9px);
+}
+.upper_name {
+    padding: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+}
+.full_name {
+    color: #1c1e21;
+    font-size: 30px;
+    font-weight: bolder;
+    margin: 0;
+    padding: 0;
+    font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;
+    letter-spacing: -1px;
+}
+.friends_link {
+    color: #65676b;
+    font-weight: 600;
+}
+.friends_link:hover {
+    text-decoration: underline;
+}
+.friends_peak {
+    margin-top: 7px;
+}
+.friends_peak img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.upper_right_link {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    position: absolute;
+    right: 1rem;
+    bottom: 2.5rem;
+}
+.add_to_story {
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+    background: #1b74e4;
+    color: #fff;
+    font-weight: 600;
+    padding: 7px 10px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+.add_to_story img {
+    -webkit-tap-highlight-color: transparent;
+}
+.edit_profile_link {
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+    background: #e4e6eb;
+    color: #111;
+    font-weight: 600;
+    padding: 7px 10px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+.profile_box {
+    height: 600px;
+    width: 700px;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 999;
+    border-radius: 10px;
+    -webkit-box-shadow: 37px 14px 42px 8px rgba(221, 221, 221, 0.45);
+    box-shadow: 37px 14px 42px 8px rgba(221, 221, 221, 0.45);
+    border: 1px solid #eee;
+}
+.box_header {
+    padding: 0px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 0.5px solid #e5e5e5;
+    position: relative;
+}
+.header_icon {
+    position: absolute;
+    right: 1rem;
+    top: 12px;
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    background-color: #e4e6eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.header_icon i {
+    font-size: 19px;
+    color: #606770;
+}
+.box_buttons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 20px;
+    column-gap: 10px;
+}
+.box_buttons button {
+    border: none;
+    outline: none;
+    width: 50%;
+    padding: 10px 0;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+}
+.box_buttons button:hover {
+    opacity: 0.8;
+}
+.box_btn1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e7f3ff;
+    color: #1877f2;
+}
+.box_btn2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e4e6eb;
+}
+.box_buttons i {
+    margin-right: 5px;
+    font-size: 14px;
+}
+.frame_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yG/r/hc9PXcntkN7.png');
+    background-position: 0px -130px;
+    background-size: auto;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    display: inline-block;
 }

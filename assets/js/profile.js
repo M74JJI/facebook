@@ -5,6 +5,7 @@ const upload_container = document.getElementById('upload_container');
 const upload_btn = document.getElementById('upload_btn');
 const upload_menu = document.getElementById('upload_menu');
 const upload_cover = document.getElementById('upload_cover');
+const profile_box = document.getElementById('profile_box');
 
 search_input.addEventListener('focus', () => {
     search_icon.style.display = 'none';
@@ -33,5 +34,6 @@ document.addEventListener('click', function (e) {
         upload_menu.style.display = 'block';
         return;
     }
+
     upload_menu.style.display = 'none';
 });

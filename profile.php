@@ -29,6 +29,9 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile</title>
     <link rel="stylesheet" href="assets/css/profile.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="assets/js/jquery.js"></script>
 </head>
 
@@ -160,7 +163,42 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             <?php  } ?>
 
 
+        </div>
 
+        <div class="profile_pic_container">
+            <div class="pdp_container">
+                <img class="pdp" src="<?php echo $profileInfos->profile_picture ?>" alt="">
+                <input type="file" class="hidden" id="upload_btn_profile">
+                <div class="pdp_icon" id="pdf_container">
+                    <div class="icon_pdf"></div>
+                </div>
+            </div>
+            <div class="upper_name">
+                <div class="full_name"><?php echo $profileInfos->first_name.' '.$profileInfos->last_name ?></div>
+                <a href="#" class="friends_link">3 Friends</a>
+                <div class="friends_peak">
+                    <img src="https://scontent.frba2-1.fna.fbcdn.net/v/t1.6435-9/133575443_4841862209219963_4271163266524344012_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=Y_sRwgJzxq4AX93dUCP&tn=1gVMqtKhTUNj1UfJ&_nc_ht=scontent.frba2-1.fna&oh=8401718414d38b9ddcafa2ab3f655545&oe=61BEB7BF"
+                        alt="">
+                </div>
+            </div>
+            <div class="upper_right_link">
+                <a href="#" class="add_to_story">
+                    <i class="fa-solid fa-circle-plus"></i>
+                    Add to Story</a>
+                <a href="#" class="edit_profile_link">
+                    <img src="https://www.facebook.com/rsrc.php/v3/yW/r/OR6SzrfoMFg.png" alt="">
+                    Edit Profile</a>
+            </div>
+        </div>
+    </div>
+    <div class="profile_box" id="pdp_box">
+        <div class="box_header">
+            <h3 class="header_title">Update profile picture </h3>
+            <div class="header_icon"><i class="fa-solid fa-xmark"></i></div>
+        </div>
+        <div class="box_buttons">
+            <button class="box_btn1"><i class="fa-solid fa-plus"></i>Upload Photo</button>
+            <button class="box_btn2"><i class="frame_icon"></i> Add Frame</button>
         </div>
     </div>
     <script>
@@ -198,6 +236,48 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
 
         })
+        $('#pdf_container').on('click', function() {
+            $('.profile_box').css('display', 'block');
+
+        })
+        $('.header_icon').on('click', function() {
+            $('.profile_box').css('display', 'none');
+        })
+        $('.box_btn1').on('click', function() {
+            $('#upload_btn_profile').click();
+        })
+
+        $(document).on('change', '#upload_btn_profile', function() {
+            var name = $('#upload_btn_profile').val().split('\\').pop();
+            var file_data = $('#upload_btn_profile').prop('files')[0];
+            var file_size = file_data['size'];
+            var file_type = file_data['type'].split('/').pop();
+            var userid = <?php echo $userid; ?>
+            var image_name = 'user/' + $userid + '/profilePicture/' + name + '';
+            var form_data = new FormData();
+            form_data.append('file', file_data);
+            if (name != '') {
+                $.post('http://localhost/facebook/core/ajax/profilePicture.php', {
+                    image_name: image_name,
+                    userid: userid
+                }, function(data) {
+
+                })
+                $.ajax({
+                    url: 'http://localhost/facebook/core/ajax/profilePicture.php',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,
+                    type: 'post',
+                    success: function(data) {
+                        $('.pdp').attr('src', "" + data + "");
+                        $('.profile_box').hide();
+                    }
+                })
+            }
+        })
+
     })
     </script>
     <script src="assets/js/profile.js"></script>
