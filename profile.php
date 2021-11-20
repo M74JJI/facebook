@@ -372,22 +372,37 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                      $react_max_show =$loadPost->react_max_show($post->id);
                      $main_react_count =$loadPost->main_react_count($post->id);
                     ?>
-                    //small_react_img
+
                     <?php } ?>
                     <div class="react_infos">
-                        <div class="reacts_count">
-                            <?php
-                            foreach($react_max_show as $react_max){
-                                echo '<img class="'.$react_max->reactType.'-max-show" src="assets/images/react/'.$react_max->reactType.'.png" alt="">';
-                            }
-                           ?>
-                            <?php
-                            if($main_react_count->maxreact =='0'){
+                        <div class="nf-3">
+                            <div class="react-comment-count-wrap" style="width:100%;display:flex;align-items:center">
+                                <div class="react-count-wrap">
+                                    <div class="nf-3-react-icon">
+                                        <div class="react-inst-img align-middle">
+                                            <?php
+                                        foreach($react_max_show as $react_max){
+                                            echo '<img class="'.$react_max->reactType.'-max-show"
+                                             src="assets/images/react/'.$react_max->reactType.'.png" alt=""
+                                              style="width:20px;height:20px;cursor:pointer">';
+                                        }
+                                             ?>
+                                        </div>
+                                    </div>
+                                    <div class="nf-3-react-username">
+                                        <?php 
+                                        if($main_react_count->maxreact =='0'){
 
-                            }else{
-                          echo $main_react_count->maxreact;
-                            }
-                            ?>
+                                        }else{
+                                            echo $main_react_count->maxreact;
+                                        }
+                                        ?>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
 
                         </div>
                         <div class="react_right_count">
@@ -396,330 +411,352 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         </div>
                     </div>
 
-                    <div class="react_system">
-                        <div class="react_btn_wrapper" id="like_btn" data-postid="<?php echo $post->id ?>"
+                    <div class="nf-4">
+                        <div class="like-action-wrap" data-postid="<?php echo $post->id ?>"
                             data-user-id="<?php echo $userid ?>">
-                            <div class="react_bandle">
+                            <div class="react-bundle-wrap">
 
                             </div>
-                            <?php if(empty($main_react)){ ?>
-                            <i class="like_button"></i>Like
-                            <?php   }else{ ?>
+                            <div class="like-action ra">
+                                <?php if(empty($main_react)){
+                             ?>
+                                <div class="like-action-icon">
+                                    <img src="assets/images/like.png" style="width:20px" alt="">
+                                </div>
+                                <div class="like-action-text">
+                                    <span>Like</span>
+                                </div>
+                                <?php }else{
+                                   
+           
+                                 ?>
+                                <div class="like-action-icon">
+                                    <img src class="" src="assets/images/react/<?php echo $main_react->reactType ?>.png"
+                                        alt="" class="">
+                                    <div class="like-action-text">
+                                        <span><?php echo $main_react->reactType; ?></span>
+                                    </div>
+                                </div>
+                                }
 
-                            <div class="already_liked">
-                                <img class="react_icon_md" src="assets/images/<?php echo $main_react->reactType; ?>.png"
-                                    alt="">
-                                <span class="alread-liked_name">
-                                    <?php echo $main_react->reactType ?>
-                                </span>
+                                <?php  }?>
+
+
+
+
                             </div>
-                            <?php } ?>
-                        </div>
-                        <div class="react_btn_wrapper">
-                            <i class="comment_button"></i>Comment
-                        </div>
-                        <div class="react_btn_wrapper">
-                            <i class="share_button"></i>Share
+                            <div class="react_btn_wrapper">
+                                <i class="comment_button"></i>Comment
+                            </div>
+                            <div class="react_btn_wrapper">
+                                <i class="share_button"></i>Share
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="profile_box" id="pdp_box">
-        <div class="box_header">
-            <h3 class="header_title">Update profile picture </h3>
-            <div class="header_icon" id="header_icon"><i class="fa-solid fa-xmark"></i></div>
-        </div>
-        <div class="box_buttons">
-            <button class="box_btn1" id="box_btn1"><i class="fa-solid fa-plus"></i>Upload Photo</button>
-            <button class="box_btn2"><i class="frame_icon"></i> Add Frame</button>
-        </div>
-    </div>
-    <div class="post_box" id="post_box">
-        <div class="post_box_header">
-            <h3>Create Post</h3>
-            <div class="header_icon" id="close_post"><i class="fa-solid fa-xmark"></i></div>
-        </div>
-        <div class="post_user_infos">
-            <img class="box_post_img" src=<?php echo $userInfo->profile_picture ?> alt="">
-            <div class="privacy_box_box">
-                <h6><?php echo $userInfo->first_name.' '. $userInfo->last_name; ?></h6>
-                <span><i class="fa-solid fa-user-group"></i>Friends<i class="fa-solid fa-sort-down"></i></span>
+        <div class="profile_box" id="pdp_box">
+            <div class="box_header">
+                <h3 class="header_title">Update profile picture </h3>
+                <div class="header_icon" id="header_icon"><i class="fa-solid fa-xmark"></i></div>
+            </div>
+            <div class="box_buttons">
+                <button class="box_btn1" id="box_btn1"><i class="fa-solid fa-plus"></i>Upload Photo</button>
+                <button class="box_btn2"><i class="frame_icon"></i> Add Frame</button>
             </div>
         </div>
-        <div class="errors_post" id="errors_post"></div>
-        <div class="box_area">
-            <div class="textarea_post" id="post_textarea"></div>
-        </div>
-        <div class="emoji_wrapper" id="emoji_wrapper">
-            <img style="width:40px;cursor:pointer" src="https://www.facebook.com/images/composer/SATP_Aa_square-2x.png"
-                alt="">
-            <i></i>
-        </div>
-        <div class="preview_container">
-
-            <ul class="post_imgs_preview" id="post_imgs_preview">
-
-            </ul>
-        </div>
-        <div class="post_box_actions">
-            <div class="actions_name">
-                Add to your post
+        <div class="post_box" id="post_box">
+            <div class="post_box_header">
+                <h3>Create Post</h3>
+                <div class="header_icon" id="close_post"><i class="fa-solid fa-xmark"></i></div>
             </div>
-            <div class="actions_list">
-                <div class="post_action" id="add_photos">
-                    <div class="post_icon1"></div>
-                    <input type="file" class="hidden" id="post_photo" name="post_photo"
-                        data-multiple-caption='{count} files selected' multiple="">
-                </div>
-                <div class="post_action">
-                    <div class="post_icon2"></div>
-                </div>
-                <div class="post_action">
-                    <div class="post_icon3"></div>
-                </div>
-                <div class="post_action">
-                    <div class="post_icon4"></div>
-                </div>
-                <div class="post_action">
-                    <div class="post_icon5"></div>
-                </div>
-                <div class="post_action">
-                    <div class="post_icon6"></div>
+            <div class="post_user_infos">
+                <img class="box_post_img" src=<?php echo $userInfo->profile_picture ?> alt="">
+                <div class="privacy_box_box">
+                    <h6><?php echo $userInfo->first_name.' '. $userInfo->last_name; ?></h6>
+                    <span><i class="fa-solid fa-user-group"></i>Friends<i class="fa-solid fa-sort-down"></i></span>
                 </div>
             </div>
-        </div>
-        <button class="post_button" id="post_btn_submit">Post</button>
+            <div class="errors_post" id="errors_post"></div>
+            <div class="box_area">
+                <div class="textarea_post" id="post_textarea"></div>
+            </div>
+            <div class="emoji_wrapper" id="emoji_wrapper">
+                <img style="width:40px;cursor:pointer"
+                    src="https://www.facebook.com/images/composer/SATP_Aa_square-2x.png" alt="">
+                <i></i>
+            </div>
+            <div class="preview_container">
+
+                <ul class="post_imgs_preview" id="post_imgs_preview">
+
+                </ul>
+            </div>
+            <div class="post_box_actions">
+                <div class="actions_name">
+                    Add to your post
+                </div>
+                <div class="actions_list">
+                    <div class="post_action" id="add_photos">
+                        <div class="post_icon1"></div>
+                        <input type="file" class="hidden" id="post_photo" name="post_photo"
+                            data-multiple-caption='{count} files selected' multiple="">
+                    </div>
+                    <div class="post_action">
+                        <div class="post_icon2"></div>
+                    </div>
+                    <div class="post_action">
+                        <div class="post_icon3"></div>
+                    </div>
+                    <div class="post_action">
+                        <div class="post_icon4"></div>
+                    </div>
+                    <div class="post_action">
+                        <div class="post_icon5"></div>
+                    </div>
+                    <div class="post_action">
+                        <div class="post_icon6"></div>
+                    </div>
+                </div>
+            </div>
+            <button class="post_button" id="post_btn_submit">Post</button>
 
 
 
-        <script src="assets/js/profile.js"></script>
-        <script src="assets/js/jquery.js"></script>
-        <script src="assets/dist/emojionearea.js"></script>
-        <script>
-        $(function() {
-            $(document).on('change', '#upload_btn', function() {
+            <script src="assets/js/profile.js"></script>
+            <script src="assets/js/jquery.js"></script>
+            <script src="assets/dist/emojionearea.js"></script>
+            <script>
+            $(function() {
+                $(document).on('change', '#upload_btn', function() {
 
-                var name = $('#upload_btn').val().split('\\').pop();
-                var file_data = $('#upload_btn').prop('files')[0];
-                var file_size = file_data["size"];
-                var file_type = file_data["type"].split('/').pop();
-                var userid = "<?php echo $userid ?>";
-                var image_name = 'user/' + userid + '/cover/' + name + '';
-                var form_data = new FormData();
-                form_data.append('file', file_data);
-                if (name != '') {
-                    $.post('http://localhost/facebook/core/ajax/profile.php', {
-                        image_name: image_name,
-                        userid: userid
-                    }, function(data) {
+                    var name = $('#upload_btn').val().split('\\').pop();
+                    var file_data = $('#upload_btn').prop('files')[0];
+                    var file_size = file_data["size"];
+                    var file_type = file_data["type"].split('/').pop();
+                    var userid = "<?php echo $userid ?>";
+                    var image_name = 'user/' + userid + '/cover/' + name + '';
+                    var form_data = new FormData();
+                    form_data.append('file', file_data);
+                    if (name != '') {
+                        $.post('http://localhost/facebook/core/ajax/profile.php', {
+                            image_name: image_name,
+                            userid: userid
+                        }, function(data) {
 
 
-                    })
-                }
-                $.ajax({
-                    url: 'http://localhost/facebook/core/ajax/profile.php',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: form_data,
-                    type: 'post',
-                    success: function(data) {
-                        $('.cover').css('background-image', 'url(' + data + ')');
-                        $('.upload_menu').hide();
+                        })
                     }
-                })
-
-
-            })
-
-            $(document).on('change', '#upload_btn_profile', function() {
-
-                var name = $('#upload_btn_profile').val().split('\\').pop();
-                var file_data = $('#upload_btn_profile').prop('files')[0];
-                var file_size = file_data['size'];
-                var file_type = file_data['type'].split('/').pop();
-                var userid = "<?php echo $userid ?>";
-                var image_name = 'user/' + userid + '/profilePicture/' + name + '';
-                var form_data = new FormData();
-                form_data.append('file', file_data);
-                if (name != '') {
-                    $.post('http://localhost/facebook/core/ajax/profilePicture.php', {
-                        image_name: image_name,
-                        userid: userid
-                    }, function(data) {
-
-                    })
                     $.ajax({
-                        url: 'http://localhost/facebook/core/ajax/profilePicture.php',
+                        url: 'http://localhost/facebook/core/ajax/profile.php',
                         cache: false,
                         contentType: false,
                         processData: false,
                         data: form_data,
                         type: 'post',
                         success: function(data) {
-                            $('.pdp').attr('src', "" + data + "");
-                            $('.profile_box').css('display', 'none');
+                            $('.cover').css('background-image', 'url(' + data + ')');
+                            $('.upload_menu').hide();
                         }
                     })
-                }
-            })
-
-            $('.post_open').on('click', function() {
-                $('.post_box').css('display', 'flex');
-                $('.profile_top_container').css('opacity', '0.1');
-                $('.profile_middle').css('opacity', '0.1');
-            })
-            $('.choice').on('click', function() {
-                $('.post_box').css('display', 'flex');
-                $('.profile_top_container').css('opacity', '0.1');
-                $('.profile_middle').css('opacity', '0.1');
-            })
-            $('#close_post').on('click', function() {
-                $('.post_box').css('display', 'none');
-                $('.profile_top_container').css('opacity', '1');
-                $('.profile_middle').css('opacity', '1');
-            })
-            var fileCollection = new Array();
-            $(document).on('change', '#post_photo', function(e) {
-                var count = 0;
-                var files = e.target.files;
-                $(this).removeData();
-                var text = "";
-                $('#post_imgs_preview').css('max-height', '400px');
-                $('.preview_container').css('border', '1px solid #ced0d4');
-                $('#emoji_wrapper').css('display', 'none');
-                $('#post_box').css('min-height', '800px');
-                /* grid from preview*/
 
 
-                $.each(files, function(i, file) {
-                    fileCollection.push(file);
-                    var reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = function(e) {
-                        var name = document.getElementById("post_photo").files[i].name;
-                        var template = '<li class="img_preview"> <img id = "' + name +
-                            '" src="' + e.target.result + '" / > </li>';
-
-                        $('#post_imgs_preview').append(template);
-                    }
                 })
-                $('#post_imgs_preview').append(
-                    '<div class="remove_img"><i class="fa-solid fa-xmark"></i></div>');
 
+                $(document).on('change', '#upload_btn_profile', function() {
 
-            })
-
-            $('#post_textarea').emojioneArea({
-                pickPosition: "right",
-                spellcheck: true,
-            })
-
-            $('#post_btn_submit').on('click', function() {
-                var post_text = $('.textarea_post').html();
-                var formData = new FormData();
-                var images = [];
-                var errors = [];
-                var files = $('#post_photo')[0].files;
-
-                if (files.length != 0) {
-                    if (files.length > 20) {
-                        errors += "maximum 20 images is allowed.";
-
-                    } else {
-                        for (var i = 0; i < files.length; i++) {
-                            var name = document.getElementById('post_photo').files[i].name;
-                            images += '{\"imageName\":\"user/' + <?php echo $userid; ?> +
-                                '/postImages/' + name + '\"},';
-
-                            var extension = name.split('.').pop().toLowerCase();
-                            if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-                                errors +=
-                                    '<p>Invalid ' + i + ' File. Only gif,png,jpg,jpeg are allowed.</p>';
-                            }
-                            var ofReader = new FileReader();
-                            ofReader.readAsDataURL(document.getElementById('post_photo').files[i]);
-                            var f = document.getElementById('post_photo').files[i];
-                            var file_size = f.size || f.fileSize;
-                            if (file_size > 2000000) {
-                                errors += '<p>' + i + ' File Size is larger than 5mb</p>'
-                            } else {
-                                formData.append('file[]', document.getElementById('post_photo').files[
-                                    i]);
-
-
-                            }
-                        }
-                    }
-                    if (files.length < 1) {
-
-                    } else {
-                        var str = images.replace(/,\s*$/, "");
-                        var strImg = '[' + str + ']';
-
-                    }
-                    if (errors == '') {
-                        $.ajax({
-                            url: 'http://localhost/facebook/core/ajax/uploadPostImage.php',
-                            cache: false,
-                            method: "post",
-                            data: formData,
-                            contentType: false,
-                            processData: false,
-                            beforeSend: function() {
-                                $('#errors_post').html(
-                                    '<br/><label>Uploading...</label>');
-                            },
-                            success: function(data) {
-                                $('#errors_post').html(data);
-                                $('#post_imgs_preview').empty();
-                            }
+                    var name = $('#upload_btn_profile').val().split('\\').pop();
+                    var file_data = $('#upload_btn_profile').prop('files')[0];
+                    var file_size = file_data['size'];
+                    var file_type = file_data['type'].split('/').pop();
+                    var userid = "<?php echo $userid ?>";
+                    var image_name = 'user/' + userid + '/profilePicture/' + name + '';
+                    var form_data = new FormData();
+                    form_data.append('file', file_data);
+                    if (name != '') {
+                        $.post('http://localhost/facebook/core/ajax/profilePicture.php', {
+                            image_name: image_name,
+                            userid: userid
+                        }, function(data) {
 
                         })
+                        $.ajax({
+                            url: 'http://localhost/facebook/core/ajax/profilePicture.php',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: form_data,
+                            type: 'post',
+                            success: function(data) {
+                                $('.pdp').attr('src', "" + data + "");
+                                $('.profile_box').css('display', 'none');
+                            }
+                        })
+                    }
+                })
+
+                $('.post_open').on('click', function() {
+                    $('.post_box').css('display', 'flex');
+                    $('.profile_top_container').css('opacity', '0.1');
+                    $('.profile_middle').css('opacity', '0.1');
+                })
+                $('.choice').on('click', function() {
+                    $('.post_box').css('display', 'flex');
+                    $('.profile_top_container').css('opacity', '0.1');
+                    $('.profile_middle').css('opacity', '0.1');
+                })
+                $('#close_post').on('click', function() {
+                    $('.post_box').css('display', 'none');
+                    $('.profile_top_container').css('opacity', '1');
+                    $('.profile_middle').css('opacity', '1');
+                })
+                var fileCollection = new Array();
+                $(document).on('change', '#post_photo', function(e) {
+                    var count = 0;
+                    var files = e.target.files;
+                    $(this).removeData();
+                    var text = "";
+                    $('#post_imgs_preview').css('max-height', '400px');
+                    $('.preview_container').css('border', '1px solid #ced0d4');
+                    $('#emoji_wrapper').css('display', 'none');
+                    $('#post_box').css('min-height', '800px');
+                    /* grid from preview*/
+
+
+                    $.each(files, function(i, file) {
+                        fileCollection.push(file);
+                        var reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = function(e) {
+                            var name = document.getElementById("post_photo").files[i].name;
+                            var template = '<li class="img_preview"> <img id = "' + name +
+                                '" src="' + e.target.result + '" / > </li>';
+
+                            $('#post_imgs_preview').append(template);
+                        }
+                    })
+                    $('#post_imgs_preview').append(
+                        '<div class="remove_img"><i class="fa-solid fa-xmark"></i></div>');
+
+
+                })
+
+                $('#post_textarea').emojioneArea({
+                    pickPosition: "right",
+                    spellcheck: true,
+                })
+
+                $('#post_btn_submit').on('click', function() {
+                    var post_text = $('.textarea_post').html();
+                    var formData = new FormData();
+                    var images = [];
+                    var errors = [];
+                    var files = $('#post_photo')[0].files;
+
+                    if (files.length != 0) {
+                        if (files.length > 20) {
+                            errors += "maximum 20 images is allowed.";
+
+                        } else {
+                            for (var i = 0; i < files.length; i++) {
+                                var name = document.getElementById('post_photo').files[i].name;
+                                images += '{\"imageName\":\"user/' + <?php echo $userid; ?> +
+                                    '/postImages/' + name + '\"},';
+
+                                var extension = name.split('.').pop().toLowerCase();
+                                if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                                    errors +=
+                                        '<p>Invalid ' + i +
+                                        ' File. Only gif,png,jpg,jpeg are allowed.</p>';
+                                }
+                                var ofReader = new FileReader();
+                                ofReader.readAsDataURL(document.getElementById('post_photo').files[i]);
+                                var f = document.getElementById('post_photo').files[i];
+                                var file_size = f.size || f.fileSize;
+                                if (file_size > 2000000) {
+                                    errors += '<p>' + i + ' File Size is larger than 5mb</p>'
+                                } else {
+                                    formData.append('file[]', document.getElementById('post_photo')
+                                        .files[
+                                            i]);
+
+
+                                }
+                            }
+                        }
+                        if (files.length < 1) {
+
+                        } else {
+                            var str = images.replace(/,\s*$/, "");
+                            var strImg = '[' + str + ']';
+
+                        }
+                        if (errors == '') {
+                            $.ajax({
+                                url: 'http://localhost/facebook/core/ajax/uploadPostImage.php',
+                                cache: false,
+                                method: "post",
+                                data: formData,
+                                contentType: false,
+                                processData: false,
+                                beforeSend: function() {
+                                    $('#errors_post').html(
+                                        '<br/><label>Uploading...</label>');
+                                },
+                                success: function(data) {
+                                    $('#errors_post').html(data);
+                                    $('#post_imgs_preview').empty();
+                                }
+
+                            })
+                        } else {
+                            $('#post_photo').val('');
+                            $('#errors_post').html('<span>' + errors + '</span>');
+                            return false;
+                        }
+
                     } else {
-                        $('#post_photo').val('');
-                        $('#errors_post').html('<span>' + errors + '</span>');
-                        return false;
+                        var strImg = '';
+                    }
+                    if (strImg == '') {
+                        $.post('http://localhost/facebook/core/ajax/postSubmit.php', {
+                            post_text_only: post_text,
+                        }, function(data) {
+
+                            location.reload();
+                        })
+                    } else {
+                        $.post('http://localhost/facebook/core/ajax/postSubmit.php', {
+                            post_images: strImg,
+                            post_text: post_text,
+                        }, function(data) {
+
+                            location.reload();
+                        })
+
                     }
 
-                } else {
-                    var strImg = '';
-                }
-                if (strImg == '') {
-                    $.post('http://localhost/facebook/core/ajax/postSubmit.php', {
-                        post_text_only: post_text,
-                    }, function(data) {
 
-                        location.reload();
-                    })
-                } else {
-                    $.post('http://localhost/facebook/core/ajax/postSubmit.php', {
-                        post_images: strImg,
-                        post_text: post_text,
-                    }, function(data) {
 
-                        location.reload();
-                    })
 
-                }
+                })
+                // react system 
 
+                $('document').on('click', '.like-action', function() {
+                    var likeActionIcon = $(this).find('.like-action-icon img');
+                    var likeReactParent = $(this).parents('.like-action-wrap');
+                    var nf4 = $(likeReactParent).parents('.nf-4');
+
+
+
+                })
 
 
 
             })
-            // react system 
-
-            $('document').on('click', '#like_btn', function() {
-                var likeActionIcon = $(this).find('')
-            })
-
-
-
-        })
-        </script>
+            </script>
 
 
 
