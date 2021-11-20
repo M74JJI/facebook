@@ -19,11 +19,37 @@ class Post extends User{
         $statement->execute();
         $posts=$statement->fetchAll(PDO::FETCH_OBJ);
        
-
+          foreach($posts as $post){
+              $main_react =$this->main_react($userid,$post->id);
+          }
         return $posts;
         
         
     }
+    public function main_react($userid,$postid){
+        $statement = $this->pdo->prepare("SELECT * FROM react WHERE reactedBy=:userid
+         AND reactedOn =:postid AND reactCommentOn='0' AND reactReplyOn='0' " );
+         $statement->bindParam(':userid',$userid,PDO::PARAM_INT);
+         $statement->bindParam(':postid',$postid,PDO::PARAM_INT);
+
+         $statement->execute();
+         return $statement->fetch(PDO::FETCH_OBJ);
+
+
+    }
+    public function react_max_show($postid){
+        $statement = $this->pdo->prepare("SELECT reactType,count(*) as maxreact FROM react WHERE reactedOn=:postid AND reactCommentOn='0' AND reactReplyOn='0' GROUP BY reactType LIMIT 3");
+         $statement->bindParam(':postid',$postid,PDO::PARAM_INT);
+         $statement->execute();
+         return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
+    public function main_react_count($postid){
+        $statement = $this->pdo->prepare("SELECT count(*) as maxreact FROM react WHERE reactedOn=:postid AND reactCommentOn='0' AND reactReplyOn='0'");
+         $statement->bindParam(':postid',$postid,PDO::PARAM_INT);
+         $statement->execute();
+         return $statement->fetch(PDO::FETCH_OBJ);
+    }
+
 }
 
 

@@ -1012,3 +1012,70 @@ li {
     z-index: 999999999999999999999999999999999;
     background-color: red;
 }
+.react_infos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 1rem;
+    font-size: 14px;
+    color: #65676b;
+    border-bottom: 2px solid #ced0d4;
+}
+.small_react_img {
+    width: 18px;
+}
+.reacts_count {
+    display: flex;
+    align-items: center;
+    column-gap: 1px;
+}
+.react_system {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+.react_btn_wrapper {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    color: #65676b;
+    cursor: pointer;
+    position: relative;
+}
+.like_button {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/ys/r/gWdQco0HMJM.png');
+    background-position: 0px -222px;
+    background-size: auto;
+    width: 18px;
+    height: 18px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(39%) sepia(21%) saturate(200%) saturate(109.5%)
+        hue-rotate(174deg) brightness(94%) contrast(86%);
+}
+.comment_button {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/ys/r/gWdQco0HMJM.png');
+    background-position: 0px -184px;
+    background-size: auto;
+    width: 18px;
+    height: 18px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(39%) sepia(21%) saturate(200%) saturate(109.5%)
+        hue-rotate(174deg) brightness(94%) contrast(86%);
+}
+.share_button {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/ys/r/gWdQco0HMJM.png');
+    background-position: 0px -241px;
+    background-size: auto;
+    width: 18px;
+    height: 18px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(39%) sepia(21%) saturate(200%) saturate(109.5%)
+        hue-rotate(174deg) brightness(94%) contrast(86%);
+}
+.react_icon_md {
+    width: 20px;
+}

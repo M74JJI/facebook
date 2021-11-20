@@ -367,7 +367,61 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         }
                          ?>
                     </div>
+                    <?php 
+                     $main_react =$loadPost->main_react($userid,$post->id);
+                     $react_max_show =$loadPost->react_max_show($post->id);
+                     $main_react_count =$loadPost->main_react_count($post->id);
+                    ?>
+                    //small_react_img
                     <?php } ?>
+                    <div class="react_infos">
+                        <div class="reacts_count">
+                            <?php
+                            foreach($react_max_show as $react_max){
+                                echo '<img class="'.$react_max->reactType.'-max-show" src="assets/images/react/'.$react_max->reactType.'.png" alt="">';
+                            }
+                           ?>
+                            <?php
+                            if($main_react_count->maxreact =='0'){
+
+                            }else{
+                          echo $main_react_count->maxreact;
+                            }
+                            ?>
+
+                        </div>
+                        <div class="react_right_count">
+                            <span>15 comments</span>
+                            <span>28 shares</span>
+                        </div>
+                    </div>
+
+                    <div class="react_system">
+                        <div class="react_btn_wrapper" id="like_btn" data-postid="<?php echo $post->id ?>"
+                            data-user-id="<?php echo $userid ?>">
+                            <div class="react_bandle">
+
+                            </div>
+                            <?php if(empty($main_react)){ ?>
+                            <i class="like_button"></i>Like
+                            <?php   }else{ ?>
+
+                            <div class="already_liked">
+                                <img class="react_icon_md" src="assets/images/<?php echo $main_react->reactType; ?>.png"
+                                    alt="">
+                                <span class="alread-liked_name">
+                                    <?php echo $main_react->reactType ?>
+                                </span>
+                            </div>
+                            <?php } ?>
+                        </div>
+                        <div class="react_btn_wrapper">
+                            <i class="comment_button"></i>Comment
+                        </div>
+                        <div class="react_btn_wrapper">
+                            <i class="share_button"></i>Share
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -656,8 +710,11 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
 
             })
-            var count = $(".post_images").children().length;
-            console.log(count);
+            // react system 
+
+            $('document').on('click', '#like_btn', function() {
+                var likeActionIcon = $(this).find('')
+            })
 
 
 
