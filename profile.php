@@ -502,28 +502,8 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 })
                 $('#post_imgs_preview').append(
                     '<div class="remove_img"><i class="fa-solid fa-xmark"></i></div>');
-                /* 
-  if (files.length == 2) {
-                    $('#post_imgs_preview').css('grid-template-columns', '1fr 1fr');
-                }
-                if (files.length == 3) {
-                    $('#post_imgs_preview').css('grid-template-columns', '1fr 1fr');
-                    $('#post_imgs_preview').css('grid-template-rows', '1fr 1fr');
-                    $('#post_imgs_preview').children().first().css('grid-column-start',
-                        '1');
-                    $('#post_imgs_preview').children().first().css('grid-column-end',
-                        '2');
-                    $('#post_imgs_preview').children().first().css('grid-row-start',
-                        '3');
-                    $('#post_imgs_preview').children().first().css('grid-row-start',
-                        '3');
-                }
-                if (files.length > 3) {
-                    $('#post_imgs_preview').css('grid-template-columns',
-                        '1fr 1fr 1fr');
 
-                }
-              */
+
             })
 
             $('#post_textarea').emojioneArea({
@@ -533,7 +513,50 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
             $('#post_btn_submit').on('click', function() {
                 var post_text = $('.textarea_post').html();
-                console.log(post_text);
+                var formData = new FormData();
+                var images = [];
+                var errors = [];
+                var files = $('#post_photo')[0].files;
+
+                if (files.length != 0) {
+                    if (files.length > 20) {
+                        errors += "maximum 20 images is allowed.";
+
+                    } else {
+                        for (var i = 0; i < files.length; i++) {
+                            var name = document.getElementById('post_photo').files[i].name;
+                            var images += '{\"imageName\":\"user/' + <?php echo $userid; ?> +
+                                '/postImage/' + name + '\"}';
+
+                            var extension = name.split('.').pop().toLowerCase();
+                            if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                                errors +=
+                                    '<p>Invalid ' + i + ' File. Only gif,png,jpg,jpeg are allowed.</p>';
+                            }
+                            var ofReader = new FileReader();
+                            ofReader.readAsDataURL(document.getElementById('#post_photo').files[i]);
+                            var f = document.getElementById('post_photo').files[i];
+                            var file_size = f.size || f.fileSize;
+                            if (fsize > 500000) {
+                                errors += '<p>' + i + ' File Size is larger than 5mb</p>'
+                            } else {
+                                formData.append('file[]', document.getElementById('post_photo').files[
+                                    i]);
+
+
+                            }
+                        }
+                    }
+                    if (files.length < 1) {
+
+                    } else {
+                        var str = images.replace(/,\s*$/, "");
+                        var strImg = '[' + str + ']';
+
+                    }
+                    console.log(strImg);
+
+                }
 
 
 
