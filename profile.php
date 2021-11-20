@@ -745,11 +745,46 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 // react system 
 
                 $('document').on('click', '.like-action', function() {
+                    console.log('a7eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
                     var likeActionIcon = $(this).find('.like-action-icon img');
                     var likeReactParent = $(this).parents('.like-action-wrap');
                     var nf4 = $(likeReactParent).parents('.nf-4');
+                    var nf_3 = $(nf4).siblings('.nf-3').find('.react-count-wrap');
+                    var reactCount = $(nf4).siblings('.nf-3').find('.nf-3-react-username');
+                    var reactNumText = $(reactCount).text();
+                    var postId = $(likeReactParent).data('postid');
+                    var userId = $(likeReactParent).data('userid');
+                    var typeText = $(this).find('.like-action-text span');
+                    var TypeR = $(typeText).text();
+                    var spanClass = $(this).find('.like-action-text').find('span');
 
+                    if ($(spanClass).attr('class') !== undefined) {
+                        if ($(likeActionIcon).attr('src') == 'assets/images/like.png') {
+                            (spanClass).addClass('like-color');
+                            $(likeActionIcon).attr('src', 'assets/images/react/like.png').addClass(
+                                'reactIconSize');
+                            spanClass.text('like');
+                            mainReactSubmit(typeR, postId, userId, nf_3);
+                        } else {
+                            $(likeActionIcon).attr('src', 'assets/images/like.png');
+                            spanClass.removeClass('like-color');
+                            spanClass.text('Like');
+                            mainReactDelete(typeR, postId, userId, nf_3);
+                        }
+                    } else if ($(spanClass).attr('class') === undefined) {
+                        (spanClass).addClass('like-color');
+                        $(likeActionIcon).attr('src', 'assets/images/react/like.png').addClass(
+                            'reactIconSize');
+                        spanClass.text('like');
+                        mainReactSubmit(typeR, postId, userId, nf_3);
 
+                    } else {
+                        (spanClass).addClass('like-color');
+                        $(likeActionIcon).attr('src', 'assets/images/react/like.png').addClass(
+                            'reactIconSize');
+                        spanClass.text('like');
+                        mainReactSubmit(typeR, postId, userId, nf_3);
+                    }
 
                 })
 
