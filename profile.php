@@ -11,13 +11,15 @@ if(login::isLoggedIn()){
 
 $userInfo = $loadUser->getUserInfo($userid);
 if(isset($_GET['id'])==true && empty($_GET['id'])==false){
-   $username= $loadUser->checkInput($_GET['id']);
-   $profileId = $loadUser->getUserId($username);
-   $profileInfos = $loadUser->getUserInfo($profileId);
-   
+    $username= $loadUser->checkInput($_GET['id']);
+    $profileId = $loadUser->getUserId($username);
+    $profileInfos = $loadUser->getUserInfo($profileId);
+    $posts = $loadPost->posts($userid,$profileId,20);
+    
 }else{
     header('Location:index.php');
 }
+
 
 
 ?>
@@ -317,6 +319,56 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         </div>
                     </div>
                 </div>
+
+                <div class="posts_wrap">
+                    <div class="posts_main">
+                        <div class="posts_main_header">
+                            <h4>Posts</h4>
+                            <div class="posts_header_tools">
+                                <a href="#" class="posts_header_tool">
+                                    <i class="filters_icon"></i>
+                                    Filters</a>
+                                <a href="#" class="posts_header_tool">
+                                    <i class="manage_icon"></i>
+                                    Manage Posts</a>
+                            </div>
+                        </div>
+                    </div>
+                    <?php foreach ($posts as $post) {?>
+                    <div class="post">
+                        <div class="post_header">
+                            <div class="post_header_left">
+                                <a href="<?php echo BASE_URL.$post->link ?>"> <img
+                                        src="<?php echo $post->profile_picture ?>" alt=""></a>
+                                <div class="post_header_left_name">
+                                    <a href="<?php echo BASE_URL.$post->link ?>" class="postedBy">
+                                        <?php echo $post->first_name.' '.$post->last_name ?>
+                                    </a>
+                                    <span class="postedAt"><?php echo $loadUser->timeAgo($post->postedAt) ?></span>
+                                </div>
+                            </div>
+                            <div class="post_header_right"><i class="fa-solid fa-ellipsis"></i></div>
+                        </div>
+                        <div class="post_text">
+                            <?php echo $post->post ?>
+                        </div>
+
+                        <?php 
+                        if($post->postImages !=''){
+                            $imgs=json_decode($post->postImages);
+                            $count = 0;
+                            for($i=0;$i<count($imgs);$i++){
+                                echo'<div class="post_images" data-img-id="'.$post->id.'">
+                                <img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'" 
+                                class="post_img">
+                                </div>';   
+                            }
+                        
+                        }
+                         ?>
+                    </div>
+                    <?php } ?>
+                </div>
             </div>
         </div>
     </div>
@@ -527,7 +579,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         for (var i = 0; i < files.length; i++) {
                             var name = document.getElementById('post_photo').files[i].name;
                             images += '{\"imageName\":\"user/' + <?php echo $userid; ?> +
-                                '/postImage/' + name + '\"}';
+                                '/postImages/' + name + '\"},';
 
                             var extension = name.split('.').pop().toLowerCase();
                             if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
@@ -538,7 +590,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                             ofReader.readAsDataURL(document.getElementById('post_photo').files[i]);
                             var f = document.getElementById('post_photo').files[i];
                             var file_size = f.size || f.fileSize;
-                            if (file_size > 500000) {
+                            if (file_size > 2000000) {
                                 errors += '<p>' + i + ' File Size is larger than 5mb</p>'
                             } else {
                                 formData.append('file[]', document.getElementById('post_photo').files[
@@ -584,10 +636,9 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 }
                 if (strImg == '') {
                     $.post('http://localhost/facebook/core/ajax/postSubmit.php', {
-                        post_text: post_text,
+                        post_text_only: post_text,
                     }, function(data) {
-                        console.log(data);
-                        alert(data);
+
                         location.reload();
                     })
                 } else {
@@ -595,8 +646,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         post_images: strImg,
                         post_text: post_text,
                     }, function(data) {
-                        console.log(data);
-                        alert(data);
+
                         location.reload();
                     })
 
@@ -606,6 +656,10 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
 
             })
+            var count = $(".post_images").children().length;
+            console.log(count);
+
+
 
         })
         </script>

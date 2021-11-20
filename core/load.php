@@ -9,6 +9,6 @@ global $pdo;
 $loadUser = new User($pdo);
 $loadPost = new Post($pdo);
 
-define('BASE_URL','http://localhost/facebook');
+define('BASE_URL','http://localhost/facebook/');
 
 ?>

@@ -76,6 +76,31 @@ class User{
           
           $statement->execute();
     }
+
+    public function timeAgo($date){
+        $time = strtotime($date);
+        $current = time();
+        $seconds = $current - $time;
+        $minutes = round($seconds/60);
+        $hours = round($seconds/3600); 
+        $month = round($seconds/2600640);
+
+        if($seconds <=60){
+            if($seconds == 0){
+                return 'just now';
+            }else{
+                return ''.$seconds.'s ago';
+            }
+        }else if($minutes <= 60){
+            return ''.$minutes.'min ago';
+        }else if ($hours <=24){
+            return ''.$hours.'hours ago';
+        }else if($month <=30){
+            return ''.date('M j',$time);
+        }else{
+            return ''.date('J M Y',$time);
+        }
+    }
 }
 
 
