@@ -343,6 +343,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 <span><i class="fa-solid fa-user-group"></i>Friends<i class="fa-solid fa-sort-down"></i></span>
             </div>
         </div>
+        <div class="errors_post" id="errors_post"></div>
         <div class="box_area">
             <div class="textarea_post" id="post_textarea"></div>
         </div>
@@ -525,7 +526,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     } else {
                         for (var i = 0; i < files.length; i++) {
                             var name = document.getElementById('post_photo').files[i].name;
-                            var images += '{\"imageName\":\"user/' + <?php echo $userid; ?> +
+                            images += '{\"imageName\":\"user/' + <?php echo $userid; ?> +
                                 '/postImage/' + name + '\"}';
 
                             var extension = name.split('.').pop().toLowerCase();
@@ -534,10 +535,10 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                     '<p>Invalid ' + i + ' File. Only gif,png,jpg,jpeg are allowed.</p>';
                             }
                             var ofReader = new FileReader();
-                            ofReader.readAsDataURL(document.getElementById('#post_photo').files[i]);
+                            ofReader.readAsDataURL(document.getElementById('post_photo').files[i]);
                             var f = document.getElementById('post_photo').files[i];
                             var file_size = f.size || f.fileSize;
-                            if (fsize > 500000) {
+                            if (file_size > 500000) {
                                 errors += '<p>' + i + ' File Size is larger than 5mb</p>'
                             } else {
                                 formData.append('file[]', document.getElementById('post_photo').files[
@@ -554,9 +555,53 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         var strImg = '[' + str + ']';
 
                     }
-                    console.log(strImg);
+                    if (errors == '') {
+                        $.ajax({
+                            url: 'http://localhost/facebook/core/ajax/uploadPostImage.php',
+                            cache: false,
+                            method: "post",
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            beforeSend: function() {
+                                $('#errors_post').html(
+                                    '<br/><label>Uploading...</label>');
+                            },
+                            success: function(data) {
+                                $('#errors_post').html(data);
+                                $('#post_imgs_preview').empty();
+                            }
+
+                        })
+                    } else {
+                        $('#post_photo').val('');
+                        $('#errors_post').html('<span>' + errors + '</span>');
+                        return false;
+                    }
+
+                } else {
+                    var strImg = '';
+                }
+                if (strImg == '') {
+                    $.post('http://localhost/facebook/core/ajax/postSubmit.php', {
+                        post_text: post_text,
+                    }, function(data) {
+                        console.log(data);
+                        alert(data);
+                        location.reload();
+                    })
+                } else {
+                    $.post('http://localhost/facebook/core/ajax/postSubmit.php', {
+                        post_images: strImg,
+                        post_text: post_text,
+                    }, function(data) {
+                        console.log(data);
+                        alert(data);
+                        location.reload();
+                    })
 
                 }
+
 
 
 
