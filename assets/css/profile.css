@@ -832,10 +832,9 @@ header {
     cursor: pointer;
     padding: 10px 0;
     font-weight: bold;
-    background-color: #e4e6eb;
-    color: #fff;
+    background-color: #1b74e4;
+    color: white;
     border-radius: 10px;
-    cursor: not-allowed;
 }
 .preview_container {
     padding: 0 5px;
@@ -880,8 +879,4 @@ li {
 }
 .fa-xmark {
     color: #6b717a;
-}
-.post_btn_submit {
-    background-color: #1b74e4;
-    color: white;
 }

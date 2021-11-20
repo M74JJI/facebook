@@ -475,20 +475,6 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 $('.profile_top_container').css('opacity', '1');
                 $('.profile_middle').css('opacity', '1');
             })
-
-            $('#post_textarea').change(function() {
-                if ($('#post_textarea').val().length > 0) {
-                    $('#post_btn_submit').css('background-color', '#1b74e4');
-                    $('#post_btn_submit').css('cursor', 'pointer');
-                } else {
-                    $('#post_btn_submit').css('background-color', '#e4e6eb');
-
-                }
-
-            })
-
-
-            /*   post_imgs_preview*/
             var fileCollection = new Array();
             $(document).on('change', '#post_photo', function(e) {
                 var count = 0;
@@ -546,7 +532,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             })
 
             $('#post_btn_submit').on('click', function() {
-                var post_textt = $('.textarea_post').html();
+                var post_text = $('.textarea_post').html();
                 console.log(post_text);
 
 
