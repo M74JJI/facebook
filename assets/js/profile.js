@@ -13,6 +13,8 @@ const header_icon = document.getElementById('header_icon');
 const pdf_container = document.getElementById('pdf_container');
 const post_textarea = document.getElementById('post_textarea');
 const post_btn_submit = document.getElementById('post_btn_submit');
+const add_photos = document.getElementById('add_photos');
+const post_photo = document.getElementById('post_photo');
 
 search_input.addEventListener('focus', () => {
     search_icon.style.display = 'none';
@@ -53,4 +55,8 @@ pdf_container.addEventListener('click', () => {
 });
 header_icon.addEventListener('click', () => {
     pdp_box.style.display = 'none';
+});
+
+add_photos.addEventListener('click', function () {
+    post_photo.click();
 });
