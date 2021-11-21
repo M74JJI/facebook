@@ -333,8 +333,24 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                             </div>
                         </div>
                     </div>
-                    <?php foreach ($posts as $post) {?>
+                    <!------POSTS------>
+                    <?php foreach ($posts as $post) { ?>
+
+
+
+                    <!------POST  FUNCTIONS DATA------>
+                    <?php 
+                        $main_react =$loadPost->main_react($userid,$post->id);
+                        $react_max_show =$loadPost->react_max_show($post->id);
+                        $main_react_count =$loadPost->main_react_count($post->id);
+                        $commentDetails = $loadPost->commentFetch($post->id);
+                        $totalCommentCount=$loadPost->totalCommentCount($post->id);
+                        $POSTID = $post->id;
+                    ?>
+                    <!------POST  FUNCTIONS DATA------>
+                    <!------POST------>
                     <div class="post">
+                        <!------POST-HEADER------>
                         <div class="post_header">
                             <div class="post_header_left">
                                 <a href="<?php echo BASE_URL.$post->link ?>"> <img
@@ -348,10 +364,15 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                             </div>
                             <div class="post_header_right"><i class="fa-solid fa-ellipsis"></i></div>
                         </div>
+                        <!------POST-HEADER------>
+
+                        <!------POST-TEXT------>
                         <div class="post_text">
                             <?php echo $post->post ?>
                         </div>
+                        <!------POST-TEXT------>
 
+                        <!------POST-IMAGES------>
                         <?php 
                         if($post->postImages !=''){
                             $imgs=json_decode($post->postImages);
@@ -365,234 +386,220 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         
                         }
                          ?>
+                        <!------POST-IMAGES------>
 
-                        <?php 
-                     $main_react =$loadPost->main_react($userid,$post->id);
-                     $react_max_show =$loadPost->react_max_show($post->id);
-                     $main_react_count =$loadPost->main_react_count($post->id);
-                     $commentDetails = $loadPost->commentFetch($post->id);
-                     $totalCommentCount=$loadPost->totalCommentCount($post->id);
-                    
-                    ?>
-                    </div>
-                    <?php } ?>
-                    <div class="react_infos">
-
-                        <div class="nf-3">
-                            <div class="react-comment-count-wrap" style="width:100%;display:flex;align-items:center">
-                                <div class="react-count-wrap">
-                                    <div class="nf-3-react-icon">
-                                        <div class="react-inst-img align-middle">
-                                            <?php
+                        <!------POST-INFOS------>
+                        <div class="react_infos">
+                            <div class="nf-3">
+                                <div class="react-comment-count-wrap"
+                                    style="width:100%;display:flex;align-items:center">
+                                    <div class="react-count-wrap">
+                                        <div class="nf-3-react-icon">
+                                            <div class="react-inst-img align-middle">
+                                                <?php
                                         foreach($react_max_show as $react_max){
                                             echo '<img class="'.$react_max->reactType.'-max-show"
                                              src="assets/images/react/'.$react_max->reactType.'.png" alt=""
                                               style="width:20px;height:20px;cursor:pointer">';
                                         }
                                              ?>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="nf-3-react-username">
-                                        <?php 
+                                        <div class="nf-3-react-username">
+                                            <?php 
                                         if($main_react_count->maxreact =='0'){
 
                                         }else{
                                             echo $main_react_count->maxreact;
                                         }
                                         ?>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-
-                        </div>
-                        <div class="react_right_count">
-                            <span>15 comments</span>
-                            <span>28 shares</span>
-                        </div>
-                    </div>
-                    <div class="nf-4">
-
-                        <div class="like-action-wrap" data-postid="<?php echo $post->id ?>"
-                            data-userid="<?php echo $userid ?>">
-                            <div class="react-bundle-wrap">
-                                <div class="like-react-click">
-                                    <img src="assets/images/gif/like.gif" alt="" class="react-icon">
-                                </div>
-                                <div class="love-react-click">
-                                    <img src="assets/images/gif/love.gif" alt="" class="react-icon">
-                                </div>
-                                <div class="heart-react-click">
-
-                                    <img src="assets/images/gif/heart.gif"
-                                        style='object-fit:contain;height:59px;width:35px' alt="" class=" react-icon">
-                                </div>
-                                <div class="haha-react-click">
-
-                                    <img src="assets/images/gif/haha.gif" alt="" class="react-icon">
-                                </div>
-                                <div class="wow-react-click">
-
-                                    <img src="assets/images/gif/wow.gif" alt="" class="react-icon">
-                                </div>
-                                <div class="sad-react-click">
-                                    <img src="assets/images/gif/sad.gif" alt="" class="react-icon">
-                                </div>
-                                <div class="angry-react-click">
-                                    <img src="assets/images/gif/angry.gif" alt="" class="react-icon">
-                                </div>
-                            </div>
-                            <div class="like-action ra">
-                                <?php if(empty($main_react)){
-                             ?>
-                                <div class="like-action-icon">
-                                    <img src="assets/images/like.png" style="width:20px" alt="">
-                                </div>
-                                <div class="like-action-text">
-                                    <span>Like</span>
-                                </div>
-                                <?php }else{
-                                   
-           
-                                 ?>
-                                <div class="like-action-icon">
-                                    <img class="react_icon_md"
-                                        src="assets/images/react/<?php echo $main_react->reactType ?>.png" alt=""
-                                        class="">
-                                    <div class="like-action-text">
-                                        <span><?php echo $main_react->reactType; ?></span>
-                                    </div>
-                                </div>
-
-
-                                <?php  }?>
-
-
-
-
-                            </div>
-                            <div class="react_btn_wrapper">
-                                <i class="comment_button"></i>Comment
-                            </div>
-                            <div class="react_btn_wrapper">
-                                <i class="share_button"></i>Share
-                            </div>
-                        </div>
-                    </div>
-                    <div class="nf-5">
-
-                        <div class="comment-list">
-                            <ul class="add-comment">
-                                <?php 
-                        
-                                if(!empty($commentDetails)){
-
-                                foreach ($commentDetails as $comment){
-                                   
-                                    $com_react_max_show =$loadPost->com_react_max_show($comment->commentedOn,$comment->id);
-                                    $com_main_react_count =$loadPost->com_main_react_count($comment->commentedOn,$comment->id);
-                                    $com_reactCheck =$loadPost->com_reactCheck($userid,$comment->commentedOn,$comment->id);
-                                
-                                ?>
-                                <li class="new-comment">
-                                    <div class="com-details">
-                                        <div class="com-profile-pic">
-                                            <a href="#">
-                                                <span class="top-pic">
-                                                    <img src="<?php echo $comment->profile_picture ?>"
-                                                        class="pdp_comment" alt="">
-                                                </span>
-                                            </a>
                                         </div>
-                                        <div class="com-pro-wrap">
-                                            <div class="com-text-react-wrap">
-                                                <div class="com-text-option-wrap align-middle">
-                                                    <div class="com-pro-text align-middle">
 
-                                                        <div class="com-react-placeholder-wrap align-middle">
-                                                            <div class="flex_col">
-                                                                <span class="nf-pro-name">
-                                                                    <a href="#" class="nf-pr-name">
-                                                                        <?php echo ''.$comment->first_name.' '.$comment->last_name.'' ?>
-                                                                    </a>
-                                                                </span>
-                                                                <span class="com-text" style="margin-left:5px"
-                                                                    data-postid="<?php echo $comment->commentedOn ?>"
-                                                                    data-userid="<?php echo $userInfo->id ?>"
-                                                                    data-commentid="<?php echo $comment->id ?>"
-                                                                    data-profilepic="<?php echo $userInfo->profile_picture ?>">
+                                    </div>
+                                </div>
 
-                                                                    <?php echo $comment->comment ?>
 
-                                                                </span>
-                                                            </div>
-                                                            <div class="com-nf-3-wrap">
-                                                                <?php 
-                                                            if($com_main_react_count->maxreact =='0'){ 
-                                                            }else{
+
+                            </div>
+                            <div class="react_right_count">
+                                <span>15 comments</span>
+                                <span>28 shares</span>
+                            </div>
+
+                        </div>
+
+                        <!------POST-ACTIONS------>
+
+                        <div class="nf-4">
+                            <?php echo $post->id ?>
+                            <div class="like-action-wrap" data-postid="<?php echo $post->id ?>"
+                                data-userid="<?php echo $userid ?>">
+                                <div class="react-bundle-wrap">
+
+                                </div>
+                                <div class="like-action ra">
+                                    <?php if(empty($main_react)){
+                                    ?>
+                                    <div class="like-action-icon">
+                                        <img src="assets/images/like.png" style="width:20px" alt="">
+                                    </div>
+                                    <div class="like-action-text">
+                                        <span>Like</span>
+                                    </div>
+                                    <?php }else{ ?>
+                                    <div class="like-action-icon">
+                                        <img class="react_icon_md"
+                                            src="assets/images/react/<?php echo $main_react->reactType ?>.png" alt=""
+                                            class="">
+                                        <div class="like-action-text">
+                                            <span><?php echo $main_react->reactType; ?></span>
+                                        </div>
+                                    </div>
+                                    <?php  }?>
+                                </div>
+                                <div class="react_btn_wrapper">
+                                    <i class="comment_button"></i>Comment
+                                </div>
+                                <div class="react_btn_wrapper">
+                                    <i class="share_button"></i>Share
+                                </div>
+                            </div>
+
+                        </div>
+                        <!------POST-ACTIONS------>
+                        <!------POST-COMMENTS------>
+
+                        <!------POST-COMMENTS------>
+                        <div class="nf-5">
+                            <div class="comment-list">
+                                <ul class="add-comment">
+                                    <?php 
+                        
+                                            if(!empty($commentDetails)){
+
+                                            foreach ($commentDetails as $comment){
+                                            
+                                                $com_react_max_show =$loadPost->com_react_max_show($comment->commentedOn,$comment->id);
+                                                $com_main_react_count =$loadPost->com_main_react_count($comment->commentedOn,$comment->id);
+                                                $com_reactCheck =$loadPost->com_reactCheck($userid,$comment->commentedOn,$comment->id);
+                                            
+                                            ?>
+                                    <!-------COMMENT------>
+                                    <li class="new-comment">
+                                        <div class="com-details">
+                                            <div class="com-profile-pic">
+                                                <a href="#">
+                                                    <span class="top-pic">
+                                                        <img src="<?php echo $comment->profile_picture ?>"
+                                                            class="pdp_comment" alt="">
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div class="com-pro-wrap">
+                                                <div class="com-text-react-wrap">
+                                                    <div class="com-text-option-wrap align-middle">
+                                                        <div class="com-pro-text align-middle">
+
+                                                            <div class="com-react-placeholder-wrap align-middle">
+                                                                <div class="flex_col">
+                                                                    <span class="nf-pro-name">
+                                                                        <a href="#" class="nf-pr-name">
+                                                                            <?php echo ''.$comment->first_name.' '.$comment->last_name.'' ?>
+                                                                        </a>
+                                                                    </span>
+                                                                    <span class="com-text" style="margin-left:5px"
+                                                                        data-postid="<?php echo $comment->commentedOn ?>"
+                                                                        data-userid="<?php echo $userInfo->id ?>"
+                                                                        data-commentid="<?php echo $comment->id ?>"
+                                                                        data-profilepic="<?php echo $userInfo->profile_picture ?>">
+
+                                                                        <?php echo $comment->comment ?>
+
+                                                                    </span>
+                                                                </div>
+                                                                <div class="com-nf-3-wrap">
+                                                                    <?php 
+																	if($com_main_react_count->maxreact =='0'){ 
+																	}else{
                                                                 ?>
-                                                                <div class="com-nf-3 align-middle">
-                                                                    <div class="nf-3-react-icon">
-                                                                        <div class=" align-middle react-inst-img">
-                                                                            <?php
+                                                                    <div class="com-nf-3 align-middle">
+                                                                        <div class="nf-3-react-icon">
+                                                                            <div class=" align-middle react-inst-img">
+                                                                                <?php
                                                                  foreach($com_react_max_show as $react_max){
                                                                      echo '<img class="'.$react_max->reactType.'-max-show" src="assets/images/react/'.$react_max->reactType.'.png" alt="" style="height:12px;width:12px;margin-right:2px;cursor:pointer;">';
                                                                      
                                                                  }
                                                                  ?>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="nf-3-react-username">
-                                                                        <?php
+                                                                        <div class="nf-3-react-username">
+                                                                            <?php
                                                                   if($com_main_react_count->maxreact =='0'){
                                                          
                                                                   }else{
                                                                       echo $com_main_react_count->maxreact;
                                                                   }
                                                                     ?>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <?php
+                                                                    <?php
 }
-                                                            }
+                                                         
                                                             ?>
 
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
 
-                                                    <?php 
+                                                        <?php 
                                                       
                                                         if($userid == $comment->commentedBy){
                                                             ?>
-                                                    <div class="com-dot-option-wrap">
-                                                        <div class="com-dot"
-                                                            dtata-postid="<?php echo $comment->commentedOn ?>"
-                                                            data-userid="<?php echo $userid  ?>"
-                                                            data-commentid="<?php echo $comment->id ?>">
-                                                            <i class="fa-solid fa-ellipsis"></i>
-                                                        </div>
-                                                        <div class="com-option-details-container">
+                                                        <div class="com-dot-option-wrap">
+                                                            <div class="com-dot"
+                                                                dtata-postid="<?php echo $comment->commentedOn ?>"
+                                                                data-userid="<?php echo $userid  ?>"
+                                                                data-commentid="<?php echo $comment->id ?>">
+                                                                <i class="fa-solid fa-ellipsis"></i>
+                                                            </div>
+                                                            <div class="com-option-details-container">
 
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <?php
+                                                        <?php
                                                         }else{}
                                                         ?>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <?php }?>
-                            </ul>
+
+                                    </li>
+                                    <!-------COMMENT------>
+                                    <?php }} ?>
+                                </ul>
+
+
+                            </div>
                         </div>
-                        <div class="comment-write"></div>
+
+
+
+
+                        <!------POST-INFOS------>
+
+
                     </div>
+                    <!------POST------>
+
+
+
+                    <?php } ?>
+                    <!------POSTS------>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -942,7 +949,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 profileId: profileId,
             }, function(data) {
                 $(nf_3).empty().html(data);
-                console.log(data);
+
             })
 
         }
@@ -959,23 +966,39 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             }, function(data) {
                 $(nf_3).empty().html(data);
 
-                console.log(data);
+
             })
 
         }
         //m tired of js here
-
         $('.nf-4').hover(function() {
-
-            $('.react-bundle-wrap').css('display', 'flex');
+            var mainReact = $(this).find('.react-bundle-wrap');
+            $(mainReact).html(
+                ' <div class="like-react-click"> <img src="assets/images/gif/like.gif" alt="" class="react-icon"> </div> <div class="love-react-click"> <img src="assets/images/gif/love.gif" alt="" class="react-icon"> </div> <div class="heart-react-click"> <img src="assets/images/gif/heart.gif" alt="" class=" react-icon"> </div> <div class="haha-react-click"> <img src="assets/images/gif/haha.gif" alt="" class="react-icon"> </div> <div class="wow-react-click"> <img src="assets/images/gif/wow.gif" alt="" class="react-icon"> </div> <div class="sad-react-click"> <img src="assets/images/gif/sad.gif" alt="" class="react-icon"> </div> <div class="angry-react-click"> <img src="assets/images/gif/angry.gif" alt="" class="react-icon"> </div>'
+            );
         }, function() {
-            $('.react-bundle-wrap').css('display', 'none');
+            var mainReact = $(this).find('.react-bundle-wrap');
+            $(mainReact).html('');
+
+
+
+        })
+        /*
+    $('.like-action-wrap').hover(function() {
+                var mainReact = $(this).find('.react-bundle-wrap');
+                $(mainReact).css('display', 'flex');
+            }, function() {
+
+                $(mainReact).css('display', 'none');
 
 
         })
 
+        */
+
         $(document).on('click', '.react-icon', function() {
             var likeReact = $(this).parent();
+            console.log('----------', likeReact);
             reactApply(likeReact);
 
         })
@@ -1007,8 +1030,8 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
             var reactColor = '' + typeR + '-color';
             var pClass = $('.' + typeR + '-react-click');
-            console.log(pClass);
             var likeReactParent = $(pClass).parents('.like-action-wrap');
+            console.log(likeReactParent);
             var nf4 = $(likeReactParent).parents('.nf-4');
             var nf_3 = $(nf4).siblings('.nf-3').find('.react-count-wrap');
             var reactCount = $(nf4).siblings('.nf-3').find('.nf-3-react-username');

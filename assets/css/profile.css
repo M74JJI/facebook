@@ -1149,7 +1149,7 @@ li {
     display: flex;
     height: 50px;
     align-items: center;
-    display: none;
+
     background-color: #fff;
     position: absolute;
     top: -3.3rem;
