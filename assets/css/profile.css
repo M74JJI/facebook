@@ -1174,3 +1174,66 @@ li {
     align-items: center;
     gap: 5px;
 }
+.align-middle {
+    display: flex;
+    align-items: center;
+}
+.pdp_comment {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+.com-details {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.flex_col {
+    display: flex;
+    flex-direction: column;
+}
+.nf-pr-name {
+    color: #111;
+    font-size: 14px;
+}
+.com-pro-text {
+    background-color: #f0f2f5;
+    padding: 5px 15px;
+    border-radius: 50px;
+}
+.nf-4,
+.nf-3,
+.react_infos,
+.nf-5 {
+    background-color: #fff;
+}
+.nf-5 {
+    padding: 5px 0;
+}
+.react-count-wrap {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.add-comment {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transform: translateX(-15px);
+}
+
+.com-dot-option-wrap {
+    margin-left: 1rem;
+    color: rgb(167, 163, 163);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+.com-dot-option-wrap:hover {
+    background-color: #f0f2f5;
+}

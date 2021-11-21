@@ -49,6 +49,40 @@ class Post extends User{
          $statement->execute();
          return $statement->fetch(PDO::FETCH_OBJ);
     }
+    public function commentFetch($postid){
+        $statement = $this->pdo->prepare("SELECT * FROM comments INNER JOIN profile ON comments.commentedBy = profile.user_id WHERE comments.commentedOn = :postid AND comments.commentReplyID ='0' LIMIT 10");
+         $statement->bindParam(':postid',$postid,PDO::PARAM_INT);
+         $statement->execute();
+         return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
+    public function totalCommentCount($postid){
+        $statement = $this->pdo->prepare("SELECT count(*) as totalComment FROM comments WHERE comments.commentedOn = :postid");
+         $statement->bindParam(':postid',$postid,PDO::PARAM_INT);
+         $statement->execute();
+         return $statement->fetch(PDO::FETCH_OBJ);
+    }
+    public function com_react_max_show($postid,$commentid){
+        $statement = $this->pdo->prepare("SELECT reactType,count(*) as maxreact FROM react WHERE reactedOn = :postid AND reactCommentOn = :commentid AND reactReplyOn ='0' GROUP BY reactType LIMIT 3");
+         $statement->bindParam(':postid',$postid,PDO::PARAM_INT);
+         $statement->bindParam(':commentid',$commentid,PDO::PARAM_INT);
+         $statement->execute();
+         return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
+    public function com_main_react_count($postid,$commentid){
+        $statement = $this->pdo->prepare("SELECT count(*) as maxreact FROM react WHERE reactedOn = :postid AND reactCommentOn = :commentid AND reactReplyOn ='0'");
+         $statement->bindParam(':postid',$postid,PDO::PARAM_INT);
+         $statement->bindParam(':commentid',$commentid,PDO::PARAM_INT);
+         $statement->execute();
+         return $statement->fetch(PDO::FETCH_OBJ);
+    }
+    public function com_reactCheck($userid,$postid,$commentid){
+        $statement = $this->pdo->prepare("SELECT * FROM react WHERE reactedBy = :userid AND reactedOn =:postid AND reactCommentOn=:commentid AND reactReplyOn='0'");
+         $statement->bindParam(':postid',$postid,PDO::PARAM_INT);
+         $statement->bindParam(':commentid',$commentid,PDO::PARAM_INT);
+         $statement->bindParam(':userid',$userid,PDO::PARAM_INT);
+         $statement->execute();
+         return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
 
 }
 
