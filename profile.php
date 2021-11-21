@@ -410,12 +410,36 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                             <span>28 shares</span>
                         </div>
                     </div>
-
                     <div class="nf-4">
-                        <div class="like-action-wrap" data-postid="<?php echo $post->id ?>"
-                            data-user-id="<?php echo $userid ?>">
-                            <div class="react-bundle-wrap">
 
+                        <div class="like-action-wrap" data-postid="<?php echo $post->id ?>"
+                            data-userid="<?php echo $userid ?>">
+                            <div class="react-bundle-wrap">
+                                <div class="like-react-click">
+                                    <img src="assets/images/gif/like.gif" alt="" class="react-icon">
+                                </div>
+                                <div class="love-react-click">
+                                    <img src="assets/images/gif/love.gif" alt="" class="react-icon">
+                                </div>
+                                <div class="heart-react-click">
+
+                                    <img src="assets/images/gif/heart.gif"
+                                        style='object-fit:contain;height:59px;width:35px' alt="" class=" react-icon">
+                                </div>
+                                <div class="haha-react-click">
+
+                                    <img src="assets/images/gif/haha.gif" alt="" class="react-icon">
+                                </div>
+                                <div class="wow-react-click">
+
+                                    <img src="assets/images/gif/wow.gif" alt="" class="react-icon">
+                                </div>
+                                <div class="sad-react-click">
+                                    <img src="assets/images/gif/sad.gif" alt="" class="react-icon">
+                                </div>
+                                <div class="angry-react-click">
+                                    <img src="assets/images/gif/angry.gif" alt="" class="react-icon">
+                                </div>
                             </div>
                             <div class="like-action ra">
                                 <?php if(empty($main_react)){
@@ -431,13 +455,14 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
            
                                  ?>
                                 <div class="like-action-icon">
-                                    <img src class="" src="assets/images/react/<?php echo $main_react->reactType ?>.png"
-                                        alt="" class="">
+                                    <img class="react_icon_md"
+                                        src="assets/images/react/<?php echo $main_react->reactType ?>.png" alt=""
+                                        class="">
                                     <div class="like-action-text">
                                         <span><?php echo $main_react->reactType; ?></span>
                                     </div>
                                 </div>
-                                }
+
 
                                 <?php  }?>
 
@@ -744,22 +769,26 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 })
                 // react system 
 
-                $('document').on('click', '.like-action', function() {
-                    console.log('a7eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+
+                $(document).on('click', '.like-action', function() {
+
                     var likeActionIcon = $(this).find('.like-action-icon img');
                     var likeReactParent = $(this).parents('.like-action-wrap');
                     var nf4 = $(likeReactParent).parents('.nf-4');
                     var nf_3 = $(nf4).siblings('.nf-3').find('.react-count-wrap');
+
                     var reactCount = $(nf4).siblings('.nf-3').find('.nf-3-react-username');
                     var reactNumText = $(reactCount).text();
                     var postId = $(likeReactParent).data('postid');
                     var userId = $(likeReactParent).data('userid');
                     var typeText = $(this).find('.like-action-text span');
-                    var TypeR = $(typeText).text();
+                    var typeR = $(typeText).text();
                     var spanClass = $(this).find('.like-action-text').find('span');
 
                     if ($(spanClass).attr('class') !== undefined) {
+                        console.log('!==udefined');
                         if ($(likeActionIcon).attr('src') == 'assets/images/like.png') {
+                            console.log('!==udefined && == assets');
                             (spanClass).addClass('like-color');
                             $(likeActionIcon).attr('src', 'assets/images/react/like.png').addClass(
                                 'reactIconSize');
@@ -768,7 +797,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         } else {
                             $(likeActionIcon).attr('src', 'assets/images/like.png');
                             spanClass.removeClass('like-color');
-                            spanClass.text('Like');
+                            spanClass.text('like');
                             mainReactDelete(typeR, postId, userId, nf_3);
                         }
                     } else if ($(spanClass).attr('class') === undefined) {
@@ -788,8 +817,121 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
                 })
 
+                function mainReactSubmit(typeR, postId, userId, nf_3) {
+
+                    var profileId = "<?php echo $profileId; ?>"
+
+                    $.post('http://localhost/facebook/core/ajax/react.php', {
+                        reactType: typeR,
+                        postId: postId,
+                        userId: userId,
+                        profileId: profileId,
+                    }, function(data) {
+                        $(nf_3).empty().html(data);
+                        console.log(data);
+                    })
+
+                }
+
+                function mainReactDelete(typeR, postId, userId, nf_3) {
+
+                    var profileId = "<?php echo $profileId; ?>"
+
+                    $.post('http://localhost/facebook/core/ajax/react.php', {
+                        deleteReactType: typeR,
+                        postId: postId,
+                        userId: userId,
+                        profileId: profileId,
+                    }, function(data) {
+                        $(nf_3).empty().html(data);
+
+                        console.log(data);
+                    })
+
+                }
+                //m tired of js here
+
+                $('.nf-4').hover(function() {
+
+                    $('.react-bundle-wrap').css('display', 'flex');
+                }, function() {
+                    $('.react-bundle-wrap').css('display', 'none');
 
 
+                })
+
+                $(document).on('click', '.react-icon', function() {
+                    var likeReact = $(this).parent();
+                    reactApply(likeReact);
+
+                })
+
+                function reactApply(sClass) {
+                    if ($(sClass).hasClass('like-react-click')) {
+                        mainReactSub('like', 'blue');
+                    } else if ($(sClass).hasClass('love-react-click')) {
+                        mainReactSub('love', 'red');
+
+                    } else if ($(sClass).hasClass('heart-react-click')) {
+                        mainReactSub('heart', 'red');
+
+                    } else if ($(sClass).hasClass('haha-react-click')) {
+                        mainReactSub('haha', 'yellow');
+                    } else if ($(sClass).hasClass('angry-react-click')) {
+                        mainReactSub('angry', 'red');
+
+                    } else if ($(sClass).hasClass('sad-react-click')) {
+                        mainReactSub('sad', 'yellow');
+                    } else if ($(sClass).hasClass('wow-react-click')) {
+                        mainReactSub('wow', 'yellow');
+                    } else {
+                        console.log('a7a mal9ina walo');
+                    }
+                }
+
+                function mainReactSub(typeR, color) {
+
+                    var reactColor = '' + typeR + '-color';
+                    var pClass = $('.' + typeR + '-react-click');
+                    console.log(pClass);
+                    var likeReactParent = $(pClass).parents('.like-action-wrap');
+                    var nf4 = $(likeReactParent).parents('.nf-4');
+                    var nf_3 = $(nf4).siblings('.nf-3').find('.react-count-wrap');
+                    var reactCount = $(nf4).siblings('.nf-3').find('.nf-3-react-username');
+                    var reactNumberText = $(reactCount).text();
+                    var postId = $(likeReactParent).data('postid');
+                    var userId = $(likeReactParent).data('userid');
+                    console.log(postId);
+                    console.log(userId);
+                    var likeAction = $(likeReactParent).find('.like-action');
+                    var likeActionIcon = $(likeAction).find('.like-action-icon img');
+                    var spanClass = $(likeAction).find('.like-action-text').find('span');
+
+                    if ($(spanClass).hasClass(reactColor)) {
+                        $(spanClass).removeClass();
+                        spanClass.text('like');
+                        $(likeActionIcon).attr('src', 'assets/images/like.png');
+                        mainReactDelete(typeR, postId, userId, nf_3);
+                    } else if ($(spanClass).attr('class') !== undefined) {
+
+                        $(spanClass).removeClass().addClass(reactColor);
+                        spanClass.text(typeR);
+                        $(likeActionIcon).removeAttr('src').attr('src',
+                            'assets/images/react/' + typeR + '.png').addClass('reactIconSize');
+                        mainReactSubmit(typeR, postId, userId, nf_3);
+                    } else {
+                        console.log('object');
+                        $(spanClass).addClass(reactColor);
+                        $(likeActionIcon).attr('src', 'assets/images/react/' + typeR + '.png').addClass(
+                            'reactIconSize');
+                        spanClass.text(typeR);
+                        $(likeActionIcon).removeAttr('src').attr('src', 'assets/images/react/' + typeR + '.png')
+                            .addClass('reactIconSize');
+
+                        mainReactSubmit(typeR, postId, userId, nf_3);
+
+                    }
+                }
             })
             </script>
 
