@@ -9,9 +9,11 @@ $userid= login::isLoggedIn();
 
 
 if(isset($_POST['commentid'])){
+
     $commentid= $_POST['commentid'];
     $reactType= $_POST['reactType'];
     $postid= $_POST['postid'];
+   echo '................'.var_dump($postid);
     $userid= $_POST['userid'];
     $profileid= $_POST['profileid'];
 
@@ -25,7 +27,7 @@ if(isset($_POST['commentid'])){
     ?>
 <div class="com-nf-3 align-middle ">
     <div class="nf-3-react-icon">
-        <div class="react-int-img align-middle">
+        <div class="align-middle react-inst-img">
 
 
             <?php 

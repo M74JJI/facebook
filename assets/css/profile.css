@@ -1184,13 +1184,13 @@ li {
     padding: 0 5px;
     border-radius: 50px;
 }
-.com-react-bundle-wrap .react-icon {
+.com-react-bundle-wrap .com-react-icon {
     width: 40px;
     height: 59px;
     object-fit: cover;
     cursor: pointer;
 }
-.com-react-bundle-wrap .react-icon:hover {
+.com-react-bundle-wrap .com-react-icon :hover {
     transform: scale(1.5);
     transition: 0.3s;
 }

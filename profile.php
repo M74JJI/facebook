@@ -437,7 +437,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         <!------POST-ACTIONS------>
 
                         <div class="nf-4">
-                            <?php echo $post->id ?>
+
                             <div class="like-action-wrap" data-postid="<?php echo $post->id ?>"
                                 data-userid="<?php echo $userid ?>">
                                 <div class="react-bundle-wrap">
@@ -482,13 +482,15 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                     <?php 
                         
                                             if(!empty($commentDetails)){
+                                            
 
                                             foreach ($commentDetails as $comment){
+                                                echo $comment->comment_id;
                                             
-                                                $com_react_max_show =$loadPost->com_react_max_show($comment->commentedOn,$comment->id);
-                                                $com_main_react_count =$loadPost->com_main_react_count($comment->commentedOn,$comment->id);
-                                                $com_reactCheck =$loadPost->com_reactCheck($userid,$comment->commentedOn,$comment->id);
-                                              var_dump($com_reactCheck);
+                                                $com_react_max_show =$loadPost->com_react_max_show($comment->commentedOn,$comment->comment_id);
+                                                $com_main_react_count =$loadPost->com_main_react_count($comment->commentedOn,$comment->comment_id);
+                                                $com_reactCheck =$loadPost->com_reactCheck($userid,$comment->commentedOn,$comment->comment_id);
+                                        
                                             ?>
                                     <!-------COMMENT------>
                                     <li class="new-comment">
@@ -516,7 +518,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                                                     <span class="com-text" style="margin-left:5px"
                                                                         data-postid="<?php echo $comment->commentedOn ?>"
                                                                         data-userid="<?php echo $userInfo->id ?>"
-                                                                        data-commentid="<?php echo $comment->id ?>"
+                                                                        data-commentid="<?php echo $comment->comment_id ?>"
                                                                         data-profilepic="<?php echo $userInfo->profile_picture ?>">
 
                                                                         <?php echo $comment->comment ?>
@@ -530,7 +532,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                                                 ?>
                                                                     <div class="com-nf-3 align-middle">
                                                                         <div class="nf-3-react-icon">
-                                                                            <div class=" align-middle react-inst-img">
+                                                                            <div class="align-middle react-inst-img">
                                                                                 <?php
                                                                  foreach($com_react_max_show as $react_max){
                                                                      echo '<img class="'.$react_max->reactType.'-max-show" src="assets/images/react/'.$react_max->reactType.'.png" alt="" style="height:12px;width:12px;margin-right:2px;cursor:pointer;">';
@@ -566,7 +568,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                                             <div class="com-dot"
                                                                 data-postid="<?php echo $comment->commentedOn ?>"
                                                                 data-userid="<?php echo $userid  ?>"
-                                                                data-commentid="<?php echo $comment->id ?>">
+                                                                data-commentid="<?php echo $comment->comment_id ?>">
                                                                 <i class="fa-solid fa-ellipsis"></i>
                                                             </div>
                                                             <div class="com-option-details-container">
@@ -577,13 +579,15 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                                         }else{}
                                                         ?>
                                                     </div>
+
                                                     <div class="com-react">
+
                                                         <div class="com-rlike-react"
                                                             data-postid="<?php echo $comment->commentedOn ?>"
                                                             data-userid="<?php echo $userid  ?>"
-                                                            data-commentid="<?php echo $comment->id ?>">
+                                                            data-commentid="<?php echo $comment->comment_id ?>">
                                                             <div class="com-react-bundle-wrap"
-                                                                data-commentid="<?php echo $comment->id ?>">
+                                                                data-commentid="<?php echo $comment->comment_id ?>">
 
                                                             </div>
                                                             <?php
@@ -591,9 +595,9 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                                                 echo '<div class="com-like-action-text"><span>Like</span></div>';
                                                
                                                             }else{
-                                                                
+                                                                 
                                                               
-                                                                echo '<div class="com-like-action-text"><span class="'.$com_reactCheck->reactType.'-color">'.$com_reactCheck->reactType.'</span></div>';
+                                                             echo '<div class="com-like-action-text"><span class="'.$com_reactCheck->reactType.'-color">'.$com_reactCheck->reactType.'</span></div>'; 
                                                                 
                                                             }
                                                             ?>
@@ -1050,7 +1054,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
             $(document).on('click', '.react-icon', function() {
                 var likeReact = $(this).parent();
-                console.log('----------', likeReact);
+
                 reactApply(likeReact);
 
             })
@@ -1074,7 +1078,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 } else if ($(sClass).hasClass('wow-react-click')) {
                     mainReactSub('wow', 'yellow');
                 } else {
-                    console.log('a7a mal9ina walo');
+
                 }
             }
 
@@ -1083,15 +1087,14 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 var reactColor = '' + typeR + '-color';
                 var pClass = $('.' + typeR + '-react-click');
                 var likeReactParent = $(pClass).parents('.like-action-wrap');
-                console.log(likeReactParent);
+
                 var nf4 = $(likeReactParent).parents('.nf-4');
                 var nf_3 = $(nf4).siblings('.nf-3').find('.react-count-wrap');
                 var reactCount = $(nf4).siblings('.nf-3').find('.nf-3-react-username');
                 var reactNumberText = $(reactCount).text();
                 var postId = $(likeReactParent).data('postid');
                 var userId = $(likeReactParent).data('userid');
-                console.log(postId);
-                console.log(userId);
+
                 var likeAction = $(likeReactParent).find('.like-action');
                 var likeActionIcon = $(likeAction).find('.like-action-icon img');
                 var spanClass = $(likeAction).find('.like-action-text').find('span');
@@ -1109,7 +1112,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         'assets/images/react/' + typeR + '.png').addClass('reactIconSize');
                     mainReactSubmit(typeR, postId, userId, nf_3);
                 } else {
-                    console.log('object');
+
                     $(spanClass).addClass(reactColor);
                     $(likeActionIcon).attr('src', 'assets/images/react/' + typeR + '.png').addClass(
                         'reactIconSize');
@@ -1124,8 +1127,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
             //------------------COMMENT SUBMIT --------------------------------
             $(document).on('click', '.react_btn_wrapper.comment-action', function() {
-                console.log($(this).parents('.nf-4').siblings('.nf-5').find(
-                    'input.comment-input-style.comment-submit'));
+
 
 
             })
@@ -1134,7 +1136,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     var inputNull = $(this);
                     var comment = $(this).val();
                     var postid = $(this).data('postid');
-                    console.log('----****>', postid)
+
                     var userid = $(this).data('userid');
                     var profileid = "<?php echo $profileId ?>";
                     var commentPlaceholder = $(this).parents('.nf-5').find('ul.add-comment');
@@ -1169,7 +1171,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 $('.com-rlike-react').hover(function() {
                     var mainReact = $(this).find('.com-react-bundle-wrap');
                     $(mainReact).html(
-                        '<div class="com-like-react-click"> <img src="assets/images/gif/like.gif" alt="" class="react-icon"> </div> <div class="com-love-react-click"> <img src="assets/images/gif/love.gif" alt="" class="react-icon"> </div> <div class="com-heart-react-click"> <img src="assets/images/gif/heart.gif" alt="" class=" react-icon"> </div> <div class="com-haha-react-click"> <img src="assets/images/gif/haha.gif" alt="" class="react-icon"> </div> <div class="com-wow-react-click"> <img src="assets/images/gif/wow.gif" alt="" class="react-icon"> </div> <div class="com-sad-react-click"> <img src="assets/images/gif/sad.gif" alt="" class="react-icon"> </div> <div class="com-angry-react-click"> <img src="assets/images/gif/angry.gif" alt="" class="react-icon"> </div>'
+                        '<div class="com-like-react-click"> <img src="assets/images/gif/like.gif" alt="" class="com-react-icon"> </div> <div class="com-love-react-click"> <img src="assets/images/gif/love.gif" alt="" class="com-react-icon"> </div> <div class="com-heart-react-click"> <img src="assets/images/gif/heart.gif" alt="" class=" com-react-icon"> </div> <div class="com-haha-react-click"> <img src="assets/images/gif/haha.gif" alt="" class="com-react-icon"> </div> <div class="com-wow-react-click"> <img src="assets/images/gif/wow.gif" alt="" class="com-react-icon"> </div> <div class="com-sad-react-click"> <img src="assets/images/gif/sad.gif" alt="" class="com-react-icon"> </div> <div class="com-angry-react-click"> <img src="assets/images/gif/angry.gif" alt="" class="com-react-icon"> </div>'
                     );
                 }, function() {
                     var mainReact = $(this).find('.com-react-bundle-wrap');
@@ -1180,14 +1182,16 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
 
             //-------COMMENT REACT ACTIONS----------------
-            $(document).on('click', '.react-icon', function() {
+            $(document).on('click', '.com-react-icon', function() {
                 var com_bundle = $(this).parents('.com-react-bundle-wrap');
                 var commentid = $(com_bundle).data('commentid');
+                console.log('commentid--->', commentid);
                 var likeReact = $(this).parent();
                 comReactApply(likeReact, commentid);
             })
 
             function comReactApply(sClass, commentid) {
+
                 if ($(sClass).hasClass('com-like-react-click')) {
                     comReactSub('like', commentid);
                 } else if ($(sClass).hasClass('com-love-react-click')) {
@@ -1209,16 +1213,18 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             }
 
             function comReactSub(typeR, commentid) {
+
                 var reactColor = '' + typeR + '-color';
-                var parentClass = $('.' + typeR + '-react-click');
+                var parentClass = $('.com-' + typeR + '-react-click');
+
                 var grandParent = $(parentClass).parents('.com-rlike-react');
                 var postid = $(grandParent).data('postid');
                 var userid = $(grandParent).data('userid');
-
                 var spanClass = $(grandParent).find('.com-like-action-text').find('span');
-                var com_nf_3 = $(grandParent).parent('.com-react').siblings('com-text-option-wrap').find(
+                var com_nf_3 = $(grandParent).parent('.com-react').siblings('.com-text-option-wrap').find(
                     '.com-nf-3-wrap');
 
+                console.log('ahiooooo--->', com_nf_3);
 
 
                 if ($(spanClass).attr('class') !== undefined) {
@@ -1241,7 +1247,9 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             }
 
             $(document).on('click', '.com-like-action-text', function() {
-                var thisParents = $(this).parent('.com-rlike-react');
+                console.log('rrrrrr')
+                var thisParents = $(this).parents('.com-rlike-react');
+                console.log('adadadad', thisParents);
                 var postid = $(thisParents).data('postid');
                 console.log('postid->', postid);
                 var userid = $(thisParents).data('userid');
@@ -1252,6 +1260,8 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 var com_nf_3 = $(thisParents).parents('.com-react').siblings('.com-text-option-wrap')
                     .find(
                         '.com-nf-3-wrap');
+                console.log('ahiooooo--->', com_nf_3);
+
                 var spanClass = $(thisParents).find('.com-like-action-text').find('span');
                 if ($(spanClass).attr('class') !== undefined) {
                     $(spanClass).removeAttr('class');
@@ -1266,6 +1276,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             })
 
             function comReactSubmit(typeR, postid, userid, commentid, com_nf_3) {
+                console.log('postid---->', postid);
                 var profileid = "<?php echo $profileId; ?>";
                 $.post('http://localhost/facebook/core/ajax/commentReact.php', {
                         commentid: commentid,

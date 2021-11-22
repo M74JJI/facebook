@@ -87,7 +87,7 @@ class Post extends User{
          $statement->bindParam(':commentid',$commentid,PDO::PARAM_INT);
          $statement->bindParam(':userid',$userid,PDO::PARAM_INT);
          $statement->execute();
-         return $statement->fetchAll(PDO::FETCH_OBJ);
+         return $statement->fetch(PDO::FETCH_OBJ);
     }
 
 }

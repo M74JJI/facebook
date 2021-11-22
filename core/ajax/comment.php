@@ -25,9 +25,9 @@ if(isset($_POST['comment'])){
 
                                             foreach ($commentDetails as $comment){
                                             
-                                                $com_react_max_show =$loadPost->com_react_max_show($comment->commentedOn,$comment->id);
-                                                $com_main_react_count =$loadPost->com_main_react_count($comment->commentedOn,$comment->id);
-                                                $com_reactCheck =$loadPost->com_reactCheck($userid,$comment->commentedOn,$comment->id);
+                                                $com_react_max_show =$loadPost->com_react_max_show($comment->commentedOn,$comment->comment_id);
+                                                $com_main_react_count =$loadPost->com_main_react_count($comment->commentedOn,$comment->comment_id);
+                                                $com_reactCheck =$loadPost->com_reactCheck($userid,$comment->commentedOn,$comment->comment_id);
                                            ?>
 
 <li class="new-comment">
@@ -53,7 +53,8 @@ if(isset($_POST['comment'])){
                                 </span>
                                 <span class="com-text" style="margin-left:5px"
                                     data-postid="<?php echo $comment->commentedOn ?>"
-                                    data-userid="<?php echo $userid ?>" data-commentid="<?php echo $comment->id ?>"
+                                    data-userid="<?php echo $userid ?>"
+                                    data-commentid="<?php echo $comment->comment_id ?>"
                                     data-profilepic="<?php echo $comment->profile_picture  ?>">
 
                                     <?php echo $comment->comment ?>
@@ -101,7 +102,7 @@ if(isset($_POST['comment'])){
                                                             ?>
                     <div class="com-dot-option-wrap">
                         <div class="com-dot" data-postid="<?php echo $comment->commentedOn ?>"
-                            data-userid="<?php echo $userid  ?>" data-commentid="<?php echo $comment->id ?>">
+                            data-userid="<?php echo $userid  ?>" data-commentid="<?php echo $comment->comment_id ?>">
                             <i class="fa-solid fa-ellipsis"></i>
                         </div>
                         <div class="com-option-details-container">
@@ -114,8 +115,8 @@ if(isset($_POST['comment'])){
                 </div>
                 <div class="com-react">
                     <div class="com-rlike-react" data-postid="<?php echo $comment->commentedOn ?>"
-                        data-userid="<?php echo $userid  ?>" data-commentid="<?php echo $comment->id ?>">
-                        <div class="com-react-bundle-wrap" data-commentid="<?php echo $comment->id ?>">
+                        data-userid="<?php echo $userid  ?>" data-commentid="<?php echo $comment->comment_id ?>">
+                        <div class="com-react-bundle-wrap" data-commentid="<?php echo $comment->comment_id ?>">
 
                         </div>
                         <?php
