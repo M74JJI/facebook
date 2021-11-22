@@ -105,11 +105,31 @@ class Post extends User{
          return $statement->fetch(PDO::FETCH_OBJ);
     }
     public function shareFetch($postid,$profileid){
-        $statement = $this->pdo->prepare("SELECT users.*,post.*,profile.* FROM users,post,profile WHERE users.id=:profileid AND post.id=:postid AND profile.user_id:userid");
+        $statement = $this->pdo->prepare("SELECT users.*, post.*, profile.* FROM users, post, profile WHERE users.id=:user_id AND post.id=:postid AND profile.user_id=:user_id");
          $statement->bindParam(':postid',$postid,PDO::PARAM_INT);
-         $statement->bindParam(':profileid',$profileid,PDO::PARAM_INT);
+         $statement->bindParam(':user_id',$profileid,PDO::PARAM_INT);
          $statement->execute();
          return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
+    public function search($searchTerm){
+        $statement = $this->pdo->prepare("SELECT * FROM users LEFT JOIN profile ON users.id=profile.user_id WHERE users.link LIKE ?");
+         $statement->bindValue(1,$searchTerm.'%',PDO::PARAM_STR);
+         $statement->execute();
+         return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
+    public function requestCheck($userid,$profileId){
+        $statement = $this->pdo->prepare("SELECT * FROM friendrequest WHERE requestReceiver=:profileid AND requestSender=:userid");
+         $statement->bindValue(':userid',$userid,PDO::PARAM_STR);
+         $statement->bindValue(':profileid',$profileId,PDO::PARAM_STR);
+         $statement->execute();
+         return $statement->fetch(PDO::FETCH_OBJ);
+    }
+    public function requestConfirm($profileId,$userid){
+        $statement = $this->pdo->prepare("SELECT * FROM friendrequest WHERE requestReceiver =:userid AND requestSender=:profileid");
+         $statement->bindValue(':userid',$userid,PDO::PARAM_STR);
+         $statement->bindValue(':profileid',$profileId,PDO::PARAM_STR);
+         $statement->execute();
+         return $statement->fetch(PDO::FETCH_OBJ);
     }
 
 }
