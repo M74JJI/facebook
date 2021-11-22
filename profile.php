@@ -345,11 +345,19 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         $main_react_count =$loadPost->main_react_count($post->id);
                         $commentDetails = $loadPost->commentFetch($post->id);
                         $totalCommentCount=$loadPost->totalCommentCount($post->id);
-                        $POSTID = $post->id;
+                        $totalShareCount =$loadPost->totalShareCount($post->id);
+                        if(empty($post->shareId)){
+       
+                        }else{
+                           $shareDetails = $loadPost->shareFetch($post->shareId,$post->postedBy);
+                        }
                     ?>
                     <!------POST  FUNCTIONS DATA------>
                     <!------POST------>
                     <div class="post">
+                        <div class="post_share_box">
+
+                        </div>
                         <!------POST-HEADER------>
                         <div class="post_header">
                             <div class="post_header_left">
@@ -362,18 +370,25 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                     <span class="postedAt"><?php echo $loadUser->timeAgo($post->postedAt) ?></span>
                                 </div>
                             </div>
+                            <?php 
+                            if($userid === $profileId){
+                                ?>
                             <div class="post_header_right"><i class="fa-solid fa-ellipsis"></i></div>
+                            <?php
+                            }
+                            ?>
                         </div>
                         <!------POST-HEADER------>
 
-                        <!------POST-TEXT------>
-                        <div class="post_text">
-                            <?php echo $post->post ?>
-                        </div>
-                        <!------POST-TEXT------>
+                        <div class="nf-2">
+                            <!------POST-TEXT------>
+                            <div class="post_text">
+                                <?php echo $post->post ?>
+                            </div>
+                            <!------POST-TEXT------>
 
-                        <!------POST-IMAGES------>
-                        <?php 
+                            <!------POST-IMAGES------>
+                            <?php 
                         if($post->postImages !=''){
                             $imgs=json_decode($post->postImages);
                             $count = 0;
@@ -386,6 +401,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         
                         }
                          ?>
+                        </div>
                         <!------POST-IMAGES------>
 
                         <!------POST-INFOS------>
@@ -429,7 +445,13 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                    echo $totalCommentCount->totalComment.' comments' ;
                                } ?>
                                 </span>
-                                <span>28 shares</span>
+                                <span class="share-count-wrap">
+                                    <?php
+                                   if(empty($totalShareCount->totalShare)){}else{
+                                       echo $totalShareCount->totalShare.'Shares';
+                                   }
+                                   ?>
+                                </span>
                             </div>
 
                         </div>
@@ -466,7 +488,10 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                 <div class="react_btn_wrapper comment-action">
                                     <i class="comment_button"></i>Comment
                                 </div>
-                                <div class="react_btn_wrapper">
+                                <div class="react_btn_wrapper share-action" data-postid="<?php echo $post->id ?>"
+                                    data-profilepic="<?php echo $userInfo->profile_picture ?>"
+                                    data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId; ?>">
+
                                     <i class="share_button"></i>Share
                                 </div>
                             </div>
@@ -727,6 +752,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             <button class="post_button" id="post_btn_submit">Post</button>
 
         </div>
+
 
         <script src="assets/js/profile.js"></script>
         <script src="assets/js/jquery.js"></script>
@@ -1031,7 +1057,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             $('.nf-4').hover(function() {
                 var mainReact = $(this).find('.react-bundle-wrap');
                 $(mainReact).html(
-                    ' <div class="like-react-click"> <img src="assets/images/gif/like.gif" alt="" class="react-icon"> </div> <div class="love-react-click"> <img src="assets/images/gif/love.gif" alt="" class="react-icon"> </div> <div class="heart-react-click"> <img src="assets/images/gif/heart.gif" alt="" class=" react-icon"> </div> <div class="haha-react-click"> <img src="assets/images/gif/haha.gif" alt="" class="react-icon"> </div> <div class="wow-react-click"> <img src="assets/images/gif/wow.gif" alt="" class="react-icon"> </div> <div class="sad-react-click"> <img src="assets/images/gif/sad.gif" alt="" class="react-icon"> </div> <div class="angry-react-click"> <img src="assets/images/gif/angry.gif" alt="" class="react-icon"> </div>'
+                    '<div style="height:50px; z-index: 9999999999999999999999999999999999999999999; display: flex; align-items: center; background-color: #fff; position: absolute; top: -3.3rem; padding: 0 5px; border-radius: 50px;"> <div class="like-react-click"> <img src="assets/images/gif/like.gif" alt="" class="react-icon"> </div> <div class="love-react-click"> <img src="assets/images/gif/love.gif" alt="" class="react-icon"> </div> <div class="heart-react-click"> <img src="assets/images/gif/heart.gif" alt="" class=" react-icon"> </div> <div class="haha-react-click"> <img src="assets/images/gif/haha.gif" alt="" class="react-icon"> </div> <div class="wow-react-click"> <img src="assets/images/gif/wow.gif" alt="" class="react-icon"> </div> <div class="sad-react-click"> <img src="assets/images/gif/sad.gif" alt="" class="react-icon"> </div> <div class="angry-react-click"> <img src="assets/images/gif/angry.gif" alt="" class="react-icon"> </div></div>'
                 );
             }, function() {
                 var mainReact = $(this).find('.react-bundle-wrap');
@@ -1172,7 +1198,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 $('.com-rlike-react').hover(function() {
                     var mainReact = $(this).find('.com-react-bundle-wrap');
                     $(mainReact).html(
-                        '<div class="com-like-react-click"> <img src="assets/images/gif/like.gif" alt="" class="com-react-icon"> </div> <div class="com-love-react-click"> <img src="assets/images/gif/love.gif" alt="" class="com-react-icon"> </div> <div class="com-heart-react-click"> <img src="assets/images/gif/heart.gif" alt="" class=" com-react-icon"> </div> <div class="com-haha-react-click"> <img src="assets/images/gif/haha.gif" alt="" class="com-react-icon"> </div> <div class="com-wow-react-click"> <img src="assets/images/gif/wow.gif" alt="" class="com-react-icon"> </div> <div class="com-sad-react-click"> <img src="assets/images/gif/sad.gif" alt="" class="com-react-icon"> </div> <div class="com-angry-react-click"> <img src="assets/images/gif/angry.gif" alt="" class="com-react-icon"> </div>'
+                        '<div style=" z-index: 9999999999999999999999999999999999999999999; display: flex; height: 50px; align-items: center; background-color: #fff; position: absolute; top: -3.3rem; padding: 0 5px; border-radius: 50px;"><div class="com-like-react-click"> <img src="assets/images/gif/like.gif" alt="" class="com-react-icon"> </div> <div class="com-love-react-click"> <img src="assets/images/gif/love.gif" alt="" class="com-react-icon"> </div> <div class="com-heart-react-click"> <img src="assets/images/gif/heart.gif" alt="" class=" com-react-icon"> </div> <div class="com-haha-react-click"> <img src="assets/images/gif/haha.gif" alt="" class="com-react-icon"> </div> <div class="com-wow-react-click"> <img src="assets/images/gif/wow.gif" alt="" class="com-react-icon"> </div> <div class="com-sad-react-click"> <img src="assets/images/gif/sad.gif" alt="" class="com-react-icon"> </div> <div class="com-angry-react-click"> <img src="assets/images/gif/angry.gif" alt="" class="com-react-icon"> </div></div>'
                     );
                 }, function() {
                     var mainReact = $(this).find('.com-react-bundle-wrap');
@@ -1339,7 +1365,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 var profilepic = $(comTextContainer).data('profilepic');
                 var getComText = getComText1.replace(/\s+/g, " ").trim();
                 $('.com-dot-option-wrap').html(
-                    '<div class="top-box-show"> <div class="close-box"><i class="fa-solid fa-xmark"></i> </div> <div class="comment-dialog-show"> <div class="profilePic"> <img src="' +
+                    '<div class="top-box-show"><div class="close-box"><i class="fa-solid fa-xmark"></i> </div> <div class="comment-dialog-show"> <div class="profilePic"> <img src="' +
                     profilepic +
                     '" alt=""> </div> <div class="status-prof-textarea"> <textarea name="textStatus" cols="30" class="editCom" autofocus style="resize: none;" rows="1">' +
                     getComText + '</textarea> </div> <div class="edit-com-save" data-postid="' +
@@ -1383,15 +1409,44 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 }
             })
 
+            //----------------SHARE--------------------------------------
+            $(document).on('click', '.share-action', function() {
+
+                var postid = $(this).data('postid');
+                var userid = $(this).data('userid');
+                var profilepic = $(this).data('profilepic');
+                var profileid = $(this).data('profileid');
+                var nf_1 = $(this).parents('.nf-4').siblings('.post_header').html();
+                var nf_2 = $(this).parents('.nf-4').siblings('.nf-2').html();
+                $('.post_share_box').html(
+                    '<div style=" position: fixed; top: 50%; left: 50%;transform:translate(-50%,-50%); display: flex; flex-direction: column; border-radius: 10px; padding: 10px 15px; overflow-y: auto; box-shadow: 0 8px 32px 0 rgba(173, 174, 182, 0.17); width: 500px; min-height: 420px; max-height: 620px; background-color: #fff;"> <div class="post_box_header"> <h3>Share Post</h3> <div class="header_icon" id="close_share"><i class="fa-solid fa-xmark"></i></div> </div><div class="share_box_field"><textarea class="share_text" autofocus style="resize:none;" placeholder="Whats on your mind ? mohamed"></textarea></div> ' +
+                    nf_1 + '' + nf_2 +
+                    '<button data-postid="' + postid + '" data-userid="' + userid +
+                    '" data-profilepic="' + profilepic + '" data-profileid="' + profileid +
+                    '" class="post_button post-share" id="post-share">Share</button></div>');
+
+                /* $('.post_header_right').hide(); */
+            })
+
+            $(document).on('click', '.post-share', function() {
+                var userid = $(this).data('userid');
+                var postid = $(this).data('postid');
+                var profilepic = $(this).data('profilepic');
+                var profileid = $(this).data('profileid');
+            })
+
+            //----------------SHARE--------------------------------------
+
             //clkick outside
 
             $(document).mouseup(function(e) {
                 var container = new Array();
                 container.push('.com-option-details-container');
+                container.push('.post_share_box');
                 $.each(container, function(key, value) {
                     if (!$(value).is(e.target) && $(value).has(e.target).length === 0) {
                         $(value).empty();
-                        $(value).css('display', 'none');
+
                     }
                 })
             })

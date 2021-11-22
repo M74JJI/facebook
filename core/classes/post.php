@@ -98,6 +98,19 @@ class Post extends User{
          $statement->execute();
          return $statement->fetchAll(PDO::FETCH_OBJ);
     }
+    public function totalShareCount($postid){
+        $statement = $this->pdo->prepare("SELECT count(*) as totalShare FROM post WHERE post.shareId =:postid");
+         $statement->bindParam(':postid',$postid,PDO::PARAM_INT);
+         $statement->execute();
+         return $statement->fetch(PDO::FETCH_OBJ);
+    }
+    public function shareFetch($postid,$profileid){
+        $statement = $this->pdo->prepare("SELECT users.*,post.*,profile.* FROM users,post,profile WHERE users.id=:profileid AND post.id=:postid AND profile.user_id:userid");
+         $statement->bindParam(':postid',$postid,PDO::PARAM_INT);
+         $statement->bindParam(':profileid',$profileid,PDO::PARAM_INT);
+         $statement->execute();
+         return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
 
 }
 
