@@ -55,6 +55,12 @@ class Post extends User{
          $statement->execute();
          return $statement->fetchAll(PDO::FETCH_OBJ);
     }
+    public function FetchLastComment($commentid){
+        $statement = $this->pdo->prepare("SELECT * FROM comments INNER JOIN profile ON comments.commentedBy = profile.user_id WHERE comments.id = :commentid");
+         $statement->bindParam(':commentid',$commentid,PDO::PARAM_INT);
+         $statement->execute();
+         return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
     public function totalCommentCount($postid){
         $statement = $this->pdo->prepare("SELECT count(*) as totalComment FROM comments WHERE comments.commentedOn = :postid");
          $statement->bindParam(':postid',$postid,PDO::PARAM_INT);

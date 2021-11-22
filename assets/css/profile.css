@@ -881,6 +881,10 @@ li {
 }
 .posts_wrap {
     margin-top: 1rem;
+    display: flex;
+
+    flex-direction: column;
+    gap: 1rem;
 }
 .posts_main {
     background-color: #fff;
@@ -941,7 +945,7 @@ li {
     background-color: #fff;
     border-radius: 10px;
     padding: 0 1rem;
-    margin-top: 1rem;
+    margin-bottom: 2rem;
 }
 .post_header {
     display: flex;
@@ -1166,6 +1170,30 @@ li {
     transform: scale(1.5);
     transition: 0.3s;
 }
+.com-rlike-react {
+    position: relative;
+}
+.com-react-bundle-wrap {
+    z-index: 9999999999999999999999999999999999999999999;
+    display: flex;
+    height: 50px;
+    align-items: center;
+    background-color: #fff;
+    position: absolute;
+    top: -3.3rem;
+    padding: 0 5px;
+    border-radius: 50px;
+}
+.com-react-bundle-wrap .react-icon {
+    width: 40px;
+    height: 59px;
+    object-fit: cover;
+    cursor: pointer;
+}
+.com-react-bundle-wrap .react-icon:hover {
+    transform: scale(1.5);
+    transition: 0.3s;
+}
 .ra {
     width: 33%;
 }
@@ -1207,6 +1235,7 @@ li {
 .nf-5 {
     background-color: #fff;
 }
+
 .nf-5 {
     padding: 5px 0;
 }
@@ -1236,4 +1265,17 @@ li {
 }
 .com-dot-option-wrap:hover {
     background-color: #f0f2f5;
+}
+.com-like-action-text,
+.com-reply-action {
+    font-size: 14px;
+    margin-left: 10px;
+    color: #65676b;
+}
+.com-react {
+    display: flex;
+    align-items: center;
+}
+.com-input {
+    margin-bottom: 1rem;
 }
