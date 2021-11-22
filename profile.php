@@ -485,7 +485,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                             
 
                                             foreach ($commentDetails as $comment){
-                                                echo $comment->comment_id;
+                                            
                                             
                                                 $com_react_max_show =$loadPost->com_react_max_show($comment->commentedOn,$comment->comment_id);
                                                 $com_main_react_count =$loadPost->com_main_react_count($comment->commentedOn,$comment->comment_id);
@@ -571,9 +571,10 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                                                 data-commentid="<?php echo $comment->comment_id ?>">
                                                                 <i class="fa-solid fa-ellipsis"></i>
                                                             </div>
-                                                            <div class="com-option-details-container">
-
+                                                            <div class="com-option-details-container"
+                                                                id="com-option-details-container">
                                                             </div>
+
                                                         </div>
                                                         <?php
                                                         }else{}
@@ -1295,8 +1296,8 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             function comReactDelete(typeR, postid, userid, commentid, com_nf_3) {
                 var profileid = "<?php echo $profileId; ?>";
                 $.post('http://localhost/facebook/core/ajax/commentReact.php', {
-                        commentid: commentid,
-                        reactType: typeR,
+                        deleteReactType: typeR,
+                        deleteCommentid: commentid,
                         postid: postid,
                         userid: userid,
                         profileid: profileid,
@@ -1308,7 +1309,92 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
             }
 
+            $(document).on('click', '.com-dot', function() {
+                $('.com-dot').removeAttr('id');
+                $(this).attr('id', 'com-opt-click');
+                var postid = $(this).data('postid');
+                var userid = $(this).data('userid');
+                var commentid = $(this).data('commentid');
+                var comDetails = $(this).siblings('.com-option-details-container');
+                $(comDetails).show().html(
+                    '<div class="com-option-details" style="z-index:2;color:#000;"> <ul> <li class="com-edit" data-postid="' +
+                    postid + '" data-userid="' + userid + '" data-commentid="' + commentid +
+                    '"> Edit</li> <li class="com-delete" data-postid="' + postid +
+                    '" data-userid="' + userid + '" data-commentid="' + commentid +
+                    '"> Delete</li> <li class="com-privacy" data-postid="' + postid +
+                    '" data-userid="' + userid + '" data-commentid="' + commentid +
+                    '"> Privacy</li> </ul> </div>');
 
+
+            })
+
+            $(document).on('click', 'li.com-edit', function() {
+                var comTextContainer = $(this).parents('.com-dot-option-wrap').siblings(
+                    '.com-pro-text').find('.com-text');
+                var addId = $(comTextContainer).attr('id', 'editComPut');
+                var getComText1 = $(comTextContainer).text();
+                var postid = $(comTextContainer).data('postid');
+                var userid = $(comTextContainer).data('userid');
+                var commentid = $(comTextContainer).data('commentid');
+                var profilepic = $(comTextContainer).data('profilepic');
+                var getComText = getComText1.replace(/\s+/g, " ").trim();
+                $('.com-dot-option-wrap').html(
+                    '<div class="top-box-show"> <div class="close-box"><i class="fa-solid fa-xmark"></i> </div> <div class="comment-dialog-show"> <div class="profilePic"> <img src="' +
+                    profilepic +
+                    '" alt=""> </div> <div class="status-prof-textarea"> <textarea name="textStatus" cols="30" class="editCom" autofocus style="resize: none;" rows="1">' +
+                    getComText + '</textarea> </div> <div class="edit-com-save" data-postid="' +
+                    postid + '" data-userid="' + userid + '" data-commentid="' + commentid +
+                    '"> Save </div> </div> </div>');
+            })
+
+            $(document).on('click', '.edit-com-save', function() {
+                var postid = $(this).data('postid');
+                var userid = $(this).data('userid');
+                var commentid = $(this).data('commentid');
+                var editedText = $(this).siblings('status-prof-textarea').find('.editCom');
+                var editedTextVal = $(editedText).val();
+                console.log(editedTextVal)
+                $.post('http://localhost/facebook/core/ajax/editComment.php', {
+                    postid: postid,
+                    userid: userid,
+                    editedTextVal: editedTextVal,
+                    commentid: commentid,
+                }, function(data) {
+                    $('#editComPut').html(data).removeAttr('id');
+                    $('.com-dot-option-wrap').empty();
+                })
+            })
+            $(document).on('click', '.com-delete', function() {
+                var postid = $(this).data('postid');
+                var userid = $(this).data('userid');
+                var commentid = $(this).data('commentid');
+                var commentContainer = $(this).parents('.new-comment');
+                var profileid = "<?php echo $profileId ?>";
+                var r = confirm('Are you sure you want to delete this comment.');
+                if (r === true) {
+                    $.post('http://localhost/facebook/core/ajax/editComment.php', {
+                        deletePostid: postid,
+                        userid: userid,
+                        commentid: commentid,
+                        profileid: profileid,
+                    }, function(data) {
+                        $(commentContainer).empty();
+                    })
+                }
+            })
+
+            //clkick outside
+
+            $(document).mouseup(function(e) {
+                var container = new Array();
+                container.push('.com-option-details-container');
+                $.each(container, function(key, value) {
+                    if (!$(value).is(e.target) && $(value).has(e.target).length === 0) {
+                        $(value).empty();
+                        $(value).css('display', 'none');
+                    }
+                })
+            })
         })
         </script>
 

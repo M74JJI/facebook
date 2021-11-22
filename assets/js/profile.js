@@ -15,6 +15,7 @@ const post_textarea = document.getElementById('post_textarea');
 const post_btn_submit = document.getElementById('post_btn_submit');
 const add_photos = document.getElementById('add_photos');
 const post_photo = document.getElementById('post_photo');
+const com = document.getElementById('com-option-details-container');
 
 search_input.addEventListener('focus', () => {
     search_icon.style.display = 'none';

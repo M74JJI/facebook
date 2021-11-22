@@ -56,7 +56,7 @@ class Post extends User{
          return $statement->fetchAll(PDO::FETCH_OBJ);
     }
     public function FetchLastComment($commentid){
-        $statement = $this->pdo->prepare("SELECT * FROM comments INNER JOIN profile ON comments.commentedBy = profile.user_id WHERE comments.id = :commentid");
+        $statement = $this->pdo->prepare("SELECT * FROM comments INNER JOIN profile ON comments.commentedBy = profile.user_id WHERE comments.comment_id = :commentid");
          $statement->bindParam(':commentid',$commentid,PDO::PARAM_INT);
          $statement->execute();
          return $statement->fetchAll(PDO::FETCH_OBJ);
@@ -88,6 +88,15 @@ class Post extends User{
          $statement->bindParam(':userid',$userid,PDO::PARAM_INT);
          $statement->execute();
          return $statement->fetch(PDO::FETCH_OBJ);
+    }
+    public function commentUpdate($userid,$postid,$editedTextVal,$commentid){
+        $statement = $this->pdo->prepare("UPDATE comments SET comment =:editedTextVal WHERE comment_id =:commentid AND commentedBy=:userid AND commentedOn=:postid");
+         $statement->bindParam(':postid',$postid,PDO::PARAM_INT);
+         $statement->bindParam(':commentid',$commentid,PDO::PARAM_INT);
+         $statement->bindParam(':userid',$userid,PDO::PARAM_INT);
+         $statement->bindParam(':editedTextVal',$editedTextVal,PDO::PARAM_INT);
+         $statement->execute();
+         return $statement->fetchAll(PDO::FETCH_OBJ);
     }
 
 }

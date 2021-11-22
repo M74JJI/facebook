@@ -1279,3 +1279,69 @@ li {
 .com-input {
     margin-bottom: 1rem;
 }
+.com-option-details-container {
+    position: absolute;
+    top: 100%;
+    left: -15rem;
+    background-color: #fff;
+    width: 300px;
+    padding: 1rem;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.17);
+    border-radius: 10px;
+    display: none;
+    z-index: 999999999999;
+}
+.com-dot-option-wrap {
+    position: relative;
+}
+.com-option-details ul li {
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.com-option-details ul li:hover {
+    background-color: #eee;
+}
+.com-option-details ul li:last-of-type {
+    margin-bottom: 0;
+}
+.top-box-show {
+    padding: 1.5rem 1rem 1rem 1rem;
+    background: #fff;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.17);
+    z-index: 999999999999999999999999;
+    position: relative;
+    border-radius: 30px;
+}
+.comment-dialog-show {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.profilePic img {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.close-box {
+    position: absolute;
+    right: 20px;
+    top: 5px;
+}
+.editCom {
+    outline: none;
+    border: none;
+    background: #ebedf2;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+.edit-com-save {
+    background: #1b74e4;
+    font-weight: 600;
+    color: white;
+    font-size: 14px;
+    padding: 6px 10px;
+    border-radius: 5px;
+}
