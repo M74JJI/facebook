@@ -19,7 +19,7 @@ echo '<ul style="background-color:white;padding:10px;">';
    
     ?>
 <li>
-    <a class="search_ind" href="<?php echo BASE_URL.'/profile.php?id='.$result->link ?>">
+    <a class="search_ind" href="<?php echo BASE_URL.$result->link ?>">
         <img src="<?php echo BASE_URL.$result->profile_picture ?>"
             style="width:40px;height:40px;border-radius:50%;cursor:ponter;object-fit:cover;" alt="">
         <span><?php echo $result->first_name.' '.$result->last_name ?></span>

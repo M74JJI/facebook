@@ -6,10 +6,10 @@
 }
 
 body {
-    background-color: #fff;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
     font-family: sans-serif;
 }
 a {
@@ -334,7 +334,7 @@ header {
     align-items: center;
     column-gap: 10px;
     position: absolute;
-    right: 1rem;
+    right: 2.2rem;
     bottom: 2.5rem;
 }
 .add_to_story {
@@ -462,12 +462,12 @@ header {
     }
 }
 .profile_menu {
-    width: 95%;
+    width: 93%;
     padding-top: 5px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 5px 2rem;
+    margin: 0 2rem;
     border-top: 1px solid #ccced2;
 }
 .menu {
@@ -482,7 +482,8 @@ header {
     display: flex;
     align-items: center;
     column-gap: 10px;
-    padding: 10px;
+    padding: 17px;
+    margin-bottom: 5px;
 }
 .menu_item1:hover {
     border-radius: 10px;
@@ -491,11 +492,13 @@ header {
 .menu_dots {
     color: #65676b;
     cursor: pointer;
-    padding: 10px 20px;
+    padding: 8px 15px;
     background: #e4e6eb;
     border-radius: 10px;
+    margin-bottom: 5px;
 }
 .active_menu_item {
+    margin-bottom: 0px;
     border-bottom: 3px solid #1876f2;
     color: #1876f2;
     background-color: #fff !important;
@@ -503,11 +506,7 @@ header {
 }
 .profile_top_container {
     background: rgba(255, 255, 255, 1);
-    box-shadow: 0 8px 32px 0 rgba(173, 174, 182, 0.17);
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 -1px rgba(0, 0, 0, 0.1) inset;
 }
 .profile_middle {
     background: #f0f2f5;
