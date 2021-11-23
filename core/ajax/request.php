@@ -14,7 +14,8 @@ if(isset($_POST['request'])){
 
 
     $loadUser->create('friendrequest',array('requestReceiver'=>$profileid, 'requestSender'=>$userid,'requestStatus'=>'0','requestedAt'=>date('Y-m-d H:i:s')));
-    
+    $loadUser->create('follow',array('receiver'=>$profileid,'sender'=>$userid,'followedAt'=>date('Y-m-d H:i:s')));
+
 }
 
 if(isset($_POST['Confirmrequest'])){
@@ -23,7 +24,8 @@ if(isset($_POST['Confirmrequest'])){
 
 
     $loadPost->ConfirmRequest($profileid,$userid);
-    
+    $loadUser->create('follow',array('receiver'=>$profileid,'sender'=>$userid,'followedAt'=>date('Y-m-d H:i:s')));
+
     
 }
 if(isset($_POST['Cancelrequest'])){
@@ -32,13 +34,14 @@ if(isset($_POST['Cancelrequest'])){
 
 
     $loadUser->delete('friendrequest',array('requestReceiver'=>$profileid,'requestSender'=>$userid));
-    
+    $loadUser->delete('follow',array('receiver'=>$profileid,'sender'=>$userid));
     
 }
 if(isset($_POST['deleteRequest'])){
     $profileid =$_POST['deleteRequest'];
     $userid =$_POST['userid'];
-
+    $loadUser->delete('follow',array('receiver'=>$profileid,'sender'=>$userid));
+    $loadUser->delete('follow',array('receiver'=>$userid,'sender'=>$profileid));
 
     $loadUser->delete('friendrequest',array('requestReceiver'=>$userid,'requestSender'=>$profileid));
     
@@ -47,7 +50,7 @@ if(isset($_POST['deleteRequest'])){
 if(isset($_POST['Unfriendrequest'])){
     $profileid =$_POST['Unfriendrequest'];
     $userid =$_POST['userid'];
-
+    $loadUser->delete('follow',array('receiver'=>$profileid,'sender'=>$userid));
     $loadUser->delete('friendrequest',array('requestReceiver'=>$profileid,'requestSender'=>$userid));
     $loadUser->delete('friendrequest',array('requestReceiver'=>$userid,'requestSender'=>$profileid));
     

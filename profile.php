@@ -16,6 +16,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
     $posts = $loadPost->posts($userid,$profileId,20);
     $requestCheck=$loadPost->requestCheck($userid,$profileId);
     $requestConfirm=$loadPost->requestConfirm($profileId,$userid);
+    $followCheck=$loadPost->followCheck($profileId,$userid);
     
 }else{
     header('Location:index.php');
@@ -185,11 +186,30 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         </div>
                     </div>
                     <?php }else{} ?>
+
+                    <!----FOLLOW SYSTEM-------------------------->
+                    <?php if(empty($followCheck)){ ?>
+                    <div class="follow_btn" data-userid="<?php echo $userid ?>"
+                        data-profileid="<?php echo $profileId ?>">
+                        <img src="https://static.xx.fbcdn.net/rsrc.php/v3/y8/r/oABzID6cE5f.png" alt="">
+                        <span class="follow_btn_text">Follow</span>
+                    </div>
+                    <?php
+                    }else{?>
+                    <div class="unfollow_btn" data-userid="<?php echo $userid ?>"
+                        data-profileid="<?php echo $profileId ?>">
+                        <img src="https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/eLq9OvKfGbc.png" alt="">
+                        <span class="follow_btn_text">Following</span>
+                    </div>
+                    <?php  } ?>
+                    <!----FOLLOW SYSTEM-------------------------->
                     message
                 </div>
                 <!------------------------------>
 
                 <?php } ?>
+
+
 
             </div>
             <?php if(empty($requestCheck)){
@@ -1528,10 +1548,14 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
                 //-----send request
                 $(document).on('click', '.profile_add_friend', function() {
-                    $(this).find('.profile_add_friend_text').text('Cancel Request');
-                    $(this).removeClass().addClass('cancel_request_btn');
                     var userid = $(this).data('userid');
                     var profileid = $(this).data('profileid');
+                    $(this).find('.profile_add_friend_text').text('Cancel Request');
+                    $(this).removeClass().addClass('cancel_request_btn');
+                    $('.follow_btn').removeClass().addClass('unfollow_btn');
+                    $('.unfollow_btn').find('.follow_btn_text').text(
+                        'Following');
+
                     $.post('http://localhost/facebook/core/ajax/request.php', {
                         request: profileid,
                         userid: userid,
@@ -1547,6 +1571,9 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     $(parent).empty().html(
                         '<div class="friends_btn"> <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yF/r/5nzjDogBZbf.png"> <div class="profile_add_friend_text">Friends</div> </div>'
                     );
+                    $('.follow_btn').removeClass().addClass('unfollow_btn');
+                    $('.unfollow_btn').find('.follow_btn_text').text(
+                        'Following');
                     $.post('http://localhost/facebook/core/ajax/request.php', {
                         Confirmrequest: profileid,
                         userid: userid,
@@ -1562,6 +1589,9 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     $('.confirm_requests').empty().html(
                         '<div class="friends_btn"> <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yF/r/5nzjDogBZbf.png"> <div class="profile_add_friend_text">Friends</div> </div>'
                     );
+                    $('.follow_btn').removeClass().addClass('unfollow_btn');
+                    $('.unfollow_btn').find('.follow_btn_text').text(
+                        'Following');
                     $.post('http://localhost/facebook/core/ajax/request.php', {
                         Confirmrequest: profileid,
                         userid: userid,
@@ -1575,6 +1605,9 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     $(this).removeClass().addClass('profile_add_friend');
                     var userid = $(this).data('userid');
                     var profileid = $(this).data('profileid');
+                    $('.unfollow_btn').removeClass().addClass('follow_btn');
+                    $('.follow_btn').find('.follow_btn_text').text(
+                        'Follow');
 
                     $.post('http://localhost/facebook/core/ajax/request.php', {
                         Cancelrequest: profileid,
@@ -1596,6 +1629,9 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         '" data-profileid="' + profileid +
                         '"> <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yz/r/JonZjQBHWuh.png"> <div class="profile_add_friend_text">Add Friend</div> </div>'
                     );
+                    $('.unfollow_btn').removeClass().addClass('follow_btn');
+                    $('.follow_btn').find('.follow_btn_text').text(
+                        'Follow');
                     $.post('http://localhost/facebook/core/ajax/request.php', {
                         deleteRequest: profileid,
                         userid: userid,
@@ -1611,6 +1647,9 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         '" data-profileid="' + profileid +
                         '"> <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yz/r/JonZjQBHWuh.png"> <div class="profile_add_friend_text">Add Friend</div> </div>'
                     );
+                    $('.unfollow_btn').removeClass().addClass('follow_btn');
+                    $('.follow_btn').find('.follow_btn_text').text(
+                        'Follow');
                     $.post('http://localhost/facebook/core/ajax/request.php', {
                         deleteRequest: profileid,
                         userid: userid,
@@ -1631,6 +1670,9 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         '" data-profileid="' + profileid +
                         '"> <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yz/r/JonZjQBHWuh.png"> <div class="profile_add_friend_text">Add Friend</div> </div>'
                     );
+                    $('.unfollow_btn').removeClass().addClass('follow_btn');
+                    $('.follow_btn').find('.follow_btn_text').text(
+                        'Follow');
 
                     $.post('http://localhost/facebook/core/ajax/request.php', {
                         Unfriendrequest: profileid,
@@ -1640,7 +1682,32 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
                 //----------------SEND REQUEST--------------------------------------
 
+                //-------------FOLLOW SYSTEM-------------------------->
+                $(document).on('click', '.follow_btn', function() {
+                    userid = $(this).data('userid');
+                    profileid = $(this).data('profileid');
+                    $(this).removeClass().addClass('unfollow_btn');
+                    $(this).find('.follow_btn_text').text(
+                        'Following');
 
+                    $.post('http://localhost/facebook/core/ajax/follow.php', {
+                        follow: profileid,
+                        userid: userid,
+                    }, function(data) {})
+                })
+                $(document).on('click', '.unfollow_btn', function() {
+                    userid = $(this).data('userid');
+                    profileid = $(this).data('profileid');
+                    $(this).removeClass().addClass('follow_btn');
+                    $(this).find('.follow_btn_text').text(
+                        'Follow');
+                    $.post('http://localhost/facebook/core/ajax/follow.php', {
+                        unfollow: profileid,
+                        userid: userid,
+                    }, function(data) {})
+                })
+
+                //-------------FOLLOW SYSTEM-------------------------->
 
 
 

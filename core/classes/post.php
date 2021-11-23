@@ -138,6 +138,13 @@ class Post extends User{
          $statement->execute();
          return $statement->fetch(PDO::FETCH_OBJ);
     }
+    public function followCheck($profileId,$userid){
+        $statement = $this->pdo->prepare("SELECT * FROM follow WHERE sender=:userid AND receiver=:profileid");
+         $statement->bindValue(':userid',$userid,PDO::PARAM_STR);
+         $statement->bindValue(':profileid',$profileId,PDO::PARAM_STR);
+         $statement->execute();
+         return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
 
 }
 

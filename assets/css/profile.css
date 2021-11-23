@@ -23,6 +23,7 @@ header {
     box-shadow: 0 8px 32px 0 rgba(230, 240, 240, 0.17);
     -webkit-font-smoothing: antialiased;
     background-color: var(--light-color);
+    user-select: none;
 }
 .left {
     display: flex;
@@ -209,6 +210,7 @@ header {
     border-radius: 10px;
     display: none;
     z-index: 99;
+    user-select: none;
 }
 .menu_item {
     display: flex;
@@ -1611,4 +1613,34 @@ li {
     .friends_popup {
         width: 310px;
     }
+}
+.follow_btn {
+    display: flex;
+    background: #1b74e4;
+    padding: 10px 15px;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 7px;
+    gap: 5px;
+    user-select: none;
+}
+.follow_btn img {
+    -webkit-filter: invert(100%);
+}
+.unfollow_btn {
+    display: flex;
+    background: #e4e6eb;
+    padding: 10px 12px;
+    color: #222;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 7px;
+    gap: 5px;
+    user-select: none;
+}
+.unfollow_btn img {
+    -webkit-filter: invert(20%);
 }
