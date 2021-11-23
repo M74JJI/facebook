@@ -105,7 +105,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     </div>
                     <?php
                         }else if($requestConfirm->requestStatus=='0'){ ?>
-                    <div style="position: relative;">
+                    <div style="position: relative;" class="confirm_requests">
                         <div class="profile_confirm_friend" id="show_popup_respond">
                             <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yF/r/5nzjDogBZbf.png">
                             <div class="profile_add_friend_text">Respond</div>
@@ -121,9 +121,30 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
                     <?php
                         }else if($requestConfirm->requestStatus=='1'){?>
-                    <div class="friends_btn">
-                        <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yF/r/5nzjDogBZbf.png">
-                        <div class="profile_add_friend_text">Friends</div>
+                    <div style="position: relative;" class="friends_holder">
+                        <div class="friends_btn" id="friends_btn">
+                            <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yF/r/5nzjDogBZbf.png">
+                            <div class="profile_add_friend_text">Friends</div>
+                        </div>
+                        <div class="friends_popup" id="friends_popup">
+                            <div class="favorites_friend">
+                                <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yU/r/oIIZ26adGMr.png" alt="">
+                                Favorites
+                            </div>
+                            <div class="edit_friend">
+                                <img src="https://static.xx.fbcdn.net/rsrc.php/v3/y_/r/y302a2iLPfV.png" alt="">
+                                Edit Friend List
+                            </div>
+                            <div class="unfollow_friend">
+                                <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yI/r/bnvx9uLOEsq.png" alt="">
+                                Unfollow
+                            </div>
+                            <div class="unfriend_friend" data-userid="<?php echo $userid ?>"
+                                data-profileid="<?php echo $profileId ?>">
+                                <i class="unfriend_icon"></i>
+                                Unfriend
+                            </div>
+                        </div>
                     </div>
                     <?php
                         }else{
@@ -134,15 +155,36 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     <div class="cancel_request_btn" data-userid="<?php echo $userid ?>"
                         data-profileid="<?php echo $profileId ?>">
                         <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yo/r/Qg9sXPTnmFb.png">
-                        <div class="profile_add_friend_text">Cancel Resquest</div>
+                        <div class="profile_add_friend_text">Cancel Request</div>
                     </div>
                     <?php 
                     }else if($requestCheck->requestStatus =='1'){ ?>
-                    <div class="friends_btn">
-                        <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yF/r/5nzjDogBZbf.png">
-                        <div class="profile_add_friend_text">Friends</div>
+                    <div style="position: relative;" class="friends_holder">
+                        <div class="friends_btn" id="friends_btn">
+                            <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yF/r/5nzjDogBZbf.png">
+                            <div class="profile_add_friend_text">Friends</div>
+                        </div>
+                        <div class="friends_popup" id="friends_popup">
+                            <div class="favorites_friend">
+                                <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yU/r/oIIZ26adGMr.png" alt="">
+                                Favorites
+                            </div>
+                            <div class="edit_friend">
+                                <img src="https://static.xx.fbcdn.net/rsrc.php/v3/y_/r/y302a2iLPfV.png" alt="">
+                                Edit Friend List
+                            </div>
+                            <div class="unfollow_friend">
+                                <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yI/r/bnvx9uLOEsq.png" alt="">
+                                Unfollow
+                            </div>
+                            <div class="unfriend_friend" data-userid="<?php echo $userid ?>"
+                                data-profileid="<?php echo $profileId ?>">
+                                <i class="unfriend_icon"></i>
+                                Unfriend
+                            </div>
+                        </div>
                     </div>
-                    <?php } ?>
+                    <?php }else{} ?>
                     message
                 </div>
                 <!------------------------------>
@@ -158,8 +200,10 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             <div class="confirm_wall">
                 <span class="send_req_text"><?php echo $profileInfos->first_name ?> sent you a friend request</span>
                 <div class="profile_confirm_friend1">
-                    <div class="send_req_text_confirm">Confirm Request</div>
-                    <div class="send_req_delete">Delete Request</div>
+                    <div class="send_req_text_confirm" data-userid="<?php echo $userid ?>"
+                        data-profileid="<?php echo $profileId ?>">Confirm Request</div>
+                    <div class="send_req_delete" data-userid="<?php echo $userid ?>"
+                        data-profileid="<?php echo $profileId ?>">Delete Request</div>
                 </div>
 
             </div>
@@ -1470,15 +1514,137 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         userid: userid,
                     }, function(data) {
                         console.log(data)
-                        $('.post_share_box').empty();
+
                     })
 
                 })
 
                 //----------------SHARE--------------------------------------
-                //----------------SEARCH--------------------------------------
 
-                //----------------SEARCH--------------------------------------
+
+
+
+                //----------------SEND REQUEST--------------------------------------
+
+                //-----send request
+                $(document).on('click', '.profile_add_friend', function() {
+                    $(this).find('.profile_add_friend_text').text('Cancel Request');
+                    $(this).removeClass().addClass('cancel_request_btn');
+                    var userid = $(this).data('userid');
+                    var profileid = $(this).data('profileid');
+                    $.post('http://localhost/facebook/core/ajax/request.php', {
+                        request: profileid,
+                        userid: userid,
+                    }, function(data) {})
+
+                })
+                //-----confirm request
+                $(document).on('click', '.confirm_request', function() {
+                    var userid = $(this).data('userid');
+                    var profileid = $(this).data('profileid');
+                    var parent = $(this).parents('.confirm_requests');
+                    $('.confirm_wall').empty().css('display', 'none');
+                    $(parent).empty().html(
+                        '<div class="friends_btn"> <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yF/r/5nzjDogBZbf.png"> <div class="profile_add_friend_text">Friends</div> </div>'
+                    );
+                    $.post('http://localhost/facebook/core/ajax/request.php', {
+                        Confirmrequest: profileid,
+                        userid: userid,
+                    }, function(data) {})
+
+
+                })
+                //-----confirm request
+                $(document).on('click', '.send_req_text_confirm', function() {
+                    var userid = $(this).data('userid');
+                    var profileid = $(this).data('profileid');
+                    $(this).parents('.confirm_wall').empty().css('display', 'none');
+                    $('.confirm_requests').empty().html(
+                        '<div class="friends_btn"> <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yF/r/5nzjDogBZbf.png"> <div class="profile_add_friend_text">Friends</div> </div>'
+                    );
+                    $.post('http://localhost/facebook/core/ajax/request.php', {
+                        Confirmrequest: profileid,
+                        userid: userid,
+                    }, function(data) {})
+
+                })
+
+                //-----cancel request
+                $(document).on('click', '.cancel_request_btn', function() {
+                    $(this).find('.profile_add_friend_text').text('Add Friend');
+                    $(this).removeClass().addClass('profile_add_friend');
+                    var userid = $(this).data('userid');
+                    var profileid = $(this).data('profileid');
+
+                    $.post('http://localhost/facebook/core/ajax/request.php', {
+                        Cancelrequest: profileid,
+                        userid: userid,
+                    }, function(data) {})
+                })
+                //-----delete request
+
+
+
+                $(document).on('click', '.delete_request', function() {
+                    var userid = $(this).data('userid');
+                    var profileid = $(this).data('profileid');
+                    var parent = $(this).parents('.confirm_requests');
+                    $('.confirm_wall').empty().css('display', 'none');
+                    $(parent).removeClass();
+                    $(parent).empty().html(
+                        ' <div class="profile_add_friend" data-userid="' + userid +
+                        '" data-profileid="' + profileid +
+                        '"> <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yz/r/JonZjQBHWuh.png"> <div class="profile_add_friend_text">Add Friend</div> </div>'
+                    );
+                    $.post('http://localhost/facebook/core/ajax/request.php', {
+                        deleteRequest: profileid,
+                        userid: userid,
+                    }, function(data) {})
+                })
+
+                $(document).on('click', '.send_req_delete', function() {
+                    var userid = $(this).data('userid');
+                    var profileid = $(this).data('profileid');
+                    $(this).parents('.confirm_wall').empty().css('display', 'none');
+                    $('.confirm_requests').empty().html(
+                        '<div class="profile_add_friend" data-userid="' + userid +
+                        '" data-profileid="' + profileid +
+                        '"> <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yz/r/JonZjQBHWuh.png"> <div class="profile_add_friend_text">Add Friend</div> </div>'
+                    );
+                    $.post('http://localhost/facebook/core/ajax/request.php', {
+                        deleteRequest: profileid,
+                        userid: userid,
+                    }, function(data) {})
+                })
+
+
+
+
+                //-----Unfriend 
+                $(document).on('click', '.unfriend_friend', function() {
+                    var userid = $(this).data('userid');
+                    var profileid = $(this).data('profileid');
+                    $('.friends_popup').empty().css('width', '0').css('padding', '0');
+
+                    $('.friends_holder').find('.friends_btn').empty().removeClass().html(
+                        ' <div class="profile_add_friend" data-userid="' + userid +
+                        '" data-profileid="' + profileid +
+                        '"> <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yz/r/JonZjQBHWuh.png"> <div class="profile_add_friend_text">Add Friend</div> </div>'
+                    );
+
+                    $.post('http://localhost/facebook/core/ajax/request.php', {
+                        Unfriendrequest: profileid,
+                        userid: userid,
+                    }, function(data) {})
+                })
+
+                //----------------SEND REQUEST--------------------------------------
+
+
+
+
+
+
 
                 //clkick outside
 
@@ -1489,7 +1655,8 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
 
                     $.each(container, function(key, value) {
-                        if (!$(value).is(e.target) && $(value).has(e.target).length === 0) {
+                        if (!$(value).is(e.target) && $(value).has(e.target)
+                            .length === 0) {
                             $(value).empty();
 
                         }
@@ -1501,9 +1668,11 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
                     container.push('.search_results');
                     container.push('.confirm_request_popup');
+                    container.push('.friends_popup');
 
                     $.each(container, function(key, value) {
-                        if (!$(value).is(e.target) && $(value).has(e.target).length === 0) {
+                        if (!$(value).is(e.target) && $(value).has(e.target)
+                            .length === 0) {
                             $(value).css('display', 'none');
 
                         }

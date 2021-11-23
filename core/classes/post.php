@@ -131,6 +131,13 @@ class Post extends User{
          $statement->execute();
          return $statement->fetch(PDO::FETCH_OBJ);
     }
+    public function ConfirmRequest($profileId,$userid){
+        $statement = $this->pdo->prepare("UPDATE friendrequest SET requestStatus ='1' WHERE requestReceiver=:userid AND requestSender=:profileid");
+         $statement->bindValue(':userid',$userid,PDO::PARAM_STR);
+         $statement->bindValue(':profileid',$profileId,PDO::PARAM_STR);
+         $statement->execute();
+         return $statement->fetch(PDO::FETCH_OBJ);
+    }
 
 }
 

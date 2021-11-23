@@ -1553,6 +1553,7 @@ li {
     font-weight: 600;
     font-size: 14px;
     color: #222;
+    cursor: pointer;
 }
 .cancel_request_btn {
     display: flex;
@@ -1567,4 +1568,47 @@ li {
 }
 .cancel_request_btn img {
     -webkit-filter: invert(100%);
+}
+.friends_popup {
+    position: absolute;
+    background-color: #fff;
+    padding: 1rem;
+    box-shadow: 0 8px 32px 0 rgba(111, 111, 111, 0.47);
+    -webkit-font-smoothing: antialiased;
+    border-radius: 10px;
+    flex-direction: column;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    z-index: 9999;
+    width: 250px;
+    left: -50%;
+    top: 104%;
+    display: none;
+}
+.friends_popup > div {
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+.friends_popup > div:hover {
+    background-color: #e4e6eb;
+}
+.unfriend_icon {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yY/r/zV-ALry-68f.png');
+    background-position: 0px -126px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+@media (min-width: 1100px) {
+    .friends_popup {
+        width: 310px;
+    }
 }

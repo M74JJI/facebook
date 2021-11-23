@@ -20,6 +20,12 @@ const search_results = document.getElementById('search_results');
 const left = document.getElementById('left');
 const arrowlogo = document.getElementById('arrowlogo');
 const imglogo = document.getElementById('imglogo');
+const friends_btn = document.getElementById('friends_btn');
+const friends_popup = document.getElementById('friends_popup');
+
+friends_btn.addEventListener('click', () => {
+    friends_popup.style.display = 'block';
+});
 
 search_input.addEventListener('click', () => {
     search_icon.style.display = 'none';
