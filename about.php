@@ -234,8 +234,10 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     } ?>
             <div class="profile_menu">
                 <div class="menu">
-                    <div class="menu_item1">Posts</div>
-                    <div class="menu_item1 active_menu_item">About</div>
+                    <a href="<?php echo BASE_URL.'profile.php?id='.$profileInfos->link.'' ?>"
+                        class="menu_item1 ">Posts</a>
+                    <a href="<?php echo BASE_URL.'about.php?id='.$profileInfos->link.'' ?>"
+                        class="menu_item1 active_menu_item">About</a>
                     <div class="menu_item1 hidein_sm">Friends</div>
                     <div class="menu_item1">Photos</div>
                     <div class="menu_item1 hidein_sm">Story Archive</div>
@@ -430,9 +432,9 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
 
     <script src="assets/js/about.js"></script>
-    <script src="assets/js/profile.js"></script>
     <script src="assets/js/jquery.js"></script>
     <script src="assets/dist/emojionearea.js"></script>
+    <script src="assets/js/profile.js"></script>
     <script>
     $(function() {
 

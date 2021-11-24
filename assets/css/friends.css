@@ -1,0 +1,238 @@
+.friends_holder {
+    display: grid;
+}
+@media (min-width: 968px) {
+    .friends_holder {
+        grid-template-columns: 1.1fr 5fr;
+    }
+}
+.friends_left {
+    padding: 5px 0.8rem;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    border-right: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+}
+.friends_left ul li {
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+.friends_left ul li:hover {
+    background: #f0f2f5;
+}
+.friends_settings {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.friends_settings h5 {
+    color: #000;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+.sett_icni_holder {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f2f5;
+}
+.sett_icon {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/ya/r/-Uq5Oi00TzU.png');
+    background-position: 0px -516px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.friend_text {
+    font-size: 0.96rem;
+    color: #111;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+.frined_link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px;
+    border-radius: 10px;
+    width: 100%;
+}
+ul {
+    padding: 0;
+}
+
+.li_icon_friend {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+
+    justify-content: center;
+}
+.friend_home {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yR/r/5aSzlJZ8Frn.png');
+    background-position: 0px -331px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(100%);
+}
+.frined_active {
+    background: #1877f2 !important;
+}
+.frined_active_bg {
+    background: #f0f2f5 !important;
+}
+.li_icon_friend {
+    background: #e4e6eb;
+}
+.requests_icon {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yR/r/5aSzlJZ8Frn.png');
+    background-position: 0px -310px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(15%);
+}
+.sugg_icon {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yR/r/5aSzlJZ8Frn.png');
+    background-position: 0px -268px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(15%);
+}
+.all_icon {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yR/r/5aSzlJZ8Frn.png');
+    background-position: 0px -289px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(15%);
+}
+.birth_icon {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yR/r/5aSzlJZ8Frn.png');
+    background-position: 0px -352px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(15%);
+}
+.cus_icon {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yR/r/5aSzlJZ8Frn.png');
+    background-position: 0px -289px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(15%);
+}
+.arr_icon {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yH/r/j1yBAFMLTz4.png');
+    background-position: 0px -107px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(21%);
+    margin-right: 10px;
+}
+.friends_right {
+    background: #f0f2f5;
+    padding: 1.5rem 2rem;
+    height: 100vh;
+}
+.friends_right h5 {
+    color: #000;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+.flex_wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 1rem;
+}
+/*-------------Request friend crad*/
+.fri_req_card {
+    display: flex;
+    flex-direction: column;
+    border-radius: max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    border-right: 1px solid #eee;
+    height: 320px;
+    width: 200px;
+    padding-bottom: 10px;
+}
+.fri_req_card img {
+    width: 200px;
+    height: 180px;
+    object-fit: cover;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+.p5 {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.p5 a {
+    text-decoration: none;
+    color: #111;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    line-height: 19px;
+    margin-bottom: 30px;
+}
+.p5 a:hover {
+    text-decoration: underline;
+}
+.p5 button {
+    outline: none;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.p5 button:first-of-type {
+    background: #1b74e4;
+    color: #fff;
+}
+.p5 button:last-of-type {
+    background: #e4e6eb;
+    color: #000;
+}

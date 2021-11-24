@@ -234,8 +234,9 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     } ?>
             <div class="profile_menu">
                 <div class="menu">
-                    <div class="menu_item1 active_menu_item">Posts</div>
-                    <div class="menu_item1">About</div>
+                    <a href="<?php echo BASE_URL.'profile.php?id='.$profileInfos->link.'' ?>"
+                        class="menu_item1 active_menu_item">Posts</a>
+                    <a href="<?php echo BASE_URL.'about.php?id='.$profileInfos->link.'' ?>" class="menu_item1">About</a>
                     <div class="menu_item1 hidein_sm">Friends</div>
                     <div class="menu_item1">Photos</div>
                     <div class="menu_item1 hidein_sm">Story Archive</div>
@@ -1729,13 +1730,19 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         }
                     })
                 })
+                //friends menu ffs
 
+                $(document).on('click', '#friends_btn', function() {
+                    $('#friends_popup').css('display', 'block')
+                })
+                //friends menu ffs
                 $(document).mouseup(function(e) {
                     var container = new Array();
 
                     container.push('.search_results');
                     container.push('.confirm_request_popup');
                     container.push('.friends_popup');
+                    container.push('#menu_header');
 
                     $.each(container, function(key, value) {
                         if (!$(value).is(e.target) && $(value).has(e.target)

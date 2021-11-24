@@ -13,28 +13,14 @@ const post_btn_submit = document.getElementById('post_btn_submit');
 const add_photos = document.getElementById('add_photos');
 const post_photo = document.getElementById('post_photo');
 const com = document.getElementById('com-option-details-container');
-
 const friends_btn = document.getElementById('friends_btn');
 const friends_popup = document.getElementById('friends_popup');
-
-friends_btn.addEventListener('click', () => {
-    friends_popup.style.display = 'block';
-});
 
 upload_cover.addEventListener('click', () => {
     upload_btn.click();
 });
 box_btn1.addEventListener('click', () => {
     upload_btn_profile.click();
-});
-
-document.addEventListener('click', function (e) {
-    if (e.target.closest('.upload_container')) {
-        upload_menu.style.display = 'block';
-        return;
-    }
-
-    upload_menu.style.display = 'none';
 });
 
 pdf_container.addEventListener('click', () => {
@@ -46,4 +32,13 @@ header_icon.addEventListener('click', () => {
 
 add_photos.addEventListener('click', function () {
     post_photo.click();
+});
+
+document.addEventListener('click', function (e) {
+    if (e.target.closest('.upload_container')) {
+        upload_menu.style.display = 'block';
+        return;
+    }
+
+    upload_menu.style.display = 'none';
 });

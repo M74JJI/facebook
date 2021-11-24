@@ -9,8 +9,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
-    font-family: sans-serif;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 a {
     text-decoration: none;
@@ -310,8 +309,7 @@ header {
     font-weight: bolder;
     margin: 0;
     padding: 0;
-    font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif;
-    letter-spacing: -1px;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 .friends_link {
     color: #65676b;
@@ -1642,4 +1640,7 @@ li {
 }
 .unfollow_btn img {
     -webkit-filter: invert(20%);
+}
+.active_border {
+    border-bottom: 2px solid #1b74e4;
 }
