@@ -290,8 +290,11 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                 class="<?php if(isset($_GET['sk']) and $_GET['sk']=="about_details") { echo "active_about_link";} ?>">Details
                                 About You</a>
                         </li>
-                        <li data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId ?>">
-                            <a href="#">Life Events</a>
+                        <li class="<?php if(isset($_GET['sk']) and $_GET['sk']=="about_life_events") { echo "active_about_link";} ?>"
+                            data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId ?>">
+                            <a href="<?php echo BASE_URL."about.php?id=$userInfo->link&sk=about_life_events"?>"
+                                class="<?php if(isset($_GET['sk']) and $_GET['sk']=="about_life_events") { echo "active_about_link";} ?>">Life
+                                Events</a>
                         </li>
                     </ul>
                 </div>
@@ -385,6 +388,18 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                             <h4>Favorite Quotes
                             </h4>
                             <?php $loadAbout->overview('othername',$userid,$profileId,'Add your favorite quotations',"https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/rS6cU_2DjwE.png"); ?>
+
+                        </div>
+
+                    </div>
+                    <?php } ?>
+                    <?php if(isset($_GET['sk']) && $_GET['sk']=="about_life_events") { ?>
+                    <div class="overview_menu">
+                        <div class="contact_menu_a">
+                            <h4>Life Events
+                            </h4>
+                            <?php $loadAbout->overview('lifeEvent',$userid,$profileId,'Add a life event',"https://static.xx.fbcdn.net/rsrc.php/v3/yp/r/G3O_YCZDC0c.png"); ?>
+
 
                         </div>
 
