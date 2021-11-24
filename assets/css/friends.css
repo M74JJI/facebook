@@ -167,7 +167,7 @@ ul {
 .friends_right {
     background: #f0f2f5;
     padding: 1.5rem 2rem;
-    height: 100vh;
+    height: 90vh;
 }
 .friends_right h5 {
     color: #000;
@@ -235,4 +235,118 @@ ul {
 .p5 button:last-of-type {
     background: #e4e6eb;
     color: #000;
+}
+.center_bitch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+.center_bitch img {
+    width: 120px;
+}
+.some_fuxking_text {
+    font-size: 20px;
+    font-weight: 700;
+    color: #65676b;
+    margin-top: 10px;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+.backb {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 15px;
+    justify-content: center;
+}
+.backb:hover {
+    background: #65676b38;
+}
+.arrow_bakc {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yr/r/duZWR9u2KSw.png');
+    background-position: -25px -86px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(20%);
+}
+.a7oo {
+    display: flex;
+    flex-direction: column;
+}
+.a7oo a {
+    font-size: 12px;
+    color: #65676b;
+}
+.a7oo a:hover {
+    text-decoration: underline;
+}
+.reqeta {
+    justify-content: start;
+    margin-top: 20px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #ced0d4;
+}
+.send_t {
+    margin-top: 10px;
+    font-weight: 600;
+}
+.sent_q {
+    font-size: 12px;
+    color: #1876f2;
+    margin-top: 10px;
+}
+.req_alt_card {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.req_alt_card:hover {
+    background: #f0f2f5;
+}
+.req_alt_card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 7px;
+}
+.req_flexcol {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+.req_flexcol {
+}
+.req_flexcol button {
+    outline: none;
+    border: none;
+    padding: 11px 37px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.req_flexcol button:first-of-type {
+    background: #1b74e4;
+    color: #fff;
+}
+.req_flexcol button:last-of-type {
+    background: #e4e6eb;
+    color: #000;
+}
+.req_n {
+    font-weight: 600;
+    font-size: 15px;
 }

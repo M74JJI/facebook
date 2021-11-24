@@ -1,6 +1,6 @@
 <?php
-include 'connect/login.php';
-include 'core/load.php';
+include '../connect/login.php';
+include '../core/load.php';
 
 if(login::isLoggedIn()){
     $userid = login::isLoggedIn();
@@ -13,8 +13,6 @@ if(login::isLoggedIn()){
 
 
 
-
-
 ?>
 <!DOCTYPE html>
 
@@ -22,15 +20,15 @@ if(login::isLoggedIn()){
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Friends | Facebook</title>
-    <link rel="stylesheet" href="assets/css/profile.css" />
-    <link rel="stylesheet" href="assets/css/friends.css" />
-    <link rel="stylesheet" href="assets/css/header_menu.css" />
+    <title>Friends Requests| Facebook</title>
+    <link rel="stylesheet" href="../assets/css/profile.css" />
+    <link rel="stylesheet" href="../assets/css/friends.css" />
+    <link rel="stylesheet" href="../assets/css/header_menu.css" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="assets/dist/emojionearea.css">
+    <link rel="stylesheet" href="../assets/dist/emojionearea.css">
 
 </head>
 <header>
@@ -38,7 +36,7 @@ if(login::isLoggedIn()){
     <div class="container">
         <div class="left" id="left">
             <div class="logo">
-                <img src="assets/images/icon.png" alt="" class="imglogo" id="imglogo" />
+                <img src="../assets/images/icon.png" alt="" class="imglogo" id="imglogo" />
                 <div id="arrowlogo" class="arrowlogo">
 
                     <svg viewBox="0 0 20 20" width="1rem" height="1rem" fill="#65676b">
@@ -115,10 +113,11 @@ if(login::isLoggedIn()){
                 <span class="not_icon">6</span>
             </a>
         </div>
+
         <div class="right">
             <a href="#" class="find_friends">find friends</a>
-            <a href="profile.php?id=<?php echo $userInfo->link ?>" class="profile_link">
-                <img src="<?php echo $userInfo->profile_picture ?>" alt="" />
+            <a href="<?php echo BASE_URL.'profile.php?id='.$userInfo->link ?>" class="profile_link">
+                <img src="<?php echo BASE_URL.$userInfo->profile_picture ?>" alt="" />
                 <?php echo ucfirst($userInfo->first_name ) ?>
             </a>
             <a href="" class="rounded_link hidein_sm">
@@ -241,7 +240,7 @@ if(login::isLoggedIn()){
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="frined_link ">
+                    <a href="<?php echo BASE_URL.'/friends/requests.php'; ?>" class="frined_link ">
                         <div class="li_icon_friend "><i class="requests_icon"></i></div>
                         <span class="friend_text">Friend Requests</span>
                     </a> <i class="arr_icon"></i>
@@ -288,10 +287,11 @@ if(login::isLoggedIn()){
                  ?>
             </div>
         </div>
+
     </div>
 
-    <script src="assets/js/header.js"></script>
-    <script src="assets/js/jquery.js"></script>
+    <script src="../assets/js/header.js"></script>
+    <script src="../assets/js/jquery.js"></script>
     <script>
     $(document).on('keyup', '#search_input', function() {
         var searchTerm = $(this).val();

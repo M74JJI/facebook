@@ -137,10 +137,31 @@ class User{
                $id= $req->requestSender;
                 $infos=$this->getUserInfo($id); ?>
 <div class="fri_req_card" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $infos->user_id; ?>"> <img
-        src="<?php echo $infos->profile_picture ?>" alt="" />
+        src="<?php echo BASE_URL.$infos->profile_picture ?>" alt="" />
     <div class="p5"> <a href=""><?php echo $infos->first_name.' '.$infos->last_name ?></a> <button
             class="accept_req">Confirm</button>
         <button class="delete_req">Delete</button>
+    </div>
+</div>
+
+<?php
+                        }
+
+                        }
+        public function getFriendsRequestsAlt($userid){
+          $statement = $this->pdo->prepare("SELECT * FROM friendrequest WHERE requestStatus='0' AND requestReceiver=:userid ");
+          $statement->bindParam(':userid',$userid,PDO::PARAM_INT);
+          $statement->execute();
+          $friend_requests = $statement->fetchAll(PDO::FETCH_OBJ);
+          foreach($friend_requests as $req){
+               $id= $req->requestSender;
+                $infos=$this->getUserInfo($id); ?>
+<div class="req_alt_card" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $infos->user_id; ?>"> <img
+        src="<?php echo BASE_URL.$infos->profile_picture ?>" alt="">
+    <div class="req_flexcol">
+        <div class="req_n"><?php echo $infos->first_name.' '.$infos->last_name ?></div>
+        <div class="req_btnss"> <button class="accept_req">Confirm</button> <button class="delete_req">Delete</button>
+        </div>
     </div>
 </div>
 
