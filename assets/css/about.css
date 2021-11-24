@@ -2,7 +2,7 @@
     background: #f0f2f5;
 }
 .about {
-    max-width: 885px;
+    max-width: 880px;
     margin: 0 auto;
     padding: 1rem;
     display: flex;
@@ -41,16 +41,19 @@ ul {
     border-radius: 10px;
     cursor: pointer;
     margin-bottom: 10px;
+    display: flex;
 }
 .about_section li:hover {
     background-color: #eee;
 }
-li span {
+li a {
     font-weight: 600;
     font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 19px;
     padding-left: 8px;
+
+    width: 100%;
 }
 a {
     text-decoration: none;
@@ -96,6 +99,11 @@ a {
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
+}
+.about-flex {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 .about_flex:hover {
     text-decoration: underline;
@@ -157,4 +165,24 @@ a {
 }
 .flexit {
     display: flex;
+}
+.workeduc_menu {
+    display: flex;
+    flex-direction: column;
+}
+.workeduc_menu h4 {
+    font-weight: 600;
+}
+.about_places_menu {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    transform: translateY(-1.5rem);
+}
+.contact_menu_a {
+    display: flex;
+    flex-direction: column;
+}
+.contact_menu_a > div {
+    margin-bottom: 1rem;
 }

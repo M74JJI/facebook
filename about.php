@@ -253,44 +253,97 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             <div class="about_section">
                 <div class="about_menu">
                     <h3>About</h3>
+
                     <ul>
-                        <li class="active_about_link overview_link" data-userid="<?php echo $userid ?>"
-                            data-profileid="<?php echo $profileId ?>">
-                            <span>Overview</span>
+                        <li class="<?php if(!isset($_GET['sk'])) { echo "active_about_link";} ?>"
+                            data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId ?>">
+                            <a href="<?php echo BASE_URL."about.php?id=$userInfo->link"?>"
+                                class="<?php if(!isset($_GET['sk'])) { echo "active_about_link";} ?>">Overview</a>
                         </li>
-                        <li class="workeducation_link" data-userid="<?php echo $userid ?>"
-                            data-profileid="<?php echo $profileId ?>">
-                            <span>Work and Education</span>
+                        <li class="<?php if(isset($_GET['sk']) and $_GET['sk']=="about_work_and_education") { echo "active_about_link";} ?>"
+                            data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId ?>">
+                            <a href="<?php echo BASE_URL."about.php?id=$userInfo->link&sk=about_work_and_education"?>"
+                                class="<?php if(isset($_GET['sk']) and $_GET['sk']=="about_work_and_education") { echo "active_about_link";} ?>">Work
+                                and Education</a>
                         </li>
-                        <li class="placeslived_link" data-userid="<?php echo $userid ?>"
-                            data-profileid="<?php echo $profileId ?>">
-                            <span>Places Lived</span>
+                        <li class="<?php if(isset($_GET['sk']) and $_GET['sk']=="about_places") { echo "active_about_link";} ?>"
+                            data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId ?>">
+                            <a href="<?php echo BASE_URL."about.php?id=$userInfo->link&sk=about_places"?>"
+                                class="<?php if(isset($_GET['sk']) and $_GET['sk']=="about_places") { echo "active_about_link";} ?>">Places
+                                Lived</a>
                         </li>
-                        <li class="contacts_link" data-userid="<?php echo $userid ?>"
-                            data-profileid="<?php echo $profileId ?>">
-                            <span>Contact and Basic Info</span>
+                        <li class="<?php if(isset($_GET['sk']) and $_GET['sk']=="about_contact_and_basic_info") { echo "active_about_link";} ?>"
+                            data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId ?>">
+                            <a href="<?php echo BASE_URL."about.php?id=$userInfo->link&sk=about_contact_and_basic_info"?>"
+                                class="<?php if(isset($_GET['sk']) and $_GET['sk']=="about_contact_and_basic_info") { echo "active_about_link";} ?>">Contact
+                                and Basic Info</a>
                         </li>
                         <li data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId ?>">
-                            <span>Familly and Relationships</span>
+                            <a href="#">Familly and Relationships</a>
                         </li>
                         <li data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId ?>">
-                            <span>Details About You</span>
+                            <a href="#">Details About You</a>
                         </li>
                         <li data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId ?>">
-                            <span>Life Events</span>
+                            <a href="#">Life Events</a>
                         </li>
                     </ul>
                 </div>
                 <div class="about_overview_filled">
+                    <?php if(!isset($_GET['sk'])) { ?>
                     <div class="overview_menu">
                         <?php $loadAbout->overview('workplace',$userid,$profileId,'Add a workplace',"https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/Bo7x4xsiTje.png"); ?>
                         <?php $loadAbout->overview('high_school',$userid,$profileId,'Add a high school',"https://static.xx.fbcdn.net/rsrc.php/v3/yN/r/j-QTXcNyQBK.png"); ?>
                         <?php $loadAbout->overview('college',$userid,$profileId,'Add a college',"https://static.xx.fbcdn.net/rsrc.php/v3/yN/r/j-QTXcNyQBK.png"); ?>
                         <?php $loadAbout->overview('current_city',$userid,$profileId,'Add current city',"https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/poZ_P5BwYaV.png"); ?>
                         <?php $loadAbout->overview('hometown',$userid,$profileId,'Add hometown',"https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/poZ_P5BwYaV.png"); ?>
-                        <?php $loadAbout->getAboutPhone('mobile',$userid,$profileId,'add a phone number',"https://www.facebook.com/rsrc.php/v3/yI/r/lzvufuLgbzd.png"); ?>
+                        <?php $loadAbout->getAboutPhone('mobile',$userid,$profileId,'add a phone number',"https://www.facebook.com/rsrc.php/v3/yI/r/lzvufuLgbzd.png","Mobile"); ?>
 
                     </div>
+                    <?php } ?>
+                    <?php if(isset($_GET['sk']) && $_GET['sk']=="about_work_and_education") { ?>
+                    <div class="overview_menu">
+                        <div class="workeduc_menu">
+                            <h4>Work</h4>
+                            <?php $loadAbout->overview('workplace',$userid,$profileId,'Add a workplace',"https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/Bo7x4xsiTje.png"); ?>
+                            <h4 style="margin-top:40px">College</h4>
+                            <?php $loadAbout->overview('high_school',$userid,$profileId,'Add a high school',"https://static.xx.fbcdn.net/rsrc.php/v3/yN/r/j-QTXcNyQBK.png"); ?>
+                            <h4 style="margin-top:40px">High School</h3>
+                                <?php $loadAbout->overview('college',$userid,$profileId,'Add a college',"https://static.xx.fbcdn.net/rsrc.php/v3/yN/r/j-QTXcNyQBK.png"); ?>
+
+                        </div>
+
+                    </div>
+                    <?php } ?>
+                    <?php if(isset($_GET['sk']) && $_GET['sk']=="about_places") { ?>
+                    <div class="overview_menu">
+                        <h4>Places Lived</h4>
+                        <div class="about_places_menu">
+                            <?php $loadAbout->overview('current_city',$userid,$profileId,'Add current city',"https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/Bo7x4xsiTje.png"); ?>
+                            <?php $loadAbout->overview('hometown',$userid,$profileId,'Add hometown',"https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/poZ_P5BwYaV.png"); ?>
+                            <?php $loadAbout->overview('city',$userid,$profileId,'Add city',"https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/Bo7x4xsiTje.png"); ?>
+
+                        </div>
+
+                    </div>
+                    <?php } ?>
+                    <?php if(isset($_GET['sk']) && $_GET['sk']=="about_contact_and_basic_info") { ?>
+                    <div class="overview_menu">
+                        <div class="contact_menu_a">
+                            <h4>Contact Info
+                            </h4>
+                            <?php $loadAbout->overview('address',$userid,$profileId,'Add your address',"https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/poZ_P5BwYaV.png"); ?>
+                            <?php $loadAbout->getAboutPhone('mobile',$userid,$profileId,'add a phone number',"https://www.facebook.com/rsrc.php/v3/yI/r/lzvufuLgbzd.png","Mobile"); ?>
+                            <?php $loadAbout->getAboutPhone('email',$userid,$profileId,'Add an email',"https://www.facebook.com/rsrc.php/v3/yk/r/9p_UfjPVxUp.png","Email"); ?>
+                            <h4>Websites and Social Links</h4>
+                            <?php $loadAbout->overview('website',$userid,$profileId,'Add a website',"https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/lDkqhYEMOUY.png"); ?>
+                            <?php $loadAbout->SocialLink('instagram',$userid,$profileId,'add an instagram',"https://static.xx.fbcdn.net/rsrc.php/v3/yZ/r/7B_R5-33_c3.png"); ?>
+
+                        </div>
+
+                    </div>
+                    <?php } ?>
+
 
                     <div class="about_menu_data">
 
@@ -320,6 +373,9 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
     <script src="assets/dist/emojionearea.js"></script>
     <script>
     $(function() {
+
+
+
         $(document).on('change', '#upload_btn', function() {
 
             var name = $('#upload_btn').val().split('\\').pop();

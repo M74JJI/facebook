@@ -1,4 +1,4 @@
-$(document).ready(function () {
+/*$(document).ready(function () {
     $(document).on('click', '.workeducation_link', function () {
         console.log('clicked--------------------------***');
         $('.about_menu_data').empty();
@@ -61,3 +61,4 @@ $(document).ready(function () {
         );
     });
 });
+ */
