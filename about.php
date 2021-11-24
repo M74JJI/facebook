@@ -234,8 +234,8 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     } ?>
             <div class="profile_menu">
                 <div class="menu">
-                    <div class="menu_item1 active_menu_item">Posts</div>
-                    <div class="menu_item1">About</div>
+                    <div class="menu_item1">Posts</div>
+                    <div class="menu_item1 active_menu_item">About</div>
                     <div class="menu_item1 hidein_sm">Friends</div>
                     <div class="menu_item1">Photos</div>
                     <div class="menu_item1 hidein_sm">Story Archive</div>
@@ -301,7 +301,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 <div class="about_overview_filled">
                     <?php if(!isset($_GET['sk'])) { ?>
                     <div class="overview_menu">
-                        <?php $loadAbout->overview('workplace',$userid,$profileId,'Add a workplace',"https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/Bo7x4xsiTje.png"); ?>
+                        <?php $loadAbout->checkWorkplace('workplace_company',$userid,$profileId); ?>
                         <?php $loadAbout->overview('high_school',$userid,$profileId,'Add a high school',"https://static.xx.fbcdn.net/rsrc.php/v3/yN/r/j-QTXcNyQBK.png"); ?>
                         <?php $loadAbout->overview('college',$userid,$profileId,'Add a college',"https://static.xx.fbcdn.net/rsrc.php/v3/yN/r/j-QTXcNyQBK.png"); ?>
                         <?php $loadAbout->overview('current_city',$userid,$profileId,'Add current city',"https://static.xx.fbcdn.net/rsrc.php/v3/ym/r/N_tq7yNW9DG.png"); ?>

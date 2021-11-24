@@ -18,6 +18,7 @@ class About extends User{
         
 
     }
+  
     public function WorkEducation($section,$userid,$profileid,$text,$icon,$heading){
         $userInfos=$this->getUserInfo($profileid);
         echo (($userid != $profileid)
@@ -96,6 +97,21 @@ class About extends User{
         : (($userInfos->$section == '') 
         ? '<div class="about-'.$section.' about_flex" data-userid="'.$userid.'" data-profileid="'.$profileid.'"><div class="add_about_icon"></div><div>'.$text.'</div></div>'
          : '<a target="_blank" href="https://www.'.$section.'.com/'.$userInfos->$section.'" class="add-'.$section.' about-flex" data-userid="'.$userid.'" data-profileid="'.$profileid.'"><img src="'.$icon.'" style="margin-right:7px" alt=""><div style="display:flex;flex-direction:column"><span class="about_show">'.$userInfos->$section.'</span> <span style="font-size:12px">'.$section.'</span></div></a>'));
+
+        
+
+         
+    }
+
+
+    //advance shit 
+    public function checkWorkplace($section,$userid,$profileid){
+        $userInfos=$this->getUserInfo($profileid);
+        echo (($userid != $profileid)
+         ? '<span class="about_show">'.$userInfos->$section.'</span>'
+        : (($userInfos->$section == '') 
+        ? '<div class="about-'.$section.' about_flex" data-userid="'.$userid.'" data-profileid="'.$profileid.'"><div class="add_about_icon"></div><div>Add a workplace</div></div>'
+         : '<div class="about-'.$section.' about-flex" data-userid="'.$userid.'" data-profileid="'.$profileid.'"><img src="https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/Bo7x4xsiTje.png" alt="">Works '.(($userInfos->workplace_position) != '' ? "as <span style='font-weight:600; transform:translateY(1px)'>$userInfos->workplace_position</span>" : null).'<span> at </span><span class="about_show" style="font-weight:600; transform:translateY(1px)">'.$userInfos->$section.'</span>'.(($userInfos->workplace_city) != '' ? "in <span style='font-weight:600; transform:translateY(1px)'>$userInfos->workplace_city</span>" : null).'</div>'));
 
         
 

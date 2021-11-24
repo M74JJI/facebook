@@ -1,45 +1,68 @@
-<div
-    style="
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: flex;
-        flex-direction: column;
-        border-radius: 10px;
-        padding: 10px 15px;
-        overflow-y: auto;
-        box-shadow: 0 8px 32px 0 rgba(173, 174, 182, 0.17);
-        width: 500px;
-        min-height: 420px;
-        max-height: 620px;
-        background-color: #fff;
-    "
->
-    <div class="post_box_header">
-        <h3>Share Post</h3>
-        <div class="header_icon" id="close_share">
-            <i class="fa-solid fa-xmark"></i>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="assets/css/about_forms.css" />
+    </head>
+    <body>
+        <div
+            class="about_workplace_form"
+            data-userid="'+userid+'"
+            data-profileid="'+profileid+'"
+        >
+            <input
+                type="text"
+                class="about_input_company about_input"
+                placeholder="Company"
+            />
+            <input
+                type="text"
+                class="about_input_company about_input"
+                placeholder="Position"
+            />
+            <input
+                type="text"
+                class="about_input_company about_input"
+                placeholder="City/Town"
+            />
+            <textarea
+                class="about_input_company about_input"
+                placeholder="Description"
+                style="
+                    height: 130px;
+                    padding-top: 1rem;
+                    resize: none;
+                    font-family: inherit;
+                "
+            ></textarea>
+            <span class="time_period">Time Period </span>
+            <div class="time_period">
+                <input type="checkbox" name="work" checked />I currently work
+                here
+            </div>
+            <div class="work_date">
+                From
+                <select name="year" id="years">
+                    <option>Year</option>
+                </select>
+            </div>
+            <div class="border"></div>
+            <div class="privacy_about_submit">
+                <div class="public_privacy_icon">
+                    <img
+                        src="https://www.facebook.com/rsrc.php/v3/yR/r/ZwEccUSRMY2.png"
+                        alt=""
+                    />
+                    Public
+                </div>
+                <div class="save_cacnel">
+                    <button>Cancel</button>
+                    <button>Save</button>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="share_box_field">
-        <textarea
-            class="share_text"
-            autofocus
-            style="resize: none"
-            placeholder="Whats on your mind ? mohamed"
-        ></textarea>
-    </div>
-    ' + nf_1 + '' + nf_2 + '<button
-        data-postid="' + postid + '"
-        data-userid="' + userid +
-                        '"
-        data-profilepic="' + profilepic + '"
-        data-profileid="' + profileid +
-                        '"
-        class="post_button post-share"
-        id="post-share"
-    >
-        Share
-    </button>
-</div>
+    </body>
+</html>
