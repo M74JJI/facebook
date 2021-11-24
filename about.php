@@ -278,11 +278,17 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                 class="<?php if(isset($_GET['sk']) and $_GET['sk']=="about_contact_and_basic_info") { echo "active_about_link";} ?>">Contact
                                 and Basic Info</a>
                         </li>
-                        <li data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId ?>">
-                            <a href="#">Familly and Relationships</a>
+                        <li class="<?php if(isset($_GET['sk']) and $_GET['sk']=="about_family_and_relationships") { echo "active_about_link";} ?>"
+                            data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId ?>">
+                            <a href="<?php echo BASE_URL."about.php?id=$userInfo->link&sk=about_family_and_relationships"?>"
+                                class="<?php if(isset($_GET['sk']) and $_GET['sk']=="about_family_and_relationships") { echo "active_about_link";} ?>">Familly
+                                and Relationships</a>
                         </li>
-                        <li data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId ?>">
-                            <a href="#">Details About You</a>
+                        <li class="<?php if(isset($_GET['sk']) and $_GET['sk']=="about_details") { echo "active_about_link";} ?>"
+                            data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId ?>">
+                            <a href="<?php echo BASE_URL."about.php?id=$userInfo->link&sk=about_details"?>"
+                                class="<?php if(isset($_GET['sk']) and $_GET['sk']=="about_details") { echo "active_about_link";} ?>">Details
+                                About You</a>
                         </li>
                         <li data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId ?>">
                             <a href="#">Life Events</a>
@@ -295,7 +301,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                         <?php $loadAbout->overview('workplace',$userid,$profileId,'Add a workplace',"https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/Bo7x4xsiTje.png"); ?>
                         <?php $loadAbout->overview('high_school',$userid,$profileId,'Add a high school',"https://static.xx.fbcdn.net/rsrc.php/v3/yN/r/j-QTXcNyQBK.png"); ?>
                         <?php $loadAbout->overview('college',$userid,$profileId,'Add a college',"https://static.xx.fbcdn.net/rsrc.php/v3/yN/r/j-QTXcNyQBK.png"); ?>
-                        <?php $loadAbout->overview('current_city',$userid,$profileId,'Add current city',"https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/poZ_P5BwYaV.png"); ?>
+                        <?php $loadAbout->overview('current_city',$userid,$profileId,'Add current city',"https://static.xx.fbcdn.net/rsrc.php/v3/ym/r/N_tq7yNW9DG.png"); ?>
                         <?php $loadAbout->overview('hometown',$userid,$profileId,'Add hometown',"https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/poZ_P5BwYaV.png"); ?>
                         <?php $loadAbout->getAboutPhone('mobile',$userid,$profileId,'add a phone number',"https://www.facebook.com/rsrc.php/v3/yI/r/lzvufuLgbzd.png","Mobile"); ?>
 
@@ -319,9 +325,9 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     <div class="overview_menu">
                         <h4>Places Lived</h4>
                         <div class="about_places_menu">
-                            <?php $loadAbout->overview('current_city',$userid,$profileId,'Add current city',"https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/Bo7x4xsiTje.png"); ?>
+                            <?php $loadAbout->overview('current_city',$userid,$profileId,'Add current city',"https://static.xx.fbcdn.net/rsrc.php/v3/ym/r/N_tq7yNW9DG.png"); ?>
                             <?php $loadAbout->overview('hometown',$userid,$profileId,'Add hometown',"https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/poZ_P5BwYaV.png"); ?>
-                            <?php $loadAbout->overview('city',$userid,$profileId,'Add city',"https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/Bo7x4xsiTje.png"); ?>
+                            <?php $loadAbout->overview('city',$userid,$profileId,'Add city',"https://static.xx.fbcdn.net/rsrc.php/v3/ym/r/N_tq7yNW9DG.png"); ?>
 
                         </div>
 
@@ -338,6 +344,47 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                             <h4>Websites and Social Links</h4>
                             <?php $loadAbout->overview('website',$userid,$profileId,'Add a website',"https://static.xx.fbcdn.net/rsrc.php/v3/yk/r/lDkqhYEMOUY.png"); ?>
                             <?php $loadAbout->SocialLink('instagram',$userid,$profileId,'add an instagram',"https://static.xx.fbcdn.net/rsrc.php/v3/yZ/r/7B_R5-33_c3.png"); ?>
+                            <h4>Basic Info</h4>
+                            <?php $loadAbout->overview('language',$userid,$profileId,'Add a language',"https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/f_5-SSwzHdN.png"); ?>
+                            <?php $loadAbout->overview('religion_views',$userid,$profileId,'Add your religious views',"https://static.xx.fbcdn.net/rsrc.php/v3/yQ/r/kEhe5O2Gz1A.png"); ?>
+                            <?php $loadAbout->overview('political_views',$userid,$profileId,'Add your political views',"https://static.xx.fbcdn.net/rsrc.php/v3/yb/r/WPxp9XyEgJw.png"); ?>
+                            <?php $loadAbout->overview('intrestedAt',$userid,$profileId,"Add who you're intrested at","https://static.xx.fbcdn.net/rsrc.php/v3/y2/r/HfPKVWFQhA2.png"); ?>
+
+                            <?php $loadAbout->getGender('gender',$userid,$profileId,'Add your gender',"Gender"); ?>
+                            <?php $loadAbout->getBirthday('birthday',$userid,$profileId,'Add birthday',"https://www.facebook.com/rsrc.php/v3/yB/r/ODICuZSjkMe.png","Birth date"); ?>
+                            <?php $loadAbout->getBirthYear('birthday',$userid,$profileId,'Add birthday year',"","Birth year"); ?>
+                        </div>
+
+                    </div>
+                    <?php } ?>
+                    <?php if(isset($_GET['sk']) && $_GET['sk']=="about_family_and_relationships") { ?>
+                    <div class="overview_menu">
+                        <div class="contact_menu_a">
+                            <h4>Relationship</h4>
+                            <?php $loadAbout->overview('relationship',$userid,$profileId,'Add a relationship status',"https://static.xx.fbcdn.net/rsrc.php/v3/yg/r/qm5n1WSqkVV.png"); ?>
+                            <h4>Family Members
+                            </h4>
+                            <?php $loadAbout->overview('familly',$userid,$profileId,'Add a familly member',"https://static.xx.fbcdn.net/rsrc.php/v3/y8/r/2g9_2GO5Jjy.png"); ?>
+
+                        </div>
+
+                    </div>
+                    <?php } ?>
+                    <?php if(isset($_GET['sk']) && $_GET['sk']=="about_details") { ?>
+                    <div class="overview_menu">
+                        <div class="contact_menu_a">
+                            <h4>About You
+                            </h4>
+                            <?php $loadAbout->overview('aboutYou',$userid,$profileId,'Write some details about yourself',"https://static.xx.fbcdn.net/rsrc.php/v3/yp/r/G3O_YCZDC0c.png"); ?>
+                            <h4>Name Pronunciation
+                            </h4>
+                            <?php $loadAbout->overview('pronunciation',$userid,$profileId,'Add a name pronunciation',"https://static.xx.fbcdn.net/rsrc.php/v3/yT/r/rNA5eQ0wL07.png"); ?>
+                            <h4>Other Names
+                            </h4>
+                            <?php $loadAbout->overview('othername',$userid,$profileId,'Add a name pronunciation',"https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/rS6cU_2DjwE.png"); ?>
+                            <h4>Favorite Quotes
+                            </h4>
+                            <?php $loadAbout->overview('othername',$userid,$profileId,'Add your favorite quotations',"https://static.xx.fbcdn.net/rsrc.php/v3/yS/r/rS6cU_2DjwE.png"); ?>
 
                         </div>
 
