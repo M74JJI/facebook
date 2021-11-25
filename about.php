@@ -436,9 +436,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             <div class="friends_section">
                 <div class="f_section">
                     <h3>Friends</h3>
-                    <div class="f_points">
-                        <i class="fa-solid fa-ellipsis" style="color:#9ea0a4"></i>
-                    </div>
+
                 </div>
                 <div class="f_menu">
                     <a class="f_active">All Friends</a>
@@ -1196,6 +1194,30 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             }, function(data) {})
 
         })
+        $(document).on('click', '.add_friend_sec', function() {
+            var userid = $(this).data('userid');
+            var profileid = $(this).data('profileid');
+            $(this).removeClass().addClass('cancel_friend_sec');
+            $(this).text('Cancel Request');
+
+            $.post('http://localhost/facebook/core/ajax/request.php', {
+                request: profileid,
+                userid: userid,
+            }, function(data) {})
+
+        })
+        $(document).on('click', '.profile_add_friend1', function() {
+            var userid = $(this).data('userid');
+            var profileid = $(this).data('profileid');
+            $(this).removeClass().addClass('cancel_request_btn1');
+            $(this).text('Cancel Request');
+
+            $.post('http://localhost/facebook/core/ajax/request.php', {
+                request: profileid,
+                userid: userid,
+            }, function(data) {})
+
+        })
         //-----confirm request
         $(document).on('click', '.confirm_request', function() {
             var userid = $(this).data('userid');
@@ -1208,6 +1230,20 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             $('.follow_btn').removeClass().addClass('unfollow_btn');
             $('.unfollow_btn').find('.follow_btn_text').text(
                 'Following');
+            $.post('http://localhost/facebook/core/ajax/request.php', {
+                Confirmrequest: profileid,
+                userid: userid,
+            }, function(data) {})
+
+
+        })
+        $(document).on('click', '.confirm_request_alt1', function() {
+            var userid = $(this).data('userid');
+            var profileid = $(this).data('profileid');
+            var parent = $(this).parents('.confirm_requests');
+            $(this).parents('.confirm_requests').empty().hide()
+
+
             $.post('http://localhost/facebook/core/ajax/request.php', {
                 Confirmrequest: profileid,
                 userid: userid,
@@ -1248,6 +1284,18 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 userid: userid,
             }, function(data) {})
         })
+        $(document).on('click', '.cancel_request_btn1', function() {
+            var userid = $(this).data('userid');
+            var profileid = $(this).data('profileid');
+            $(this).find('.profile_add_friend_text').text('Add Friend');
+            $(this).removeClass().addClass('profile_add_friend1');
+
+
+            $.post('http://localhost/facebook/core/ajax/request.php', {
+                Cancelrequest: profileid,
+                userid: userid,
+            }, function(data) {})
+        })
         //-----delete request
 
 
@@ -1266,6 +1314,18 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             $('.unfollow_btn').removeClass().addClass('follow_btn');
             $('.follow_btn').find('.follow_btn_text').text(
                 'Follow');
+            $.post('http://localhost/facebook/core/ajax/request.php', {
+                deleteRequest: profileid,
+                userid: userid,
+            }, function(data) {})
+        })
+        $(document).on('click', '.delete_request_alt1', function() {
+            var userid = $(this).data('userid');
+            var profileid = $(this).data('profileid');
+            var parent = $(this).parents('.confirm_requests').empty().html(
+                '<div class="profile_add_friend1" data-userid="' + userid + '" data-profileid="' +
+                profileid + '"><div class = "profile_add_friend_text" > Add Friend </div></div>');
+
             $.post('http://localhost/facebook/core/ajax/request.php', {
                 deleteRequest: profileid,
                 userid: userid,

@@ -9,8 +9,9 @@ class About extends User{
 
     public function overview($section,$userid,$profileid,$text,$icon){
         $userInfos=$this->getUserInfo($profileid);
+        $length=strlen($userInfos->$section);
         echo (($userid != $profileid)
-         ? '<span class="about_show">'.$userInfos->$section.'</span>'
+         ? '<span  class="about_show" style='.(($length==0) ?'display:none':'').'>'.$userInfos->$section.'</span>'
         : (($userInfos->$section == '') 
         ? '<div class="about-'.$section.' about_flex" data-userid="'.$userid.'" data-profileid="'.$profileid.'"><div class="add_about_icon"></div><div>'.$text.'</div></div>'
          : '<div class="about-'.$section.' about-flex" data-userid="'.$userid.'" data-profileid="'.$profileid.'"><img src="'.$icon.'" alt=""><span class="about_show">'.$userInfos->$section.'</span></div>'));
@@ -34,7 +35,10 @@ class About extends User{
     public function getAboutPhone($section,$userid,$profileid,$text,$icon,$type){
         $userInfos=$this->getUserInfo($profileid);
         echo (($userid != $profileid)
-         ? '<span class="about_show">'.$userInfos->$section.'</span>'
+         ? '<div class="about-'.$section.' about-flex" data-userid="'.$userid.'" data-profileid="'.$profileid.'" style="display:flex;align-items:center;"><img style="width:25px;height:25px;margin-right:10px" src="'.$icon.'" alt=""><div style="display:flex;flex-direction:column;width:100%; font-family:"Segoe UI", Helvetica, Arial, sans-serif;
+         "><span class="about_show" style="font-size:15px">'.$userInfos->$section.'</span><span style="font-size:12px; color:#65676b;margin-top:10px">'.$type.'</span></div>
+       <div class="flexit"> 
+       </div></div>'
         : (($userInfos->$section == '') 
         ? '<div class="about-'.$section.' about_flex" data-userid="'.$userid.'" data-profileid="'.$profileid.'"><div class="add_about_icon"></div><div>'.$text.'</div></div>'
          : '<div class="about-'.$section.' about-flex" data-userid="'.$userid.'" data-profileid="'.$profileid.'" style="display:flex;align-items:center;"><img style="width:25px;height:25px;margin-right:10px" src="'.$icon.'" alt=""><div style="display:flex;flex-direction:column;width:100%; font-family:"Segoe UI", Helvetica, Arial, sans-serif;
@@ -108,7 +112,7 @@ class About extends User{
     public function checkWorkplace($section,$userid,$profileid){
         $userInfos=$this->getUserInfo($profileid);
         echo (($userid != $profileid)
-         ? '<span class="about_show">'.$userInfos->$section.'</span>'
+         ? '<div class="about-'.$section.' about-flex" data-userid="'.$userid.'" data-profileid="'.$profileid.'"><img src="https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/Bo7x4xsiTje.png" alt="">Works '.(($userInfos->workplace_position) != '' ? "as <span style='font-weight:600; transform:translateY(1px)'>$userInfos->workplace_position</span>" : null).'<span> at </span><span class="about_show" style="font-weight:600; transform:translateY(1px)">'.$userInfos->$section.'</span>'.(($userInfos->workplace_city) != '' ? "in <span style='font-weight:600; transform:translateY(1px)'>$userInfos->workplace_city</span>" : null).'</div>'
         : (($userInfos->$section == '') 
         ? '<div class="about-'.$section.' about_flex" data-userid="'.$userid.'" data-profileid="'.$profileid.'"><div class="add_about_icon"></div><div>Add a workplace</div></div>'
          : '<div class="about-'.$section.' about-flex" data-userid="'.$userid.'" data-profileid="'.$profileid.'"><img src="https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/Bo7x4xsiTje.png" alt="">Works '.(($userInfos->workplace_position) != '' ? "as <span style='font-weight:600; transform:translateY(1px)'>$userInfos->workplace_position</span>" : null).'<span> at </span><span class="about_show" style="font-weight:600; transform:translateY(1px)">'.$userInfos->$section.'</span>'.(($userInfos->workplace_city) != '' ? "in <span style='font-weight:600; transform:translateY(1px)'>$userInfos->workplace_city</span>" : null).'</div>'));

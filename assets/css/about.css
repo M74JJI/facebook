@@ -337,6 +337,10 @@ a {
 .f_popup_area:hover {
     background-color: #e4e6eb;
 }
+.breakthat {
+    word-break: break-all;
+    width: 170px;
+}
 .lkher {
     background-image: url('https://www.facebook.com/rsrc.php/v3/yY/r/zV-ALry-68f.png');
     background-position: 0px -126px;
@@ -345,4 +349,58 @@ a {
     height: 20px;
     background-repeat: no-repeat;
     display: inline-block;
+}
+.add_friend_sec {
+    margin-left: 30px;
+    border: none;
+    outline: none;
+    background: #1b74e4;
+    padding: 11px 11px;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 7px;
+}
+.cancel_friend_sec {
+    margin-left: 30px;
+    border: none;
+    outline: none;
+    background: #e7f3ff;
+    padding: 11px 11px;
+    color: #1877f2;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 7px;
+}
+.profile_add_friend1 {
+    display: flex;
+    background: #1b74e4;
+    padding: 10px 15px;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 7px;
+}
+.cancel_request_btn1 {
+    display: flex;
+    background: #e7f3ff;
+    padding: 10px 5px;
+    color: #1b74e4;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 7px;
+}
+.profile_confirm_friend1 {
+    display: flex;
+    background: #e7f3ff;
+    padding: 10px 15px;
+    color: #1b74e4;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 7px;
 }

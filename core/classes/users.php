@@ -1,4 +1,5 @@
 <?php
+
 class User{
     protected $pdo;
     function __construct($pdo) {
@@ -260,13 +261,13 @@ class User{
           $statement->bindParam(':userid',$userid,PDO::PARAM_INT);
           $statement->execute();
           $friends= $statement->fetchAll(PDO::FETCH_OBJ);
-                 var_dump($friends);
+           
          foreach($friends as $friend){?>
 <div class="f_card">
     <a href="<?php echo $friend->link ?>"><img class="img" src="<?php echo $friend->profile_picture ?>" alt=""></a>
     <div class="f_crad_col">
         <span><?php echo $friend->first_name.' '.$friend->last_name ?></span>
-        <span>
+        <span class="breakthat" style="font-size:13px">
             <?php 
             
             if($friend->current_city!='' && $friend->country !=''){
@@ -283,29 +284,67 @@ class User{
 
         <span><?php if($friend->user_id == $you){ echo '(You)'; } ?></span>
     </div>
-    <div class="f_33"><i class="fa-solid fa-ellipsis"></i></div>
-    <div class="f_popup" data-userid="<?php echo $userid?>" data-profileid="<?php echo $friend->user_id ?>">
-        <div class="motalatbyad">
+
+    <?php 
+   
+      $requestCheck=$this->requestCheck($you,$friend->user_id);
+      $requestConfirm=$this->requestConfirm($friend->user_id,$you);
+      ?>
+
+    <?php if($friend->user_id  == $you){ ?>
+
+    <?php }else{ ?>
+    <!------------------------------>
+    <div class="request_wrap">
+        <?php if(empty($requestCheck)){
+                        if(empty($requestConfirm)){ ?>
+        <div class="profile_add_friend1" data-userid="<?php echo $you ?>"
+            data-profileid="<?php echo $friend->user_id  ?>">
+
+            <div class="profile_add_friend_text">Add Friend</div>
         </div>
-        <div class="f_popup_area">
-            <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yU/r/oIIZ26adGMr.png" alt="">
-            <span>Favorites</span>
-        </div>
-        <div class="f_popup_area">
-            <img src="https://static.xx.fbcdn.net/rsrc.php/v3/y_/r/y302a2iLPfV.png" alt="">
-            <span> Edit Friend List</span>
-        </div>
-        <div class="f_popup_area">
-            <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yI/r/bnvx9uLOEsq.png" alt="">
-            <span> Unfollow</span>
-        </div>
-        <div class="f_popup_area" id="unfriendo">
-            <i class="lkher">
-            </i>
-            <span>Unfriend</span>
+        <?php
+                        }else if($requestConfirm->requestStatus=='0'){ ?>
+        <div style="position: relative;" class="confirm_requests">
+            <div class="profile_confirm_friend1" id="show_popup_respond">
+
+                <div class="profile_add_friend_text">Respond</div>
+            </div>
+            <div class="confirm_request_popup" id="confirm_request_popup">
+                <div class="confirm_request_alt1" data-userid="<?php echo $you ?>"
+                    data-profileid="<?php echo $friend->user_id  ?>">Confirm</div>
+                <div class="delete_request_alt1" data-userid="<?php echo $you ?>"
+                    data-profileid="<?php echo $friend->user_id  ?>">Delete</div>
+            </div>
         </div>
 
+
+        <?php
+                        }else if($requestConfirm->requestStatus=='1'){
+
+    
+                        }else{
+
+                            
+                        }
+                    }else if($requestCheck->requestStatus =='0'){?>
+
+        <div class="cancel_request_btn1" data-userid="<?php echo $you ?>"
+            data-profileid="<?php echo $friend->user_id ?>">
+
+            <div class="profile_add_friend_text">Cancel Request</div>
+        </div>
+        <?php 
+                    }else if($requestCheck->requestStatus =='1'){ 
+       
+      }else{} ?>
+
+
     </div>
+    <!------------------------------>
+
+    <?php } ?>
+
 
 
 
@@ -316,8 +355,33 @@ class User{
 
 
 
-                        }
 
+                        }
+                        
+                        public function CheckIfFriend($profileId,$userid){
+                            $statement=$this->pdo->prepare("
+                            SELECT count(*) as total FROM friendrequest WHERE friendrequest.requestReceiver=:profileid AND friendrequest.requestSender=:userid AND friendrequest.requestStatus='1' OR friendrequest.requestReceiver=:userid AND friendrequest.requestSender=:profileid AND friendrequest.requestStatus='1'");
+                            $statement->bindParam(':profileid',$profileId,PDO::PARAM_INT);
+                            $statement->bindParam(':userid',$userid,PDO::PARAM_INT);
+                            $statement->execute();
+                            return $statement->fetch(PDO::FETCH_OBJ);
+                            
+                            
+                        }
+                        public function requestCheck($userid,$profileId){
+                            $statement = $this->pdo->prepare("SELECT * FROM friendrequest WHERE requestReceiver=:profileid AND requestSender=:userid");
+                             $statement->bindValue(':userid',$userid,PDO::PARAM_STR);
+                             $statement->bindValue(':profileid',$profileId,PDO::PARAM_STR);
+                             $statement->execute();
+                             return $statement->fetch(PDO::FETCH_OBJ);
+                        }
+                        public function requestConfirm($profileId,$userid){
+                            $statement = $this->pdo->prepare("SELECT * FROM friendrequest WHERE requestReceiver =:userid AND requestSender=:profileid");
+                             $statement->bindValue(':userid',$userid,PDO::PARAM_STR);
+                             $statement->bindValue(':profileid',$profileId,PDO::PARAM_STR);
+                             $statement->execute();
+                             return $statement->fetch(PDO::FETCH_OBJ);
+                        }
 
 
 
