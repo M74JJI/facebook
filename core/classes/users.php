@@ -128,6 +128,13 @@ class User{
           $statement->execute();
           return $statement->fetch(PDO::FETCH_OBJ);
         }
+        public function friends_total($userid){
+    
+          $statement = $this->pdo->prepare("SELECT count(*) as total FROM friendrequest WHERE requestStatus='1' AND requestReceiver=:userid ");
+          $statement->bindParam(':userid',$userid,PDO::PARAM_INT);
+          $statement->execute();
+          return $statement->fetch(PDO::FETCH_OBJ);
+        }
         public function getFriendsRequests($userid){
           $statement = $this->pdo->prepare("SELECT * FROM friendrequest WHERE requestStatus='0' AND requestReceiver=:userid ");
           $statement->bindParam(':userid',$userid,PDO::PARAM_INT);
@@ -156,10 +163,12 @@ class User{
           foreach($friend_requests as $req){
                $id= $req->requestSender;
                 $infos=$this->getUserInfo($id); ?>
-<div class="req_alt_card" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $infos->user_id; ?>"> <img
-        src="<?php echo BASE_URL.$infos->profile_picture ?>" alt="">
+<div class="req_alt_card" data-userid="<?php echo $userid; ?>" data-profileid="<?php echo $infos->user_id; ?>"><a
+        href="<?php echo BASE_URL.'friends/profile.php?id='.$infos->link ?>"> <img
+            src="<?php echo BASE_URL.$infos->profile_picture ?>" alt=""></img></a>
     <div class="req_flexcol">
-        <div class="req_n"><?php echo $infos->first_name.' '.$infos->last_name ?></div>
+        <a href="<?php echo BASE_URL.'friends/profile.php?id='.$infos->link ?>"
+            class="req_n"><?php echo $infos->first_name.' '.$infos->last_name ?></a>
         <div class="req_btnss"> <button class="accept_req">Confirm</button> <button class="delete_req">Delete</button>
         </div>
     </div>
@@ -167,6 +176,14 @@ class User{
 
 <?php
                         }
+
+                        }
+        public function getAllFriends($userid){
+          $statement = $this->pdo->prepare("SELECT * FROM friendrequest LEFT JOIN profile ON friendrequest.requestSender = profile.user_id RIGHT JOIN users ON friendrequest.requestSender = users.id  WHERE requestStatus='1' AND requestReceiver=:userid ");
+          $statement->bindParam(':userid',$userid,PDO::PARAM_INT);
+          $statement->execute();
+          return $statement->fetchAll(PDO::FETCH_OBJ);
+                 
 
                         }
                     }

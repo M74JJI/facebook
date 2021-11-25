@@ -1,9 +1,26 @@
-.friends_holder {
+.friends_holder1 {
     display: grid;
+    overflow-x: hidden;
 }
 @media (min-width: 968px) {
     .friends_holder {
         grid-template-columns: 1.1fr 5fr;
+    }
+    .friends_left {
+        position: fixed;
+        width: 350px;
+        height: 95vh;
+        overflow-y: auto;
+    }
+    .friends_right {
+        margin-left: 377px;
+        width: 80vw;
+        overflow-x: hidden;
+    }
+}
+@media (min-width: 1968px) {
+    .friends_right {
+        width: 100vw;
     }
 }
 .friends_left {
@@ -13,6 +30,7 @@
     border-right: 1px solid #eee;
     display: flex;
     flex-direction: column;
+    z-index: 12;
 }
 .friends_left ul li {
     margin-bottom: 3px;
@@ -182,6 +200,7 @@ ul {
     flex-wrap: wrap;
     gap: 6px;
     margin-top: 1rem;
+    width: 100%;
 }
 /*-------------Request friend crad*/
 .fri_req_card {
@@ -349,4 +368,56 @@ ul {
 .req_n {
     font-weight: 600;
     font-size: 15px;
+}
+a {
+    color: #111;
+}
+.friend_lii {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    gap: 10px;
+    position: relative;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: -3333;
+}
+.friend_lii:hover {
+    background: #f0f2f5;
+}
+
+.friend_lii img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 7px;
+}
+.friend_lii .spann {
+    font-weight: 600;
+    font-size: 14px;
+}
+.points3 {
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    right: 0.2rem;
+    top: 1.5rem;
+}
+.points3:hover {
+    background: #c5c6c7ab;
+}
+.point_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/duZWR9u2KSw.png');
+    background-position: -102px -153px;
+    background-size: auto;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    display: inline-block;
 }

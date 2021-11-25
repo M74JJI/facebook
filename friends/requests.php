@@ -224,7 +224,7 @@ if(login::isLoggedIn()){
 
 <body>
 
-    <div class="friends_holder">
+    <div class="friends_holder1">
         <div class="friends_left">
             <div class="friends_settings reqeta">
                 <a href="<?php echo BASE_URL.'friends' ?>" class="backb">
@@ -253,7 +253,7 @@ if(login::isLoggedIn()){
                     alt="">
                 <span class="some_fuxking_text">Select people's names to preview their profile.</span>
             </div>
-            <div class="profile_preview"></div>
+
         </div>
 
     </div>
@@ -287,10 +287,11 @@ if(login::isLoggedIn()){
 
     })
     //----------------Accepting Request------------------
+
     $(document).on('click', '.accept_req', function() {
-        var userid = $(this).parents('.fri_req_card').data('userid');
-        var profileid = $(this).parents('.fri_req_card').data('profileid');
-        $(this).parents('.fri_req_card').empty().hide();
+        var userid = $(this).parents('.req_alt_card').data('userid');
+        var profileid = $(this).parents('.req_alt_card').data('profileid');
+        $(this).parents('.req_alt_card').empty().hide();
         console.log(userid)
         console.log(profileid)
         $.post('http://localhost/facebook/core/ajax/request.php', {
@@ -301,9 +302,9 @@ if(login::isLoggedIn()){
 
     })
     $(document).on('click', '.delete_req', function() {
-        var userid = $(this).parents('.fri_req_card').data('userid');
-        var profileid = $(this).parents('.fri_req_card').data('profileid');
-        $(this).parents('.fri_req_card').empty().hide();
+        var userid = $(this).parents('.req_alt_card').data('userid');
+        var profileid = $(this).parents('.req_alt_card').data('profileid');
+        $(this).parents('.req_alt_card').empty().hide();
         $.post('http://localhost/facebook/core/ajax/request.php', {
             deleteRequest: profileid,
             userid: userid,
@@ -348,7 +349,7 @@ if(login::isLoggedIn()){
     $(document).on('click', '.req_alt_card', function() {
         var profileid = $(this).data('profileid');
         $('.center_bitch').empty().hide();
-        $('.profile_preview').empty().html();
+        $('.profile_preview').empty().html('');
     })
     //Preview Profiles------------------------------------------------
     </script>

@@ -9,7 +9,8 @@ if(login::isLoggedIn()){
  }
  
  $userInfo = $loadUser->getUserInfo($userid);
- $friends_requests_Total=$loadUser->getFriendsRequestsTotal($userid);
+ $friends_total=$loadUser->friends_total($userid);
+
 
 
 
@@ -95,7 +96,7 @@ if(login::isLoggedIn()){
             </a>
             <div class="active_border">
 
-                <a class="icon_container ">
+                <a href="<?php echo BASE_URL.'friends' ?>" class="icon_container ">
                     <svg viewBox="0 0 28 28" fill="#1b74e4" height="28" width="28">
                         <path
                             d="M20.34 22.428c.077-.455.16-1.181.16-2.18 0-1.998-.84-3.981-2.12-5.41-.292-.326-.077-.838.36-.838h2.205C24.284 14 27 16.91 27 20.489c0 1.385-1.066 2.51-2.378 2.51h-3.786a.496.496 0 01-.495-.571zM20 13c-1.93 0-3.5-1.794-3.5-4 0-2.467 1.341-4 3.5-4s3.5 1.533 3.5 4c0 2.206-1.57 4-3.5 4zm-9.5-1c-2.206 0-4-2.019-4-4.5 0-2.818 1.495-4.5 4-4.5s4 1.682 4 4.5c0 2.481-1.794 4.5-4 4.5zm2.251 2A6.256 6.256 0 0119 20.249v1.313A2.44 2.44 0 0116.563 24H4.438A2.44 2.44 0 012 21.562v-1.313A6.256 6.256 0 018.249 14h4.502z">
@@ -222,70 +223,49 @@ if(login::isLoggedIn()){
 </header>
 
 <body>
-
+    <?php $friends = $loadUser->getAllFriends($userid);  ?>
     <div class="friends_holder">
         <div class="friends_left">
-            <div class="friends_settings">
-                <h5>Friends</h5>
-                <div class="sett_icni_holder">
-                    <i class="sett_icon">
-                    </i>
+            <div class="friends_settings reqeta">
+                <a href="<?php echo BASE_URL.'friends' ?>" class="backb">
+                    <div class="arrow_bakc"></div>
+                </a>
+                <div class="a7oo">
+                    <a href="<?php echo BASE_URL.'friends' ?>">Friends</a>
+                    <h5>All Friends
+                    </h5>
                 </div>
             </div>
+            <div class="send_t" style="margin-left:10px"><?php echo $friends_total->total  ?> Friends
+
+            </div>
+
+            <?php if($friends_total=='0'){?>
+            no Friends at the moment.
             <ul>
-                <li>
-                    <a href="#" class="frined_link frined_active_bg">
-                        <div class="li_icon_friend frined_active"><i class="friend_home"></i></div>
-                        <span class="friend_text">Home</span>
+                <?php
+                } else{ foreach($friends as $friend){  ?>
+                <li class="friend_lii">
+                    <a href="<?php echo BASE_URL.'friends/list.php?id='.$friend->link  ?>">
+                        <img src="<?php echo BASE_URL.$friend->profile_picture ?>" alt="" />
                     </a>
-                </li>
-                <li>
-                    <a href="<?php echo BASE_URL.'/friends/requests.php'; ?>" class="frined_link ">
-                        <div class="li_icon_friend "><i class="requests_icon"></i></div>
-                        <span class="friend_text">Friend Requests</span>
-                    </a> <i class="arr_icon"></i>
+                    <a href="<?php echo BASE_URL.'friends/list.php?id='.$friend->link  ?>"
+                        class="spann"><?php echo $friend->first_name.' '.$friend->last_name ?></a>
+                    <div class="points3"><i class="point_icon"></i></div>
 
                 </li>
-                <li>
-                    <a href="#" class="frined_link ">
-                        <div class="li_icon_friend "><i class="sugg_icon"></i></div>
-                        <span class="friend_text">Suggestions</span>
-                    </a> <i class="arr_icon"></i>
-
-                </li>
-                <li>
-                    <a href="<?php echo BASE_URL.'friends/allfriends.php' ?>" class="frined_link ">
-                        <div class="li_icon_friend "><i class="all_icon"></i></div>
-                        <span class="friend_text">All Friends</span>
-                    </a> <i class="arr_icon"></i>
-
-                </li>
-                <li>
-                    <a href="#" class="frined_link ">
-                        <div class="li_icon_friend "><i class="birth_icon"></i></div>
-                        <span class="friend_text">Birthdays</span>
-                    </a>
-
-                </li>
-                <li>
-                    <a href="#" class="frined_link ">
-                        <div class="li_icon_friend "><i class="cus_icon"></i></div>
-                        <span class="friend_text">Custom Lists</span>
-                    </a>
-                    <i class="arr_icon"></i>
-
-                </li>
+                <?php }}
+                 ?>
             </ul>
+
         </div>
         <div class="friends_right">
-            <h5>Friend Requests</h5>
-            <div class="flex_wrap">
-                <?php if($friends_requests_Total=='0'){?>
-                no Friends Requests at the moment.
-                <?php
-                } else{ $loadUser->getFriendsRequests($userid); }
-                 ?>
+            <div class="center_bitch">
+                <img src="https://www.facebook.com/images/comet/empty_states_icons/people/null_states_people_gray_wash.svg"
+                    alt="">
+                <span class="some_fuxking_text">Select people's names to preview their profile.</span>
             </div>
+
         </div>
 
     </div>
@@ -293,6 +273,20 @@ if(login::isLoggedIn()){
     <script src="../assets/js/header.js"></script>
     <script src="../assets/js/jquery.js"></script>
     <script>
+    //points
+    $(document).on('mouseover', '.points3', function() {
+        $(this).parents('.friend_lii').css('background', '#fff');
+    })
+    $(document).on('mouseover', '.friend_lii', function() {
+        $(this).css('background', '#f0f2f5');
+    })
+    $(document).on('mouseout', '.friend_lii', function() {
+        $(this).css('background', '#fff');
+    })
+
+
+    //points 
+
     $(document).on('keyup', '#search_input', function() {
         var searchTerm = $(this).val();
 
@@ -319,10 +313,11 @@ if(login::isLoggedIn()){
 
     })
     //----------------Accepting Request------------------
+
     $(document).on('click', '.accept_req', function() {
-        var userid = $(this).parents('.fri_req_card').data('userid');
-        var profileid = $(this).parents('.fri_req_card').data('profileid');
-        $(this).parents('.fri_req_card').empty().hide();
+        var userid = $(this).parents('.req_alt_card').data('userid');
+        var profileid = $(this).parents('.req_alt_card').data('profileid');
+        $(this).parents('.req_alt_card').empty().hide();
         console.log(userid)
         console.log(profileid)
         $.post('http://localhost/facebook/core/ajax/request.php', {
@@ -333,9 +328,9 @@ if(login::isLoggedIn()){
 
     })
     $(document).on('click', '.delete_req', function() {
-        var userid = $(this).parents('.fri_req_card').data('userid');
-        var profileid = $(this).parents('.fri_req_card').data('profileid');
-        $(this).parents('.fri_req_card').empty().hide();
+        var userid = $(this).parents('.req_alt_card').data('userid');
+        var profileid = $(this).parents('.req_alt_card').data('profileid');
+        $(this).parents('.req_alt_card').empty().hide();
         $.post('http://localhost/facebook/core/ajax/request.php', {
             deleteRequest: profileid,
             userid: userid,
@@ -375,6 +370,14 @@ if(login::isLoggedIn()){
             }
         })
     })
+
+    //Preview Profiles------------------------------------------------
+    $(document).on('click', '.req_alt_card', function() {
+        var profileid = $(this).data('profileid');
+        $('.center_bitch').empty().hide();
+        $('.profile_preview').empty().html('');
+    })
+    //Preview Profiles------------------------------------------------
     </script>
 </body>
 
