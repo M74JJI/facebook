@@ -133,7 +133,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                 Favorites
                             </div>
                             <div class="edit_friend">
-                                <img src="https://static.xx.fbcdn.net/rsrc.php/v3/y_/r/y302a2iLPfV.png" alt="">
+                                <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yI/r/bnvx9uLOEsq.png" alt="">
                                 Edit Friend List
                             </div>
                             <div class="unfollow_friend">
@@ -149,6 +149,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     </div>
                     <?php
                         }else{
+
                             
                         }
                     }else if($requestCheck->requestStatus =='0'){?>
@@ -414,6 +415,45 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     </div>
                 </div>
             </div>
+            <?php if($userid == $profileId){?>
+            <div class="friends_section">
+                <div class="f_section">
+                    <h3>Friends</h3>
+                    <div class="f_points">
+                        <i class="fa-solid fa-ellipsis" style="color:#9ea0a4"></i>
+                    </div>
+                </div>
+                <div class="f_menu">
+                    <a class="f_active">All Friends</a>
+                    <a class="f_a">Following</a>
+                </div>
+                <div class="f_wrap">
+                    <?php $loadUser->getAllFriends_profile($profileId) ?>
+                </div>
+
+            </div>
+            <?php }else {?>
+            <div class="friends_section">
+                <div class="f_section">
+                    <h3>Friends</h3>
+                    <div class="f_points">
+                        <i class="fa-solid fa-ellipsis" style="color:#9ea0a4"></i>
+                    </div>
+                </div>
+                <div class="f_menu">
+                    <a class="f_active">All Friends</a>
+                    <a class="f_a">Recently Added</a>
+                    <a class="f_a">High School</a>
+                    <a class="f_a">Current City</a>
+                    <a class="f_a">Hometown</a>
+                </div>
+                <div class="f_wrap">
+                    <?php $loadUser->getAllFriends_profileAlt($profileId,$userid) ?>
+                </div>
+
+            </div>
+
+            <?php   } ?>
             <div class="friends_section"></div>
             <div class="photos_section"></div>
         </div>
@@ -436,6 +476,11 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
     <script src="assets/dist/emojionearea.js"></script>
     <script src="assets/js/profile.js"></script>
     <script>
+    //friendo_popup$
+
+    $(document).on('click', '.f_33', function() {
+        $(this).siblings('.f_popup').toggle();
+    })
     $(function() {
 
 
@@ -1268,6 +1313,19 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 userid: userid,
             }, function(data) {})
         })
+        $(document).on('click', '#unfriendo', function() {
+            var userid = $(this).parents('.f_popup').data('userid');
+            var profileid = $(this).parents('.f_popup').data('profileid');
+            console.log(userid)
+            $(this).parents('.f_popup').hide();
+            $(this).parents('.f_card').empty().hide();
+
+
+            $.post('http://localhost/facebook/core/ajax/request.php', {
+                Unfriendrequest: profileid,
+                userid: userid,
+            }, function(data) {})
+        })
 
         //----------------SEND REQUEST--------------------------------------
 
@@ -1325,6 +1383,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             container.push('.search_results');
             container.push('.confirm_request_popup');
             container.push('.friends_popup');
+            container.push('.f_popup');
 
             $.each(container, function(key, value) {
                 if (!$(value).is(e.target) && $(value).has(e.target)

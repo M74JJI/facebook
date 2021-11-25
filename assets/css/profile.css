@@ -1163,31 +1163,33 @@ li {
     padding: 0;
 }
 .react-bundle-wrap {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
 }
 .react-bundle-wrap .react-icon {
     width: 45px;
-    height: 59px;
+    height: 60px;
     object-fit: cover;
     cursor: pointer;
 }
 .react-bundle-wrap .react-icon:hover {
-    transform: scale(1.5);
-    transition: 0.3s;
+    transform: scale(1.3);
+    transition: 0.1s;
 }
 .com-rlike-react {
     position: relative;
 }
 .com-react-bundle-wrap {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
 }
 .com-react-bundle-wrap .com-react-icon {
-    width: 40px;
-    height: 59px;
+    width: 50px;
+    height: 60px;
     object-fit: cover;
     cursor: pointer;
 }
 .com-react-bundle-wrap .com-react-icon :hover {
-    transform: scale(1.5);
-    transition: 0.3s;
+    transform: scale(1.3);
+    transition: 0.1s;
 }
 .ra {
     width: 33%;

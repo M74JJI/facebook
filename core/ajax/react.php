@@ -83,7 +83,7 @@ if(isset($_POST['deleteReactType'])){
         <?php
               foreach ($react_max_show as $react_max){
                   echo '<img class="'.$react_max->reactType.'-max-show"
-                  src="assets/images/react/'.$react_max->reactType.'.png" alt=""
+                  src="assets/images/react/'.$react_max->reactType.'.svg" alt=""
                   style="height:20px;width:20px;cursor: pointer;"
                   >';
               }

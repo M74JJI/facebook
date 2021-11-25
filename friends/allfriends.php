@@ -222,7 +222,7 @@ if(login::isLoggedIn()){
 
 </header>
 
-<body>
+<body style="overflow-x: hidden">
     <?php $friends = $loadUser->getAllFriends($userid);  ?>
     <div class="friends_holder">
         <div class="friends_left">
@@ -245,13 +245,47 @@ if(login::isLoggedIn()){
             <ul>
                 <?php
                 } else{ foreach($friends as $friend){  ?>
-                <li class="friend_lii">
+                <li class="friend_lii" data-userid="<?php echo $userid ?>"
+                    data-profileid="<?php echo $friend->user_id?>">
                     <a href="<?php echo BASE_URL.'friends/list.php?id='.$friend->link  ?>">
                         <img src="<?php echo BASE_URL.$friend->profile_picture ?>" alt="" />
                     </a>
                     <a href="<?php echo BASE_URL.'friends/list.php?id='.$friend->link  ?>"
                         class="spann"><?php echo $friend->first_name.' '.$friend->last_name ?></a>
-                    <div class="points3"><i class="point_icon"></i></div>
+                    <div class="points3"><i class="fa-solid fa-ellipsis"></i></div>
+                    <div class="points_menu">
+                        <div class="sm_arrow"></div>
+                        <div class="point_menu" id="">
+                            <div class=" point_icon1"><i class="point_msg"></i></div>
+                            <div class="poin_col">
+                                <span class="point_h">Message <?php echo $friend->first_name ?></span>
+                                <span class=" point_sub"></span>
+                            </div>
+                        </div>
+                        <div class="point_menu" id="">
+                            <div class="point_icon1"><i class="unf_icon"></i></div>
+                            <div class="poin_col">
+                                <span class="point_h">Unfollow <?php echo $friend->first_name ?></span>
+                                <span class=" point_sub">Stop seeing posts but stay friends</span>
+                            </div>
+                        </div>
+                        <div class="point_menu" id="">
+                            <div class="point_icon1"><i class="b_icon"></i></div>
+                            <div class="poin_col">
+                                <span class="point_h">Block <?php echo $friend->first_name ?></span>
+                                <span class=" point_sub"><?php echo $friend->first_name ?> won't be able to see you or
+                                    contact you on facebook</span>
+                            </div>
+                        </div>
+                        <div class="point_menu" id="unfried_points">
+                            <div class="point_icon1"><i class="b_icon"></i></div>
+                            <div class="poin_col">
+                                <span class="point_h">Unfriend <?php echo $friend->first_name ?></span>
+                                <span class=" point_sub">Remove <?php echo $friend->first_name ?>
+                                    as a friend</span>
+                            </div>
+                        </div>
+                    </div>
 
                 </li>
                 <?php }}
@@ -282,6 +316,11 @@ if(login::isLoggedIn()){
     })
     $(document).on('mouseout', '.friend_lii', function() {
         $(this).css('background', '#fff');
+    })
+    //open menu
+
+    $(document).on('click', '.points3', function() {
+        $(this).siblings('.points_menu').toggle();
     })
 
 
@@ -340,6 +379,21 @@ if(login::isLoggedIn()){
 
 
     })
+    $(document).on('click', '#unfried_points', function() {
+        var userid = $(this).parents('.friend_lii').data('userid');
+        var profileid = $(this).parents('.friend_lii').data('profileid');
+        console.log(userid)
+        console.log(profileid)
+        $(this).parents('.friend_lii').empty().hide();
+        $.post('http://localhost/facebook/core/ajax/request.php', {
+            deleteRequest: profileid,
+            userid: userid,
+        }, function(data) {
+            console.log(data)
+        })
+
+
+    })
 
 
     //----------------Accepting Request------------------
@@ -360,6 +414,7 @@ if(login::isLoggedIn()){
 
         container.push('.search_results');
 
+        container.push('.points_menu');
         container.push('#menu_header');
 
         $.each(container, function(key, value) {

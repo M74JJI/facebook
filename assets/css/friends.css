@@ -11,6 +11,7 @@
         width: 350px;
         height: 95vh;
         overflow-y: auto;
+        overflow-x: visible;
     }
     .friends_right {
         margin-left: 377px;
@@ -380,7 +381,6 @@ a {
     position: relative;
     border-radius: 10px;
     cursor: pointer;
-    z-index: -3333;
 }
 .friend_lii:hover {
     background: #f0f2f5;
@@ -420,4 +420,87 @@ a {
     height: 16px;
     background-repeat: no-repeat;
     display: inline-block;
+}
+.point_msg {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/y_/r/z_LxJa7o_KR.png');
+    background-position: 0px -286px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(20%);
+}
+.points_menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    display: none;
+    right: 0;
+    top: 4rem;
+    width: 300px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    z-index: 999999999999999999;
+    overflow: visible;
+    padding: 1rem;
+    border-radius: 10px;
+}
+.sm_arrow {
+    background: #fff;
+    height: 17px;
+    width: 17px;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    position: absolute;
+    right: 14px;
+    top: -15px;
+}
+.point_menu {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.point_menu:hover {
+    background: #f0f2f5;
+}
+.point_icon1 {
+    margin-right: 10px;
+}
+.poin_col {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.point_h {
+    font-weight: 600;
+    font-size: 14px;
+}
+.unf_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/y_/r/z_LxJa7o_KR.png');
+    background-position: 0px -853px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(20%);
+}
+.b_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/T165w2gRX6Z.png');
+    background-position: 0px -294px;
+    background-size: auto;
+    width: 17px;
+    height: 17px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(20%);
+}
+.point_sub {
+    color: #65676b;
+    font-size: 12px;
+}
+.fa-ellipsis {
+    color: #65676b;
 }

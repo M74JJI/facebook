@@ -262,11 +262,48 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             <ul>
                 <?php
                 } else{ foreach($friends as $friend){  ?>
-                <li class="friend_lii">
-                    <img src="<?php echo BASE_URL.$friend->profile_picture ?>" alt="">
+                <li class="friend_lii" data-userid="<?php echo $userid?>"
+                    data-profileid="<?php echo $friend->user_id?>">
+                    <a href="<?php echo BASE_URL.'friends/list.php?id='.$friend->link  ?>">
+                        <img src="<?php echo BASE_URL.$friend->profile_picture ?>" alt="" />
+                    </a>
                     <a href="<?php echo BASE_URL.'friends/list.php?id='.$friend->link  ?>"
                         class="spann"><?php echo $friend->first_name.' '.$friend->last_name ?></a>
-                    <div class="points3"><i class="point_icon"></i></div>
+                    <div class="points3"><i class="fa-solid fa-ellipsis"></i></div>
+                    <div class="points_menu">
+                        <div class="sm_arrow"></div>
+                        <div class="point_menu">
+                            <div class=" point_icon1"><i class="point_msg"></i></div>
+                            <div class="poin_col">
+                                <span class="point_h">Message <?php echo $friend->first_name ?></span>
+                                <span class=" point_sub"></span>
+                            </div>
+                        </div>
+                        <div class="point_menu">
+                            <div class="point_icon1"><i class="unf_icon"></i></div>
+                            <div class="poin_col">
+                                <span class="point_h">Unfollow <?php echo $friend->first_name ?></span>
+                                <span class=" point_sub">Stop seeing posts but stay friends</span>
+                            </div>
+                        </div>
+                        <div class="point_menu">
+                            <div class="point_icon1"><i class="b_icon"></i></div>
+                            <div class="poin_col">
+                                <span class="point_h">Block <?php echo $friend->first_name ?></span>
+                                <span class=" point_sub"><?php echo $friend->first_name ?> won't be able to see you or
+                                    contact you on facebook</span>
+                            </div>
+                        </div>
+                        <div class="point_menu" id="unfried_points">
+                            <div class="point_icon1"><i class="b_icon"></i></div>
+                            <div class="poin_col">
+                                <span class="point_h">Unfriend <?php echo $friend->first_name ?></span>
+                                <span class=" point_sub">Remove <?php echo $friend->first_name ?>
+                                    as a friend</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </li>
                 <?php }}
                  ?>
@@ -1088,6 +1125,26 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
             <script src="../assets/js/jquery.js"></script>
             <script src="../assets/dist/emojionearea.js"></script>
             <script>
+            $(document).on('click', '.points3', function() {
+                $(this).siblings('.points_menu').toggle();
+            })
+            //------------------------
+            $(document).on('click', '#unfried_points', function() {
+                var userid = $(this).parents('.friend_lii').data('userid');
+                var profileid = $(this).parents('.friend_lii').data('profileid');
+                $(this).parents('.friend_lii').empty().hide();
+                $.post('http://localhost/facebook/core/ajax/request.php', {
+                    deleteRequest: profileid,
+                    userid: userid,
+                }, function(data) {
+                    console.log(data)
+                })
+
+
+            })
+
+            //------------------------
+
             $(function() {
                 $(document).on('change', '#upload_btn', function() {
 
@@ -1980,7 +2037,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     container.push('.confirm_request_popup');
                     container.push('.friends_popup');
                     container.push('#menu_header');
-
+                    container.push('.points_menu');
                     $.each(container, function(key, value) {
                         if (!$(value).is(e.target) && $(value).has(e.target)
                             .length === 0) {

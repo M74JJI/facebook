@@ -179,13 +179,151 @@ class User{
 
                         }
         public function getAllFriends($userid){
-          $statement = $this->pdo->prepare("SELECT * FROM friendrequest LEFT JOIN profile ON friendrequest.requestSender = profile.user_id RIGHT JOIN users ON friendrequest.requestSender = users.id  WHERE requestStatus='1' AND requestReceiver=:userid ");
+          $statement = $this->pdo->prepare("          SELECT * FROM friendrequest LEFT JOIN profile ON profile.user_id = friendrequest.requestReceiver LEFT JOIN users ON users.id = friendrequest.requestReceiver WHERE friendrequest.requestSender =:userid AND friendrequest.requestStatus='1'
+          UNION
+          SELECT * FROM friendrequest LEFT JOIN profile ON profile.user_id = friendrequest.requestSender LEFT JOIN users ON users.id = friendrequest.requestSender WHERE friendrequest.requestReceiver =:userid AND friendrequest.requestStatus='1'");
           $statement->bindParam(':userid',$userid,PDO::PARAM_INT);
           $statement->execute();
           return $statement->fetchAll(PDO::FETCH_OBJ);
                  
+                        }
+        public function getAllFriends_profile($userid){
+          $statement = $this->pdo->prepare("          SELECT * FROM friendrequest LEFT JOIN profile ON profile.user_id = friendrequest.requestReceiver LEFT JOIN users ON users.id = friendrequest.requestReceiver WHERE friendrequest.requestSender =:userid AND friendrequest.requestStatus='1'
+          UNION
+          SELECT * FROM friendrequest LEFT JOIN profile ON profile.user_id = friendrequest.requestSender LEFT JOIN users ON users.id = friendrequest.requestSender WHERE friendrequest.requestReceiver =:userid AND friendrequest.requestStatus='1'");
+          $statement->bindParam(':userid',$userid,PDO::PARAM_INT);
+          $statement->execute();
+          $friends= $statement->fetchAll(PDO::FETCH_OBJ);
+                 
+         foreach($friends as $friend){?>
+<div class="f_card">
+    <a href="<?php echo $friend->link ?>"><img class="img" src="<?php echo $friend->profile_picture ?>" alt=""></a>
+    <div class="f_crad_col">
+        <span><?php echo $friend->first_name.' '.$friend->last_name ?></span>
+        <span>
+            <?php 
+            
+            if($friend->current_city!='' && $friend->country !=''){
+                echo $friend->current_city.', '.$friend->country;
+            }
+            else if($friend->current_city!=''){
+                echo $friend->current_city;
+            }
+            else if($friend->workplace_company!='' && $friend->workplace_position){
+                echo "works as $friend->workplace_position at $friend->workplace_company";
+            }
+            ?>
+        </span>
+    </div>
+    <div class="f_33"><i class="fa-solid fa-ellipsis"></i></div>
+    <div class="f_popup" data-userid="<?php echo $userid?>" data-profileid="<?php echo $friend->user_id ?>">
+        <div class="motalatbyad">
+        </div>
+        <div class="f_popup_area">
+            <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yU/r/oIIZ26adGMr.png" alt="">
+            <span>Favorites</span>
+        </div>
+        <div class="f_popup_area">
+            <img src="https://static.xx.fbcdn.net/rsrc.php/v3/y_/r/y302a2iLPfV.png" alt="">
+            <span> Edit Friend List</span>
+        </div>
+        <div class="f_popup_area">
+            <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yI/r/bnvx9uLOEsq.png" alt="">
+            <span> Unfollow</span>
+        </div>
+        <div class="f_popup_area" id="unfriendo">
+            <i class="lkher">
+            </i>
+            <span>Unfriend</span>
+        </div>
+
+    </div>
+
+
+
+</div>
+<?php
+         }
+
+
+
 
                         }
+        public function getAllFriends_profileAlt($userid,$you){
+          
+          $statement = $this->pdo->prepare("
+          SELECT * FROM friendrequest LEFT JOIN profile ON profile.user_id = friendrequest.requestReceiver LEFT JOIN users ON users.id = friendrequest.requestReceiver WHERE friendrequest.requestSender =:userid AND friendrequest.requestStatus='1'
+          UNION
+          SELECT * FROM friendrequest LEFT JOIN profile ON profile.user_id = friendrequest.requestSender LEFT JOIN users ON users.id = friendrequest.requestSender WHERE friendrequest.requestReceiver =:userid AND friendrequest.requestStatus='1'
+
+          ");
+          $statement->bindParam(':userid',$userid,PDO::PARAM_INT);
+          $statement->execute();
+          $friends= $statement->fetchAll(PDO::FETCH_OBJ);
+                 var_dump($friends);
+         foreach($friends as $friend){?>
+<div class="f_card">
+    <a href="<?php echo $friend->link ?>"><img class="img" src="<?php echo $friend->profile_picture ?>" alt=""></a>
+    <div class="f_crad_col">
+        <span><?php echo $friend->first_name.' '.$friend->last_name ?></span>
+        <span>
+            <?php 
+            
+            if($friend->current_city!='' && $friend->country !=''){
+                echo $friend->current_city.', '.$friend->country;
+            }
+            else if($friend->current_city!=''){
+                echo $friend->current_city;
+            }
+            else if($friend->workplace_company!='' && $friend->workplace_position){
+                echo "works as $friend->workplace_position at $friend->workplace_company";
+            }
+            ?>
+        </span>
+
+        <span><?php if($friend->user_id == $you){ echo '(You)'; } ?></span>
+    </div>
+    <div class="f_33"><i class="fa-solid fa-ellipsis"></i></div>
+    <div class="f_popup" data-userid="<?php echo $userid?>" data-profileid="<?php echo $friend->user_id ?>">
+        <div class="motalatbyad">
+        </div>
+        <div class="f_popup_area">
+            <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yU/r/oIIZ26adGMr.png" alt="">
+            <span>Favorites</span>
+        </div>
+        <div class="f_popup_area">
+            <img src="https://static.xx.fbcdn.net/rsrc.php/v3/y_/r/y302a2iLPfV.png" alt="">
+            <span> Edit Friend List</span>
+        </div>
+        <div class="f_popup_area">
+            <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yI/r/bnvx9uLOEsq.png" alt="">
+            <span> Unfollow</span>
+        </div>
+        <div class="f_popup_area" id="unfriendo">
+            <i class="lkher">
+            </i>
+            <span>Unfriend</span>
+        </div>
+
+    </div>
+
+
+
+</div>
+<?php
+         }
+
+
+
+
+                        }
+
+
+
+
+
+
+                        
                     }
                     
     

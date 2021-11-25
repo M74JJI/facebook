@@ -507,7 +507,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                                     <?php
                                         foreach($react_max_show as $react_max){
                                             echo '<img class="'.$react_max->reactType.'-max-show"
-                                             src="assets/images/react/'.$react_max->reactType.'.png" alt=""
+                                             src="assets/images/react/'.$react_max->reactType.'.svg" alt=""
                                               style="width:20px;height:20px;cursor:pointer">';
                                         }
                                              ?>
@@ -561,7 +561,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                         <?php if(empty($main_react)){
                                     ?>
                                         <div class="like-action-icon">
-                                            <img src="assets/images/like.png" style="width:20px" alt="">
+                                            <img src="assets/images/like.svg" style="width:20px" alt="">
                                         </div>
                                         <div class="like-action-text">
                                             <span>Like</span>
@@ -569,7 +569,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                         <?php }else{ ?>
                                         <div class="like-action-icon">
                                             <img class="react_icon_md"
-                                                src="assets/images/react/<?php echo $main_react->reactType ?>.png"
+                                                src="assets/images/react/<?php echo $main_react->reactType ?>.svg"
                                                 alt="" class="">
                                             <div class="like-action-text">
                                                 <span><?php echo $main_react->reactType; ?></span>
@@ -653,7 +653,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                                                                                     class="align-middle react-inst-img">
                                                                                     <?php
                                                                  foreach($com_react_max_show as $react_max){
-                                                                     echo '<img class="'.$react_max->reactType.'-max-show" src="assets/images/react/'.$react_max->reactType.'.png" alt="" style="height:12px;width:12px;margin-right:2px;cursor:pointer;">';
+                                                                     echo '<img class="'.$react_max->reactType.'-max-show" src="assets/images/react/'.$react_max->reactType.'.svg" alt="" style="height:12px;width:12px;margin-right:2px;cursor:pointer;">';
                                                                      
                                                                  }
                                                                  ?>
@@ -1066,14 +1066,13 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 })
                 // react system 
 
-
+                //
                 $(document).on('click', '.like-action', function() {
 
                     var likeActionIcon = $(this).find('.like-action-icon img');
                     var likeReactParent = $(this).parents('.like-action-wrap');
                     var nf4 = $(likeReactParent).parents('.nf-4');
                     var nf_3 = $(nf4).siblings('.nf-3').find('.react-count-wrap');
-
                     var reactCount = $(nf4).siblings('.nf-3').find('.nf-3-react-username');
                     var reactNumText = $(reactCount).text();
                     var postId = $(likeReactParent).data('postid');
@@ -1084,29 +1083,29 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 
                     if ($(spanClass).attr('class') !== undefined) {
 
-                        if ($(likeActionIcon).attr('src') == 'assets/images/like.png') {
+                        if ($(likeActionIcon).attr('src') == 'assets/images/like.svg') {
 
                             (spanClass).addClass('like-color');
-                            $(likeActionIcon).attr('src', 'assets/images/react/like.png').addClass(
+                            $(likeActionIcon).attr('src', 'assets/images/react/like.svg').addClass(
                                 'reactIconSize');
                             spanClass.text('like');
                             mainReactSubmit(typeR, postId, userId, nf_3);
                         } else {
-                            $(likeActionIcon).attr('src', 'assets/images/like.png');
+                            $(likeActionIcon).attr('src', 'assets/images/like.svg');
                             spanClass.removeClass('like-color');
                             spanClass.text('like');
                             mainReactDelete(typeR, postId, userId, nf_3);
                         }
                     } else if ($(spanClass).attr('class') === undefined) {
                         (spanClass).addClass('like-color');
-                        $(likeActionIcon).attr('src', 'assets/images/react/like.png').addClass(
+                        $(likeActionIcon).attr('src', 'assets/images/react/like.svg').addClass(
                             'reactIconSize');
                         spanClass.text('like');
                         mainReactSubmit(typeR, postId, userId, nf_3);
 
                     } else {
                         (spanClass).addClass('like-color');
-                        $(likeActionIcon).attr('src', 'assets/images/react/like.png').addClass(
+                        $(likeActionIcon).attr('src', 'assets/images/react/like.svg').addClass(
                             'reactIconSize');
                         spanClass.text('like');
                         mainReactSubmit(typeR, postId, userId, nf_3);
@@ -1117,7 +1116,7 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                 function mainReactSubmit(typeR, postId, userId, nf_3) {
 
                     var profileId = "<?php echo $profileId; ?>"
-
+                    console.log(nf_3)
                     $.post('http://localhost/facebook/core/ajax/react.php', {
                         reactType: typeR,
                         postId: postId,
@@ -1209,8 +1208,8 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     var likeReactParent = $(pClass).parents('.like-action-wrap');
 
                     var nf4 = $(likeReactParent).parents('.nf-4');
-                    var nf_3 = $(nf4).siblings('.nf-3').find('.react-count-wrap');
-                    var reactCount = $(nf4).siblings('.nf-3').find('.nf-3-react-username');
+                    var nf_3 = $(nf4).siblings('.react_infos').find('.react-count-wrap');
+                    var reactCount = $(nf_3).find('.nf-3-react-username');
                     var reactNumberText = $(reactCount).text();
                     var postId = $(likeReactParent).data('postid');
                     var userId = $(likeReactParent).data('userid');
@@ -1222,22 +1221,22 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
                     if ($(spanClass).hasClass(reactColor)) {
                         $(spanClass).removeClass();
                         spanClass.text('like');
-                        $(likeActionIcon).attr('src', 'assets/images/like.png');
+                        $(likeActionIcon).attr('src', 'assets/images/like.svg');
                         mainReactDelete(typeR, postId, userId, nf_3);
                     } else if ($(spanClass).attr('class') !== undefined) {
 
                         $(spanClass).removeClass().addClass(reactColor);
                         spanClass.text(typeR);
                         $(likeActionIcon).removeAttr('src').attr('src',
-                            'assets/images/react/' + typeR + '.png').addClass('reactIconSize');
+                            'assets/images/react/' + typeR + '.svg').addClass('reactIconSize');
                         mainReactSubmit(typeR, postId, userId, nf_3);
                     } else {
 
                         $(spanClass).addClass(reactColor);
-                        $(likeActionIcon).attr('src', 'assets/images/react/' + typeR + '.png').addClass(
+                        $(likeActionIcon).attr('src', 'assets/images/react/' + typeR + '.svg').addClass(
                             'reactIconSize');
                         spanClass.text(typeR);
-                        $(likeActionIcon).removeAttr('src').attr('src', 'assets/images/react/' + typeR + '.png')
+                        $(likeActionIcon).removeAttr('src').attr('src', 'assets/images/react/' + typeR + '.svg')
                             .addClass('reactIconSize');
 
                         mainReactSubmit(typeR, postId, userId, nf_3);
