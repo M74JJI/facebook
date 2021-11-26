@@ -146,8 +146,11 @@ class Post extends User{
          return $statement->fetchAll(PDO::FETCH_OBJ);
     }
     public function lastmessages($userid){
-        $statement = $this->pdo->prepare("SELECT * FROM messages LEFT JOIN profile ON (SELECT IF( messages.receiver =:userid,messages.sender,messages.receiver )) = profile.user_id LEFT JOIN users ON profile.user_id=users.id
-        WHERE (messages.receiver = 23 OR messages.sender=:userid) AND profile.user_id !=:userid
+        $statement = $this->pdo->prepare("SELECT * FROM messages LEFT JOIN profile ON 
+        (SELECT IF( messages.receiver =:userid,messages.sender,messages.receiver )) 
+        = profile.user_id LEFT JOIN users ON profile.user_id=users.id
+        WHERE (messages.receiver = 23 OR messages.sender=:userid) 
+        AND profile.user_id !=:userid
          GROUP BY profile.id ORDER BY messages.messageAt DESC  ");
          $statement->bindValue(':userid',$userid,PDO::PARAM_STR);
          $statement->execute();
@@ -159,6 +162,16 @@ class Post extends User{
          $statement->bindValue(':userid',$userid,PDO::PARAM_STR);
          $statement->execute();
          return $statement->fetch(PDO::FETCH_OBJ);
+    }
+    public function messageData($userid,$lastPersonId){
+      
+        $statement = $this->pdo->prepare("SELECT * FROM messages LEFT JOIN profile ON profile.user_id = messages.sender WHERE 
+        (receiver =:userid and sender=:lastPersonId) OR (receiver =:lastPersonId and sender=:userid)
+         ORDER BY messages.messageAT ASC");
+         $statement->bindValue(':userid',$userid,PDO::PARAM_STR);
+         $statement->bindValue(':lastPersonId',$lastPersonId,PDO::PARAM_STR);
+         $statement->execute();
+         return $statement->fetchAll(PDO::FETCH_OBJ);
     }
 
 }

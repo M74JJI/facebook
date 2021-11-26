@@ -4,15 +4,47 @@ include '../../connect/login.php';
 
 $userid = login::isLoggedIn();
 
+
+if(isset($_POST['lastPersonId'])){
+    $lastPersonId = $_POST['lastPersonId'];
+    $userid = $_POST['userid'];
+    $messageData = $loadPost->messageData($userid,$lastPersonId);
+   
+    foreach($messageData as $message){
+       
+       if($message->sender ==$userid){ ?>
+<div class="msg_sender">
+    <div class="msg_sent">
+        <?php echo $message->message; ?>
+    </div>
+    <div class="msg_time">
+        <?php echo $loadUser->timeAgo($message->messageAt); ?>
+    </div>
+</div>
+<?php }else{ ?>
+<div class="msg_receiver">
+    <img class="rec_img" src="<?php echo $message->profile_picture ?>" alt="">
+    <div class="msg_received">
+        <?php echo $message->message; ?>
+    </div>
+    <div class="msg_time">
+        <?php echo $loadUser->timeAgo($message->messageAt); ?>
+    </div>
+</div>
+<?php }
+}
+}
+
+
 if(isset($_POST['getuserid'])){
-    $userid = $_POST['getuserid'];
+$userid = $_POST['getuserid'];
 
-    $allusers=$loadPost->lastmessages($userid);
+$allusers=$loadPost->lastmessages($userid);
 
 
-    foreach($allusers as $user){
-        $length = strlen($user->message);
-        ?>
+foreach($allusers as $user){
+$length = strlen($user->message);
+?>
 
 <li class="msg_username" data-profileid="<?php echo $user->user_id ?>">
     <div class="msg_contcat">

@@ -85,6 +85,7 @@
 }
 .messenger_middle,
 .messenger_right {
+    padding-top: 20px;
     margin-left: 360px;
 }
 .down_msg {
@@ -208,7 +209,12 @@
     gap: 10px;
 }
 .messeges_wrap {
-    padding: 0 10px;
+    position: relative;
+}
+.msg_box {
+    width: 100%;
+    display: flex;
+    flex-direction: column !important;
 }
 .msg_textarea {
     resize: none;
@@ -311,4 +317,134 @@
 }
 .contact_tick svg {
     color: #bcc0c4;
+}
+.msg_sender {
+    width: 100%;
+    float: right;
+    position: relative;
+}
+.msg_sent {
+    background-color: #00a8fe;
+    color: #fff;
+    border-radius: 50px;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    max-width: 40%;
+    float: right;
+}
+.msg_time {
+    color: #8a8d91;
+    font-size: 12px;
+    position: absolute;
+    left: 45%;
+    top: 100%;
+}
+.msg_receiver {
+    width: 100%;
+    float: left;
+    position: relative;
+}
+.msg_received {
+    position: relative;
+    background-color: #e4e6eb;
+    color: #111;
+    border-radius: 50px;
+    padding: 10px;
+    margin-left: 40px;
+    margin-bottom: 10px;
+    max-width: 40%;
+    float: left;
+    word-break: break-all;
+}
+.msg_time {
+    color: #8a8d91;
+    font-size: 12px;
+    position: absolute;
+    left: 45%;
+    top: 100%;
+}
+.rec_img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
+@media (max-width: 1474px) {
+    .messenger_right {
+        display: none;
+    }
+    .messenger_middle {
+        position: absolute;
+        right: 0;
+        left: 0;
+        top: 70px;
+        bottom: 50px;
+    }
+    .msg_middle_header {
+        right: 0;
+        left: 0;
+    }
+    .messaging_area {
+        left: 0;
+        right: 0;
+    }
+    .messeges_wrap {
+    }
+    .msg_box {
+    }
+    .msg_send_area {
+        right: 0;
+    }
+}
+@media (max-width: 900px) {
+    .contact_col,
+    .contact_timeAgo,
+    .contact_tick,
+    .down_msg,
+    .msger_left-header,
+    .msg_search {
+        display: none;
+    }
+    .msg_username {
+    }
+    .messenger_left {
+        width: 100px;
+    }
+    .messenger_middle {
+        margin-left: 100px;
+    }
+    .msg_send_area {
+        left: 100px;
+    }
+}
+@media (max-width: 1070px) {
+    .msg_time {
+        display: none;
+    }
+}
+@media (max-width: 504px) {
+    .msg_received {
+        border-radius: 5px;
+    }
+    .messenger_left {
+        padding: 0;
+        width: 60px;
+    }
+    .messenger_left img {
+        width: 30px;
+        height: 30px;
+    }
+    .bright {
+        padding: 0;
+    }
+    .messenger_middle {
+        margin-left: 60px;
+    }
+    .msg_send_area {
+        left: 60px;
+    }
 }

@@ -21,7 +21,7 @@ $allusers = $loadPost->lastmessages($userid);
 $lastMsgReceived=$loadPost->lastPersonMsg($userid);
 
 if(!empty($lastMsgReceived)){
-    $lastMsgUserid = $lastMsgReceived->id;
+    $lastMsgUserid = $lastMsgReceived->user_id;
 }
 
 ?>

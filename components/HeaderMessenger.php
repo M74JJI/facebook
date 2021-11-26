@@ -283,6 +283,20 @@ if(login::isLoggedIn()){
             })
         }
         loadUser();
+        var lastPersonId = '<?php if(!empty($lastMsgUserid)){echo $lastMsgUserid;} ?>';
+        if (lastPersonId != '') {
+            var userid = '<?php echo $userid ?>';
+            console.log(lastPersonId);
+            console.log(userid);
+            $.post('http://localhost/facebook/core/ajax/messages.php', {
+                lastPersonId: lastPersonId,
+                userid: userid
+
+            }, function(data) {
+                $('.msg_box').html(data);
+                console.log(data)
+            })
+        }
     })
     </script>
 </header>
