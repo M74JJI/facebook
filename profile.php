@@ -9,18 +9,22 @@ if(login::isLoggedIn()){
 }
 
 $userInfo = $loadUser->getUserInfo($userid);
-if(isset($_GET['id'])==true && empty($_GET['id'])==false){
-    $username= $loadUser->checkInput($_GET['id']);
-    $profileId = $loadUser->getUserId($username);
+if(isset($_GET['id'])==true && empty($_GET['id']===false)){
+    $username =$loadUser->checkInput($_GET['id']);
+    $profileId =$loadUser->getUserId($username);
+}else{
+    $profileId=$userid;
+       
+}
+
+    $profileInfos = $loadUser->getUserInfo($profileId);
     $profileInfos = $loadUser->getUserInfo($profileId);
     $posts = $loadPost->posts($userid,$profileId,20);
     $requestCheck=$loadPost->requestCheck($userid,$profileId);
     $requestConfirm=$loadPost->requestConfirm($profileId,$userid);
     $followCheck=$loadPost->followCheck($profileId,$userid);
     
-}else{
-    header('Location:index.php');
-}
+
 
 
 

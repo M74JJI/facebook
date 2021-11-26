@@ -1,0 +1,273 @@
+.messenger {
+    display: flex;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    height: 100%;
+}
+
+/*icons*/
+.points_three {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/ye/r/hTte6upSYLG.png');
+    background-position: -168px -111px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.vid_ic {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/y4/r/uRZSdHN6u_L.png');
+    background-position: 0px -588px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.wr_ic {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/y4/r/uRZSdHN6u_L.png');
+    background-position: 0px -924px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.msg_icon_gray {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #e4e6eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+.flexo {
+    display: flex;
+    align-items: center;
+}
+.msger_left-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 1rem;
+}
+.chata {
+    font-size: 24px;
+    font-weight: 700;
+}
+.msg_search {
+    background: #f0f2f5;
+    border-radius: 50px;
+    padding: 9px 1rem;
+    margin-left: 1rem;
+    display: flex;
+    width: 83%;
+    align-items: center;
+}
+.msg_search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    font-size: 15px;
+    margin-left: 5px;
+}
+.messenger_left {
+    position: absolute;
+    top: 60px;
+    bottom: 0;
+    width: 360px;
+    border-right: 1px solid #eee;
+}
+.bright {
+}
+.messenger_middle,
+.messenger_right {
+    margin-left: 360px;
+}
+.down_msg {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-weight: 600;
+    font-size: 14px;
+    border-top: 1px solid #eee;
+}
+.down_ic {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yt/r/Bqh8f2K3hRH.png');
+    background-position: 0px -252px;
+    background-size: auto;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    margin-top: 2px;
+    -webkit-filter: invert(20%);
+}
+.messenger_middle {
+}
+
+.msg_middle_header {
+    padding: 6px 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 2px rgba(169, 166, 166, 0.1),
+        0 -1px rgba(160, 158, 158, 0.1) inset;
+
+    position: absolute;
+    left: 360px;
+    right: 400px;
+    border-bottom: 1px solid #eee;
+}
+.messenger_right {
+    position: absolute;
+    top: 60px;
+    bottom: 0;
+    right: 0;
+    width: 400px;
+    border-left: 1px solid #eee;
+}
+.msg_middle_header img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+.h_3_msg {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+}
+.svgs_msg {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.svg_msg {
+    position: relative;
+    cursor: pointer;
+}
+.svg_msg:last-of-type {
+}
+.svg_msg1 svg {
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    border: 4px solid #d9edff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.messaging_area {
+    position: absolute;
+    top: 115px;
+    bottom: 0;
+    right: 400px;
+    left: 360px;
+    overflow-y: auto;
+}
+.msg_hello_info {
+    width: 100%;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.msg_hello_info img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+.span_sm_txt {
+    color: #65676b;
+    font-size: 12px;
+    margin-top: 5px;
+}
+.msg_send_area {
+    position: fixed;
+    height: 35px;
+    bottom: 0;
+    right: 400px;
+    left: 360px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    gap: 10px;
+}
+.messeges_wrap {
+    padding: 0 10px;
+}
+.msg_textarea {
+    resize: none;
+    flex: 1;
+    font-family: inherit;
+    outline: none;
+    border: none;
+    border-radius: 50px;
+    background: #f0f2f5;
+    padding: 10px 15px;
+    font-size: 16px;
+}
+.send_like {
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.send_like:hover {
+    background: #f0f2f5;
+}
+.msg_r_imgtext {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+}
+.imgtaxta {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.chat_ardown {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/ye/r/hTte6upSYLG.png');
+    background-position: -151px -86px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.chat_men_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 10px;
+}
+
+.edit_chat_menu {
+    padding: 1rem;
+}
+.chat_men_item:hover {
+    background: #e4e6eb;
+}
