@@ -15,12 +15,13 @@ if(login::isLoggedIn()){
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
+
     <link rel="stylesheet" href="assets/css/profile.css" />
     <link rel="stylesheet" href="assets/css/about.css" />
     <link rel="stylesheet" href="assets/css/about_forms.css" />
     <link rel="stylesheet" href="assets/css/header_menu.css" />
-
+    <title>Messenger</title>
+    <link rel="stylesheet" href="assets/css/messenger.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -211,9 +212,9 @@ if(login::isLoggedIn()){
             </div>
         </div>
     </div>
-
-    <script src="assets/js/header.js"></script>
     <script src="assets/js/jquery.js"></script>
+    <script src="assets/dist/emojionearea.js"></script>
+    <script src="assets/js/header.js"></script>
     <script>
     $(document).on('keyup', '#search_input', function() {
         var searchTerm = $(this).val();
@@ -249,7 +250,7 @@ if(login::isLoggedIn()){
     //menu bar
 
     $(document).on('click', '#open_thatmenu', function() {
-        console.log('a7aaaaaaa')
+
         $('#menu_header').css('display', 'block');
     })
     $(document).mouseup(function(e) {
@@ -265,6 +266,23 @@ if(login::isLoggedIn()){
 
             }
         })
+    })
+    //messe,ger
+
+    $(document).ready(function() {
+
+
+        function loadUser() {
+            var userid = "<?php echo $userid ?>";
+            $.post('http://localhost/facebook/core/ajax/messages.php', {
+                getuserid: userid
+            }, function(data) {
+                $('.msg-user-add').html(data);
+
+
+            })
+        }
+        loadUser();
     })
     </script>
 </header>

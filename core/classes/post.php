@@ -146,28 +146,15 @@ class Post extends User{
          return $statement->fetchAll(PDO::FETCH_OBJ);
     }
     public function lastmessages($userid){
-        $statement = $this->pdo->prepare("SELECT * FROM messages
-         LEFT JOIN users ON messages.receiver=users.id 
-         LEFT JOIN profile ON users.id=profile.user_id
-          WHERE messages.msg_id 
-          IN(SELECT MAX(messages.msg_id) FROM messages
-           GROUP BY messages.receiver,messages.sender) AND messages.receiver != :userid AND sender = :userid
-           UNION
-           SELECT * FROM messages
-         LEFT JOIN users ON (SELECT IF(messages.receiver =:userid,messages.sender,messages.receiver)) =users.id 
-         LEFT JOIN profile ON users.id=profile.user_id
-          WHERE messages.msg_id 
-          IN(SELECT MAX(messages.msg_id) FROM messages
-           GROUP BY messages.receiver,messages.sender) AND messages.sender != :userid AND receiver = :userid
-           
-           ORDER BY messageAt DESC;
-           ");
+        $statement = $this->pdo->prepare("SELECT * FROM messages LEFT JOIN profile ON (SELECT IF( messages.receiver =:userid,messages.sender,messages.receiver )) = profile.user_id LEFT JOIN users ON profile.user_id=users.id
+        WHERE (messages.receiver = 23 OR messages.sender=:userid) AND profile.user_id !=:userid
+         GROUP BY profile.id ORDER BY messages.messageAt DESC  ");
          $statement->bindValue(':userid',$userid,PDO::PARAM_STR);
          $statement->execute();
-         return $statement->fetch(PDO::FETCH_OBJ);
+         return $statement->fetchAll(PDO::FETCH_OBJ);
     }
     public function lastPersonMsg($userid){
-        $statement = $this->pdo->prepare("SELECT * FROM profile LEFT JOIN messages On profile.user_id = messages.receiver WHERE (messages.sender=:userid OR messages.receiver =:userid) ORDER BY messages.messageAt DESC LIMIT 0,1;
+        $statement = $this->pdo->prepare("SELECT * FROM profile LEFT JOIN messages ON (SELECT IF( messages.receiver =:userid,messages.sender,messages.receiver )) = profile.user_id WHERE (messages.sender=:userid OR messages.receiver =:userid) ORDER BY messages.messageAt DESC LIMIT 0,1;
            ");
          $statement->bindValue(':userid',$userid,PDO::PARAM_STR);
          $statement->execute();

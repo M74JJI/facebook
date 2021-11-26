@@ -14,7 +14,6 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
     $profileId=$userid;
 }
 $profileInfos = $loadUser->getUserInfo($profileId);
-$profileInfos = $loadUser->getUserInfo($profileId);
 $requestCheck=$loadPost->requestCheck($userid,$profileId);
 $requestConfirm=$loadPost->requestConfirm($profileId,$userid);
 $followCheck=$loadPost->followCheck($profileId,$userid);
@@ -31,16 +30,10 @@ if(!empty($lastMsgReceived)){
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messenger</title>
-    <link rel="stylesheet" href="assets/css/messenger.css">
-</head>
+
+<?php include 'components/HeaderMessenger.php'?>
 
 <body>
-    <?php include 'components/Header.php';?>
     <div class="messenger">
         <div class="messenger_left">
             <div class="bright">
@@ -83,8 +76,9 @@ if(!empty($lastMsgReceived)){
         <div class="messenger_middle">
             <div class="msg_middle_header">
                 <div style="display: flex;align-items:center">
-                    <img src="<?php echo $lastMsgReceived->profile_picture ?>" alt="">
-                    <div class="h_3_msg"><?php echo $lastMsgReceived->first_name.' '.$lastMsgReceived->last_name ?>
+                    <img src="<?php if(!empty($lastMsgReceived)){ echo $lastMsgReceived->profile_picture; } ?>" alt="">
+                    <div class="h_3_msg">
+                        <?php if(!empty($lastMsgReceived)){ echo "$lastMsgReceived->first_name $lastMsgReceived->last_name"; } ?>
                     </div>
                 </div>
                 <div class="svgs_msg">
@@ -115,9 +109,9 @@ if(!empty($lastMsgReceived)){
             </div>
             <div class="messaging_area">
                 <div class="msg_hello_info">
-                    <img src="<?php echo $lastMsgReceived->profile_picture ?>" alt="">
+                    <img src="<?php if(!empty($lastMsgReceived)){ echo $lastMsgReceived->profile_picture ; } ?>" alt="">
                     <div style="margin-top:5px" class="h_3_msg">
-                        <?php echo $lastMsgReceived->first_name.' '.$lastMsgReceived->last_name ?>
+                        <?php if(!empty($lastMsgReceived)){ echo "$lastMsgReceived->first_name $lastMsgReceived->last_name"; } ?>
                     </div>
                     <div class="span_sm_txt">You're friends on Facebook</div>
                     <div class="span_sm_txt">Lives in Branes, Tanger, Morocco
@@ -127,7 +121,9 @@ if(!empty($lastMsgReceived)){
                 </div>
 
                 <div class="messeges_wrap">
-                    <div class="msg_box" data-userid="<?php echo $userid?>" data-chat="<?php echo $lastMsgReceived ?>">
+                    <div class="msg_box" data-userid="<?php echo $userid ?>"
+                        data-chat="<?php echo $lastMsgReceived->user_id ?>">
+
                     </div>
 
                 </div>
@@ -197,39 +193,22 @@ if(!empty($lastMsgReceived)){
                     </div>
                 </div>
             </div>
-            <div class="messenger_right">
-                <div class="msg_r_imgtext">
-                    <img class="imgtaxta" src="<?php echo $lastMsgReceived->profile_picture ?>" alt="">
-                    <div style="margin-top:10px" class="h_3_msg">
-                        <?php echo $lastMsgReceived->first_name.' '.$lastMsgReceived->last_name ?>
-                    </div>
-                </div>
-                <div class="edit_chat_menu">
-                    <div class="chat_men_item">Customize chat <i class="chat_ardown"></i></div>
-                    <div class="chat_men_item">Privacy & support <i class="chat_ardown"></i></div>
+        </div>
+        <div class="messenger_right">
+            <div class="msg_r_imgtext">
+                <img class="imgtaxta"
+                    src="<?php if(!empty($lastMsgReceived)){ echo $lastMsgReceived->profile_picture; } ?>" alt="">
+                <div style="margin-top:10px" class="h_3_msg">
+                    <?php if(!empty($lastMsgReceived)){ echo "$lastMsgReceived->first_name $lastMsgReceived->last_name"; } ?>
                 </div>
             </div>
+            <div class="edit_chat_menu">
+                <div class="chat_men_item">Customize chat <i class="chat_ardown"></i></div>
+                <div class="chat_men_item">Privacy & support <i class="chat_ardown"></i></div>
+            </div>
         </div>
-        <script src="assets/js/jquery.js"></script>
-        <script src="assets/dist/emojionearea.js"></script>
-        <script>
-        console.log('kosomak');
-        $(document).ready(function() {
-            console.log('kosomak');
+    </div>
 
-            function loadUser() {
-                var userid = "<?php echo $userid ?>";
-                $.post('http://localhost/facebook/core/ajax/messages.php', {
-                    getuserid: userid
-                }, function(data) {
-                    $('.msg-user-add').html(data);
-                    console.log(data);
-
-                })
-            }
-            loadUser();
-        })
-        </script>
 </body>
 
 </html>

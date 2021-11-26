@@ -271,3 +271,44 @@
 .chat_men_item:hover {
     background: #e4e6eb;
 }
+/*contact_menu_a*/
+.msg_contcat {
+    display: flex;
+    align-items: center;
+    padding: 7px;
+    background: #eaf3ff;
+    border-radius: 10px;
+}
+
+.msg_contcat img {
+    width: 55px;
+    height: 55px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+.contact_col {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 15px;
+}
+.contact_name {
+    color: #111;
+    font-size: 14px;
+}
+.contact_msg {
+    font-size: 13px;
+    width: 200px;
+    word-break: break-all;
+}
+.msg_username {
+    padding: 10px;
+}
+.contact_timeAgo {
+    font-size: 11px;
+    transform: translate(-5px, 10px);
+    padding-right: 5px;
+}
+.contact_tick svg {
+    color: #bcc0c4;
+}
