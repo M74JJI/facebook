@@ -14,26 +14,28 @@ if(isset($_POST['lastPersonId'])){
        
        if($message->sender ==$userid){ ?>
 <div class="msg_sender">
-    <div class="msg_sent">
-        <?php echo $message->message; ?>
-    </div>
-    <div class="msg_time">
-        <?php echo $loadUser->timeAgo($message->messageAt); ?>
+    <div class="actual_msg">
+        <?php echo $message->message ?>
+        <div class="msg_time1">
+            <?php echo $loadUser->timeAgoAlt($message->messageAt) ?>
+        </div>
     </div>
 </div>
 <?php }else{ ?>
 <div class="msg_receiver">
-    <img class="rec_img" src="<?php echo $message->profile_picture ?>" alt="">
-    <div class="msg_received">
-        <?php echo $message->message; ?>
+    <img src="<?php echo $message->profile_picture ?>" alt="">
+    <div class="actual_msg1">
+        <?php echo $message->message ?>
+        <div class="msg_time2">
+            <?php echo $loadUser->timeAgoAlt($message->messageAt) ?>
+        </div>
     </div>
-    <div class="msg_time">
-        <?php echo $loadUser->timeAgo($message->messageAt); ?>
-    </div>
+
 </div>
 <?php }
 }
 }
+/* <?php echo $message->message ?> */
 
 
 if(isset($_POST['getuserid'])){
@@ -48,7 +50,7 @@ $length = strlen($user->message);
 
 <li class="msg_username" data-profileid="<?php echo $user->user_id ?>">
     <div class="msg_contcat">
-        <img src="<?php echo $user->profile_picture ?>" alt="">
+        <img class="l3adab_asahbi_img" src="<?php echo $user->profile_picture ?>" alt="">
         <div class="contact_col">
             <div class="contact_name"><?php echo $user->first_name.' '.$user->last_name ?></div>
             <div class="contact_msg"><?php echo (($length>40) ? substr($user->message,0,40).'...' : $user->message ) ?>

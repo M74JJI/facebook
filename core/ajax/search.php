@@ -37,4 +37,36 @@ echo '<ul style="background-color:white;padding:10px;">';
 <?php
 } }
 echo '</ul>';
+
+if(isset($_POST['searchTerm1'])){
+$searchTerm=($_POST['searchTerm1']);
+
+$searchResults = $loadPost->search($searchTerm);
+
+echo '<ul style="background-color:white;padding:10px;">';
+
+    foreach ($searchResults as $result){
+
+ 
+   
+    ?>
+<li class="result_user" data-profileid="<?php echo $result->user_id?>">
+    <a class="search_ind">
+        <img src="<?php echo BASE_URL.$result->profile_picture ?>" class="s_img"
+            style="width:40px;height:40px;border-radius:50%;cursor:ponter;object-fit:cover;" alt="">
+        <span class="s_name"><?php echo $result->first_name.' '.$result->last_name ?></span>
+        <?php
+  
+       if($userid==$result->user_id){
+        echo '<span class="sugg_search">You</span>';
+       }else{
+           echo '<span class="sugg_search">Friend</span>';
+       }
+
+       ?>
+    </a>
+</li>
+<?php
+} }
+echo '</ul>';
 ?>
