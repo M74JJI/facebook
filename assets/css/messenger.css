@@ -404,7 +404,7 @@
         font-size: 14px;
     }
 }
-.emojionearea {
+.messenger .emojionearea {
     resize: none !important;
     flex: 1 !important;
     font-family: inherit !important;
@@ -418,11 +418,11 @@
     max-height: 40px !important;
     height: 100% !important;
 }
-.emojionearea-button-close,
-.emojionearea-button-open {
+.messenger .emojionearea-button-close,
+.messenger .emojionearea-button-open {
     margin-top: 5px !important;
 }
-.msg_textarea {
+.messenger .msg_textarea {
     border: none !important;
     box-shadow: none !important;
 }

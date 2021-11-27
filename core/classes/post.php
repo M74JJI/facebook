@@ -29,15 +29,15 @@ class Post extends User{
     public function Homeposts($userid,$profileId,$num){
         $userdata = $this->getUserInfo($userid);
 
-        $statement= $this->pdo->prepare('SELECT * from post p LEFT JOIN users u ON p.user_id = u.id LEFT JOIN profile pr ON pr.user_id = p.postedBy WHere p.sharedBy IS NULL and p.user_id =:userid 
+        $statement= $this->pdo->prepare('SELECT * from post p LEFT JOIN users u ON p.user_id = u.id LEFT JOIN profile pr ON pr.user_id = p.user_id WHere p.sharedBy IS NULL and p.user_id =:userid 
         UNION
         SELECT * from post p LEFT JOIN users u ON p.user_id = u.id
-         LEFT JOIN profile pr ON pr.user_id = p.postedBy WHERE p.user_id 
+         LEFT JOIN profile pr ON pr.user_id = p.user_id WHERE p.user_id 
          IN (SELECT friendrequest.requestReceiver FROM 
          friendRequest WHERE friendrequest.requestSender = :userid
          AND friendrequest.requestStatus = 1) OR p.user_id IN (SELECT friendrequest.requestSender FROM friendRequest WHERE friendrequest.requestReceiver = :userid and friendrequest.requestStatus=1)
          OR p.user_id In(SELECT follow.receiver FROM follow WHERE follow.sender =:userid)
-         ORDER BY postedAt DESC
+         ORDER BY postedAt DESC LIMIT :num
         ');
 
         $statement->bindParam(':userid',$profileId,PDO::PARAM_INT);

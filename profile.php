@@ -52,7 +52,8 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
 
     <div class="container">
         <div class="left" id="left">
-            <div class="logo">
+            <a href="<?php echo BASE_URL ?>" class="logo">
+
                 <img src="assets/images/icon.png" alt="" class="imglogo" id="imglogo" />
                 <div id="arrowlogo" class="arrowlogo">
 
@@ -68,7 +69,7 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
                         </g>
                     </svg>
                 </div>
-            </div>
+            </a>
             <div class="search_container">
 
                 <div class="search" id="search">
@@ -102,7 +103,7 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
             </div>
         </div>
         <div class="middle">
-            <a class="icon_container">
+            <a href="<?php echo BASE_URL ?>" class="icon_container">
                 <svg viewBox="0 0 28 28" class="a8c37x1j ms05siws hwsy1cff b7h9ocf4 em6zcovv" height="28" width="28"
                     class="middle_icon" fill="#65676b">
                     <path

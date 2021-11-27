@@ -1,0 +1,180 @@
+.facebook {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    padding: 2rem 1rem;
+}
+.facebook_left {
+    position: fixed;
+    top: 70px;
+    bottom: 0;
+    left: 0.5rem;
+    width: 340px;
+    overflow-y: auto;
+}
+
+.home_links {
+    padding-bottom: 8px;
+}
+.home_link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 7px;
+    margin-bottom: 3px;
+    border-radius: 10px;
+}
+.home_link:hover {
+    background: #e4e6eb;
+}
+.home_link span {
+    font-size: 14px;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+}
+.arrit_down {
+    background: #e4e6eb;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.sub_home_links {
+    display: none;
+}
+#open_less {
+    display: none;
+}
+.home_iagina {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.shortcuts {
+    padding: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.shortcuts span {
+    color: #65676b;
+    font-weight: 600;
+}
+.short_edit {
+    color: hsl(214, 89%, 52%);
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 2px;
+}
+.short_edit:hover {
+    background: #e4e6eb;
+}
+.bt_left {
+    position: absolute;
+    bottom: 10px;
+    padding: 5px;
+}
+.bt_left a {
+    font-size: 12px;
+    color: #65676b;
+}
+.facebook_middle {
+    width: 650px;
+    margin: 0 auto;
+    position: absolute;
+    left: 32%;
+}
+/*-------------CREATE POST----------------*/
+
+.home_post_wrapper {
+    padding: 10px 16px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.home_post_top {
+    display: flex;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e4e6eb;
+}
+.home_user_post_img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.home_post_open {
+    background: #f0f2f5;
+    width: 100%;
+    padding: 0.6rem 0;
+    border-radius: 50px;
+    padding-left: 15px;
+    color: #65676b;
+    font-size: 17px;
+    cursor: pointer;
+}
+.home_post_open:hover {
+    background: #c6c7ca4f;
+}
+.home_user_post_img:hover {
+    opacity: 0.9;
+}
+.home_post_bottom {
+    padding-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.home_choice {
+    padding: 8px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #65676b;
+    column-gap: 5px;
+    font-weight: 600;
+    font-size: 14px;
+    width: 33%;
+}
+.home_choice:hover {
+    background: #f0f2f5;
+}
+/*-----------EmojiOneArea----------*/
+.emojionearea-button-close,
+.emojionearea-button-open {
+    position: absolute !important;
+    top: 8rem !important;
+    transform: scale(1.5) !important;
+}
+
+.emojionearea-picker,
+.emojionearea .emojionearea-picker.emojionearea-picker-position-top {
+    position: absolute !important;
+    top: 7.5rem !important;
+}
+.textarea_post,
+.emojionearea {
+    resize: none !important;
+    flex: 1 !important;
+    font-family: inherit !important;
+    outline: none !important;
+    border: none !important;
+    background: #fff !important;
+    font-size: 19px !important;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif !important;
+}
+
+.textarea_post,
+.emojionearea {
+    border: none !important;
+    box-shadow: none !important;
+}
+/*-----------EmojiOneArea----------*/
