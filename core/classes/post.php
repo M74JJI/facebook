@@ -26,6 +26,32 @@ class Post extends User{
         
         
     }
+    public function Homeposts($userid,$profileId,$num){
+        $userdata = $this->getUserInfo($userid);
+
+        $statement= $this->pdo->prepare('SELECT * from post p LEFT JOIN users u ON p.user_id = u.id LEFT JOIN profile pr ON pr.user_id = p.postedBy WHere p.sharedBy IS NULL and p.user_id =:userid 
+        UNION
+        SELECT * from post p LEFT JOIN users u ON p.user_id = u.id
+         LEFT JOIN profile pr ON pr.user_id = p.postedBy WHERE p.user_id 
+         IN (SELECT friendrequest.requestReceiver FROM 
+         friendRequest WHERE friendrequest.requestSender = :userid
+         AND friendrequest.requestStatus = 1) OR p.user_id IN (SELECT friendrequest.requestSender FROM friendRequest WHERE friendrequest.requestReceiver = :userid and friendrequest.requestStatus=1)
+         OR p.user_id In(SELECT follow.receiver FROM follow WHERE follow.sender =:userid)
+         ORDER BY postedAt DESC
+        ');
+
+        $statement->bindParam(':userid',$profileId,PDO::PARAM_INT);
+        $statement->bindParam('num',$num,PDO::PARAM_INT);
+        $statement->execute();
+        $posts=$statement->fetchAll(PDO::FETCH_OBJ);
+       
+          foreach($posts as $post){
+              $main_react =$this->main_react($userid,$post->id);
+          }
+        return $posts;
+        
+        
+    }
     public function main_react($userid,$postid){
         $statement = $this->pdo->prepare("SELECT * FROM react WHERE reactedBy=:userid
          AND reactedOn =:postid AND reactCommentOn='0' AND reactReplyOn='0' " );
