@@ -10,7 +10,7 @@ if(login::isLoggedIn()){
  
  $userInfo = $loadUser->getUserInfo($userid);
  $friends_requests_Total=$loadUser->getFriendsRequestsTotal($userid);
-
+ $posts=$loadPost->Homeposts($userid,100);
 
 
 ?>
@@ -449,385 +449,1293 @@ if(login::isLoggedIn()){
             </div>
             <!--------create post----------->
 
-            <!-------llah yster--------->
-        </div>
-        <div class="facebook_right"></div>
+            <!--------posts----------->
+            <!------POSTS------>
+            <?php foreach ($posts as $post) { ?>
 
-    </div>
-    <!-------CREATE POST POPUP----->
-    <div class="post_box" id="post_box">
-        <div class="post_box_header">
-            <h3>Create Post</h3>
-            <div class="header_icon" id="close_post"><i class="fa-solid fa-xmark"></i></div>
-        </div>
-        <div class="post_user_infos">
-            <img class="box_post_img" src=<?php echo $userInfo->profile_picture ?> alt="">
-            <div class="privacy_box_box">
-                <h6><?php echo $userInfo->first_name.' '. $userInfo->last_name; ?></h6>
-                <span><i class="fa-solid fa-user-group"></i>Friends<i class="fa-solid fa-sort-down"></i></span>
-            </div>
-        </div>
-        <div class="errors_post" id="errors_post"></div>
 
-        <div class="box_area">
-            <textarea placeholder="What's on your mind, <?php echo $userInfo->first_name ?>?" class="textarea_post"
-                id="post_textarea"></textarea>
-        </div>
-        <div class="preview_container">
 
-            <div class="added_ikhe">
-                <input type="file" class="input_tamara" id="post_photo" name="post_photo"
-                    data-multiple-caption='{count} files selected' multiple="">
-                <div class="plussit_dvc">
-                    <i class="plucit_icon"></i>
+            <!------POST  FUNCTIONS DATA------>
+            <?php 
+            $profileId=$post->user_id;
+    $main_react =$loadPost->main_react($userid,$post->post_id);
+    $react_max_show =$loadPost->react_max_show($post->post_id);
+    $main_react_count =$loadPost->main_react_count($post->post_id);
+    $commentDetails = $loadPost->commentFetch($post->post_id);
+    $totalCommentCount=$loadPost->totalCommentCount($post->post_id);
+    $totalShareCount =$loadPost->totalShareCount($post->post_id);
+    if(empty($post->shareId)){
+
+    }else{
+       $shareDetails = $loadPost->shareFetch($post->shareId,$post->postedBy);
+
+    }
+?>
+            <!------POST  FUNCTIONS DATA------>
+            <!------POST------>
+            <div class="post">
+                <div class="post_share_box">
+
                 </div>
-                Add Photos/Videos
-                <span>or drag and drop</span>
+                <!------POST-HEADER------>
+                <div class="post_header">
+                    <div class="post_header_left">
+                        <a href="<?php echo BASE_URL.$post->link ?>"> <img src="<?php echo $post->profile_picture ?>"
+                                alt=""></a>
+                        <div class="post_header_left_name">
+                            <a href="<?php echo BASE_URL.$post->link ?>" class="postedBy">
+                                <?php echo $post->first_name.' '.$post->last_name ?>
+                            </a>
+                            <span class="postedAt">
+                                <?php echo $loadUser->timeAgoAlt($post->postedAt) ?>
+                                .
+                                <svg fill="#65676b" style="margin-left:5px;margin-top:2px" viewBox="0 0 16 16"
+                                    width="1em" height="1em" title="Shared with Public">
+
+                                    <g fill-rule="evenodd" transform="translate(-448 -544)">
+                                        <g>
+                                            <path
+                                                d="M109.5 408.5c0 3.23-2.04 5.983-4.903 7.036l.07-.036c1.167-1 1.814-2.967 2-3.834.214-1 .303-1.3-.5-1.96-.31-.253-.677-.196-1.04-.476-.246-.19-.356-.59-.606-.73-.594-.337-1.107.11-1.954.223a2.666 2.666 0 0 1-1.15-.123c-.007 0-.007 0-.013-.004l-.083-.03c-.164-.082-.077-.206.006-.36h-.006c.086-.17.086-.376-.05-.529-.19-.214-.54-.214-.804-.224-.106-.003-.21 0-.313.004l-.003-.004c-.04 0-.084.004-.124.004h-.037c-.323.007-.666-.034-.893-.314-.263-.353-.29-.733.097-1.09.28-.26.863-.8 1.807-.22.603.37 1.166.667 1.666.5.33-.11.48-.303.094-.87a1.128 1.128 0 0 1-.214-.73c.067-.776.687-.84 1.164-1.2.466-.356.68-.943.546-1.457-.106-.413-.51-.873-1.28-1.01a7.49 7.49 0 0 1 6.524 7.434"
+                                                transform="translate(354 143.5)"></path>
+                                            <path
+                                                d="M104.107 415.696A7.498 7.498 0 0 1 94.5 408.5a7.48 7.48 0 0 1 3.407-6.283 5.474 5.474 0 0 0-1.653 2.334c-.753 2.217-.217 4.075 2.29 4.075.833 0 1.4.561 1.333 2.375-.013.403.52 1.78 2.45 1.89.7.04 1.184 1.053 1.33 1.74.06.29.127.65.257.97a.174.174 0 0 0 .193.096"
+                                                transform="translate(354 143.5)"></path>
+                                            <path fill-rule="nonzero"
+                                                d="M110 408.5a8 8 0 1 1-16 0 8 8 0 0 1 16 0zm-1 0a7 7 0 1 0-14 0 7 7 0 0 0 14 0z"
+                                                transform="translate(354 143.5)"></path>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </span>
+
+                        </div>
+                    </div>
+                    <?php 
+             if($userid === $profileId){
+             ?>
+                    <div class="post_header_right"><i class="fa-solid fa-ellipsis"></i></div>
+                    <?php
+             }
+             ?>
+                </div>
+                <!------POST-HEADER------>
+
+                <div class="nf-2">
+                    <!------POST-TEXT------>
+                    <div class="post_text">
+                        <?php  
+           
+
+           if(empty($post->shareId)){
+               echo $post->post;
+             
+           }else{
+                echo $post->shareText;
+                   echo '<span class="shared-post-txt" data-postid="'.$post->post_id;'" data-userid="'.$userid;'" data-profilepic="'.$post->profile_picture;'">'.$post->shareText.'</span>';
+                   
+               
+               foreach($shareDetails as $share){
+                   ?>
+                        <div class="share-container">
+
+                            <div class="post_header">
+                                <div class="post_header_left">
+                                    <a href="<?php echo BASE_URL.$post->link ?>"> <img
+                                            src="<?php echo $share->profile_picture ?>" alt=""></a>
+                                    <div class="post_header_left_name">
+                                        <a href="<?php echo BASE_URL.$share->link ?>" class="postedBy">
+                                            <?php echo $share->first_name.' '.$share->last_name ?>
+                                        </a>
+                                        <span class="postedAt"><?php echo $loadUser->timeAgo($share->postedAt) ?></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!------POST-TEXT------>
+                            <div class="nf-2">
+                                <!------POST-TEXT------>
+                                <div class="post_text">
+                                    <?php echo $share->post ?>
+                                </div>
+                                <!------POST-TEXT------>
+
+                                <!------POST-IMAGES------>
+                                <?php 
+    if($share->postImages !=''){
+        $imgs=json_decode($share->postImages);
+        $count = 0;
+        for($i=0;$i<count($imgs);$i++){
+            echo'<div class="post_images" data-img-id="'.$post->post_id.'">
+            <img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'" 
+            class="post_img">
+            </div>';   
+        }
+    
+    }
+     ?>
+                            </div>
+                            <!------POST-TEXT------>
+                            <?php
+               }
+               
+        
+            }
+           ?>
+                        </div>
+
+
+                        <!------POST-IMAGES------>
+                        <?php 
+    if($post->postImages !=''){
+        $imgs=json_decode($post->postImages);
+        $count = 0;
+        for($i=0;$i<count($imgs);$i++){
+            echo'<div class="post_images" data-img-id="'.$post->post_id.'">
+            <img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'" 
+            class="post_img">
+            </div>';   
+        }
+    
+    }
+     ?>
+                    </div>
+                    <!------POST-IMAGES------>
+
+                    <!------POST-INFOS------>
+                    <div class="react_infos">
+                        <div class="nf-3">
+                            <div class="react-comment-count-wrap" style="width:100%;display:flex;align-items:center">
+                                <div class="react-count-wrap">
+                                    <div class="nf-3-react-icon">
+                                        <div class="react-inst-img align-middle">
+                                            <?php
+                    foreach($react_max_show as $react_max){
+                        echo '<img class="'.$react_max->reactType.'-max-show"
+                         src="assets/images/react/'.$react_max->reactType.'.svg" alt=""
+                          style="width:20px;height:20px;cursor:pointer">';
+                    }
+                         ?>
+                                        </div>
+                                    </div>
+                                    <div class="nf-3-react-username">
+                                        <?php 
+                    if($main_react_count->maxreact =='0'){
+
+                    }else{
+                        echo $main_react_count->maxreact;
+                    }
+                    ?>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="react_right_count">
+                            <span class="comment-share-count">
+                                <?php if(empty($totalCommentCount->totalComment)){
+
+           }else{
+               echo $totalCommentCount->totalComment.' comments' ;
+           } ?>
+                            </span>
+                            <span class="share-count-wrap">
+                                <?php
+               if(empty($totalShareCount->totalShare)){}else{
+                   echo $totalShareCount->totalShare.'Shares';
+               }
+               ?>
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <!------POST-ACTIONS------>
+
+                    <div class="nf-4">
+
+                        <div class="like-action-wrap" data-postid="<?php echo $post->post_id ?>"
+                            data-userid="<?php echo $userid ?>">
+                            <div class="react-bundle-wrap">
+
+                            </div>
+                            <div class="like-action ra">
+                                <?php if(empty($main_react)){
+                ?>
+                                <div class="like-action-icon">
+                                    <img src="assets/images/like.png" style="width:20px" alt="">
+                                </div>
+                                <div class="like-action-text">
+                                    <span>Like</span>
+                                </div>
+                                <?php }else{ ?>
+                                <div class="like-action-icon">
+                                    <img class="react_icon_md"
+                                        src="assets/images/react/<?php echo $main_react->reactType ?>.svg" alt=""
+                                        class="">
+                                    <div class="like-action-text">
+                                        <span><?php echo $main_react->reactType; ?></span>
+                                    </div>
+                                </div>
+                                <?php  }?>
+                            </div>
+                            <div class="react_btn_wrapper comment-action">
+                                <i class="comment_button"></i>Comment
+                            </div>
+                            <div class="react_btn_wrapper share-action" data-postid="<?php echo $post->post_id ?>"
+                                data-profilepic="<?php echo $userInfo->profile_picture ?>"
+                                data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId; ?>">
+
+                                <i class="share_button"></i>Share
+                            </div>
+                        </div>
+
+                    </div>
+                    <!------POST-ACTIONS------>
+                    <!------POST-COMMENTS------>
+
+                    <!------POST-COMMENTS------>
+                    <div class="nf-5">
+                        <div class="comment-list">
+                            <ul class="add-comment">
+                                <?php 
+    
+                        if(!empty($commentDetails)){
+                        
+
+                        foreach ($commentDetails as $comment){
+                        
+                        
+                            $com_react_max_show =$loadPost->com_react_max_show($comment->commentedOn,$comment->comment_id);
+                            $com_main_react_count =$loadPost->com_main_react_count($comment->commentedOn,$comment->comment_id);
+                            $com_reactCheck =$loadPost->com_reactCheck($userid,$comment->commentedOn,$comment->comment_id);
+                    
+                        ?>
+                                <!-------COMMENT------>
+                                <li class="new-comment">
+                                    <div class="com-details">
+                                        <div class="com-profile-pic">
+                                            <a href="#">
+                                                <span class="top-pic">
+                                                    <img src="<?php echo $comment->profile_picture ?>"
+                                                        class="pdp_comment" alt="">
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="com-pro-wrap">
+                                            <div class="com-text-react-wrap">
+                                                <div class="com-text-option-wrap align-middle">
+                                                    <div class="com-pro-text align-middle">
+
+                                                        <div class="com-react-placeholder-wrap align-middle">
+                                                            <div class="flex_col">
+                                                                <span class="nf-pro-name">
+                                                                    <a href="#" class="nf-pr-name">
+                                                                        <?php echo ''.$comment->first_name.' '.$comment->last_name.'' ?>
+                                                                    </a>
+                                                                </span>
+                                                                <span class="com-text" style="margin-left:5px"
+                                                                    data-postid="<?php echo $comment->commentedOn ?>"
+                                                                    data-userid="<?php echo $userInfo->id ?>"
+                                                                    data-commentid="<?php echo $comment->comment_id ?>"
+                                                                    data-profilepic="<?php echo $userInfo->profile_picture ?>">
+
+                                                                    <?php echo $comment->comment ?>
+
+                                                                </span>
+                                                            </div>
+                                                            <div class="com-nf-3-wrap">
+                                                                <?php 
+                                                if($com_main_react_count->maxreact =='0'){ 
+                                                }else{
+                                            ?>
+                                                                <div class="com-nf-3 align-middle">
+                                                                    <div class="nf-3-react-icon">
+                                                                        <div class="align-middle react-inst-img">
+                                                                            <?php
+                                             foreach($com_react_max_show as $react_max){
+                                                 echo '<img class="'.$react_max->reactType.'-max-show" src="assets/images/react/'.$react_max->reactType.'.svg" alt="" style="height:12px;width:12px;margin-right:2px;cursor:pointer;">';
+                                                 
+                                             }
+                                             ?>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="nf-3-react-username">
+                                                                        <?php
+                                              if($com_main_react_count->maxreact =='0'){
+                                     
+                                              }else{
+                                                  echo $com_main_react_count->maxreact;
+                                              }
+                                                ?>
+                                                                    </div>
+                                                                </div>
+                                                                <?php
+                                                                }
+                                        
+                                              ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <?php 
+                                  
+                                    if($userid == $comment->commentedBy){
+                                        ?>
+                                                    <div class="com-dot-option-wrap">
+                                                        <div class="com-dot"
+                                                            data-postid="<?php echo $comment->commentedOn ?>"
+                                                            data-userid="<?php echo $userid  ?>"
+                                                            data-commentid="<?php echo $comment->comment_id ?>">
+                                                            <i class="fa-solid fa-ellipsis"></i>
+                                                        </div>
+                                                        <div class="com-option-details-container"
+                                                            id="com-option-details-container">
+                                                        </div>
+
+                                                    </div>
+                                                    <?php
+                                    }else{}
+                                    ?>
+                                                </div>
+
+                                                <div class="com-react">
+
+                                                    <div class="com-rlike-react"
+                                                        data-postid="<?php echo $comment->commentedOn ?>"
+                                                        data-userid="<?php echo $userid  ?>"
+                                                        data-commentid="<?php echo $comment->comment_id ?>">
+                                                        <div class="com-react-bundle-wrap"
+                                                            data-commentid="<?php echo $comment->comment_id ?>">
+
+                                                        </div>
+                                                        <?php
+                                        if(empty($com_reactCheck)){
+                                            echo '<div class="com-like-action-text"><span>Like</span></div>';
+                           
+                                        }else{
+                                             
+                                          
+                                         echo '<div class="com-like-action-text"><span class="'.$com_reactCheck->reactType.'-color">'.$com_reactCheck->reactType.'</span></div>'; 
+                                            
+                                        }
+                                        ?>
+                                                    </div>
+                                                    <b class="com-reply-action"
+                                                        data-postid="<?php echo $comment->commentedOn ?>"
+                                                        data-profilepic="<?php echo $userInfo->profile_picture ?>">
+                                                        Reply
+                                                    </b>
+                                                    <div class="com-time">
+                                                        <?php echo $loadUser->timeAgo($comment->commentedAt) ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <!-------COMMENT------>
+                                <?php }} ?>
+                            </ul>
+
+
+                        </div>
+                        <div class="comment-write">
+                            <div class="com-pro-pick">
+                                <a href="#">
+                                    <div class="top-pic">
+                                        <img style="width:30px" src="<?php echo $userInfo->profile_picture ?>" alt="">
+                                    </div>
+                                </a>
+                            </div>
+                            <?php echo "--------------> $post->post_id"
+                  
+                            ?>
+                            <div class="com-input">
+                                <div class="comment-input">
+                                    <input type="text" class="comment-input-style comment-submit"
+                                        placeholder="Write a comment..." data-postid="<?php echo $post->post_id ?>"
+                                        data-userid="<?php echo $userid  ?>" />
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <!------POST-INFOS------>
+
+
+                    </div>
+                    <!------POST------>
+
+
+
+                    <!------POSTS------>
+                    <!--------posts----------->
+                </div>
+                <?php } ?>
+                <!-------llah yster--------->
             </div>
-            <div class="post_imgs_preview" id="post_imgs_preview"></div>
-        </div>
-        <div class="emoji_wrapper" id="emoji_wrapper">
-            <img style="width:40px;cursor:pointer" src="https://www.facebook.com/images/composer/SATP_Aa_square-2x.png"
-                alt="">
+            <div class="facebook_right"></div>
 
         </div>
-
-
-        <div class="post_box_actions">
-            <div class="actions_name">
-                Add to your post
+        <!-------CREATE POST POPUP----->
+        <div class="post_box" id="post_box">
+            <div class="post_box_header">
+                <h3>Create Post</h3>
+                <div class="header_icon" id="close_post"><i class="fa-solid fa-xmark"></i></div>
             </div>
-            <div class="actions_list">
-                <div class="post_action post_icon11" id="add_photos">
-                    <div class="post_icon1"></div>
-                    <input type="file" class="hidden" id="post_photo" name="post_photo"
+            <div class="post_user_infos">
+                <img class="box_post_img" src=<?php echo $userInfo->profile_picture ?> alt="">
+                <div class="privacy_box_box">
+                    <h6><?php echo $userInfo->first_name.' '. $userInfo->last_name; ?></h6>
+                    <span><i class="fa-solid fa-user-group"></i>Friends<i class="fa-solid fa-sort-down"></i></span>
+                </div>
+            </div>
+            <div class="errors_post" id="errors_post"></div>
+
+            <div class="box_area">
+                <textarea placeholder="What's on your mind, <?php echo $userInfo->first_name ?>?" class="textarea_post"
+                    id="post_textarea"></textarea>
+            </div>
+            <div class="preview_container">
+
+                <div class="added_ikhe">
+                    <input type="file" class="input_tamara" id="post_photo" name="post_photo"
                         data-multiple-caption='{count} files selected' multiple="">
+                    <div class="plussit_dvc">
+                        <i class="plucit_icon"></i>
+                    </div>
+                    Add Photos/Videos
+                    <span>or drag and drop</span>
                 </div>
-                <div class="post_action">
-                    <div class="post_icon2"></div>
+                <div class="post_imgs_preview" id="post_imgs_preview"></div>
+            </div>
+            <div class="emoji_wrapper" id="emoji_wrapper">
+                <img style="width:40px;cursor:pointer"
+                    src="https://www.facebook.com/images/composer/SATP_Aa_square-2x.png" alt="">
+
+            </div>
+
+
+            <div class="post_box_actions">
+                <div class="actions_name">
+                    Add to your post
                 </div>
-                <div class="post_action">
-                    <div class="post_icon3"></div>
-                </div>
-                <div class="post_action">
-                    <div class="post_icon4"></div>
-                </div>
-                <div class="post_action">
-                    <div class="post_icon5"></div>
-                </div>
-                <div class="post_action">
-                    <div class="post_icon6"></div>
+                <div class="actions_list">
+                    <div class="post_action post_icon11" id="add_photos">
+                        <div class="post_icon1"></div>
+                        <input type="file" class="hidden" id="post_photo" name="post_photo"
+                            data-multiple-caption='{count} files selected' multiple="">
+                    </div>
+                    <div class="post_action">
+                        <div class="post_icon2"></div>
+                    </div>
+                    <div class="post_action">
+                        <div class="post_icon3"></div>
+                    </div>
+                    <div class="post_action">
+                        <div class="post_icon4"></div>
+                    </div>
+                    <div class="post_action">
+                        <div class="post_icon5"></div>
+                    </div>
+                    <div class="post_action">
+                        <div class="post_icon6"></div>
+                    </div>
                 </div>
             </div>
+
+            <button class="post_button" id="post_btn_submit">Post</button>
+
         </div>
-
-        <button class="post_button" id="post_btn_submit">Post</button>
-
-    </div>
-    <!-------CREATE POST POPUP----->
+        <!-------CREATE POST POPUP----->
 
 
 
 
-    <script src="assets/js/header.js"></script>
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/dist/emojionearea.js"></script>
-    <script>
-    $(document).on('click', '#open_more', function() {
-        $('.sub_home_links').show()
-        $('#open_more').hide()
-        $('#open_less').css('display', 'flex');
-        $('.bt_left').css('position', 'relative');
-    })
-    $(document).on('click', '#open_less', function() {
-        $('.sub_home_links').hide()
-        $('#open_less').hide()
-        $('#open_more').show()
-        $('.bt_left').css('position', 'absolute');
-    })
-    $(document).on('keyup', '#search_input', function() {
-        var searchTerm = $(this).val();
+        <script src="assets/js/header.js"></script>
+        <script src="assets/js/jquery.js"></script>
+        <script src="assets/dist/emojionearea.js"></script>
+        <script>
+        $(document).on('click', '#open_more', function() {
+            $('.sub_home_links').show()
+            $('#open_more').hide()
+            $('#open_less').css('display', 'flex');
+            $('.bt_left').css('position', 'relative');
+        })
+        $(document).on('click', '#open_less', function() {
+            $('.sub_home_links').hide()
+            $('#open_less').hide()
+            $('#open_more').show()
+            $('.bt_left').css('position', 'absolute');
+        })
+        $(document).on('keyup', '#search_input', function() {
+            var searchTerm = $(this).val();
 
-        if (searchTerm == '') {
-
-
-        } else {
+            if (searchTerm == '') {
 
 
-            $.post('http://localhost/facebook/core/ajax/search.php', {
-                searchTerm: searchTerm,
+            } else {
 
-            }, function(data) {
 
-                if (data == '') {
+                $.post('http://localhost/facebook/core/ajax/search.php', {
+                    searchTerm: searchTerm,
 
-                    $('.search_results').html('no results found');
-                } else {
-                    $('.search_results').html(data);
+                }, function(data) {
+
+                    if (data == '') {
+
+                        $('.search_results').html('no results found');
+                    } else {
+                        $('.search_results').html(data);
+
+                    }
+                })
+            }
+
+        })
+
+
+        //cleaner
+        $(document).on('blue', '#search_input', function() {
+            $('.search_results').css('width', '0');
+        })
+
+        //menu bar
+
+        $(document).on('click', '#open_thatmenu', function() {
+            $('#menu_header').css('display', 'block');
+        })
+        $(document).mouseup(function(e) {
+            var container = new Array();
+
+            container.push('.search_results');
+
+            container.push('#menu_header');
+
+            $.each(container, function(key, value) {
+                if (!$(value).is(e.target) && $(value).has(e.target)
+                    .length === 0) {
+                    $(value).css('display', 'none');
 
                 }
             })
-        }
-
-    })
-
-
-    //cleaner
-    $(document).on('blue', '#search_input', function() {
-        $('.search_results').css('width', '0');
-    })
-
-    //menu bar
-
-    $(document).on('click', '#open_thatmenu', function() {
-        $('#menu_header').css('display', 'block');
-    })
-    $(document).mouseup(function(e) {
-        var container = new Array();
-
-        container.push('.search_results');
-
-        container.push('#menu_header');
-
-        $.each(container, function(key, value) {
-            if (!$(value).is(e.target) && $(value).has(e.target)
-                .length === 0) {
-                $(value).css('display', 'none');
-
-            }
         })
-    })
 
-    //-------------Show POST POPU----------------->
-    $(document).on('click', '.home_post_open', function() {
-        $('#post_box').show();
-        $('.facebook').css('opacity', '0.3');
-    })
-    $(document).on('click', '#close_post', function() {
-        $('#post_box').hide();
-        $('.facebook').css('opacity', '1');
-    })
-    //-------------Show POST POPU----------------->
-
-    //-------------LINK EMOJI TO CREATE POST----------------->
-    $('#post_textarea').emojioneArea({
-
-    })
-    //-------------LINK EMOJI TO CREATE POST----------------->
-
-
-    //------------POST----------------->
-    $('.post_icon11').on('click', function() {
-        $('.preview_container').show();
-        $('#emoji_wrapper').css('display', 'none');
-        $('.emojionearea-editor').css('max-height', '30px');
-        $('.emojionearea-editor').css('overflow', 'auto');
-
-    })
-    $(document).on('click', '.added_ikhe', function() {
-        $('#post_photo').click();
-    })
-    //----Add image preview--->
-    var filaes;
-    var fileCollection = new Array();
-    $(document).on('change', '#post_photo', function(e) {
-        var count = 0;
-        var files = e.target.files;
-        filaes = files;
-        $(this).removeData();
-        var text = "";
-        $('#post_imgs_preview').css('max-height', '400px');
-        $('.preview_container').css('border', '1px solid #ced0d4');
-        $('#emoji_wrapper').css('display', 'none');
-        $('.added_ikhe').hide();
-        $('.preview_container').css('background', '#f7f8fa');
-
-
-        /* grid from preview*/
-
-
-        $.each(files, function(i, file) {
-            fileCollection.push(file);
-            var reader = new FileReader();
-            reader.readAsDataURL(file);
-
-            reader.onload = function(e) {
-                var name = document.getElementById("post_photo").files[i].name;
-                var template = ' <img class="prevv_img" id = "' + name +
-                    '" src="' + e.target.result + '" / >';
-
-                $('#post_imgs_preview').append(template);
-                if (filaes.length == 1) {
-                    $('.prevv_img').css('width', '500px');
-                    $('.prevv_img').css('height', '400px');
-                }
-                if (filaes.length == 2) {
-                    $('.post_imgs_preview').css('grid-template-columns', '1fr 1fr');
-                    $('.prevv_img').css('width', '250px');
-                    $('.prevv_img').css('height', '400px');
-
-                }
-                if (filaes.length == 3) {
-                    $('.post_imgs_preview').css('grid-template-columns', '1fr 1fr');
-                    $('.prevv_img').css('width', '250px');
-                    $('.prevv_img').css('height', '200px');
-                    $('.prevv_img:first-of-type').css('grid-row', '1/3');
-                    $('.prevv_img:first-of-type').css('height', '400px');
-                }
-            }
+        //-------------Show POST POPU----------------->
+        $(document).on('click', '.home_post_open', function() {
+            $('#post_box').show();
+            $('.facebook').css('opacity', '0.3');
         })
-        $('#post_imgs_preview').append(
-            '<div class="remove_img"><i class="fa-solid fa-xmark"></i></div>');
-        $('#post_imgs_preview').append(
-            '<div class="add_more_imgs"><i class="azrbch"></i>Add Photos/Videos</div>');
+        $(document).on('click', '#close_post', function() {
+            $('#post_box').hide();
+            $('.facebook').css('opacity', '1');
+        })
+        //-------------Show POST POPU----------------->
+
+        //-------------LINK EMOJI TO CREATE POST----------------->
+        $('#post_textarea').emojioneArea({
+
+        })
+        //-------------LINK EMOJI TO CREATE POST----------------->
 
 
-    })
+        //------------POST----------------->
+        $('.post_icon11').on('click', function() {
+            $('.preview_container').show();
+            $('#emoji_wrapper').css('display', 'none');
+            $('.emojionearea-editor').css('max-height', '30px');
+            $('.emojionearea-editor').css('overflow', 'auto');
 
-    //------------remove img->
-    $(document).on('click', '.remove_img', function() {
-        $('#post_photo').val('');
-        $('.added_ikhe').show();
+        })
+        $(document).on('click', '.added_ikhe', function() {
+            $('#post_photo').click();
+        })
+        //----Add image preview--->
+        var filaes;
+        var fileCollection = new Array();
+        $(document).on('change', '#post_photo', function(e) {
+            var count = 0;
+            var files = e.target.files;
+            filaes = files;
+            $(this).removeData();
+            var text = "";
+            $('#post_imgs_preview').css('max-height', '400px');
+            $('.preview_container').css('border', '1px solid #ced0d4');
+            $('#emoji_wrapper').css('display', 'none');
+            $('.added_ikhe').hide();
+            $('.preview_container').css('background', '#f7f8fa');
 
-    })
-    //------------remove img->
 
-    //------------hover show add->
-    $(document).on('mouseover', '.preview_container', function() {
-        $('.add_more_imgs').show()
-    })
-    $(document).on('mouseout', '.preview_container', function() {
-        $('.add_more_imgs').hide()
-    })
-    //------------hover show add->
+            /* grid from preview*/
 
-    //------------add more images->
-    $('.add_more_imgs').on('click', function() {
-        $('#post_photo').click();
 
-    })
-    //------------add more images->
-    //----Add image preview--->
+            $.each(files, function(i, file) {
+                fileCollection.push(file);
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
 
-    //----Submit Post--->
-    $('#post_btn_submit').on('click', function() {
-        var post_text = $('.textarea_post').html();
-        var formData = new FormData();
-        var images = [];
-        var errors = [];
-        var files = $('#post_photo')[0].files;
+                reader.onload = function(e) {
+                    var name = document.getElementById("post_photo").files[i].name;
+                    var template = ' <img class="prevv_img" id = "' + name +
+                        '" src="' + e.target.result + '" / >';
 
-        if (files.length != 0) {
-            if (files.length > 20) {
-                errors += "maximum 20 images is allowed.";
+                    $('#post_imgs_preview').append(template);
+                    if (filaes.length == 1) {
+                        $('.prevv_img').css('width', '500px');
+                        $('.prevv_img').css('height', '400px');
+                    }
+                    if (filaes.length == 2) {
+                        $('.post_imgs_preview').css('grid-template-columns', '1fr 1fr');
+                        $('.prevv_img').css('width', '250px');
+                        $('.prevv_img').css('height', '400px');
+
+                    }
+                    if (filaes.length == 3) {
+                        $('.post_imgs_preview').css('grid-template-columns', '1fr 1fr');
+                        $('.prevv_img').css('width', '250px');
+                        $('.prevv_img').css('height', '200px');
+                        $('.prevv_img:first-of-type').css('grid-row', '1/3');
+                        $('.prevv_img:first-of-type').css('height', '400px');
+                    }
+                }
+            })
+            $('#post_imgs_preview').append(
+                '<div class="remove_img"><i class="fa-solid fa-xmark"></i></div>');
+            $('#post_imgs_preview').append(
+                '<div class="add_more_imgs"><i class="azrbch"></i>Add Photos/Videos</div>');
+
+
+        })
+
+        //------------remove img->
+        $(document).on('click', '.remove_img', function() {
+            $('#post_photo').val('');
+            $('.added_ikhe').show();
+
+        })
+        //------------remove img->
+
+        //------------hover show add->
+        $(document).on('mouseover', '.preview_container', function() {
+            $('.add_more_imgs').show()
+        })
+        $(document).on('mouseout', '.preview_container', function() {
+            $('.add_more_imgs').hide()
+        })
+        //------------hover show add->
+
+        //------------add more images->
+        $('.add_more_imgs').on('click', function() {
+            $('#post_photo').click();
+
+        })
+        //------------add more images->
+        //----Add image preview--->
+
+        //----Submit Post--->
+        $('#post_btn_submit').on('click', function() {
+            var post_text = $('.emojionearea-editor').html();
+
+            var formData = new FormData();
+            var images = [];
+            var errors = [];
+            var files = $('#post_photo')[0].files;
+
+            if (files.length != 0) {
+                if (files.length > 20) {
+                    errors += "maximum 20 images is allowed.";
+
+                } else {
+                    for (var i = 0; i < files.length; i++) {
+                        var name = document.getElementById('post_photo').files[i].name;
+                        images += '{\"imageName\":\"user/' + <?php echo $userid; ?> +
+                            '/postImages/' + name + '\"},';
+
+                        var extension = name.split('.').pop().toLowerCase();
+                        if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg', 'webp']) == -1) {
+                            errors +=
+                                '<p>Invalid ' + i +
+                                ' File. Only gif,png,jpg,jpeg are allowed.</p>';
+                        }
+                        var ofReader = new FileReader();
+                        ofReader.readAsDataURL(document.getElementById('post_photo').files[i]);
+                        var f = document.getElementById('post_photo').files[i];
+                        var file_size = f.size || f.fileSize;
+                        if (file_size > 2000000) {
+                            errors += '<p>' + i + ' File Size is larger than 5mb</p>'
+                        } else {
+                            formData.append('file[]', document.getElementById('post_photo')
+                                .files[
+                                    i]);
+
+
+                        }
+                    }
+                }
+                if (files.length < 1) {
+
+                } else {
+                    var str = images.replace(/,\s*$/, "");
+                    var strImg = '[' + str + ']';
+
+                }
+                if (errors == '') {
+                    $.ajax({
+                        url: 'http://localhost/facebook/core/ajax/uploadPostImage.php',
+                        cache: false,
+                        method: "post",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        beforeSend: function() {
+                            $('#errors_post').html(
+                                '<br/><label>Uploading...</label>');
+                        },
+                        success: function(data) {
+                            $('#errors_post').html(data);
+                            $('#post_imgs_preview').empty();
+                        }
+
+                    })
+                } else {
+                    $('#post_photo').val('');
+                    $('#errors_post').html('<span>' + errors + '</span>');
+                    return false;
+                }
 
             } else {
-                for (var i = 0; i < files.length; i++) {
-                    var name = document.getElementById('post_photo').files[i].name;
-                    images += '{\"imageName\":\"user/' + <?php echo $userid; ?> +
-                        '/postImages/' + name + '\"},';
-
-                    var extension = name.split('.').pop().toLowerCase();
-                    if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-                        errors +=
-                            '<p>Invalid ' + i +
-                            ' File. Only gif,png,jpg,jpeg are allowed.</p>';
-                    }
-                    var ofReader = new FileReader();
-                    ofReader.readAsDataURL(document.getElementById('post_photo').files[i]);
-                    var f = document.getElementById('post_photo').files[i];
-                    var file_size = f.size || f.fileSize;
-                    if (file_size > 2000000) {
-                        errors += '<p>' + i + ' File Size is larger than 5mb</p>'
-                    } else {
-                        formData.append('file[]', document.getElementById('post_photo')
-                            .files[
-                                i]);
-
-
-                    }
-                }
+                var strImg = '';
             }
-            if (files.length < 1) {
+            if (strImg == '') {
+                $.post('http://localhost/facebook/core/ajax/postSubmit.php', {
+                    post_text_only: post_text,
+                }, function(data) {
 
-            } else {
-                var str = images.replace(/,\s*$/, "");
-                var strImg = '[' + str + ']';
-
-            }
-            if (errors == '') {
-                $.ajax({
-                    url: 'http://localhost/facebook/core/ajax/uploadPostImage.php',
-                    cache: false,
-                    method: "post",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    beforeSend: function() {
-                        $('#errors_post').html(
-                            '<br/><label>Uploading...</label>');
-                    },
-                    success: function(data) {
-                        $('#errors_post').html(data);
-                        $('#post_imgs_preview').empty();
-                    }
-
+                    location.reload();
                 })
             } else {
-                $('#post_photo').val('');
-                $('#errors_post').html('<span>' + errors + '</span>');
-                return false;
+                $.post('http://localhost/facebook/core/ajax/postSubmit.php', {
+                    post_images: strImg,
+                    post_text: post_text,
+                }, function(data) {
+
+                    location.reload();
+                })
+
             }
 
-        } else {
-            var strImg = '';
-        }
-        if (strImg == '') {
-            $.post('http://localhost/facebook/core/ajax/postSubmit.php', {
-                post_text_only: post_text,
+
+
+
+        })
+        //----Submit Post--->
+
+
+        //---- Post Manupilation--->
+        // react system 
+
+
+        $(document).on('click', '.like-action', function() {
+
+            var likeActionIcon = $(this).find('.like-action-icon img');
+            var likeReactParent = $(this).parents('.like-action-wrap');
+            var nf4 = $(likeReactParent).parents('.nf-4');
+            var nf_3 = $(nf4).siblings('.react_infos').find('.react-count-wrap');
+            var reactCount = $(nf4).siblings('.nf-3').find('.nf-3-react-username');
+            var reactNumText = $(reactCount).text();
+            var postId = $(likeReactParent).data('postid');
+            var userId = $(likeReactParent).data('userid');
+            var typeText = $(this).find('.like-action-text span');
+            var typeR = $(typeText).text();
+            var spanClass = $(this).find('.like-action-text').find('span');
+
+            if ($(spanClass).attr('class') !== undefined) {
+
+                if ($(likeActionIcon).attr('src') == 'assets/images/like.png') {
+
+                    (spanClass).addClass('like-color');
+                    $(likeActionIcon).attr('src', 'assets/images/react/like.svg').addClass(
+                        'reactIconSize');
+                    spanClass.text('like');
+                    mainReactSubmit(typeR, postId, userId, nf_3);
+                } else {
+                    $(likeActionIcon).attr('src', 'assets/images/like.png');
+                    spanClass.removeClass('like-color');
+                    spanClass.text('like');
+                    mainReactDelete(typeR, postId, userId, nf_3);
+                }
+            } else if ($(spanClass).attr('class') === undefined) {
+                (spanClass).addClass('like-color');
+                $(likeActionIcon).attr('src', 'assets/images/react/like.svg').addClass(
+                    'reactIconSize');
+                spanClass.text('like');
+                mainReactSubmit(typeR, postId, userId, nf_3);
+
+            } else {
+                (spanClass).addClass('like-color');
+                $(likeActionIcon).attr('src', 'assets/images/react/like.svg').addClass(
+                    'reactIconSize');
+                spanClass.text('like');
+                mainReactSubmit(typeR, postId, userId, nf_3);
+            }
+
+        })
+
+        function mainReactSubmit(typeR, postId, userId, nf_3) {
+
+            var profileId = "<?php echo $profileId; ?>"
+            console.log(nf_3)
+            $.post('http://localhost/facebook/core/ajax/react.php', {
+                reactType: typeR,
+                postId: postId,
+                userId: userId,
+                profileId: profileId,
             }, function(data) {
+                $(nf_3).empty().html(data);
 
-                location.reload();
-            })
-        } else {
-            $.post('http://localhost/facebook/core/ajax/postSubmit.php', {
-                post_images: strImg,
-                post_text: post_text,
-            }, function(data) {
-
-                location.reload();
             })
 
         }
 
+        function mainReactDelete(typeR, postId, userId, nf_3) {
+
+            var profileId = "<?php echo $profileId; ?>"
+
+            $.post('http://localhost/facebook/core/ajax/react.php', {
+                deleteReactType: typeR,
+                postId: postId,
+                userId: userId,
+                profileId: profileId,
+            }, function(data) {
+                $(nf_3).empty().html(data);
+
+
+            })
+
+        }
+        //m tired of js here
+        $('.nf-4').hover(function() {
+            var mainReact = $(this).find('.react-bundle-wrap');
+            $(mainReact).html(
+                '<div style="height:50px; z-index: 9999999999999999999999999999999999999999999; display: flex; align-items: center; background-color: #fff; position: absolute; top: -3.3rem; padding: 0 5px; border-radius: 50px;"> <div class="like-react-click"> <img src="assets/images/gif/like.gif" alt="" class="react-icon"> </div> <div class="love-react-click"> <img src="assets/images/gif/love.gif" alt="" class="react-icon"> </div> <div class="heart-react-click"> <img src="assets/images/gif/heart.gif" alt="" class=" react-icon"> </div> <div class="haha-react-click"> <img src="assets/images/gif/haha.gif" alt="" class="react-icon"> </div> <div class="wow-react-click"> <img src="assets/images/gif/wow.gif" alt="" class="react-icon"> </div> <div class="sad-react-click"> <img src="assets/images/gif/sad.gif" alt="" class="react-icon"> </div> <div class="angry-react-click"> <img src="assets/images/gif/angry.gif" alt="" class="react-icon"> </div></div>'
+            );
+        }, function() {
+            var mainReact = $(this).find('.react-bundle-wrap');
+            $(mainReact).html('');
 
 
 
-    })
-    //----Submit Post--->
+        })
+        /*
+        $('.like-action-wrap').hover(function() {
+        var mainReact = $(this).find('.react-bundle-wrap');
+        $(mainReact).css('display', 'flex');
+        }, function() {
+
+        $(mainReact).css('display', 'none');
 
 
+        })
+
+        */
+
+        $(document).on('click', '.react-icon', function() {
+            var likeReact = $(this).parent();
+
+            reactApply(likeReact);
+
+        })
+
+        function reactApply(sClass) {
+            if ($(sClass).hasClass('like-react-click')) {
+                mainReactSub('like', 'blue');
+            } else if ($(sClass).hasClass('love-react-click')) {
+                mainReactSub('love', 'red');
+
+            } else if ($(sClass).hasClass('heart-react-click')) {
+                mainReactSub('heart', 'red');
+
+            } else if ($(sClass).hasClass('haha-react-click')) {
+                mainReactSub('haha', 'yellow');
+            } else if ($(sClass).hasClass('angry-react-click')) {
+                mainReactSub('angry', 'red');
+
+            } else if ($(sClass).hasClass('sad-react-click')) {
+                mainReactSub('sad', 'yellow');
+            } else if ($(sClass).hasClass('wow-react-click')) {
+                mainReactSub('wow', 'yellow');
+            } else {
+
+            }
+        }
+
+        function mainReactSub(typeR, color) {
+
+            var reactColor = '' + typeR + '-color';
+            var pClass = $('.' + typeR + '-react-click');
+            var likeReactParent = $(pClass).parents('.like-action-wrap');
+
+            var nf4 = $(likeReactParent).parents('.nf-4');
+            var nf_3 = $(nf4).siblings('.react_infos').find('.react-count-wrap');
+            var reactCount = $(nf_3).find('.nf-3-react-username');
+            var reactNumberText = $(reactCount).text();
+            var postId = $(likeReactParent).data('postid');
+            var userId = $(likeReactParent).data('userid');
+
+            var likeAction = $(likeReactParent).find('.like-action');
+            var likeActionIcon = $(likeAction).find('.like-action-icon img');
+            var spanClass = $(likeAction).find('.like-action-text').find('span');
+
+            if ($(spanClass).hasClass(reactColor)) {
+                $(spanClass).removeClass();
+                spanClass.text('like');
+                $(likeActionIcon).attr('src', 'assets/images/like.png');
+                mainReactDelete(typeR, postId, userId, nf_3);
+            } else if ($(spanClass).attr('class') !== undefined) {
+
+                $(spanClass).removeClass().addClass(reactColor);
+                spanClass.text(typeR);
+                $(likeActionIcon).removeAttr('src').attr('src',
+                    'assets/images/react/' + typeR + '.svg').addClass('reactIconSize');
+                mainReactSubmit(typeR, postId, userId, nf_3);
+            } else {
+
+                $(spanClass).addClass(reactColor);
+                $(likeActionIcon).attr('src', 'assets/images/react/' + typeR + '.svg').addClass(
+                    'reactIconSize');
+                spanClass.text(typeR);
+                $(likeActionIcon).removeAttr('src').attr('src', 'assets/images/react/' + typeR + '.svg')
+                    .addClass('reactIconSize');
+
+                mainReactSubmit(typeR, postId, userId, nf_3);
+
+            }
+        }
+
+        //------------------COMMENT SUBMIT --------------------------------
+        $(document).on('click', '.react_btn_wrapper.comment-action', function() {
 
 
+        })
+        $('.comment-submit').keyup(function(e) {
+            if (e.keyCode == 13) {
+                var inputNull = $(this);
+                var comment = $(this).val();
+                var postid = $(this).data('postid');
+                var userid = $(this).data('userid');
+                var profileid = "<?php echo $profileId ?>";
+                var commentPlaceholder = $(this).parents('.nf-5').find('ul.add-comment');
 
-    //------------POST----------------->
-    //------------Click Outside----------------->
-    $(document).mouseup(function(e) {
-        var container = new Array();
 
-        container.push('#post_box');
+                if (comment == "") {
+                    alert('Please Add comment first.');
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: 'http://localhost/facebook/core/ajax/comment.php',
+                        data: {
+                            comment: comment,
+                            userid: userid,
+                            postid: postid,
+                            profileid: profileid,
+                        },
+                        cache: false,
+                        success: function(html) {
+                            $(commentPlaceholder).append(html);
+                            $(inputNull).val('');
+                            commentHover();
+                        }
+                    })
+                }
 
-        $.each(container, function(key, value) {
-            if (!$(value).is(e.target) && $(value).has(e.target)
-                .length === 0) {
-                $(value).css('display', 'none');
-                $('.facebook').css('opacity', '1');
 
             }
         })
-    })
-    //------------Click Outside----------------->
-    </script>
+        commentHover();
+
+        function commentHover() {
+            $('.com-rlike-react').hover(function() {
+                var mainReact = $(this).find('.com-react-bundle-wrap');
+                $(mainReact).html(
+                    '<div style=" z-index: 9999999999999999999999999999999999999999999; display: flex; height: 50px; align-items: center; background-color: #fff; position: absolute; top: -3.3rem; padding: 0 5px; border-radius: 50px;"><div class="com-like-react-click"> <img src="assets/images/gif/like.gif" alt="" class="com-react-icon"> </div> <div class="com-love-react-click"> <img src="assets/images/gif/love.gif" alt="" class="com-react-icon"> </div> <div class="com-heart-react-click"> <img src="assets/images/gif/heart.gif" alt="" class=" com-react-icon"> </div> <div class="com-haha-react-click"> <img src="assets/images/gif/haha.gif" alt="" class="com-react-icon"> </div> <div class="com-wow-react-click"> <img src="assets/images/gif/wow.gif" alt="" class="com-react-icon"> </div> <div class="com-sad-react-click"> <img src="assets/images/gif/sad.gif" alt="" class="com-react-icon"> </div> <div class="com-angry-react-click"> <img src="assets/images/gif/angry.gif" alt="" class="com-react-icon"> </div></div>'
+                );
+            }, function() {
+                var mainReact = $(this).find('.com-react-bundle-wrap');
+                $(mainReact).html('');
+            })
+        }
+
+
+
+        //-------COMMENT REACT ACTIONS----------------
+        $(document).on('click', '.com-react-icon', function() {
+            var com_bundle = $(this).parents('.com-react-bundle-wrap');
+            var commentid = $(com_bundle).data('commentid');
+            console.log('commentid--->', commentid);
+            var likeReact = $(this).parent();
+            comReactApply(likeReact, commentid);
+        })
+
+        function comReactApply(sClass, commentid) {
+
+            if ($(sClass).hasClass('com-like-react-click')) {
+                comReactSub('like', commentid);
+            } else if ($(sClass).hasClass('com-love-react-click')) {
+                comReactSub('love', commentid);
+            } else if ($(sClass).hasClass('com-heart-react-click')) {
+                comReactSub('heart', commentid);
+            } else if ($(sClass).hasClass('com-haha-react-click')) {
+                comReactSub('haha', commentid);
+            } else if ($(sClass).hasClass('com-wow-react-click')) {
+                comReactSub('wow', commentid);
+            } else if ($(sClass).hasClass('com-sad-react-click')) {
+                comReactSub('sad', commentid);
+            } else if ($(sClass).hasClass('com-angry-react-click')) {
+                comReactSub('angry', commentid);
+            } else {
+                console.log('not found');
+            }
+
+        }
+
+        function comReactSub(typeR, commentid) {
+
+            var reactColor = '' + typeR + '-color';
+            var parentClass = $('.com-' + typeR + '-react-click');
+
+            var grandParent = $(parentClass).parents('.com-rlike-react');
+            var postid = $(grandParent).data('postid');
+            var userid = $(grandParent).data('userid');
+            var spanClass = $(grandParent).find('.com-like-action-text').find('span');
+            var com_nf_3 = $(grandParent).parent('.com-react').siblings('.com-text-option-wrap').find(
+                '.com-nf-3-wrap');
+
+            console.log('ahiooooo--->', com_nf_3);
+
+
+            if ($(spanClass).attr('class') !== undefined) {
+                if ($(spanClass).hasClass(reactColor)) {
+                    $(spanClass).removeAttr('class');
+                    $spanClass.text('Like');
+                    comReactDelete(typeR, postid, userid, commentid, com_nf_3);
+                } else {
+                    $(spanClass).removeClass().addClass(reactColor);
+                    spanClass.text(typeR);
+                    comReactSubmit(typeR, postid, userid, commentid, com_nf_3);
+                }
+            } else {
+                $(spanClass).addClass(reactColor);
+                spanClass.text(typeR);
+                comReactSubmit(typeR, postid, userid, commentid, com_nf_3);
+            }
+
+
+        }
+
+        $(document).on('click', '.com-like-action-text', function() {
+            console.log('rrrrrr')
+            var thisParents = $(this).parents('.com-rlike-react');
+            console.log('adadadad', thisParents);
+            var postid = $(thisParents).data('postid');
+            console.log('postid->', postid);
+            var userid = $(thisParents).data('userid');
+            var commentid = $(thisParents).data('commentid');
+            console.log('commentid->', commentid);
+            var typeText = $(thisParents).find('.com-like-action-text');
+            var typeR = $(typeText).text();
+            var com_nf_3 = $(thisParents).parents('.com-react').siblings(
+                    '.com-text-option-wrap')
+                .find(
+                    '.com-nf-3-wrap');
+            console.log('ahiooooo--->', com_nf_3);
+
+            var spanClass = $(thisParents).find('.com-like-action-text').find('span');
+            if ($(spanClass).attr('class') !== undefined) {
+                $(spanClass).removeAttr('class');
+                spanClass.text('Like');
+                comReactDelete(typeR, postid, userid, commentid, com_nf_3);
+            } else {
+                $(spanClass).addClass('like-color');
+                spanClass.text('Like');
+                comReactSubmit(typeR, postid, userid, commentid, com_nf_3);
+            }
+
+        })
+
+        function comReactSubmit(typeR, postid, userid, commentid, com_nf_3) {
+            console.log('postid---->', postid);
+            var profileid = "<?php echo $profileId; ?>";
+            $.post('http://localhost/facebook/core/ajax/commentReact.php', {
+                    commentid: commentid,
+                    reactType: typeR,
+                    postid: postid,
+                    userid: userid,
+                    profileid: profileid,
+                },
+                function(data) {
+                    $(com_nf_3).empty().html(data);
+                    console.log(data);
+                });
+
+        }
+
+        function comReactDelete(typeR, postid, userid, commentid, com_nf_3) {
+            var profileid = "<?php echo $profileId; ?>";
+            $.post('http://localhost/facebook/core/ajax/commentReact.php', {
+                    deleteReactType: typeR,
+                    deleteCommentid: commentid,
+                    postid: postid,
+                    userid: userid,
+                    profileid: profileid,
+                },
+                function(data) {
+                    $(com_nf_3).empty().html(data);
+                    console.log(data);
+                });
+
+        }
+
+        $(document).on('click', '.com-dot', function() {
+            $('.com-dot').removeAttr('id');
+            $(this).attr('id', 'com-opt-click');
+            var postid = $(this).data('postid');
+            var userid = $(this).data('userid');
+            var commentid = $(this).data('commentid');
+            var comDetails = $(this).siblings('.com-option-details-container');
+            $(comDetails).show().html(
+                '<div class="com-option-details" style="z-index:2;color:#000;"> <ul> <li class="com-edit" data-postid="' +
+                postid + '" data-userid="' + userid + '" data-commentid="' + commentid +
+                '"> Edit</li> <li class="com-delete" data-postid="' + postid +
+                '" data-userid="' + userid + '" data-commentid="' + commentid +
+                '"> Delete</li> <li class="com-privacy" data-postid="' + postid +
+                '" data-userid="' + userid + '" data-commentid="' + commentid +
+                '"> Privacy</li> </ul> </div>');
+
+
+        })
+
+        $(document).on('click', 'li.com-edit', function() {
+            var comTextContainer = $(this).parents('.com-dot-option-wrap').siblings(
+                '.com-pro-text').find('.com-text');
+            var addId = $(comTextContainer).attr('id', 'editComPut');
+            var getComText1 = $(comTextContainer).text();
+            var postid = $(comTextContainer).data('postid');
+            var userid = $(comTextContainer).data('userid');
+            var commentid = $(comTextContainer).data('commentid');
+            var profilepic = $(comTextContainer).data('profilepic');
+            var getComText = getComText1.replace(/\s+/g, " ").trim();
+            $('.com-dot-option-wrap').html(
+                '<div class="top-box-show"><div class="close-box"><i class="fa-solid fa-xmark"></i> </div> <div class="comment-dialog-show"> <div class="profilePic"> <img src="' +
+                profilepic +
+                '" alt=""> </div> <div class="status-prof-textarea"> <textarea name="textStatus" cols="30" class="editCom" autofocus style="resize: none;" rows="1">' +
+                getComText + '</textarea> </div> <div class="edit-com-save" data-postid="' +
+                postid + '" data-userid="' + userid + '" data-commentid="' + commentid +
+                '"> Save </div> </div> </div>');
+        })
+
+        $(document).on('click', '.edit-com-save', function() {
+            var postid = $(this).data('postid');
+            var userid = $(this).data('userid');
+            var commentid = $(this).data('commentid');
+            var editedText = $(this).siblings('status-prof-textarea').find('.editCom');
+            var editedTextVal = $(editedText).val();
+            console.log(editedTextVal)
+            $.post('http://localhost/facebook/core/ajax/editComment.php', {
+                postid: postid,
+                userid: userid,
+                editedTextVal: editedTextVal,
+                commentid: commentid,
+            }, function(data) {
+                $('#editComPut').html(data).removeAttr('id');
+                $('.com-dot-option-wrap').empty();
+            })
+        })
+        $(document).on('click', '.com-delete', function() {
+            var postid = $(this).data('postid');
+            var userid = $(this).data('userid');
+            var commentid = $(this).data('commentid');
+            var commentContainer = $(this).parents('.new-comment');
+            var profileid = "<?php echo $profileId ?>";
+            var r = confirm('Are you sure you want to delete this comment.');
+            if (r === true) {
+                $.post('http://localhost/facebook/core/ajax/editComment.php', {
+                    deletePostid: postid,
+                    userid: userid,
+                    commentid: commentid,
+                    profileid: profileid,
+                }, function(data) {
+                    $(commentContainer).empty();
+                })
+            }
+        })
+
+        //----------------SHARE--------------------------------------
+        $(document).on('click', '.share-action', function() {
+
+            var postid = $(this).data('postid');
+            var userid = $(this).data('userid');
+            var profilepic = $(this).data('profilepic');
+            var profileid = $(this).data('profileid');
+            var nf_1 = $(this).parents('.nf-4').siblings('.post_header').html();
+            var nf_2 = $(this).parents('.nf-4').siblings('.nf-2').html();
+            $('.post_share_box').html(
+                '<div style=" position: fixed; top: 50%; left: 50%;transform:translate(-50%,-50%); display: flex; flex-direction: column; border-radius: 10px; padding: 10px 15px; overflow-y: auto; box-shadow: 0 8px 32px 0 rgba(173, 174, 182, 0.17); width: 500px; min-height: 420px; max-height: 620px; background-color: #fff;"> <div class="post_box_header"> <h3>Share Post</h3> <div class="header_icon" id="close_share"><i class="fa-solid fa-xmark"></i></div> </div><div class="share_box_field"><textarea class="share_text" autofocus style="resize:none;" placeholder="Whats on your mind ? mohamed"></textarea></div> ' +
+                nf_1 + '' + nf_2 +
+                '<button data-postid="' + postid + '" data-userid="' + userid +
+                '" data-profilepic="' + profilepic + '" data-profileid="' + profileid +
+                '" class="post_button post-share" id="post-share">Share</button></div>');
+
+            /* $('.post_header_right').hide(); */
+        })
+
+        $(document).on('click', '#post-share', function() {
+            var userid = $(this).data('userid');
+            var postid = $(this).data('postid');
+            var profileid = $(this).data('profileid');
+            var shareText = $(this).siblings('.share_box_field').find('.share_text').val();
+
+            $.post('http://localhost/facebook/core/ajax/share.php', {
+                shareText: shareText,
+                profileid: profileid,
+                postid: postid,
+                userid: userid,
+            }, function(data) {
+                console.log(data)
+
+            })
+
+        })
+        //---- Post Manupilation--->
+
+
+
+
+
+        //------------POST----------------->
+        //------------Click Outside----------------->
+        $(document).mouseup(function(e) {
+            var container = new Array();
+
+            container.push('#post_box');
+
+            $.each(container, function(key, value) {
+                if (!$(value).is(e.target) && $(value).has(e.target)
+                    .length === 0) {
+                    $(value).css('display', 'none');
+                    $('.facebook').css('opacity', '1');
+
+                }
+            })
+        })
+        //------------Click Outside----------------->
+        </script>
 </body>
 
 

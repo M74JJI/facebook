@@ -83,7 +83,7 @@
     color: #65676b;
 }
 .facebook_middle {
-    width: 650px;
+    width: 680px;
     margin: 0 auto;
     position: absolute;
     left: 32%;
@@ -95,6 +95,7 @@
     border-radius: 10px;
     background: #fff;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1rem;
 }
 .home_post_top {
     display: flex;

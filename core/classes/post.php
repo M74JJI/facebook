@@ -20,13 +20,13 @@ class Post extends User{
         $posts=$statement->fetchAll(PDO::FETCH_OBJ);
        
           foreach($posts as $post){
-              $main_react =$this->main_react($userid,$post->id);
+              $main_react =$this->main_react($userid,$post->post_id);
           }
         return $posts;
         
         
     }
-    public function Homeposts($userid,$profileId,$num){
+    public function Homeposts($userid,$num){
         $userdata = $this->getUserInfo($userid);
 
         $statement= $this->pdo->prepare('SELECT * from post p LEFT JOIN users u ON p.user_id = u.id LEFT JOIN profile pr ON pr.user_id = p.user_id WHere p.sharedBy IS NULL and p.user_id =:userid 
@@ -40,13 +40,13 @@ class Post extends User{
          ORDER BY postedAt DESC LIMIT :num
         ');
 
-        $statement->bindParam(':userid',$profileId,PDO::PARAM_INT);
+        $statement->bindParam(':userid',$userid,PDO::PARAM_INT);
         $statement->bindParam('num',$num,PDO::PARAM_INT);
         $statement->execute();
         $posts=$statement->fetchAll(PDO::FETCH_OBJ);
        
           foreach($posts as $post){
-              $main_react =$this->main_react($userid,$post->id);
+              $main_react =$this->main_react($userid,$post->post_id);
           }
         return $posts;
         
@@ -131,7 +131,7 @@ class Post extends User{
          return $statement->fetch(PDO::FETCH_OBJ);
     }
     public function shareFetch($postid,$profileid){
-        $statement = $this->pdo->prepare("SELECT users.*, post.*, profile.* FROM users, post, profile WHERE users.id=:user_id AND post.id=:postid AND profile.user_id=:user_id");
+        $statement = $this->pdo->prepare("SELECT users.*, post.*, profile.* FROM users, post, profile WHERE users.id=:user_id AND post.post_id=:postid AND profile.user_id=:user_id");
          $statement->bindParam(':postid',$postid,PDO::PARAM_INT);
          $statement->bindParam(':user_id',$profileid,PDO::PARAM_INT);
          $statement->execute();

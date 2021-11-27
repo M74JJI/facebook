@@ -974,7 +974,6 @@ li {
 .posts_wrap {
     margin-top: 1rem;
     display: flex;
-
     flex-direction: column;
     gap: 1rem;
 }
@@ -1068,6 +1067,8 @@ li {
     color: #65676b;
     font-size: 12px;
     margin-top: 5px;
+    display: flex;
+    align-items: center;
 }
 .post_header_right {
     width: 40px;
@@ -1242,6 +1243,7 @@ li {
 }
 .react-bundle-wrap {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+    position: absolute;
 }
 .react-bundle-wrap .react-icon {
     width: 45px;
@@ -1723,4 +1725,8 @@ li {
 }
 .active_border {
     border-bottom: 2px solid #1b74e4;
+}
+.emojioneemoji {
+    width: 20px !important;
+    height: 20px !important;
 }

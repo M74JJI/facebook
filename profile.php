@@ -580,12 +580,12 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
 
                     <!------POST  FUNCTIONS DATA------>
                     <?php 
-                        $main_react =$loadPost->main_react($userid,$post->id);
-                        $react_max_show =$loadPost->react_max_show($post->id);
-                        $main_react_count =$loadPost->main_react_count($post->id);
-                        $commentDetails = $loadPost->commentFetch($post->id);
-                        $totalCommentCount=$loadPost->totalCommentCount($post->id);
-                        $totalShareCount =$loadPost->totalShareCount($post->id);
+                        $main_react =$loadPost->main_react($userid,$post->post_id);
+                        $react_max_show =$loadPost->react_max_show($post->post_id);
+                        $main_react_count =$loadPost->main_react_count($post->post_id);
+                        $commentDetails = $loadPost->commentFetch($post->post_id);
+                        $totalCommentCount=$loadPost->totalCommentCount($post->post_id);
+                        $totalShareCount =$loadPost->totalShareCount($post->post_id);
                         if(empty($post->shareId)){
        
                         }else{
@@ -632,7 +632,7 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
                                  
                                }else{
                                     echo $post->shareText;
-                                       echo '<span class="shared-post-txt" data-postid="'.$post->id;'" data-userid="'.$userid;'" data-profilepic="'.$post->profile_picture;'">'.$post->shareText.'</span>';
+                                       echo '<span class="shared-post-txt" data-postid="'.$post->post_id;'" data-userid="'.$userid;'" data-profilepic="'.$post->profile_picture;'">'.$post->shareText.'</span>';
                                        
                                    
                                    foreach($shareDetails as $share){
@@ -667,7 +667,7 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
                             $imgs=json_decode($share->postImages);
                             $count = 0;
                             for($i=0;$i<count($imgs);$i++){
-                                echo'<div class="post_images" data-img-id="'.$post->id.'">
+                                echo'<div class="post_images" data-img-id="'.$post->post_id.'">
                                 <img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'" 
                                 class="post_img">
                                 </div>';   
@@ -692,7 +692,7 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
                             $imgs=json_decode($post->postImages);
                             $count = 0;
                             for($i=0;$i<count($imgs);$i++){
-                                echo'<div class="post_images" data-img-id="'.$post->id.'">
+                                echo'<div class="post_images" data-img-id="'.$post->post_id.'">
                                 <img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'" 
                                 class="post_img">
                                 </div>';   
@@ -759,7 +759,7 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
 
                             <div class="nf-4">
 
-                                <div class="like-action-wrap" data-postid="<?php echo $post->id ?>"
+                                <div class="like-action-wrap" data-postid="<?php echo $post->post_id ?>"
                                     data-userid="<?php echo $userid ?>">
                                     <div class="react-bundle-wrap">
 
@@ -787,7 +787,8 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
                                     <div class="react_btn_wrapper comment-action">
                                         <i class="comment_button"></i>Comment
                                     </div>
-                                    <div class="react_btn_wrapper share-action" data-postid="<?php echo $post->id ?>"
+                                    <div class="react_btn_wrapper share-action"
+                                        data-postid="<?php echo $post->post_id ?>"
                                         data-profilepic="<?php echo $userInfo->profile_picture ?>"
                                         data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId; ?>">
 
@@ -960,7 +961,8 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
                                     <div class="com-input">
                                         <div class="comment-input">
                                             <input type="text" class="comment-input-style comment-submit"
-                                                placeholder="Write a comment..." data-postid="<?php echo $post->id ?>"
+                                                placeholder="Write a comment..."
+                                                data-postid="<?php echo $post->post_id ?>"
                                                 data-userid="<?php echo $userid  ?>" />
                                         </div>
                                     </div>
@@ -1274,7 +1276,7 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
                 })
                 // react system 
 
-                //
+
                 $(document).on('click', '.like-action', function() {
 
                     var likeActionIcon = $(this).find('.like-action-icon img');
