@@ -15,43 +15,44 @@ if(isset($_POST['useridMsg'])){
     $loadUser->create('messages',array('message'=>$msg,'sender'=>$userid,'receiver'=>$chatid,'messageAt'=>date('Y-m-d H:i:s')));
     $messageData = $loadPost->messageData($userid,$chatid);
    
-    foreach($messageData as $message){
-       
-       if($message->sender ==$userid){ ?>
-<div class="msg_sender">
-    <div class="actual_msg">
-        <?php echo $message->message ?>
-        <div class="msg_time1">
-            <?php echo $loadUser->timeAgoAlt($message->messageAt) ?>
-        </div>
-    </div>
-</div>
-<?php }else{ ?>
-<div class="msg_receiver">
-    <img src="<?php echo $message->profile_picture ?>" alt="">
-    <div class="actual_msg1">
-        <?php echo $message->message ?>
-        <div class="msg_time2">
-            <?php echo $loadUser->timeAgoAlt($message->messageAt) ?>
-        </div>
-    </div>
+    foreach ($messageData as $i => $message){
+        if($message->user_id == $userid){ ?>
+<div class="mess_right">
+    <div class="mssssg"><?php echo $message->message ?></div>
+    <?php
+
+        if($i<count($messageData)-1 && strtotime($message->messageAt) - strtotime($messageData[$i+1]->messageAt)>-5000){
+            ?>
+    <div class="timeit"><?php echo $loadUser->timeAgo($message->messageAt) ?></div>
+
+    <?php }
+        ?>
 
 </div>
-<?php }
-}
+
+<?php  }else{ ?>
+
+<div class="mess_left">
+    <img src="<?php echo $message->profile_picture ?>" alt="">
+    <div class="mssssg1"><?php echo $message->message ?></div>
+</div>
+
+<?php  }}
+        ?>
+<?php
 }
 
 if(isset($_POST['showmsg'])){
-    $chatid = $_POST['showmsg'];
-    $userid=$_POST['yourid'];
+$chatid = $_POST['showmsg'];
+$userid=$_POST['yourid'];
 
-    $messageData = $loadPost->messageData($userid,$chatid);
+$messageData = $loadPost->messageData($userid,$chatid);
 
-    echo '<div class="past-data-count" data-datacount="'.count($messageData).'"></div>';
-   
-    foreach($messageData as $message){
-       
-       if($message->sender ==$userid){ ?>
+echo '<div class="past-data-count" data-datacount="'.count($messageData).'"></div>';
+
+foreach($messageData as $message){
+
+if($message->sender ==$userid){ ?>
 <div class="msg_sender">
     <div class="actual_msg" style="float:right">
         <?php echo $message->message ?>

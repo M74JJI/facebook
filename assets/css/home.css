@@ -179,3 +179,60 @@
     box-shadow: none !important;
 }
 /*-----------EmojiOneArea----------*/
+/*---right ------------*/
+.facebook_right {
+    position: fixed;
+    right: 2rem;
+    top: 70px;
+    bottom: 0;
+    width: 320px;
+    font-weight: 600;
+}
+.mlist_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    color: #65676b;
+}
+.mrighte {
+    display: flex;
+    align-items: center;
+}
+.mm_list_friends {
+    margin-top: 10px;
+    border-bottom: 1px solid #ced0d4;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+.micon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.micon:hover {
+    background: #e4e6eb;
+}
+.contact_tochat {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    padding: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.contact_tochat:hover {
+    background: #e4e6eb;
+}
+.contact_tochat img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}

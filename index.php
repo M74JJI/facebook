@@ -11,7 +11,14 @@ if(login::isLoggedIn()){
  $userInfo = $loadUser->getUserInfo($userid);
  $friends_requests_Total=$loadUser->getFriendsRequestsTotal($userid);
  $posts=$loadPost->Homeposts($userid,100);
+ $friends = $loadUser->getAllFriends($userid);
+ $allusers = $loadPost->lastmessages($userid);
 
+ $lastMsgReceived=$loadPost->lastPersonMsg($userid);
+ 
+ if(!empty($lastMsgReceived)){
+     $lastMsgUserid = $lastMsgReceived->user_id;
+ }
 
 ?>
 <!DOCTYPE html>
@@ -24,6 +31,7 @@ if(login::isLoggedIn()){
     <link rel="stylesheet" href="assets/css/profile.css" />
     <link rel="stylesheet" href="assets/css/friends.css" />
     <link rel="stylesheet" href="assets/css/header_menu.css" />
+    <link rel="stylesheet" href="assets/css/chat.css" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
@@ -813,7 +821,7 @@ if(login::isLoggedIn()){
                             for($i=0;$i<count($imgs);$i++){
                                 echo'
                                 <img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'" 
-                                class="comment_img_plz">
+                                class="comment_img_plz" >
                                 ';   
                             }
                         
@@ -911,7 +919,64 @@ if(login::isLoggedIn()){
                 <?php } ?>
                 <!-------llah yster--------->
             </div>
-            <div class="facebook_right"></div>
+            <div class="facebook_right">
+
+                <div class="contacts_m_list">
+                    <div class="mlist_header">
+                        <span>Contacts</span>
+                        <div class="mrighte">
+                            <div class="micon">
+                                <svg fill="#65676b" viewBox="0 0 16 16" width="1em" height="1em"
+                                    class="a8c37x1j ms05siws hwsy1cff b7h9ocf4 em6zcovv gl3lb2sf hhz5lgdu">
+                                    <g fill-rule="evenodd" transform="translate(-448 -544)">
+                                        <path
+                                            d="M457.25 552.5H455v2.25a.75.75 0 0 1-1.5 0v-2.25h-2.25a.75.75 0 0 1 0-1.5h2.25v-2.25a.75.75 0 0 1 1.5 0V551h2.25a.75.75 0 0 1 0 1.5m6.38-4.435a.62.62 0 0 0-.64.047l-2.49 1.634v-1.394a1.854 1.854 0 0 0-1.852-1.852l-8.796.002a1.854 1.854 0 0 0-1.851 1.852v6.793c0 1.021.83 1.852 1.852 1.852l1.147-.002h7.648a1.854 1.854 0 0 0 1.852-1.851v-1.392l2.457 1.61a.641.641 0 0 0 .673.071.663.663 0 0 0 .37-.601v-6.167c0-.26-.142-.49-.37-.602">
+                                        </path>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="micon"><svg fill="#65676b" viewBox="0 0 16 16" width="1em" height="1em"
+                                    class="a8c37x1j ms05siws hwsy1cff b7h9ocf4 em6zcovv gl3lb2sf hhz5lgdu">
+                                    <g fill-rule="evenodd" transform="translate(-448 -544)">
+                                        <g fill-rule="nonzero">
+                                            <path
+                                                d="M10.743 2.257a6 6 0 1 1-8.485 8.486 6 6 0 0 1 8.485-8.486zm-1.06 1.06a4.5 4.5 0 1 0-6.365 6.364 4.5 4.5 0 0 0 6.364-6.363z"
+                                                transform="translate(448 544)"></path>
+                                            <path
+                                                d="M10.39 8.75a2.94 2.94 0 0 0-.199.432c-.155.417-.23.849-.172 1.284.055.415.232.794.54 1.103a.75.75 0 0 0 1.112-1.004l-.051-.057a.39.39 0 0 1-.114-.24c-.021-.155.014-.356.09-.563.031-.081.06-.145.08-.182l.012-.022a.75.75 0 1 0-1.299-.752z"
+                                                transform="translate(448 544)"></path>
+                                            <path
+                                                d="M9.557 11.659c.038-.018.09-.04.15-.064.207-.077.408-.112.562-.092.08.01.143.034.198.077l.041.036a.75.75 0 0 0 1.06-1.06 1.881 1.881 0 0 0-1.103-.54c-.435-.058-.867.018-1.284.175-.189.07-.336.143-.433.2a.75.75 0 0 0 .624 1.356l.066-.027.12-.061z"
+                                                transform="translate(448 544)"></path>
+                                            <path
+                                                d="m13.463 15.142-.04-.044-3.574-4.192c-.599-.703.355-1.656 1.058-1.057l4.191 3.574.044.04c.058.059.122.137.182.24.249.425.249.96-.154 1.41l-.057.057c-.45.403-.986.403-1.411.154a1.182 1.182 0 0 1-.24-.182zm.617-.616.444-.444a.31.31 0 0 0-.063-.052c-.093-.055-.263-.055-.35.024l.208.232.207-.206.006.007-.22.257-.026-.024.033-.034.025.027-.257.22-.007-.007zm-.027-.415c-.078.088-.078.257-.023.35a.31.31 0 0 0 .051.063l.205-.204-.233-.209z"
+                                                transform="translate(448 544)"></path>
+                                        </g>
+                                    </g>
+                                </svg></div>
+                            <div class="micon"><svg fill="#65676b" viewBox="0 0 20 20" width="1em" height="1em"
+                                    class="a8c37x1j ms05siws hwsy1cff b7h9ocf4 em6zcovv jnigpg78 odw8uiq3">
+                                    <g fill-rule="evenodd" transform="translate(-446 -350)">
+                                        <path
+                                            d="M458 360a2 2 0 1 1-4 0 2 2 0 0 1 4 0m6 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0m-12 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0">
+                                        </path>
+                                    </g>
+                                </svg></div>
+                        </div>
+                    </div>
+                    <div class="mm_list_friends">
+                        <?php
+                        foreach ($friends as $friend){ ?>
+                        <div class="contact_tochat" data-chatid="<?php echo $friend->user_id ?>">
+                            <img src="<?php echo BASE_URL.$friend->profile_picture ?>" alt="">
+                            <span> <?php echo $friend->first_name.' '.$friend->last_name ?></span>
+                        </div>
+                        <?php }
+                        ?>
+
+                    </div>
+                </div>
+            </div>
 
         </div>
         <!-------CREATE POST POPUP----->
@@ -986,13 +1051,33 @@ if(login::isLoggedIn()){
         </div>
         <!-------CREATE POST POPUP----->
 
+        <!-----Chat Popups------>
+        <div class="chat_popup_container">
 
+        </div>
+        <!-----Chat Popups------>
 
 
         <script src="assets/js/header.js"></script>
         <script src="assets/js/jquery.js"></script>
         <script src="assets/dist/emojionearea.js"></script>
         <script>
+        //----->make input longer---->
+        $(document).ready(function() {
+
+            $(document).on('focus', '.emojionearea-editor', function() {
+                console.log($(this).html())
+                // $('.m14_left').hide();
+                $(this).css('width', '300px !important');
+
+            })
+        })
+        //----->make input longer---->
+
+
+
+
+
         $(document).on('click', '#open_more', function() {
             $('.sub_home_links').show()
             $('#open_more').hide()
@@ -1058,6 +1143,40 @@ if(login::isLoggedIn()){
             })
         })
 
+        //--------Open Chat--------------------->
+        //--------Change svg color->
+        $(document).on('click', '.popup_chat', function() {
+
+            $(this).find('.h_m_ic i').css('color', '#1437ef');
+        })
+        //--------Change svg color->
+        $(document).on('click', '.contact_tochat', function() {
+            var userid = "<?php echo $userid ?>"
+            var chatid = $(this).data('chatid');
+            console.log(chatid)
+            console.log(userid)
+            $.post('http://localhost/facebook/core/ajax/chat.php', {
+                popup_chat: chatid,
+                userid: userid,
+            }, function(data) {
+                console.log(data);
+                $('.chat_popup_container').append(data);
+
+                $('#c-' + chatid + '').emojioneArea({
+
+                })
+            })
+
+        })
+
+
+
+
+
+
+
+        //--------Open Chat--------------------->
+
         //-------------Show POST POPU----------------->
         $(document).on('click', '.home_post_open', function() {
             $('#post_box').show();
@@ -1080,6 +1199,7 @@ if(login::isLoggedIn()){
         $('input#comment-inputt').emojioneArea({
 
         })
+
 
         //-------------LINK EMOJI TO CREATE POST----------------->
 
@@ -1837,6 +1957,53 @@ if(login::isLoggedIn()){
 
 
         //------------POST----------------->
+
+        //send message----------------->
+
+
+        setTimeout(function() {
+            $(document).on('keyup', '.emojionearea-editor', function(e) {
+
+                if (e.keyCode == 13) {
+                    var useridd = "<?php echo $userid ?>";
+                    var chatidd = $(this).parents('.popup_chat').data('chatid');
+                    var This = $(this);
+                    var msg = $(this).html();
+                    var msgg = msg.slice(0, -15);
+                    console.log(useridd)
+                    console.log(chatidd)
+                    console.log(msg)
+                    var blasa = $(this).parents('.popu_char_a7em')
+                        .siblings('.popup_chat_area')
+                        .find('.messaging_popup');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "http://localhost/facebook/core/ajax/messageChat.php",
+                        data: {
+                            useridMsg: useridd,
+                            chatid: chatidd,
+                            msg: msg,
+                        },
+                        success: function(data) {
+                            $(blasa).html(data);
+                            console.log(data)
+                            /* 
+                             loadUser();
+                             console.log(data);
+                             $('.msg_box').html(data);
+                             $('.messeges_wrap').html(data);
+                             $(This).text('');
+
+                             scrolla();
+                             */
+                        }
+                    })
+                }
+            })
+        }, 500);
+        //send message----------------->
+
         //------------Click Outside----------------->
         $(document).mouseup(function(e) {
             var container = new Array();
