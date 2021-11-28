@@ -1089,8 +1089,7 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
                         data: form_data,
                         type: 'post',
                         success: function(data) {
-                            $('.cover').css('background-image', 'url(' + data + ')');
-                            $('.upload_menu').hide();
+                            console.log(data);
                         }
                     })
 

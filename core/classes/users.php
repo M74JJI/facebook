@@ -118,9 +118,9 @@ class User{
                     return ''.$seconds.'s ';
                 }
             }else if($minutes <= 60){
-                return ''.$minutes.' min ';
+                return ''.$minutes.'m ';
             }else if ($hours <=24){
-                return ''.$hours.' hours ';
+                return ''.$hours.'h ';
             }else if($month <=30){
                 return ''.date('M j',$time);
             }else{

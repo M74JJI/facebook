@@ -17,7 +17,7 @@ if(0 < $_FILES['file']['error']){
     echo 'aaaaaaaaaaaaaaaaaaaaaaaa';
     echo 'Error: '. $_FILES['file']['error'].'<br>';
 }else{
-    echo 'bbbbbbbbbbbbbbbbb';
+
     $path_directory=$_SERVER['DOCUMENT_ROOT']."/facebook/user/".$userid."/profilePicture/";
     var_dump($path_directory);
     if(!file_exists($path_directory) && !is_dir($path_directory)){

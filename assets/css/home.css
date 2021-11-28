@@ -1,8 +1,8 @@
 .facebook {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-
     padding: 2rem 1rem;
+    margin-top: 50px;
 }
 .facebook_left {
     position: fixed;
@@ -149,19 +149,19 @@
     background: #f0f2f5;
 }
 /*-----------EmojiOneArea----------*/
-.emojionearea-button-close,
-.emojionearea-button-open {
+.box_area .emojionearea-button-close,
+.box_area .emojionearea-button-open {
     position: absolute !important;
     top: 8rem !important;
     transform: scale(1.5) !important;
 }
 
-.emojionearea-picker,
+.box_area .emojionearea-picker,
 .emojionearea .emojionearea-picker.emojionearea-picker-position-top {
     position: absolute !important;
     top: 7.5rem !important;
 }
-.textarea_post,
+.box_area .textarea_post,
 .emojionearea {
     resize: none !important;
     flex: 1 !important;
@@ -173,7 +173,7 @@
     font-family: 'Segoe UI', Helvetica, Arial, sans-serif !important;
 }
 
-.textarea_post,
+.box_area .textarea_post,
 .emojionearea {
     border: none !important;
     box-shadow: none !important;

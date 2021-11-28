@@ -8,13 +8,14 @@ include '../../connect/login.php';
 $userid = login::isLoggedIn();
 
 if(isset($_POST['comment'])){
-    $comment =$loadUser->checkInput($_POST['comment']);
+    $comment =($_POST['comment']);
     $userid =$_POST['userid'];
     $postid =$_POST['postid'];
     $profileid =$_POST['profileid'];
+    $image =$_POST['image'];
 
 
-  $commentid=  $loadUser->create('comments',array('commentedBy'=>$userid,'comment_parent_id'=>$postid,'comment'=>$comment,'commentedOn'=>$postid,'commentedAt'=>date('Y-m-d H:i:s')));
+  $commentid=  $loadUser->create('comments',array('commentedBy'=>$userid,'comment_parent_id'=>$postid,'comment'=>$comment,'commentedOn'=>$postid,'image'=>$image,'commentedAt'=>date('Y-m-d H:i:s')));
  
 
   $commentDetails = $loadPost->FetchLastComment($commentid);
