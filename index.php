@@ -1529,7 +1529,8 @@ if(login::isLoggedIn()){
                         success: function(html) {
                             $(commentPlaceholder).append(html);
                             $(inputNull).val('');
-                            $(this).find('.emojionearea-editor').empty();
+                            $('.emojionearea-editor').html('');
+                            $('.comment_img_preview').empty().hide;
                             commentHover();
                         }
                     })

@@ -12,7 +12,11 @@ if(isset($_POST['comment'])){
     $userid =$_POST['userid'];
     $postid =$_POST['postid'];
     $profileid =$_POST['profileid'];
-    $image =$_POST['image_c'];
+    if(isset($_POST['image_c'])){
+        $image =$_POST['image_c'];
+    }else{
+        $image="";
+    }
 
 
   $commentid=  $loadUser->create('comments',array('commentedBy'=>$userid,'comment_parent_id'=>$postid,'comment'=>$comment,'commentedOn'=>$postid,'image'=>$image,'commentedAt'=>date('Y-m-d H:i:s')));
