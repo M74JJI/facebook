@@ -113,7 +113,19 @@ if(isset($_POST['comment'])){
                     <?php
                                                         }else{}
                                                         ?>
-                </div>
+                </div> <?php 
+                        if($comment->image !=''){
+                            $imgs=json_decode($comment->image);
+                            $count = 0;
+                            for($i=0;$i<count($imgs);$i++){
+                                echo'
+                                <img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'" 
+                                class="comment_img_plz">
+                                ';   
+                            }
+                        
+                        }
+                         ?>
                 <div class="com-react">
                     <div class="com-rlike-react" data-postid="<?php echo $comment->commentedOn ?>"
                         data-userid="<?php echo $userid  ?>" data-commentid="<?php echo $comment->comment_id ?>">
