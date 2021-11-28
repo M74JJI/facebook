@@ -1098,14 +1098,16 @@ li {
 .post_comments {
 }
 .post_images {
+    background: #151515;
     display: flex;
     flex-wrap: wrap;
-    max-height: 500px;
+    max-height: 700px;
     overflow: hidden;
 }
 .post_img {
     cursor: pointer;
     width: 100%;
+    height: 700px;
     object-fit: cover;
 }
 .errors_post {
@@ -1834,11 +1836,15 @@ li {
 .react_btn_wrapper {
     font-weight: 600;
 }
-.com-react-placeholder-wrap {
+.com .com-react-placeholder-wrap {
+}
+.com-text-react-wrap {
     position: relative;
 }
 .com-nf-3 {
     position: absolute;
+    right: -1rem;
+    bottom: 7px;
     transform: translateX(-5px);
     background: #fff;
     border-radius: 20px;
@@ -1887,4 +1893,10 @@ li {
     width: 200px;
     height: 200px;
     border-radius: 20px;
+}
+.com-dot-option-wrap {
+    position: absolute;
+    right: -20%;
+}
+.com-pro-text {
 }

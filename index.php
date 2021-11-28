@@ -761,7 +761,7 @@ if(login::isLoggedIn()){
                                              foreach($com_react_max_show as $react_max){
                                                  echo '<img class="'.$react_max->reactType.'-max-show"
                                                   src="assets/images/react/'.$react_max->reactType.'.svg" alt=""
-                                                   style="height:16px;width:16px;cursor:pointer;">';
+                                                   style="height:17px;width:17px;cursor:pointer;">';
                                                  
                                              }
                                              ?>
@@ -1479,7 +1479,7 @@ if(login::isLoggedIn()){
                         for (var i = 0; i < files.length; i++) {
                             var name = document.getElementById('comment_imggg').files[i].name;
                             images += '{\"imageName\":\"user/' + <?php echo $userid; ?> +
-                                '/postImages/' + name + '\"},';
+                                '/comment/' + name + '\"},';
 
                             var extension = name.split('.').pop().toLowerCase();
                             if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
@@ -1523,7 +1523,7 @@ if(login::isLoggedIn()){
                             userid: userid,
                             postid: postid,
                             profileid: profileid,
-                            image: strImg,
+                            image_c: strImg,
                         },
                         cache: false,
                         success: function(html) {
@@ -1811,7 +1811,7 @@ if(login::isLoggedIn()){
                 form_data.append('file', file_data);
                 if (name != '') {
                     $.post('http://localhost/facebook/core/ajax/CommentPicture.php', {
-                        image_name: image_name,
+                        image_name_c: image_name,
                         userid: userid
                     }, function(data) {
 
