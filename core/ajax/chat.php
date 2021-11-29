@@ -60,7 +60,7 @@ if(isset($_POST['popup_chat'])){
                     ?>
                 <div class="timeit"><?php echo $loadUser->timeAgo($message->messageAt) ?></div>
 
-                <?php }
+                <?php }else{}
                 ?>
 
             </div>

@@ -2,7 +2,7 @@
     position: fixed;
     left: 10px;
     bottom: 0;
-    right: 0;
+
     display: flex;
     gap: 10px;
 }
@@ -145,7 +145,6 @@
 }
 .messaging_popup {
     padding: 10px;
-    z-index: -1;
 }
 .mess_right {
     float: right;

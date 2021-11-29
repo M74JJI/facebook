@@ -26,6 +26,12 @@ class Post extends User{
         
         
     }
+    public function getPost($postid){
+        $statement=$this->pdo->prepare("SELECT * FROM post LEFT JOIN profile ON profile.user_id =post.user_id  WHERE post_id=:postid");
+        $statement->bindParam(':postid',$postid);
+        $statement->execute();
+      return  $statement->fetch(PDO::FETCH_OBJ); 
+    }
     public function Homeposts($userid,$num){
         $userdata = $this->getUserInfo($userid);
 

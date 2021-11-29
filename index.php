@@ -40,7 +40,7 @@ if(login::isLoggedIn()){
     <link rel="stylesheet" href="assets/css/home.css" />
 
 </head>
-<header style="position:fixed;top:0;width:100%;">
+<header class="header" style="position:fixed;top:0;width:100%;">
 
     <div class="container">
         <div class="left" id="left">
@@ -488,6 +488,7 @@ if(login::isLoggedIn()){
                 </div>
                 <!------POST-HEADER------>
                 <div class="post_header">
+
                     <div class="post_header_left">
                         <a href="<?php echo BASE_URL.$post->link ?>"> <img src="<?php echo $post->profile_picture ?>"
                                 alt=""></a>
@@ -575,8 +576,8 @@ if(login::isLoggedIn()){
         $count = 0;
         for($i=0;$i<count($imgs);$i++){
             echo'<div class="post_images" data-img-id="'.$post->post_id.'">
-            <img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'" 
-            class="post_img">
+           <a href="'.BASE_URL.'/post.php?id='.$post->post_id.'&image='.BASE_URL.$imgs[''.$count.'']->imageName.'"> <img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'" 
+            class="post_img" data-userid="'.$userid.'" data-profileid="'.$profileId.'" data-postid="'.$post->post_id.'"></a>
             </div>';   
         }
     
@@ -600,8 +601,8 @@ if(login::isLoggedIn()){
         $count = 0;
         for($i=0;$i<count($imgs);$i++){
             echo'<div class="post_images" data-img-id="'.$post->post_id.'">
-            <img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'" 
-            class="post_img">
+            <a href="'.BASE_URL.'/post.php?id='.$post->post_id.'&image='.BASE_URL.$imgs[''.$count.'']->imageName.'"><img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'" 
+            class="post_img" data-userid="'.$userid.'" data-profileid="'.$profileId.'" data-postid="'.$post->post_id.'"></a>
             </div>';   
         }
     
@@ -1056,6 +1057,9 @@ if(login::isLoggedIn()){
 
         </div>
         <!-----Chat Popups------>
+        <!-------Preview Image Popup---->
+
+        <!-------Preview Image Popup---->
 
 
         <script src="assets/js/header.js"></script>
@@ -1126,6 +1130,9 @@ if(login::isLoggedIn()){
 
         $(document).on('click', '#open_thatmenu', function() {
             $('#menu_header').css('display', 'block');
+        })
+        $(document).on('click', '#open_thatmenu1', function() {
+            $('#menu_header1').toggle()
         })
         $(document).mouseup(function(e) {
             var container = new Array();
@@ -1955,6 +1962,11 @@ if(login::isLoggedIn()){
             })
         })
 
+        //---------------------->preview single image->
+
+
+        //---------------------->preview single image->
+
 
         //------------POST----------------->
 
@@ -2017,6 +2029,20 @@ if(login::isLoggedIn()){
                     $('.facebook_left').css('opacity', '1');
                     $('.facebook_middle').css('opacity', '1');
                     $('.facebook_right').css('opacity', '1');
+
+                }
+            })
+        })
+        $(document).mouseup(function(e) {
+            var container = new Array();
+
+            container.push('#menu_header1');
+
+            $.each(container, function(key, value) {
+                if (!$(value).is(e.target) && $(value).has(e.target)
+                    .length === 0) {
+                    $(value).hide()
+
 
                 }
             })
