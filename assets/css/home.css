@@ -152,7 +152,7 @@
 .box_area .emojionearea-button-close,
 .box_area .emojionearea-button-open {
     position: absolute !important;
-    top: 8rem !important;
+    top: 5rem !important;
     transform: scale(1.5) !important;
 }
 
@@ -169,7 +169,7 @@
     outline: none !important;
     border: none !important;
     background: #fff !important;
-    font-size: 19px !important;
+    font-size: 15px !important;
     font-family: 'Segoe UI', Helvetica, Arial, sans-serif !important;
 }
 

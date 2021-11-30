@@ -473,6 +473,7 @@ if(login::isLoggedIn()){
     $commentDetails = $loadPost->commentFetch($post->post_id);
     $totalCommentCount=$loadPost->totalCommentCount($post->post_id);
     $totalShareCount =$loadPost->totalShareCount($post->post_id);
+   
     if(empty($post->shareId)){
 
     }else{
@@ -543,7 +544,7 @@ if(login::isLoggedIn()){
                                 </div>
                             </li>
                             <div class="hrr"></div>
-                            <li>
+                            <li id="open-edit-post" data-postid="<?php echo $post->post_id; ?>">
                                 <i class="ed_icon"></i>
                                 <div class="li-a7a">
                                     <span>Edit Post</span>
@@ -741,8 +742,12 @@ if(login::isLoggedIn()){
                         <?php 
     if($post->postImages !=''){
         $imgs=json_decode($post->postImages);
+    
+        $link = BASE_URL.'post.php?id='.$post->post_id.'&image='.BASE_URL.$imgs[0]->imageName;
         $count = 0;
         for($i=0;$i<count($imgs);$i++){
+    
+
             echo'<div class="post_images" data-img-id="'.$post->post_id.'">
             <a href="'.BASE_URL.'/post.php?id='.$post->post_id.'&image='.BASE_URL.$imgs[''.$count.'']->imageName.'"><img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'" 
             class="post_img" data-userid="'.$userid.'" data-profileid="'.$profileId.'" data-postid="'.$post->post_id.'"></a>
@@ -1194,6 +1199,12 @@ if(login::isLoggedIn()){
 
         </div>
         <!-------CREATE POST POPUP----->
+        <!-------EDIT POST POPUP----->
+        <div class="post_box" id="post_box1">
+
+
+        </div>
+        <!-------CREATE POST POPUP----->
 
         <!-----Chat Popups------>
         <div class="chat_popup_container">
@@ -1426,8 +1437,35 @@ if(login::isLoggedIn()){
             $('.facebook_middle').css('opacity', '0.3');
             $('.facebook_right').css('opacity', '0.3');
         })
+        $(document).on('click', '#open-edit-post', function() {
+            var postid = $(this).data('postid');
+            var userid = "<?php echo $userid ?>";
+            $.post('http://localhost/facebook/core/ajax/EditPost.php', {
+                postidEdit: postid,
+                userid: userid,
+            }, function(data) {
+                console.log(data)
+                $('#post_box1').html(data);
+                $('#post_textarea1').emojioneArea({
+
+                })
+                $('#post_box1').show();
+                $('.facebook_left').css('opacity', '0.3');
+                $('.facebook_middle').css('opacity', '0.3');
+                $('.facebook_right').css('opacity', '0.3');
+            });
+
+
+
+        })
         $(document).on('click', '#close_post', function() {
             $('#post_box').hide();
+            $('.facebook_left').css('opacity', '1');
+            $('.facebook_middle').css('opacity', '1');
+            $('.facebook_right').css('opacity', '1');
+        })
+        $(document).on('click', '#close_post1', function() {
+            $('#post_box1').hide();
             $('.facebook_left').css('opacity', '1');
             $('.facebook_middle').css('opacity', '1');
             $('.facebook_right').css('opacity', '1');
@@ -1441,6 +1479,7 @@ if(login::isLoggedIn()){
         $('input#comment-inputt').emojioneArea({
 
         })
+
 
 
         //-------------LINK EMOJI TO CREATE POST----------------->
@@ -1513,11 +1552,17 @@ if(login::isLoggedIn()){
 
 
         })
+        //----------------Images edit--->
 
         //------------remove img->
         $(document).on('click', '.remove_img', function() {
             $('#post_photo').val('');
             $('.added_ikhe').show();
+
+        })
+        $(document).on('click', '.remove_img1', function() {
+            $('.post_imgs_preview1').empty().hide();
+            $('.added_ikhe1').css('display', 'flex');
 
         })
         //------------remove img->
@@ -1529,10 +1574,16 @@ if(login::isLoggedIn()){
         $(document).on('mouseout', '.preview_container', function() {
             $('.add_more_imgs').hide()
         })
+        $(document).on('mouseover', '.preview_container1', function() {
+            $('.add_more_imgs1').show()
+        })
+        $(document).on('mouseout', '.preview_container1', function() {
+            $('.add_more_imgs1').hide()
+        })
         //------------hover show add->
 
         //------------add more images->
-        $('.add_more_imgs').on('click', function() {
+        $('.add_more_imgs1').on('click', function() {
             $('#post_photo').click();
 
         })
@@ -2256,6 +2307,7 @@ if(login::isLoggedIn()){
             var container = new Array();
 
             container.push('#post_box');
+            container.push('#post_box1');
 
             $.each(container, function(key, value) {
                 if (!$(value).is(e.target) && $(value).has(e.target)
@@ -2348,6 +2400,10 @@ if(login::isLoggedIn()){
             $('.save-popup').attr('data-postid', postid).css('display', 'flex');
 
         })
+        $(document).on('click', '.close_save', function() {
+            $('.save-popup').hide();
+
+        })
         //-----Save Post------------->
 
 
@@ -2355,6 +2411,8 @@ if(login::isLoggedIn()){
             var container = new Array();
 
             container.push('#menu_header1');
+            container.push('.save-popup');
+            container.push('.post-menu ');
 
             $.each(container, function(key, value) {
                 if (!$(value).is(e.target) && $(value).has(e.target)
