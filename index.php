@@ -676,7 +676,7 @@ if(login::isLoggedIn()){
 
                 <div class="nf-2">
                     <!------POST-TEXT------>
-                    <div class="post_text">
+                    <div class="post_text" id="post_text" data-postid="<?php echo $post->post_id ?>">
                         <?php  
            
 
@@ -690,7 +690,7 @@ if(login::isLoggedIn()){
                
                foreach($shareDetails as $share){
                    ?>
-                        <div class="share-container">
+                        <div class=" share-container">
 
                             <div class="post_header">
                                 <div class="post_header_left">
@@ -1316,7 +1316,7 @@ if(login::isLoggedIn()){
         $(document).ready(function() {
 
             $(document).on('focus', '.emojionearea-editor', function() {
-                console.log($(this).html())
+
                 // $('.m14_left').hide();
                 $(this).css('width', '300px !important');
 
@@ -1406,13 +1406,12 @@ if(login::isLoggedIn()){
         $(document).on('click', '.contact_tochat', function() {
             var userid = "<?php echo $userid ?>"
             var chatid = $(this).data('chatid');
-            console.log(chatid)
-            console.log(userid)
+
             $.post('http://localhost/facebook/core/ajax/chat.php', {
                 popup_chat: chatid,
                 userid: userid,
             }, function(data) {
-                console.log(data);
+
                 $('.chat_popup_container').append(data);
 
                 $('#c-' + chatid + '').emojioneArea({
@@ -1444,7 +1443,7 @@ if(login::isLoggedIn()){
                 postidEdit: postid,
                 userid: userid,
             }, function(data) {
-                console.log(data)
+
                 $('#post_box1').html(data);
                 $('#post_textarea1').emojioneArea({
 
@@ -1464,12 +1463,7 @@ if(login::isLoggedIn()){
             $('.facebook_middle').css('opacity', '1');
             $('.facebook_right').css('opacity', '1');
         })
-        $(document).on('click', '#close_post1', function() {
-            $('#post_box1').hide();
-            $('.facebook_left').css('opacity', '1');
-            $('.facebook_middle').css('opacity', '1');
-            $('.facebook_right').css('opacity', '1');
-        })
+
         //-------------Show POST POPU----------------->
 
         //-------------LINK EMOJI TO CREATE POST----------------->
@@ -1560,11 +1554,7 @@ if(login::isLoggedIn()){
             $('.added_ikhe').show();
 
         })
-        $(document).on('click', '.remove_img1', function() {
-            $('.post_imgs_preview1').empty().hide();
-            $('.added_ikhe1').css('display', 'flex');
 
-        })
         //------------remove img->
 
         //------------hover show add->
@@ -1574,19 +1564,11 @@ if(login::isLoggedIn()){
         $(document).on('mouseout', '.preview_container', function() {
             $('.add_more_imgs').hide()
         })
-        $(document).on('mouseover', '.preview_container1', function() {
-            $('.add_more_imgs1').show()
-        })
-        $(document).on('mouseout', '.preview_container1', function() {
-            $('.add_more_imgs1').hide()
-        })
+
         //------------hover show add->
 
         //------------add more images->
-        $('.add_more_imgs1').on('click', function() {
-            $('#post_photo').click();
 
-        })
         //------------add more images->
         //----Add image preview--->
 

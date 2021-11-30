@@ -206,6 +206,21 @@ class Post extends User{
          return $statement->fetchAll(PDO::FETCH_OBJ);
     }
 
+
+    public function updateTextPost($postid,$text){
+        $statement=$this->pdo->prepare("UPDATE post SET post =:post_text WHERE post_id=:post_id");
+        $statement->bindValue(':post_text',$text,PDO::PARAM_STR);
+        $statement->bindParam(':post_id',$postid,PDO::PARAM_INT);
+        $statement->execute();
+    }
+    public function updatePostImages($postid,$images,$text){
+        $statement=$this->pdo->prepare("UPDATE post SET post =:post_text, postImages=:imagess WHERE post_id=:post_id");
+        $statement->bindValue(':post_text',$text,PDO::PARAM_STR);
+        $statement->bindValue(':imagess',$images,PDO::PARAM_STR);
+        $statement->bindParam(':post_id',$postid,PDO::PARAM_INT);
+        $statement->execute();
+    }
+
     
 
 }

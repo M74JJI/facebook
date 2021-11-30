@@ -34,7 +34,7 @@ $length="";
 
 
 <div class="added_ikhe1">
-    <input type="file" class="input_tamara" id="post_photo" name="post_photo"
+    <input type="file" class="input_tamara" id="post_photo1" name="post_photo"
         data-multiple-caption='{count} files selected' multiple="">
     <div class="plussit_dvc">
         <i class="plucit_icon"></i>
@@ -102,10 +102,174 @@ $length="";
     </div>
 </div>
 
-<button class="post_button" id="post_btn_submit">Save</button>
+<button class="post_button" id="post_edit_submit" data-postid="<?php echo $post->post_id ?>">Save</button>
 
 
 <script>
+//----Add image preview--->
+var filaes;
+var fileCollection = new Array();
+$(document).on('change', '#post_photo1', function(e) {
+    var count = 0;
+    var files = e.target.files;
+    console.log(files)
+
+    $(this).removeData();
+    var text = "";
+    $('.post_imgs_preview1').show();
+    $('#emoji_wrapper').css('display', 'none');
+    $('.added_ikhe1').hide();
+    /* grid from preview*/
+
+
+    $.each(files, function(i, file) {
+        fileCollection.push(file);
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = function(e) {
+            var name = document.getElementById("post_photo1").files[i].name;
+            var template = ' <img class="prevv_img1" id = "' + name +
+                '" src="' + e.target.result + '" / >';
+
+            $('#post_imgs_preview1').append(template);
+
+        }
+    })
+    $('#post_imgs_preview1').append(
+        '<div class="remove_img1"><i class="fa-solid fa-xmark"></i></div>');
+    $('#post_imgs_preview1').append(
+        '<div class="add_more_imgs1"><i class="azrbch"></i>Add Photos/Videos</div>');
+
+
+})
+$('#post_edit_submit').on('click', function() {
+    var post_text = $(this).siblings('.box_area').find('.emojionearea-editor').html();
+    var postid = $(this).data('postid');
+    console.log(post_text)
+    console.log(postid)
+
+    var formData = new FormData();
+    var images = [];
+    var errors = [];
+    var files = $('#post_photo1')[0].files;
+
+
+    if (files.length != 0) {
+        if (files.length > 20) {
+            errors += "maximum 20 images is allowed.";
+
+        } else {
+            for (var i = 0; i < files.length; i++) {
+                var name = document.getElementById('post_photo1').files[i].name;
+                images += '{\"imageName\":\"user/' + <?php echo $userid; ?> +
+                    '/postImages/' + name + '\"},';
+
+                var extension = name.split('.').pop().toLowerCase();
+                if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg', 'webp']) == -1) {
+                    errors +=
+                        '<p>Invalid ' + i +
+                        ' File. Only gif,png,jpg,jpeg are allowed.</p>';
+                }
+                var ofReader = new FileReader();
+                ofReader.readAsDataURL(document.getElementById('post_photo1').files[i]);
+                var f = document.getElementById('post_photo1').files[i];
+                var file_size = f.size || f.fileSize;
+                if (file_size > 2000000) {
+                    errors += '<p>' + i + ' File Size is larger than 5mb</p>'
+                } else {
+                    formData.append('file[]', document.getElementById('post_photo1')
+                        .files[
+                            i]);
+
+
+                }
+            }
+        }
+        if (files.length < 1) {
+
+        } else {
+            var str = images.replace(/,\s*$/, "");
+            var strImg = '[' + str + ']';
+
+        }
+        if (errors == '') {
+            $.ajax({
+                url: 'http://localhost/facebook/core/ajax/uploadPostImageEdit.php',
+                cache: false,
+                method: "post",
+                data: formData,
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    $('#errors_post').html(
+                        '<br/><label>Uploading...</label>');
+                },
+                success: function(data) {
+                    $('#errors_post').html(data);
+                    $('#post_imgs_preview1').empty();
+                }
+
+            })
+        } else {
+            $('#post_photo1').val('');
+            $('#errors_post').html('<span>' + errors + '</span>');
+            return false;
+        }
+
+    } else {
+        var strImg = '';
+    }
+    if (strImg == '') {
+
+        $.post('http://localhost/facebook/core/ajax/postSubmitEdit.php', {
+            post_text_only_edit: post_text,
+            postid: postid,
+        }, function(data) {
+            $('#post_box1').hide();
+            $("#post_text").find(`[data-postid='${postid}']`).html(data);
+
+
+
+
+        })
+    } else {
+        $.post('http://localhost/facebook/core/ajax/postSubmitEdit.php', {
+            post_images: strImg,
+            post_text: post_text,
+            postid: postid,
+        }, function(data) {
+
+            console.log(data)
+        })
+
+    }
+
+
+
+
+})
+$(document).on('click', '.remove_img1', function() {
+    $('.post_imgs_preview1').empty().hide();
+    $('.added_ikhe1').css('display', 'flex');
+
+})
+$(document).on('mouseover', '.preview_container1', function() {
+    $('.add_more_imgs1').show()
+})
+$(document).on('mouseout', '.preview_container1', function() {
+    $('.add_more_imgs1').hide()
+})
+$('.add_more_imgs1').on('click', function() {
+    $('#post_photo').click();
+
+})
+$(document).on('click', '#close_post1', function() {
+    $('#post_box1').hide();
+    $('.facebook_left').css('opacity', '1');
+    $('.facebook_middle').css('opacity', '1');
+    $('.facebook_right').css('opacity', '1');
+})
 if (<?php echo $length; ?> == 1) {
     $('.prevv_img1').css('width', '500px');
     $('.prevv_img1').css('height', '400px');
@@ -123,6 +287,9 @@ if (<?php echo $length;  ?> == 3) {
     $('.prevv_img1:first-of-type').css('grid-row', '1/3');
     $('.prevv_img1:first-of-type').css('height', '400px');
 }
+$(document).on('click', '.added_ikhe1', function() {
+    $('#post_photo1').click();
+})
 </script>
 <?php
 
