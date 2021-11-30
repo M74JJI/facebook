@@ -408,6 +408,30 @@ class User{
                              return $statement->fetch(PDO::FETCH_OBJ);
                         }
 
+                        public function getSavedCollections($userid){
+                            $statement = $this->pdo->prepare("SELECT * FROM collection WHERE user_id=:userid");
+                             $statement->bindValue(':userid',$userid,PDO::PARAM_STR);
+                             $statement->execute();
+                             return $statement->fetchAll(PDO::FETCH_OBJ);
+                        }
+                        public function getCollectionId($name){
+                            $statement = $this->pdo->prepare("SELECT * FROM collection WHERE name=:name");
+                             $statement->bindValue(':name',$name,PDO::PARAM_STR);
+                             $statement->execute();
+                             return $statement->fetch(PDO::FETCH_OBJ);
+                        }
+                        public function checkNameExist($name){
+                            $statement=$this->pdo->prepare("SELECT name FROM collection WHERE name=:namee");
+                            $statement->bindParam(':namee',$name,PDO::PARAM_STR);
+                            $statement->execute();
+                            $counts=$statement->rowCount();
+                            if($counts>0){
+                                return true;
+                            } else{
+                                return false;
+                            }
+                        }
+
 
 
 

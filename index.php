@@ -521,12 +521,155 @@ if(login::isLoggedIn()){
                         </div>
                     </div>
                     <?php 
-             if($userid === $profileId){
-             ?>
-                    <div class="post_header_right"><i class="fa-solid fa-ellipsis"></i></div>
-                    <?php
-             }
-             ?>
+             if($userid === $profileId){ ?>
+                    <div style="position:relative">
+                        <div class="post_header_right">
+                            <i class="fa-solid fa-ellipsis">
+                            </i>
+                        </div>
+                        <ul class="post-menu" data-userid="<?php echo $userid; ?>"
+                            data-userid="<?php echo $post->post_id; ?>">
+                            <li>
+                                <i class="pin_icon"></i>
+                                <div class="li-a7a">
+                                    <span>Pin Post</span>
+                                </div>
+                            </li>
+                            <li id="open-save-post" data-postid="<?php echo $post->post_id; ?>"> <i
+                                    class="sav_icon"></i>
+                                <div class="li-a7a">
+                                    <span>Save Post</span>
+                                    <span class="spanitto">Add this to your saved items.</span>
+                                </div>
+                            </li>
+                            <div class="hrr"></div>
+                            <li>
+                                <i class="ed_icon"></i>
+                                <div class="li-a7a">
+                                    <span>Edit Post</span>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yP/r/0e5FTOFd_jg.png" alt="">
+                                <div class="li-a7a">
+                                    <span>Edit audience</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="nott_icon"></i>
+                                <div class="li-a7a">
+                                    <span>Turn off notifications for this post</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="tr_icon"></i>
+                                <div class="li-a7a">
+                                    <span>turn off translations</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="d_icon"></i>
+                                <div class="li-a7a">
+                                    <span>Edit date</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="ref_icon"></i>
+                                <div class="li-a7a">
+                                    <span>Refresh share attachment</span>
+                                </div>
+                            </li>
+                            <div class="hrr"></div>
+                            <li>
+                                <i class="arch_icon"></i>
+                                <div class="li-a7a">
+                                    <span>Move to archive</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="tr_icon"></i>
+                                <div class="li-a7a">
+                                    <div class="li-a7a">
+                                        <span>Move to trash</span>
+                                        <span class="spanitto">items in your trash are deleted after 30 days.</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <?php  }else{ ?>
+                    <div style=" position:relative">
+                        <div class="post_header_right">
+                            <i class="fa-solid fa-ellipsis">
+                            </i>
+                        </div>
+                        <ul class="post-menu" data-userid="<?php echo $userid; ?>"
+                            data-userid="<?php echo $post->post_id; ?>">
+                            <li id="open-save-post">
+                                <i class="sav_icon"></i>
+                                <div class="li-a7a">
+                                    <span>Save Post</span>
+                                    <span class="spanitto">Add this to your saved items.</span>
+                                </div>
+                            </li>
+                            <div class="hrr"></div>
+
+                            <li>
+                                <i class="cpy_icon"></i>
+                                <div class="li-a7a">
+                                    <span>Copy Link</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="nott_icon"></i>
+                                <div class="li-a7a">
+                                    <span>Turn on notifications for this post</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="emb_icon"></i>
+                                <div class="li-a7a">
+                                    <span>Embed</span>
+                                </div>
+                            </li>
+                            <div class="hrr"></div>
+
+
+                            <li>
+                                <i class="sav_icon"></i>
+                                <div class="li-a7a">
+                                    <span>Hide Post</span>
+                                    <span class="spanitto">See fewer posts like this.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/G0M6vSYdWBi.png" alt="">
+                                <div class="li-a7a">
+                                    <span>Snoose <?php echo $post->first_name.' '.$post->last_name ?> for 30
+                                        days.</span>
+                                    <span class="spanitto">Temporarily stop seeing posts.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yI/r/bnvx9uLOEsq.png" alt="">
+                                <div class="li-a7a">
+                                    <span>Unfollow <?php echo $post->first_name.' '.$post->last_name ?></span>
+                                    <span class="spanitto">Stop seeing posts from this user.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="https://static.xx.fbcdn.net/rsrc.php/v3/y8/r/0lXA3kApbrr.png" alt="">
+                                <div class="li-a7a">
+                                    <span>Find support or repost post</span>
+                                    <span class="spanitto">I'm concerened about this post..</span>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <?php   } ?>
+
+
                 </div>
                 <!------POST-HEADER------>
 
@@ -1057,6 +1200,85 @@ if(login::isLoggedIn()){
 
         </div>
         <!-----Chat Popups------>
+
+        <!-----Save Popup------>
+        <?php
+        $collections = $loadUser->getSavedCollections($userid);
+
+        ?>
+
+        <div class="save-popup">
+            <div class="close_save">
+                <i class="s_close"></i>
+            </div>
+            <div class="save_header">
+                Save To
+            </div>
+            <ul class="save_collections">
+                <label for="later">
+                    <div style="display:flex;align-items:center;gap:8px">
+                        <img src="assets/images/later.jpg" style="width:50px;height:50px;border-radius:10px" alt="">
+                        <div class=" col">
+                            <span>For later</span>
+                            <div
+                                style="display:flex;align-items:center;font-weight:400;color:#65676b;font-size:14px;gap:5px">
+                                <div class="only_icon"></div>
+                                Only me
+                            </div>
+                        </div>
+                    </div>
+                    <input type="radio" name="save" id="later" checked>
+                </label>
+                <div class="c_collections">
+                    <?php
+                    foreach ($collections as $collection){ ?>
+                    <label for="<?php echo $collection->col_id ;?>">
+                        <div style="display:flex;align-items:center;gap:8px">
+                            <img src="assets/images/later.jpg" style="width:50px;height:50px;border-radius:10px" alt="">
+                            <div class=" col">
+                                <span><?php echo $collection->name ;?></span>
+                                <div
+                                    style="display:flex;align-items:center;font-weight:400;color:#65676b;font-size:14px;gap:5px">
+                                    <div class="only_icon"></div>
+                                    Only me
+                                </div>
+                            </div>
+                        </div>
+                        <input type="radio" name="save" id="<?php echo $collection->col_id ;?>">
+                    </label>
+
+
+
+
+
+                    <?php  }
+                 ?>
+                </div>
+                <div class="add_coll">
+                    <div class="plus_hh">
+                        <i class="plus_iccon"></i>
+                    </div>
+                    New Collection
+
+                </div>
+                <div class="create_coll">
+                    <span>Name</span>
+                    <input type="text" placeholder="Give your collection a name..." id="col_name"
+                        onkeyup="checkKhawyaf3amra()">
+                    <div class="coll_btns">
+                        <button id="cancel_coll">Cancel</button>
+                        <button id="create_coll">Create</button>
+
+                    </div>
+                </div>
+
+            </ul>
+            <button class="done_save">Done</button>
+
+        </div>
+        <!-----Save Popup------>
+
+
         <!-------Preview Image Popup---->
 
         <!-------Preview Image Popup---->
@@ -1066,6 +1288,19 @@ if(login::isLoggedIn()){
         <script src="assets/js/jquery.js"></script>
         <script src="assets/dist/emojionearea.js"></script>
         <script>
+        function checkKhawyaf3amra() {
+
+            if ($('#col_name').val() === "") {
+                $('#create_coll').css('background', '#e4e6eb');
+                $('#create_coll').css('cursor', 'not-allowed');
+                $('#create_coll').css('color', '#bcc0c4');
+            } else {
+                $('#create_coll').css('background', '#1877f2');
+                $('#create_coll').css('cursor', 'pointer');
+                $('#create_coll').css('color', '#fff');
+
+            }
+        }
         //----->make input longer---->
         $(document).ready(function() {
 
@@ -2033,6 +2268,89 @@ if(login::isLoggedIn()){
                 }
             })
         })
+
+        //------------------------------>
+        $(document).on('click', '.post_header_right', function() {
+            $('.post-menu').hide()
+            $(this).siblings('.post-menu').show()
+        })
+        //------------------------------>
+
+
+        //-----Save Post------------->
+
+        $(document).on('click', '.add_coll', function() {
+            $(this).hide()
+            $('.create_coll').css('display', 'flex');
+        })
+
+
+        /*  $(document).on('change', 'input#col_name', function() {
+             console.log($(this).val());
+             if ($(this).val() !== '') {
+                 $('#create_coll').css('background', '#1877f2');
+                 $('#create_coll').css('pointer', 'pointer');
+                 $('#create_coll').css('color', '#fff');
+
+             }
+         }) */
+        $(document).on('click', '#cancel_coll', function() {
+            $('.create_coll').hide()
+            $('.add_coll').show()
+        })
+        //------create collection-->
+        $(document).on('click', '#create_coll', function() {
+            var name = $('#col_name').val();
+            var userid = "<?php echo $userid ?>";
+
+            $.post('http://localhost/facebook/core/ajax/savePost.php', {
+                col_name: name,
+                userid: userid,
+            }, function(data) {
+                $('.create_coll').hide();
+                $('.c_collections').append(data)
+                $('.add_coll').show();
+                $('#col_name').val('');
+
+
+            })
+        })
+        $(document).on('click', '.done_save', function() {
+            var userid = "<?php echo $userid ?>";
+            var postid = $(this).parents('.save-popup').data('postid');
+            var col = $('input[name=save]:checked', ).attr('id');
+
+
+
+
+            $.ajax({
+                type: 'POST',
+                url: "http://localhost/facebook/core/ajax/savePost.php",
+                data: {
+                    userid: userid,
+                    postid: postid,
+                    col: col,
+                },
+                success: function(data) {
+                    $('.save-popup').hide();
+                    console.log(data)
+
+                }
+
+
+            })
+        })
+        //------create collection-->
+
+        $(document).on('click', '#open-save-post', function() {
+            var postid = $(this).data('postid');
+            $('.post-menu').hide()
+            $('.save-popup').attr('data-postid', postid).css('display', 'flex');
+
+        })
+        //-----Save Post------------->
+
+
         $(document).mouseup(function(e) {
             var container = new Array();
 
