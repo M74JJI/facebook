@@ -26,6 +26,13 @@ class Post extends User{
         
         
     }
+    public function deletePost($postid,$userid){
+        $statement=$this->pdo->prepare("DELETE FROM post WHERE post_id=:postid AND user_id=:userid");
+        $statement->bindValue(':postid',$postid);
+        $statement->bindValue(':userid',$userid);
+        $statement->execute();
+        
+    }
     public function getPost($postid){
         $statement=$this->pdo->prepare("SELECT * FROM post LEFT JOIN profile ON profile.user_id =post.user_id  WHERE post_id=:postid");
         $statement->bindParam(':postid',$postid);
@@ -39,10 +46,7 @@ class Post extends User{
         UNION
         SELECT * from post p LEFT JOIN users u ON p.user_id = u.id
          LEFT JOIN profile pr ON pr.user_id = p.user_id WHERE p.user_id 
-         IN (SELECT friendrequest.requestReceiver FROM 
-         friendRequest WHERE friendrequest.requestSender = :userid
-         AND friendrequest.requestStatus = 1) OR p.user_id IN (SELECT friendrequest.requestSender FROM friendRequest WHERE friendrequest.requestReceiver = :userid and friendrequest.requestStatus=1)
-         OR p.user_id In(SELECT follow.receiver FROM follow WHERE follow.sender =:userid)
+         IN (SELECT follow.receiver FROM follow WHERE follow.sender =:userid)
          ORDER BY postedAt DESC LIMIT :num
         ');
 

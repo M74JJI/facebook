@@ -588,7 +588,8 @@ if(login::isLoggedIn()){
                                     <span>Move to archive</span>
                                 </div>
                             </li>
-                            <li>
+                            <li id="delete_post" data-postid="<?php echo $post->post_id ?>"
+                                data-userid="<?php echo $userid ?>">
                                 <i class="tr_icon"></i>
                                 <div class="li-a7a">
                                     <div class="li-a7a">
@@ -652,11 +653,12 @@ if(login::isLoggedIn()){
                                     <span class="spanitto">Temporarily stop seeing posts.</span>
                                 </div>
                             </li>
-                            <li>
+                            <li id="unfollow_menu" data-userid="<?php echo $userid ?>"
+                                data-profileId="<?php echo $post->user_id ?>">
                                 <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yI/r/bnvx9uLOEsq.png" alt="">
                                 <div class="li-a7a">
                                     <span>Unfollow <?php echo $post->first_name.' '.$post->last_name ?></span>
-                                    <span class="spanitto">Stop seeing posts from this user.</span>
+                                    <span class=" spanitto">Stop seeing posts from this user.</span>
                                 </div>
                             </li>
                             <li>
@@ -1296,7 +1298,7 @@ if(login::isLoggedIn()){
         </div>
         <!-------CREATE POST POPUP----->
         <!-------EDIT POST POPUP----->
-        <div class="post_box" id="post_box1">
+        <div class="post_box1" id="post_box1">
 
 
         </div>
@@ -1640,6 +1642,29 @@ if(login::isLoggedIn()){
                         $('.prevv_img:first-of-type').css('grid-row', '1/3');
                         $('.prevv_img:first-of-type').css('height', '400px');
                     }
+                    if (filaes.length == 4) {
+                        $('.post_imgs_preview').css('grid-template-columns', '1fr 1fr');
+                        $('.post_imgs_preview').css('grid-template-rows', '1fr 1fr');
+                        $('.prevv_img').css('width', '250px');
+                        $('.prevv_img').css('height', '250px');
+                        $('.prevv_img:first-of-type').css('grid-column', '1/2');
+                        $('.prevv_img:first-of-type').css('grid-row', '1/2');
+                        $('.prevv_img:first-of-type').css('height', '250px');
+                        $('.prevv_img:nth-child(1)').css('grid-column', '2/3');
+                        $('.prevv_img:first-of-type').css('grid-row', '1/2');
+                        $('.prevv_img:nth-child(1)').css('height', '250px');
+                        $('.prevv_img:nth-child(1)').css('grid-column', '1/2');
+                        $('.prevv_img:first-of-type').css('grid-row', '2/3');
+                        $('.prevv_img:nth-child(1)').css('height', '250px');
+                        $('.prevv_img:nth-child(1)').css('grid-column', '2/3');
+                        $('.prevv_img:nth-child(1)').css('height', '250px');
+                        $('.prevv_img:first-of-type').css('grid-row', '2/3');
+                    }
+                    if (filaes.length > 4) {
+                        $('.post_imgs_preview').css('grid-template-columns', '1fr 1fr');
+                        $('.prevv_img').css('width', '250px');
+                        $('.prevv_img').css('height', '250px');
+                    }
                 }
             })
             $('#post_imgs_preview').append(
@@ -1677,7 +1702,8 @@ if(login::isLoggedIn()){
 
         //----Submit Post--->
         $('#post_btn_submit').on('click', function() {
-            var post_text = $('.emojionearea-editor').html();
+            var post_text = $(this).siblings('.box_area').children('.emojionearea.textarea_post').find(
+                '.emojionearea-editor').html();
 
             var formData = new FormData();
             var images = [];
@@ -1825,7 +1851,7 @@ if(login::isLoggedIn()){
 
         function mainReactSubmit(typeR, postId, userId, nf_3) {
 
-            var profileId = "<?php echo $profileId; ?>"
+            var profileId = "<?php echo $userid; ?>"
             console.log(nf_3)
             $.post('http://localhost/facebook/core/ajax/react.php', {
                 reactType: typeR,
@@ -1841,7 +1867,7 @@ if(login::isLoggedIn()){
 
         function mainReactDelete(typeR, postId, userId, nf_3) {
 
-            var profileId = "<?php echo $profileId; ?>"
+            var profileId = "<?php echo $userid; ?>"
 
             $.post('http://localhost/facebook/core/ajax/react.php', {
                 deleteReactType: typeR,
@@ -1959,7 +1985,7 @@ if(login::isLoggedIn()){
         //------------------COMMENT SUBMIT --------------------------------
         $(document).on('click', '.react_btn_wrapper.comment-action', function() {
 
-            $(this).parents('.nf-4').siblings('.nf-5').show();
+            $(this).parents('.nf-4').siblings('.nf-5').toggle();
 
         })
         $(document).on('click', '.react_right_count', function() {
@@ -1972,7 +1998,7 @@ if(login::isLoggedIn()){
                 var comment = $(this).find('.emojionearea-editor').html();
                 var postid = $(this).data('postid');
                 var userid = $(this).data('userid');
-                var profileid = "<?php echo $profileId ?>";
+                var profileid = "<?php echo $userid ?>";
                 var formData = new FormData();
                 var images = [];
                 var files = $('#comment_imggg')[0].files;
@@ -2157,7 +2183,7 @@ if(login::isLoggedIn()){
 
         function comReactSubmit(typeR, postid, userid, commentid, com_nf_3) {
             console.log('postid---->', postid);
-            var profileid = "<?php echo $profileId; ?>";
+            var profileid = "<?php echo $userid; ?>";
             $.post('http://localhost/facebook/core/ajax/commentReact.php', {
                     commentid: commentid,
                     reactType: typeR,
@@ -2173,7 +2199,7 @@ if(login::isLoggedIn()){
         }
 
         function comReactDelete(typeR, postid, userid, commentid, com_nf_3) {
-            var profileid = "<?php echo $profileId; ?>";
+            var profileid = "<?php echo $userid; ?>";
             $.post('http://localhost/facebook/core/ajax/commentReact.php', {
                     deleteReactType: typeR,
                     deleteCommentid: commentid,
@@ -2248,7 +2274,7 @@ if(login::isLoggedIn()){
             var userid = $(this).data('userid');
             var commentid = $(this).data('commentid');
             var commentContainer = $(this).parents('.new-comment');
-            var profileid = "<?php echo $profileId ?>";
+            var profileid = "<?php echo $userid ?>";
             var r = confirm('Are you sure you want to delete this comment.');
             if (r === true) {
                 $.post('http://localhost/facebook/core/ajax/editComment.php', {
@@ -2394,6 +2420,22 @@ if(login::isLoggedIn()){
         }, 500);
         //send message----------------->
 
+
+        //--------->unfollow
+        $(document).on('click', '#unfollow_menu', function() {
+            var This = $(this);
+            var userid = $(this).data('userid');
+            var profileid = $(this).data('profileid');
+            $.post('http://localhost/facebook/core/ajax/follow.php', {
+                userid: userid,
+                unfollow: profileid,
+            }, function(data) {
+                $(This).parents('.post-menu').hide()
+
+            })
+        })
+        //--------->unfollow
+
         //------------Click Outside----------------->
         $(document).mouseup(function(e) {
             var container = new Array();
@@ -2404,7 +2446,7 @@ if(login::isLoggedIn()){
             $.each(container, function(key, value) {
                 if (!$(value).is(e.target) && $(value).has(e.target)
                     .length === 0) {
-                    $(value).css('display', 'none');
+                    $(value).hide();
                     $('.facebook_left').css('opacity', '1');
                     $('.facebook_middle').css('opacity', '1');
                     $('.facebook_right').css('opacity', '1');
@@ -2518,6 +2560,22 @@ if(login::isLoggedIn()){
             })
         })
         //---------Show more--->
+
+        //---------Delete Post--->
+        $(document).on('click', '#delete_post', function() {
+            var postid = $(this).data('postid');
+            var userid = $(this).data('userid');
+            console.log(postid)
+            console.log(userid)
+            $.post('http://localhost/facebook/core/ajax/deletePost.php', {
+                delete_post: postid,
+                userid: userid,
+            }, function(data) {
+
+            })
+        })
+        //---------Delete Post--->
+
 
 
         $(document).mouseup(function(e) {
