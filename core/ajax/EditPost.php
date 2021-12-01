@@ -47,7 +47,7 @@ $length="";
 
 
 
-<div class="post_imgs_preview1">
+<div class="post_imgs_preview1" id="post_imgs_preview1">
     <?php
           if($post->postImages !=''){
             $imgs=json_decode($post->postImages);
@@ -110,15 +110,14 @@ $length="";
 var filaes;
 var fileCollection = new Array();
 $(document).on('change', '#post_photo1', function(e) {
+    console.log('change');
     var count = 0;
     var files = e.target.files;
-    console.log(files)
-
     $(this).removeData();
-    var text = "";
-    $('.post_imgs_preview1').show();
-    $('#emoji_wrapper').css('display', 'none');
+
+    $('.post_imgs_preview1').empty().show();
     $('.added_ikhe1').hide();
+    $('#emoji_wrapper').hide();
     /* grid from preview*/
 
 
@@ -128,12 +127,31 @@ $(document).on('change', '#post_photo1', function(e) {
         reader.readAsDataURL(file);
 
         reader.onload = function(e) {
+
             var name = document.getElementById("post_photo1").files[i].name;
             var template = ' <img class="prevv_img1" id = "' + name +
                 '" src="' + e.target.result + '" / >';
 
-            $('#post_imgs_preview1').append(template);
 
+            $('#post_imgs_preview1').append(template);
+            console.log('mengh--->', files.length)
+            if (files.length == 1) {
+                $('.prevv_img1').css('width', '500px');
+                $('.prevv_img1').css('height', '400px');
+            }
+            if (files.length == 2) {
+                $('.post_imgs_preview1').css('grid-template-columns', '1fr 1fr');
+                $('.prevv_img1').css('width', '250px');
+                $('.prevv_im1g').css('height', '400px');
+
+            }
+            if (files.length == 3) {
+                $('.post_imgs_preview1').css('grid-template-columns', '1fr 1fr');
+                $('.prevv_img1').css('width', '250px');
+                $('.prevv_img1').css('height', '200px');
+                $('.prevv_img1:first-of-type').css('grid-row', '1/3');
+                $('.prevv_img1:first-of-type').css('height', '400px');
+            }
         }
     })
     $('#post_imgs_preview1').append(

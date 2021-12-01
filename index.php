@@ -38,6 +38,7 @@ if(login::isLoggedIn()){
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="assets/dist/emojionearea.css">
     <link rel="stylesheet" href="assets/css/home.css" />
+    <script src="assets/js/jquery.js"></script>
 
 </head>
 <header class="header" style="position:fixed;top:0;width:100%;">
@@ -742,20 +743,58 @@ if(login::isLoggedIn()){
                         <?php 
     if($post->postImages !=''){
         $imgs=json_decode($post->postImages);
+        $lengthh=count($imgs);
+        
+
+
+        
     
         $link = BASE_URL.'post.php?id='.$post->post_id.'&image='.BASE_URL.$imgs[0]->imageName;
         $count = 0;
-        for($i=0;$i<count($imgs);$i++){
-    
+        if(count($imgs)==2){ ?>
+                        <div class="grid_2"> <?php
+            for($i=0;$i<count($imgs);$i++){ 
+                echo'
+                 <a   href="'.BASE_URL.'/post.php?id='.$post->post_id.'&image='.BASE_URL.$imgs[''.$count.'']->imageName.'" data-length="'.$lengthh.'"
+                            data-img-id="'.$post->post_id.'"><img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'"
+                                class="" data-userid="'.$userid.'" data-profileid="'.$profileId.'"
+                                data-postid="'.$post->post_id.'"></a>
+                            ';
+                          
+                            } ?>
+                        </div>
+                        <?php  }
+        if(count($imgs)==3){ ?>
+                        <div class="grid_3"> <?php
+            for($i=0;$i<count($imgs);$i++){ 
+                echo'
+                 <a  class="img-'.$i.'" href="'.BASE_URL.'/post.php?id='.$post->post_id.'&image='.BASE_URL.$imgs[''.$count.'']->imageName.'" data-length="'.$lengthh.'"
+                            data-img-id="'.$post->post_id.'"><img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'"
+                                 data-userid="'.$userid.'" data-profileid="'.$profileId.'"
+                                data-postid="'.$post->post_id.'"></a>
+                            ';
+                          
+                            } ?>
+                        </div>
+                        <?php  }
+        if(count($imgs)==4){ ?>
+                        <div class="grid_4"> <?php
+            for($i=0;$i<count($imgs);$i++){ 
+                echo'
+                 <a  class="img-'.$i.'" href="'.BASE_URL.'/post.php?id='.$post->post_id.'&image='.BASE_URL.$imgs[''.$count.'']->imageName.'" data-length="'.$lengthh.'"
+                            data-img-id="'.$post->post_id.'"><img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'"
+                                 data-userid="'.$userid.'" data-profileid="'.$profileId.'"
+                                data-postid="'.$post->post_id.'"></a>
+                            ';
+                          
+                            } ?>
+                        </div>
+                        <?php  }
 
-            echo'<div class="post_images" data-img-id="'.$post->post_id.'">
-            <a href="'.BASE_URL.'/post.php?id='.$post->post_id.'&image='.BASE_URL.$imgs[''.$count.'']->imageName.'"><img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'" 
-            class="post_img" data-userid="'.$userid.'" data-profileid="'.$profileId.'" data-postid="'.$post->post_id.'"></a>
-            </div>';   
-        }
-    
-    }
-     ?>
+
+
+                        }?>
+
                     </div>
                     <!------POST-IMAGES------>
 
@@ -1296,9 +1335,16 @@ if(login::isLoggedIn()){
 
 
         <script src="assets/js/header.js"></script>
-        <script src="assets/js/jquery.js"></script>
+
         <script src="assets/dist/emojionearea.js"></script>
         <script>
+        $('.post_images').ready(function() {
+
+
+        })
+
+
+
         function checkKhawyaf3amra() {
 
             if ($('#col_name').val() === "") {
@@ -1601,7 +1647,7 @@ if(login::isLoggedIn()){
                         ofReader.readAsDataURL(document.getElementById('post_photo').files[i]);
                         var f = document.getElementById('post_photo').files[i];
                         var file_size = f.size || f.fileSize;
-                        if (file_size > 2000000) {
+                        if (file_size > 7000000) {
                             errors += '<p>' + i + ' File Size is larger than 5mb</p>'
                         } else {
                             formData.append('file[]', document.getElementById('post_photo')
