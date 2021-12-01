@@ -852,7 +852,7 @@ if(login::isLoggedIn()){
                     foreach($react_max_show as $react_max){
                         echo '<img class="'.$react_max->reactType.'-max-show"
                          src="assets/images/react/'.$react_max->reactType.'.svg" alt=""
-                          style="width:20px;height:20px;cursor:pointer">';
+                          style="width:18.5px;height:18.5px;cursor:pointer">';
                     }
                          ?>
                                         </div>
@@ -896,7 +896,7 @@ if(login::isLoggedIn()){
                     <div class="border-t">
                         <div class="bbb"></div>
                     </div>
-                    <div class="nf-4">
+                    <div class="nf-4" style="transform: translateX(2.7rem);">
 
                         <div class="like-action-wrap" data-postid="<?php echo $post->post_id ?>"
                             data-userid="<?php echo $userid ?>">
@@ -924,16 +924,17 @@ if(login::isLoggedIn()){
                                 </div>
                                 <?php  }?>
                             </div>
-                            <div class=" react_btn_wrapper comment-action">
-                                <i class="comment_button"></i>Comment
-                            </div>
-                            <div class="react_btn_wrapper share-action" data-postid="<?php echo $post->post_id ?>"
-                                data-profilepic="<?php echo $userInfo->profile_picture ?>"
-                                data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId; ?>">
-
-                                <i class="share_button"></i>Share
-                            </div>
                         </div>
+                        <div class=" react_btn_wrapper comment-action">
+                            <i class="comment_button"></i>Comment
+                        </div>
+                        <div class="react_btn_wrapper share-action" data-postid="<?php echo $post->post_id ?>"
+                            data-profilepic="<?php echo $userInfo->profile_picture ?>"
+                            data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId; ?>">
+
+                            <i class="share_button"></i>Share
+                        </div>
+
 
                     </div>
 
@@ -1844,18 +1845,19 @@ if(login::isLoggedIn()){
 
         }
         //m tired of js here
-        $('.nf-4').hover(function() {
+        $('.like-action-wrap').hover(function() {
             var mainReact = $(this).find('.react-bundle-wrap');
-            $(mainReact).html(
-                '<div style="height:50px; z-index: 9999999999999999999999999999999999999999999; display: flex; align-items: center; background-color: #fff; position: absolute; top: -3.3rem; padding: 0 5px; border-radius: 50px;"> <div class="like-react-click"> <img src="assets/images/gif/like.gif" alt="" class="react-icon"> </div> <div class="love-react-click"> <img src="assets/images/gif/love.gif" alt="" class="react-icon"> </div> <div class="heart-react-click"> <img src="assets/images/gif/heart.gif" alt="" class=" react-icon"> </div> <div class="haha-react-click"> <img src="assets/images/gif/haha.gif" alt="" class="react-icon"> </div> <div class="wow-react-click"> <img src="assets/images/gif/wow.gif" alt="" class="react-icon"> </div> <div class="sad-react-click"> <img src="assets/images/gif/sad.gif" alt="" class="react-icon"> </div> <div class="angry-react-click"> <img src="assets/images/gif/angry.gif" alt="" class="react-icon"> </div></div>'
-            );
+            setTimeout(function() {
+                $(mainReact).html(
+                    '<div style="height:50px; z-index: 9999999999999999999999999999999999999999999; display: flex; align-items: center; background-color: #fff; position: absolute; top: -4.3rem; padding: 0 5px; border-radius: 50px;"> <div class="like-react-click"> <img src="assets/images/gif/like.gif" alt="" class="react-icon"> </div> <div class="love-react-click"> <img src="assets/images/gif/love.gif" alt="" class="react-icon"> </div> <div class="heart-react-click"> <img src="assets/images/gif/heart.gif" alt="" class=" react-icon"> </div> <div class="haha-react-click"> <img src="assets/images/gif/haha.gif" alt="" class="react-icon"> </div> <div class="wow-react-click"> <img src="assets/images/gif/wow.gif" alt="" class="react-icon"> </div> <div class="sad-react-click"> <img src="assets/images/gif/sad.gif" alt="" class="react-icon"> </div> <div class="angry-react-click"> <img src="assets/images/gif/angry.gif" alt="" class="react-icon"> </div></div>'
+                );
+            }, 500)
         }, function() {
-            var mainReact = $(this).find('.react-bundle-wrap');
-            $(mainReact).html('');
-
-
+            $(this).find('.react-bundle-wrap').html('');
 
         })
+
+
         /*
         $('.like-action-wrap').hover(function() {
         var mainReact = $(this).find('.react-bundle-wrap');
