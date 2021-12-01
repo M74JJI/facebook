@@ -58,7 +58,7 @@ $com_reactCheck =$loadPost->com_reactCheck($userid,$comment->commentedOn,$commen
 
 ?>
     <!-------COMMENT------>
-    <li class="new-comment">
+    <li class="new-comment" style="margin-top:10px">
         <div class="com-details">
             <div class="com-profile-pic">
                 <a href="#">
@@ -194,7 +194,10 @@ for($i=0;$i<count($imgs);$i++){
 <?php }}
 
 if($slicer < count($commentDetails)){
-    echo '<div class="show_more_com">See more comments</div>';
+    echo ' <div class="show_more_com" data-postid="<?php echo $post->post_id ?>">
+<a>View more comments
+</a>
+</div>';
 }
 
 ?>

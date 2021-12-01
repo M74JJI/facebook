@@ -1384,7 +1384,6 @@ li {
     padding: 0;
 }
 .react-bundle-wrap {
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
     position: absolute;
 }
 .react-bundle-wrap .react-icon {
@@ -1457,7 +1456,7 @@ li {
 
 .nf-5 {
     padding: 0 15px;
-    padding-bottom: 5px;
+    padding-bottom: 15px;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     display: none;
@@ -2559,5 +2558,13 @@ li {
     cursor: pointer;
 }
 .show_more_com {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.show_more_com a {
+    color: #65676b;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
 }

@@ -1133,10 +1133,14 @@ if(login::isLoggedIn()){
                                 <?php }} ?>
 
                             </ul>
+                            <?php
+                           if(count($commentDetails) >3){ ?>
                             <div class="show_more_com" data-postid="<?php echo $post->post_id ?>">
-                                <a>See more comments
+                                <a>View more comments
                                 </a>
                             </div>
+                            <?php }
+                           ?>
 
 
 
@@ -1856,7 +1860,7 @@ if(login::isLoggedIn()){
             var mainReact = $(this).find('.react-bundle-wrap');
             setTimeout(function() {
                 $(mainReact).html(
-                    '<div style="height:50px; z-index: 9999999999999999999999999999999999999999999; display: flex; align-items: center; background-color: #fff; position: absolute; top: -4.3rem; padding: 0 5px; border-radius: 50px;"> <div class="like-react-click"> <img src="assets/images/gif/like.gif" alt="" class="react-icon"> </div> <div class="love-react-click"> <img src="assets/images/gif/love.gif" alt="" class="react-icon"> </div> <div class="heart-react-click"> <img src="assets/images/gif/heart.gif" alt="" class=" react-icon"> </div> <div class="haha-react-click"> <img src="assets/images/gif/haha.gif" alt="" class="react-icon"> </div> <div class="wow-react-click"> <img src="assets/images/gif/wow.gif" alt="" class="react-icon"> </div> <div class="sad-react-click"> <img src="assets/images/gif/sad.gif" alt="" class="react-icon"> </div> <div class="angry-react-click"> <img src="assets/images/gif/angry.gif" alt="" class="react-icon"> </div></div>'
+                    '<div style="box-shadow: 1px 3px 17px 5px rgba(0,0,0,0.12);height:50px; z-index: 9999999999999999999999999999999999999999999; display: flex; align-items: center; background-color: #fff; position: absolute; top: -4.3rem; padding: 0 5px; border-radius: 50px;"> <div class="like-react-click"> <img src="assets/images/gif/like.gif" alt="" class="react-icon"> </div> <div class="love-react-click"> <img src="assets/images/gif/love.gif" alt="" class="react-icon"> </div> <div class="heart-react-click"> <img src="assets/images/gif/heart.gif" alt="" class=" react-icon"> </div> <div class="haha-react-click"> <img src="assets/images/gif/haha.gif" alt="" class="react-icon"> </div> <div class="wow-react-click"> <img src="assets/images/gif/wow.gif" alt="" class="react-icon"> </div> <div class="sad-react-click"> <img src="assets/images/gif/sad.gif" alt="" class="react-icon"> </div> <div class="angry-react-click"> <img src="assets/images/gif/angry.gif" alt="" class="react-icon"> </div></div>'
                 );
             }, 500)
         }, function() {
@@ -1955,7 +1959,7 @@ if(login::isLoggedIn()){
         //------------------COMMENT SUBMIT --------------------------------
         $(document).on('click', '.react_btn_wrapper.comment-action', function() {
 
-            $(this).parents('.react_infos').siblings('.nf-5').show();
+            $(this).parents('.nf-4').siblings('.nf-5').show();
 
         })
         $(document).on('click', '.react_right_count', function() {
