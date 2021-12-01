@@ -751,6 +751,19 @@ if(login::isLoggedIn()){
     
         $link = BASE_URL.'post.php?id='.$post->post_id.'&image='.BASE_URL.$imgs[0]->imageName;
         $count = 0;
+        if(count($imgs)==1){ ?>
+                        <div class="grid_1"> <?php
+            for($i=0;$i<count($imgs);$i++){ 
+                echo'
+                 <a   href="'.BASE_URL.'/post.php?id='.$post->post_id.'&image='.BASE_URL.$imgs[''.$count.'']->imageName.'" data-length="'.$lengthh.'"
+                            data-img-id="'.$post->post_id.'"><img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'"
+                                class="" data-userid="'.$userid.'" data-profileid="'.$profileId.'"
+                                data-postid="'.$post->post_id.'"></a>
+                            ';
+                          
+                            } ?>
+                        </div>
+                        <?php  }
         if(count($imgs)==2){ ?>
                         <div class="grid_2"> <?php
             for($i=0;$i<count($imgs);$i++){ 
@@ -788,6 +801,36 @@ if(login::isLoggedIn()){
                             ';
                           
                             } ?>
+                        </div>
+                        <?php  }
+        if(count($imgs)==5){ ?>
+                        <div class="grid_5"> <?php
+            for($i=0;$i<count($imgs);$i++){ 
+                echo'
+                 <a  class="img-'.$i.'" href="'.BASE_URL.'/post.php?id='.$post->post_id.'&image='.BASE_URL.$imgs[''.$count.'']->imageName.'" data-length="'.$lengthh.'"
+                            data-img-id="'.$post->post_id.'"><img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'"
+                                 data-userid="'.$userid.'" data-profileid="'.$profileId.'"
+                                data-postid="'.$post->post_id.'"></a>
+                            ';
+                          
+                            } ?>
+                        </div>
+                        <?php  }
+        if(count($imgs)>5){ ?>
+                        <div class="grid_5"> <?php
+            for($i=0;$i<5;$i++){ 
+                echo'
+                 <a  class="img-'.$i.'" href="'.BASE_URL.'/post.php?id='.$post->post_id.'&image='.BASE_URL.$imgs[''.$count.'']->imageName.'" data-length="'.$lengthh.'"
+                            data-img-id="'.$post->post_id.'"><img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'"
+                                 data-userid="'.$userid.'" data-profileid="'.$profileId.'"
+                                data-postid="'.$post->post_id.'"></a>
+                            ';
+                          
+                            } ?>
+                            <a href="<?php echo BASE_URL.'/post.php?id='.$post->post_id.'&image='.BASE_URL.$imgs[4]->imageName ?>"
+                                data-length="'.$lengthh.'" class="more-pics-shadow">
+                                <?php echo '+'.$lengthh - 4 ?>
+                            </a>
                         </div>
                         <?php  }
 
@@ -850,7 +893,9 @@ if(login::isLoggedIn()){
                     </div>
 
                     <!------POST-ACTIONS------>
-
+                    <div class="border-t">
+                        <div class="bbb"></div>
+                    </div>
                     <div class="nf-4">
 
                         <div class="like-action-wrap" data-postid="<?php echo $post->post_id ?>"
@@ -879,11 +924,10 @@ if(login::isLoggedIn()){
                                 </div>
                                 <?php  }?>
                             </div>
-                            <div style="transform:translateX(-5rem)" class=" react_btn_wrapper comment-action">
+                            <div class=" react_btn_wrapper comment-action">
                                 <i class="comment_button"></i>Comment
                             </div>
-                            <div style="transform:translateX(-5rem)" class="react_btn_wrapper share-action"
-                                data-postid="<?php echo $post->post_id ?>"
+                            <div class="react_btn_wrapper share-action" data-postid="<?php echo $post->post_id ?>"
                                 data-profilepic="<?php echo $userInfo->profile_picture ?>"
                                 data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId; ?>">
 
@@ -892,6 +936,7 @@ if(login::isLoggedIn()){
                         </div>
 
                     </div>
+
                     <!------POST-ACTIONS------>
                     <!------POST-COMMENTS------>
 
