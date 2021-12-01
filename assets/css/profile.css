@@ -1456,7 +1456,10 @@ li {
 }
 
 .nf-5 {
-    padding: 5px 0;
+    padding: 0 15px;
+    padding-bottom: 5px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
     display: none;
 }
 .com-text {
@@ -1473,7 +1476,7 @@ li {
 .add-comment {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    row-gap: 10px;
 }
 
 .com-dot-option-wrap {
@@ -2549,5 +2552,12 @@ li {
     align-items: center;
     justify-content: center;
     color: #fff;
+    cursor: pointer;
+}
+.comment-share-count:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.show_more_com {
     cursor: pointer;
 }

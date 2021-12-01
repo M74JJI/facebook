@@ -945,12 +945,44 @@ if(login::isLoggedIn()){
                     <div class="nf-5">
                         <div class="comment-list">
                             <ul class="add-comment">
+                                <div class="comment-write">
+                                    <div class="com-pro-pick">
+                                        <a href="#">
+                                            <div class="top-pic">
+                                                <img src="<?php echo $userInfo->profile_picture ?>" alt="">
+                                            </div>
+                                        </a>
+                                    </div>
+
+
+                                    <div class="com-input">
+                                        <div class="comment-input" data-postid="<?php echo $post->post_id ?>"
+                                            data-userid="<?php echo $userid  ?>">
+                                            <input type="text" class="comment-input-style comment-submit"
+                                                id="comment-inputt" placeholder="Write a comment..." />
+                                            <div class="comment_toolss">
+                                                <input type="file" id="comment_imggg" class='hidden'>
+                                                <div class="m_tool" id="camera_m">
+                                                    <i class="camera_m"></i>
+                                                </div>
+                                                <div class="m_tool">
+                                                    <i class="m_gif"></i>
+                                                </div>
+                                                <div class="m_tool">
+                                                    <i class="m_sticker"></i>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="comment_img_preview"></div>
+                                    </div>
+                                </div>
                                 <?php 
     
                         if(!empty($commentDetails)){
-                        
+                        $slicer=3;
 
-                        foreach ($commentDetails as $comment){
+                        foreach (array_slice($commentDetails,0,$slicer) as $comment){
                         
                         
                             $com_react_max_show =$loadPost->com_react_max_show($comment->commentedOn,$comment->comment_id);
@@ -1099,42 +1131,17 @@ if(login::isLoggedIn()){
                                 </li>
                                 <!-------COMMENT------>
                                 <?php }} ?>
+
                             </ul>
-
-
-                        </div>
-                        <div class="comment-write">
-                            <div class="com-pro-pick">
-                                <a href="#">
-                                    <div class="top-pic">
-                                        <img src="<?php echo $userInfo->profile_picture ?>" alt="">
-                                    </div>
+                            <div class="show_more_com" data-postid="<?php echo $post->post_id ?>">
+                                <a>See more comments
                                 </a>
                             </div>
 
 
-                            <div class="com-input">
-                                <div class="comment-input" data-postid="<?php echo $post->post_id ?>"
-                                    data-userid="<?php echo $userid  ?>">
-                                    <input type="text" class="comment-input-style comment-submit" id="comment-inputt"
-                                        placeholder="Write a comment..." />
-                                    <div class="comment_toolss">
-                                        <input type="file" id="comment_imggg" class='hidden'>
-                                        <div class="m_tool" id="camera_m">
-                                            <i class="camera_m"></i>
-                                        </div>
-                                        <div class="m_tool">
-                                            <i class="m_gif"></i>
-                                        </div>
-                                        <div class="m_tool">
-                                            <i class="m_sticker"></i>
-                                        </div>
 
-                                    </div>
-                                </div>
-                                <div class="comment_img_preview"></div>
-                            </div>
                         </div>
+
 
 
 
@@ -1853,7 +1860,8 @@ if(login::isLoggedIn()){
                 );
             }, 500)
         }, function() {
-            $(this).find('.react-bundle-wrap').html('');
+            var mainReact = $(this).find('.react-bundle-wrap');
+            $(mainReact).html('');
 
         })
 
@@ -1947,6 +1955,11 @@ if(login::isLoggedIn()){
         //------------------COMMENT SUBMIT --------------------------------
         $(document).on('click', '.react_btn_wrapper.comment-action', function() {
 
+            $(this).parents('.react_infos').siblings('.nf-5').show();
+
+        })
+        $(document).on('click', '.react_right_count', function() {
+            $(this).parents('.react_infos').siblings('.nf-5').toggle()
 
         })
         $('.comment-input').keyup(function(e) {
@@ -2480,6 +2493,27 @@ if(login::isLoggedIn()){
 
         })
         //-----Save Post------------->
+
+        //---------Show more--->
+        $(document).on('click', '.show_more_com', function() {
+            var This = $(this);
+            console.log('a7a')
+            var slicer = 6;
+            var postid = $(this).data('postid');
+
+            $.post('http://localhost/facebook/core/ajax/showMore.php', {
+                slicer: slicer,
+                postid: postid,
+
+            }, function(data) {
+                $(This).parents('.comment-list').empty().html(data);
+                slicer += 3;
+                $('input#comment-inputt').emojioneArea({
+
+                })
+            })
+        })
+        //---------Show more--->
 
 
         $(document).mouseup(function(e) {
