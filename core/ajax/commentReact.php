@@ -20,7 +20,19 @@ if(isset($_POST['commentid'])){
     $loadUser->delete('react',array('reactedBy'=>$userid,'reactedOn'=>$postid,'reactCommentOn'=>$commentid));
     
     $loadUser->create('react',array('reactedBy'=>$userid,'reactedOn'=>$postid,'reactCommentOn'=>$commentid,'reactType'=>$reactType,'reactedAt'=>date('Y-m-d H:i:s')));
+    if($profileid != $userid){
+        $loadUser->create('notifications',
+        array('not_from' => $userid,
+        'user'=>$profileid,
+        'postid'=>$postid,
+        'total'=>'0',
+        'type'=>'commentReact',
+        'status'=>'0',
+        'icon'=>$reactType,
+        'createdAt'=>date('Y-m-d H:i:s'),
     
+        
+    ));}
     $com_react_max_show = $loadPost->com_react_max_show($postid,$commentid);
     $com_main_react_count = $loadPost->com_main_react_count($postid,$commentid);
 

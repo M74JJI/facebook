@@ -27,7 +27,24 @@ if(isset($_POST['reactType'])){
     'reactedOn'=>$postId,
     'reactType'=>$reactType,
     'reactedAt'=>date('Y-m-d H:i:s'),
+
+    
+    ));
+if($profileId != $userId){
+    $loadUser->create('notifications',
+    array('not_from' => $userId,
+    'user'=>$profileId,
+    'postid'=>$postId,
+    'total'=>'0',
+    'type'=>'postReact',
+    'status'=>'0',
+    'icon'=>$reactType,
+    'createdAt'=>date('Y-m-d H:i:s'),
+
+    
 ));
+
+}
 
 
         $react_max_show = $loadPost->react_max_show($postId);

@@ -431,6 +431,52 @@ class User{
                                 return false;
                             }
                         }
+                        public function notifications($userid){
+                            $statement = $this->pdo->prepare("SELECT * FROM notifications LEFT JOIN
+                             profile ON notifications.not_from = profile.user_id
+                              LEFT JOIN users ON profile.user_id=users.id WHERE 
+                              notifications.user=:userid  
+
+                              ORDER BY notifications.createdAt DESC;");
+                             $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+                             $statement->execute();
+                             return $statement->fetchAll(PDO::FETCH_OBJ);
+                        }
+                        public function notificationsTotal($userid){
+                            $statement = $this->pdo->prepare("SELECT * FROM notifications LEFT JOIN
+                             profile ON notifications.not_from = profile.user_id
+                              LEFT JOIN users ON profile.user_id=users.id WHERE 
+                              notifications.user=:userid AND notifications.total='0' 
+
+                              ORDER BY notifications.createdAt DESC;");
+                             $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+                             $statement->execute();
+                             return $statement->fetchAll(PDO::FETCH_OBJ);
+                        }
+
+                       
+                        public function notificationsReset($userid){
+                            $statement = $this->pdo->prepare("
+                            UPDATE notifications SET total = '1' WHERE user=:userid AND total='0'
+                            ");
+                             $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+                             $statement->execute();
+                             return $statement->fetchAll(PDO::FETCH_OBJ);
+                        }
+
+                       
+                        public function updateNotificationStatus($userid,$notificationid){
+                            $statement = $this->pdo->prepare("
+                            UPDATE notifications SET status = '1' 
+                            WHERE user=:userid
+                            AND not_id =:notificationid
+                            AND status='0'
+                            ");
+                             $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+                             $statement->bindValue(':notificationid',$notificationid,PDO::PARAM_INT);
+                             $statement->execute();
+                             return $statement->fetchAll(PDO::FETCH_OBJ);
+                        }
 
                        
 

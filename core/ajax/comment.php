@@ -20,7 +20,20 @@ if(isset($_POST['comment'])){
 
 
   $commentid=  $loadUser->create('comments',array('commentedBy'=>$userid,'comment_parent_id'=>$postid,'comment'=>$comment,'commentedOn'=>$postid,'image'=>$image,'commentedAt'=>date('Y-m-d H:i:s')));
- 
+  if($profileid != $userid){
+    $loadUser->create('notifications',
+    array('not_from' => $userid,
+    'user'=>$profileid,
+    'postid'=>$postid,
+    'total'=>'0',
+    'type'=>'comment',
+    'status'=>'0',
+    'createdAt'=>date('Y-m-d H:i:s'),
+
+    
+));
+
+}
 
   $commentDetails = $loadPost->FetchLastComment($commentid);
 

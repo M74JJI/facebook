@@ -13,7 +13,8 @@ if(login::isLoggedIn()){
  $posts=$loadPost->Homeposts($userid,100);
  $friends = $loadUser->getAllFriends($userid);
  $allusers = $loadPost->lastmessages($userid);
-
+ $notifications=$loadUser->notifications($userid);
+ $notificationsTotal=$loadUser->notificationsTotal($userid);
  $lastMsgReceived=$loadPost->lastPersonMsg($userid);
  
  if(!empty($lastMsgReceived)){
@@ -156,14 +157,78 @@ if(login::isLoggedIn()){
                     </path>
                 </svg>
             </a>
-            <a href="" class="rounded_link hidein_sm">
-                <svg viewBox="0 0 28 28" alt="" class="a8c37x1j ms05siws hwsy1cff b7h9ocf4 fzdkajry" height="20"
-                    width="20">
-                    <path
-                        d="M7.847 23.488C9.207 23.488 11.443 23.363 14.467 22.806 13.944 24.228 12.581 25.247 10.98 25.247 9.649 25.247 8.483 24.542 7.825 23.488L7.847 23.488ZM24.923 15.73C25.17 17.002 24.278 18.127 22.27 19.076 21.17 19.595 18.724 20.583 14.684 21.369 11.568 21.974 9.285 22.113 7.848 22.113 7.421 22.113 7.068 22.101 6.79 22.085 4.574 21.958 3.324 21.248 3.077 19.976 2.702 18.049 3.295 17.305 4.278 16.073L4.537 15.748C5.2 14.907 5.459 14.081 5.035 11.902 4.086 7.022 6.284 3.687 11.064 2.753 15.846 1.83 19.134 4.096 20.083 8.977 20.506 11.156 21.056 11.824 21.986 12.355L21.986 12.356 22.348 12.561C23.72 13.335 24.548 13.802 24.923 15.73Z">
-                    </path>
-                </svg>
-            </a>
+            <div style="position:relative">
+                <a class="rounded_link hidein_sm" id="open_notif">
+                    <svg viewBox="0 0 28 28" alt="" class="a8c37x1j ms05siws hwsy1cff b7h9ocf4 fzdkajry" height="20"
+                        width="20">
+                        <path
+                            d="M7.847 23.488C9.207 23.488 11.443 23.363 14.467 22.806 13.944 24.228 12.581 25.247 10.98 25.247 9.649 25.247 8.483 24.542 7.825 23.488L7.847 23.488ZM24.923 15.73C25.17 17.002 24.278 18.127 22.27 19.076 21.17 19.595 18.724 20.583 14.684 21.369 11.568 21.974 9.285 22.113 7.848 22.113 7.421 22.113 7.068 22.101 6.79 22.085 4.574 21.958 3.324 21.248 3.077 19.976 2.702 18.049 3.295 17.305 4.278 16.073L4.537 15.748C5.2 14.907 5.459 14.081 5.035 11.902 4.086 7.022 6.284 3.687 11.064 2.753 15.846 1.83 19.134 4.096 20.083 8.977 20.506 11.156 21.056 11.824 21.986 12.355L21.986 12.356 22.348 12.561C23.72 13.335 24.548 13.802 24.923 15.73Z">
+                        </path>
+                    </svg>
+                    <div class="not_numbr">
+                        <?php echo count($notificationsTotal)  ?>
+                    </div>
+                </a>
+                <div class="notifications">
+                    <div class="not_header">
+                        <span>Notifications</span>
+                        <div class="notic_p">
+                            <i class="not_poin"></i>
+                        </div>
+                    </div>
+                    <ul>
+                        <?php
+                        if(!empty($notifications)){
+                            foreach($notifications as $notif){
+                                if($notif->status=='0'){ ?>
+                        <a class="notification" data-notid="<?php echo $notif-> not_id?>"
+                            data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
+                            <div class="not_image">
+                                <img class="GreyImg" src="<?php echo $notif->profile_picture ?>" alt="">
+                                <img src="<?php echo 'assets/images/not/'.$notif->icon.'.png' ?>" alt="">
+                            </div>
+                            <div class="not_infos">
+                                <div class="not_who">
+                                    <span><?php echo $notif->first_name.' '.$notif->last_name ?></span> reacted to you
+                                    post
+                                </div>
+                                <div class="not_time">
+                                    2h ago
+                                </div>
+                            </div>
+                            <div class="not_dot">
+
+                            </div>
+                        </a>
+                        <?php }else{ ?>
+                        <li class="notification" data-notid="<?php echo $notif-> not_id?>"
+                            data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
+                            <div class="not_image">
+                                <img style="-webkit-filter: invert(15%);" src="<?php echo $notif->profile_picture ?>"
+                                    alt="">
+                                <img src="<?php echo 'assets/images/not/'.$notif->icon.'.png' ?>" alt="">
+                            </div>
+                            <div class="not_infos" style="color:#65676b">
+                                <div class="not_who">
+                                    <span
+                                        style="color:#65676b"><?php echo $notif->first_name.' '.$notif->last_name ?></span>
+                                    reacted to you post
+                                </div>
+                                <div class="not_time" style="color:#65676b">
+                                    2h ago
+                                </div>
+                            </div>
+
+                        </li>
+                        <?php  }
+                            }
+                        }
+                        ?>
+
+
+                    </ul>
+                </div>
+            </div>
             <div style="position:relative">
                 <a class="rounded_link header_menu_link" id="open_thatmenu">
                     <svg style="font-size: larger" viewBox="0 0 20 20" width="1em" height="1em">
@@ -724,7 +789,7 @@ if(login::isLoggedIn()){
         for($i=0;$i<count($imgs);$i++){
             echo'<div class="post_images" data-img-id="'.$post->post_id.'">
            <a href="'.BASE_URL.'/post.php?id='.$post->post_id.'&image='.BASE_URL.$imgs[''.$count.'']->imageName.'"> <img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'" 
-            class="post_img" data-userid="'.$userid.'" data-profileid="'.$profileId.'" data-postid="'.$post->post_id.'"></a>
+            class="post_img" data-userid="'.$userid.'" data-profileid="'.$post->user_id.'" data-postid="'.$post->post_id.'"></a>
             </div>';   
         }
     
@@ -759,7 +824,7 @@ if(login::isLoggedIn()){
                 echo'
                  <a   href="'.BASE_URL.'/post.php?id='.$post->post_id.'&image='.BASE_URL.$imgs[''.$count.'']->imageName.'" data-length="'.$lengthh.'"
                             data-img-id="'.$post->post_id.'"><img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'"
-                                class="" data-userid="'.$userid.'" data-profileid="'.$profileId.'"
+                                class="" data-userid="'.$userid.'" data-profileid="'.$post->user_id.'"
                                 data-postid="'.$post->post_id.'"></a>
                             ';
                           
@@ -772,7 +837,7 @@ if(login::isLoggedIn()){
                 echo'
                  <a   href="'.BASE_URL.'/post.php?id='.$post->post_id.'&image='.BASE_URL.$imgs[''.$count.'']->imageName.'" data-length="'.$lengthh.'"
                             data-img-id="'.$post->post_id.'"><img src="'.BASE_URL.$imgs[''.$count++.'']->imageName.'"
-                                class="" data-userid="'.$userid.'" data-profileid="'.$profileId.'"
+                                class="" data-userid="'.$userid.'" data-profileid="'.$post->user_id.'"
                                 data-postid="'.$post->post_id.'"></a>
                             ';
                           
@@ -901,11 +966,11 @@ if(login::isLoggedIn()){
                     <div class="nf-4" style="transform: translateX(2.7rem);">
 
                         <div class="like-action-wrap" data-postid="<?php echo $post->post_id ?>"
-                            data-userid="<?php echo $userid ?>">
+                            data-userid="<?php echo $userid ?>" data-profileid="<?php echo $post->user_id ?>">
                             <div class="react-bundle-wrap">
 
                             </div>
-                            <div class="like-action ra">
+                            <div class="like-action ra" data-profileid="<?php echo $post->user_id ?>">
                                 <?php if(empty($main_react)){
                 ?>
                                 <div class="like-action-icon">
@@ -932,7 +997,7 @@ if(login::isLoggedIn()){
                         </div>
                         <div class="react_btn_wrapper share-action" data-postid="<?php echo $post->post_id ?>"
                             data-profilepic="<?php echo $userInfo->profile_picture ?>"
-                            data-userid="<?php echo $userid ?>" data-profileid="<?php echo $profileId; ?>">
+                            data-userid="<?php echo $userid ?>" data-profileid="<?php echo $post->user_id; ?>">
 
                             <i class="share_button"></i>Share
                         </div>
@@ -959,7 +1024,8 @@ if(login::isLoggedIn()){
 
                                     <div class="com-input">
                                         <div class="comment-input" data-postid="<?php echo $post->post_id ?>"
-                                            data-userid="<?php echo $userid  ?>">
+                                            data-userid="<?php echo $userid  ?>"
+                                            data-profileid="<?php echo $post->user_id  ?>">
                                             <input type="text" class="comment-input-style comment-submit"
                                                 id="comment-inputt" placeholder="Write a comment..." />
                                             <div class="comment_toolss">
@@ -1100,7 +1166,8 @@ if(login::isLoggedIn()){
                                                     <div class="com-rlike-react"
                                                         data-postid="<?php echo $comment->commentedOn ?>"
                                                         data-userid="<?php echo $userid  ?>"
-                                                        data-commentid="<?php echo $comment->comment_id ?>">
+                                                        data-commentid="<?php echo $comment->comment_id ?>"
+                                                        data-profileid="<?php echo $post->user_id ?>">
                                                         <div class="com-react-bundle-wrap"
                                                             data-commentid="<?php echo $comment->comment_id ?>">
 
@@ -1397,6 +1464,60 @@ if(login::isLoggedIn()){
 
         <script src="assets/dist/emojionearea.js"></script>
         <script>
+        //-----------Notifications---->
+        $(function() {
+            function updateNotifications(userid) {
+                $.post('http://localhost/facebook/core/ajax/notifications.php', {
+                    userupdateNotifications: userid
+                }, function(data) {
+                    if (data.trim() == '0') {
+                        $('.not_numbr').empty()
+                        $('.not_numbr').css('background', 'transparent');
+
+                    } else {
+                        $('.not_numbr').html(data);
+                        $('.not_numbr').css('background', '#e41e3f');
+
+                    }
+                })
+            }
+            var notificationDelay;
+            var userid = "<?php echo $userid; ?>"
+            notificationDelay = setInterval(function() {
+                updateNotifications(userid);
+            }, 1000)
+        })
+
+        $(document).on('click', '#open_notif', function() {
+            $('.notifications').toggle();
+            var userid = "<?php echo $userid; ?>";
+            $.post('http://localhost/facebook/core/ajax/notifications.php', {
+                notifications: userid,
+            }, function(data) {})
+        })
+        $(document).on('click', '.notification', function() {
+            $(this).find('.not_image').find('.GreyImg')
+                .css('-webkit-filter', 'invert(15%)');
+            $(this).find('.not_infos').css('color', '#65676b');
+            $(this).find('.not_infos').find('.not_time').css('color', '#65676b');
+            $(this).find('.not_infos').find('.not_who span').css('color', '#65676b');
+
+            var postid = $(this).data('postid');
+            var profileid = $(this).data('profileid');
+            var notificationid = $(this).data('notid');
+            var userid = "<?php echo $userid; ?>";
+            $.post('http://localhost/facebook/core/ajax/notifications.php', {
+                updateNotifications: userid,
+                profileid: profileid,
+                postid: postid,
+                notificationid: notificationid,
+            }, function(data) {
+
+            })
+        })
+        //-----------Notifications---->
+
+
         $('.post_images').ready(function() {
 
 
@@ -1702,8 +1823,9 @@ if(login::isLoggedIn()){
 
         //----Submit Post--->
         $('#post_btn_submit').on('click', function() {
-            var post_text = $(this).siblings('.box_area').children('.emojionearea.textarea_post').find(
-                '.emojionearea-editor').html();
+            var post_text = $(this).siblings('.box_area').children('.emojionearea.textarea_post')
+                .find(
+                    '.emojionearea-editor').html();
 
             var formData = new FormData();
             var images = [];
@@ -1721,7 +1843,8 @@ if(login::isLoggedIn()){
                             '/postImages/' + name + '\"},';
 
                         var extension = name.split('.').pop().toLowerCase();
-                        if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg', 'webp']) == -1) {
+                        if (jQuery.inArray(extension, ['gif', 'png', 'jpg', 'jpeg', 'webp']) == -
+                            1) {
                             errors +=
                                 '<p>Invalid ' + i +
                                 ' File. Only gif,png,jpg,jpeg are allowed.</p>';
@@ -1813,6 +1936,7 @@ if(login::isLoggedIn()){
             var reactNumText = $(reactCount).text();
             var postId = $(likeReactParent).data('postid');
             var userId = $(likeReactParent).data('userid');
+            var profileId = $(likeReactParent).data('profileid');
             var typeText = $(this).find('.like-action-text span');
             var typeR = $(typeText).text();
             var spanClass = $(this).find('.like-action-text').find('span');
@@ -1825,33 +1949,33 @@ if(login::isLoggedIn()){
                     $(likeActionIcon).attr('src', 'assets/images/react/like.svg').addClass(
                         'reactIconSize');
                     spanClass.text('like');
-                    mainReactSubmit(typeR, postId, userId, nf_3);
+                    mainReactSubmit(typeR, postId, userId, profileId, nf_3);
                 } else {
                     $(likeActionIcon).attr('src', 'assets/images/like.png');
                     spanClass.removeClass('like-color');
                     spanClass.text('like');
-                    mainReactDelete(typeR, postId, userId, nf_3);
+                    mainReactDelete(typeR, postId, userId, profileId, nf_3);
                 }
             } else if ($(spanClass).attr('class') === undefined) {
                 (spanClass).addClass('like-color');
                 $(likeActionIcon).attr('src', 'assets/images/react/like.svg').addClass(
                     'reactIconSize');
                 spanClass.text('like');
-                mainReactSubmit(typeR, postId, userId, nf_3);
+                mainReactSubmit(typeR, postId, userId, profileId, nf_3);
 
             } else {
                 (spanClass).addClass('like-color');
                 $(likeActionIcon).attr('src', 'assets/images/react/like.svg').addClass(
                     'reactIconSize');
                 spanClass.text('like');
-                mainReactSubmit(typeR, postId, userId, nf_3);
+                mainReactSubmit(typeR, postId, userId, profileId, nf_3);
             }
 
         })
 
-        function mainReactSubmit(typeR, postId, userId, nf_3) {
+        function mainReactSubmit(typeR, postId, userId, profileId, nf_3) {
 
-            var profileId = "<?php echo $userid; ?>"
+
             console.log(nf_3)
             $.post('http://localhost/facebook/core/ajax/react.php', {
                 reactType: typeR,
@@ -1865,9 +1989,8 @@ if(login::isLoggedIn()){
 
         }
 
-        function mainReactDelete(typeR, postId, userId, nf_3) {
+        function mainReactDelete(typeR, postId, userId, profileId, nf_3) {
 
-            var profileId = "<?php echo $userid; ?>"
 
             $.post('http://localhost/facebook/core/ajax/react.php', {
                 deleteReactType: typeR,
@@ -1951,6 +2074,7 @@ if(login::isLoggedIn()){
             var reactNumberText = $(reactCount).text();
             var postId = $(likeReactParent).data('postid');
             var userId = $(likeReactParent).data('userid');
+            var profileId = $(likeReactParent).data('profileid');
 
             var likeAction = $(likeReactParent).find('.like-action');
             var likeActionIcon = $(likeAction).find('.like-action-icon img');
@@ -1960,14 +2084,14 @@ if(login::isLoggedIn()){
                 $(spanClass).removeClass();
                 spanClass.text('like');
                 $(likeActionIcon).attr('src', 'assets/images/like.png');
-                mainReactDelete(typeR, postId, userId, nf_3);
+                mainReactDelete(typeR, postId, userId, profileId, nf_3);
             } else if ($(spanClass).attr('class') !== undefined) {
 
                 $(spanClass).removeClass().addClass(reactColor);
                 spanClass.text(typeR);
                 $(likeActionIcon).removeAttr('src').attr('src',
                     'assets/images/react/' + typeR + '.svg').addClass('reactIconSize');
-                mainReactSubmit(typeR, postId, userId, nf_3);
+                mainReactSubmit(typeR, postId, userId, profileId, nf_3);
             } else {
 
                 $(spanClass).addClass(reactColor);
@@ -1977,7 +2101,7 @@ if(login::isLoggedIn()){
                 $(likeActionIcon).removeAttr('src').attr('src', 'assets/images/react/' + typeR + '.svg')
                     .addClass('reactIconSize');
 
-                mainReactSubmit(typeR, postId, userId, nf_3);
+                mainReactSubmit(typeR, postId, userId, profileId, nf_3);
 
             }
         }
@@ -1998,7 +2122,7 @@ if(login::isLoggedIn()){
                 var comment = $(this).find('.emojionearea-editor').html();
                 var postid = $(this).data('postid');
                 var userid = $(this).data('userid');
-                var profileid = "<?php echo $userid ?>";
+                var profileid = $(this).data('profileid');
                 var formData = new FormData();
                 var images = [];
                 var files = $('#comment_imggg')[0].files;
@@ -2019,7 +2143,8 @@ if(login::isLoggedIn()){
                                     ' File. Only gif,png,jpg,jpeg are allowed.</p>';
                             }
                             var ofReader = new FileReader();
-                            ofReader.readAsDataURL(document.getElementById('comment_imggg').files[i]);
+                            ofReader.readAsDataURL(document.getElementById('comment_imggg').files[
+                                i]);
                             var f = document.getElementById('comment_imggg').files[i];
                             var file_size = f.size || f.fileSize;
                             if (file_size > 2000000) {
@@ -2125,6 +2250,7 @@ if(login::isLoggedIn()){
             var grandParent = $(parentClass).parents('.com-rlike-react');
             var postid = $(grandParent).data('postid');
             var userid = $(grandParent).data('userid');
+            var profileid = $(grandParent).data('profileid');
             var spanClass = $(grandParent).find('.com-like-action-text').find('span');
             var com_nf_3 = $(grandParent).parent('.com-react').siblings('.com-text-option-wrap').find(
                 '.com-nf-3-wrap');
@@ -2136,16 +2262,16 @@ if(login::isLoggedIn()){
                 if ($(spanClass).hasClass(reactColor)) {
                     $(spanClass).removeAttr('class');
                     $spanClass.text('Like');
-                    comReactDelete(typeR, postid, userid, commentid, com_nf_3);
+                    comReactDelete(typeR, postid, userid, commentid, profileid, com_nf_3);
                 } else {
                     $(spanClass).removeClass().addClass(reactColor);
                     spanClass.text(typeR);
-                    comReactSubmit(typeR, postid, userid, commentid, com_nf_3);
+                    comReactSubmit(typeR, postid, userid, commentid, profileid, com_nf_3);
                 }
             } else {
                 $(spanClass).addClass(reactColor);
                 spanClass.text(typeR);
-                comReactSubmit(typeR, postid, userid, commentid, com_nf_3);
+                comReactSubmit(typeR, postid, userid, commentid, profileid, com_nf_3);
             }
 
 
@@ -2158,6 +2284,7 @@ if(login::isLoggedIn()){
             var postid = $(thisParents).data('postid');
             console.log('postid->', postid);
             var userid = $(thisParents).data('userid');
+            var profileid = $(thisParents).data('profileid');
             var commentid = $(thisParents).data('commentid');
             console.log('commentid->', commentid);
             var typeText = $(thisParents).find('.com-like-action-text');
@@ -2172,18 +2299,17 @@ if(login::isLoggedIn()){
             if ($(spanClass).attr('class') !== undefined) {
                 $(spanClass).removeAttr('class');
                 spanClass.text('Like');
-                comReactDelete(typeR, postid, userid, commentid, com_nf_3);
+                comReactDelete(typeR, postid, userid, commentid, profileid, com_nf_3);
             } else {
                 $(spanClass).addClass('like-color');
                 spanClass.text('Like');
-                comReactSubmit(typeR, postid, userid, commentid, com_nf_3);
+                comReactSubmit(typeR, postid, userid, commentid, profileid, com_nf_3);
             }
 
         })
 
-        function comReactSubmit(typeR, postid, userid, commentid, com_nf_3) {
-            console.log('postid---->', postid);
-            var profileid = "<?php echo $userid; ?>";
+        function comReactSubmit(typeR, postid, userid, commentid, profileid, com_nf_3) {
+
             $.post('http://localhost/facebook/core/ajax/commentReact.php', {
                     commentid: commentid,
                     reactType: typeR,
@@ -2198,7 +2324,7 @@ if(login::isLoggedIn()){
 
         }
 
-        function comReactDelete(typeR, postid, userid, commentid, com_nf_3) {
+        function comReactDelete(typeR, postid, userid, commentid, profileid, com_nf_3) {
             var profileid = "<?php echo $userid; ?>";
             $.post('http://localhost/facebook/core/ajax/commentReact.php', {
                     deleteReactType: typeR,
@@ -2575,6 +2701,13 @@ if(login::isLoggedIn()){
             })
         })
         //---------Delete Post--->
+
+        //-------Notifications---->
+        $(document).on('click', '#open_notif', function() {
+
+        })
+
+        //-------Notifications---->
 
 
 
