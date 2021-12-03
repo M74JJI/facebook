@@ -180,47 +180,201 @@ if(login::isLoggedIn()){
                         <?php
                         if(!empty($notifications)){
                             foreach($notifications as $notif){
-                                if($notif->status=='0'){ ?>
+                                if($notif->status=='0'){
+                                    
+                                    if($notif->type=="postReact"){ ?>
                         <a class="notification" data-notid="<?php echo $notif-> not_id?>"
                             data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
                             <div class="not_image">
                                 <img class="GreyImg" src="<?php echo $notif->profile_picture ?>" alt="">
-                                <img src="<?php echo 'assets/images/not/'.$notif->icon.'.png' ?>" alt="">
+                                <img class="sec_img" src="<?php echo 'assets/images/not/'.$notif->icon.'.png' ?>"
+                                    alt="">
                             </div>
                             <div class="not_infos">
                                 <div class="not_who">
-                                    <span><?php echo $notif->first_name.' '.$notif->last_name ?></span> reacted to you
+                                    <span><?php echo $notif->first_name.' '.$notif->last_name ?></span> reacted to your
                                     post
                                 </div>
                                 <div class="not_time">
-                                    2h ago
+                                    <?php echo $loadUser->timeAgo($notif->createdAt) ?>
                                 </div>
                             </div>
                             <div class="not_dot">
 
                             </div>
                         </a>
-                        <?php }else{ ?>
-                        <li class="notification" data-notid="<?php echo $notif-> not_id?>"
+
+
+
+
+                        <?php  }else if($notif->type=="commentReact"){ ?>
+                        <a class="notification" data-notid="<?php echo $notif-> not_id?>"
                             data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
                             <div class="not_image">
-                                <img style="-webkit-filter: invert(15%);" src="<?php echo $notif->profile_picture ?>"
+                                <img class="GreyImg" src="<?php echo $notif->profile_picture ?>" alt="">
+                                <img class="sec_img" src="<?php echo 'assets/images/not/'.$notif->icon.'.png' ?>"
                                     alt="">
-                                <img src="<?php echo 'assets/images/not/'.$notif->icon.'.png' ?>" alt="">
+                            </div>
+                            <div class="not_infos">
+                                <div class="not_who">
+                                    <span><?php echo $notif->first_name.' '.$notif->last_name ?></span> reacted to your
+                                    comment
+                                </div>
+                                <div class="not_time">
+                                    <?php echo $loadUser->timeAgo($notif->createdAt) ?>
+                                </div>
+
+                            </div>
+                            <div class="not_dot">
+
+                            </div>
+                        </a>
+                        <?php }else if($notif->type =="request" && $notif->friendStatus =='0'){ ?>
+                        <a class="notification" data-notid="<?php echo $notif-> not_id?>"
+                            data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
+                            <div class="not_image">
+                                <img class="GreyImg" src="<?php echo $notif->profile_picture ?>" alt="">
+                                <i class="req_iconn"></i>
+                            </div>
+                            <div class="not_infos">
+                                <div class="not_who">
+                                    <span><?php echo $notif->first_name.' '.$notif->last_name ?></span> send you a
+                                    friend request
+                                </div>
+                                <div class="not_time">
+                                    <?php echo $loadUser->timeAgo($notif->createdAt) ?>
+                                </div>
+                                <div class="not_requesto">
+                                    <button>Confirm</button>
+                                    <button>Delete</button>
+                                </div>
+                            </div>
+                            <div class="not_dot">
+
+                            </div>
+                        </a>
+                        <?php }else if($notif->type =='request' && $notif->friendStatus =='1'){ ?>
+                        <a class="notification" data-notid="<?php echo $notif-> not_id?>"
+                            data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
+                            <div class="not_image">
+                                <img class="GreyImg" src="<?php echo $notif->profile_picture ?>" alt="">
+                                <i class="req_iconn1"></i>
+                            </div>
+                            <div class="not_infos">
+                                <div class="not_who">
+                                    <span><?php echo $notif->first_name.' '.$notif->last_name ?></span> accepted your
+                                    friend request
+                                </div>
+                                <div class="not_time">
+                                    <?php echo $loadUser->timeAgo($notif->createdAt) ?>
+                                </div>
+                            </div>
+                            <div class="not_dot">
+
+                            </div>
+                        </a>
+
+                        <?php    }
+                    
+                    
+                    
+                    }else{
+                                        
+                        if($notif->type=="postReact"){ ?>
+                        <a class="notification" data-notid="<?php echo $notif-> not_id?>"
+                            data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
+                            <div class="not_image">
+                                <img class="GreyImg" style="-webkit-filter: invert(15%);"
+                                    src="<?php echo $notif->profile_picture ?>" alt="">
+                                <img class="sec_img" src="<?php echo 'assets/images/not/'.$notif->icon.'.png' ?>"
+                                    alt="">
+                            </div>
+                            <div class="not_infos" style="color:#65676b">
+                                <div class="not_who" style="color:#65676b">
+                                    <span><?php echo $notif->first_name.' '.$notif->last_name ?></span> reacted to your
+                                    post
+                                </div>
+                                <div class="not_time" style="color:#65676b">
+                                    <?php echo $loadUser->timeAgo($notif->createdAt) ?>
+                                </div>
+                            </div>
+
+                        </a>
+
+
+
+
+                        <?php  }else if($notif->type=="commentReact"){ ?>
+                        <a class="notification" data-notid="<?php echo $notif-> not_id?>"
+                            data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
+                            <div class="not_image">
+                                <img class="GreyImg" style="-webkit-filter: invert(15%);"
+                                    src="<?php echo $notif->profile_picture ?>" alt="">
+                                <img class="sec_img" src="<?php echo 'assets/images/not/'.$notif->icon.'.png' ?>"
+                                    alt="">
+                            </div>
+                            <div class="not_infos" style="color:#65676b">
+                                <div class="not_who" style="color:#65676b">
+                                    <span><?php echo $notif->first_name.' '.$notif->last_name ?></span> reacted to your
+                                    comment
+                                </div>
+                                <div class="not_time" style="color:#65676b">
+                                    <?php echo $loadUser->timeAgo($notif->createdAt) ?>
+                                </div>
+
+                            </div>
+
+                        </a>
+                        <?php }else if($notif->type =="request" && $notif->friendStatus =='0'){ ?>
+                        <a class="notification" data-notid="<?php echo $notif-> not_id?>"
+                            data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
+                            <div class="not_image">
+                                <img class="GreyImg" style="-webkit-filter: invert(15%);"
+                                    src="<?php echo $notif->profile_picture ?>" alt="">
+                                <i class="req_iconn"></i>
+                            </div>
+                            <div class="not_infos" style="color:#65676b">
+                                <div class="not_who" style="color:#65676b">
+                                    <span
+                                        style="color:#65676b"><?php echo $notif->first_name.' '.$notif->last_name ?></span>
+                                    send you a
+                                    friend request
+                                </div>
+                                <div class="not_time" style="color:#65676b">
+                                    <?php echo $loadUser->timeAgo($notif->createdAt) ?>
+                                </div>
+                                <div class="not_requesto">
+                                    <button id="not_accept">Confirm</button>
+                                    <button id="not_delete">Delete</button>
+                                </div>
+                            </div>
+
+                        </a>
+                        <?php }else if($notif->type =='request' && $notif->friendStatus =='1'){ ?>
+                        <a class="notification" data-notid="<?php echo $notif-> not_id?>"
+                            data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
+                            <div class="not_image">
+                                <img class="GreyImg" style="-webkit-filter: invert(15%);"
+                                    src="<?php echo $notif->profile_picture ?>" alt="">
+                                <i class="req_iconn1"></i>
                             </div>
                             <div class="not_infos" style="color:#65676b">
                                 <div class="not_who">
                                     <span
                                         style="color:#65676b"><?php echo $notif->first_name.' '.$notif->last_name ?></span>
-                                    reacted to you post
+                                    accepted your
+                                    friend request
                                 </div>
                                 <div class="not_time" style="color:#65676b">
-                                    2h ago
+                                    <?php echo $loadUser->timeAgo($notif->createdAt) ?>
                                 </div>
                             </div>
 
-                        </li>
-                        <?php  }
+                        </a>
+
+                        <?php    }
+                        
+                         }
                             }
                         }
                         ?>
@@ -1311,6 +1465,9 @@ if(login::isLoggedIn()){
             <div class="box_area">
                 <textarea placeholder="What's on your mind, <?php echo $userInfo->first_name ?>?" class="textarea_post"
                     id="post_textarea"></textarea>
+                <ul class="mention_someone">
+
+                </ul>
             </div>
             <div class="preview_container">
 
@@ -1466,6 +1623,26 @@ if(login::isLoggedIn()){
         <script>
         //-----------Notifications---->
         $(function() {
+
+
+            //-----------Mnetion--->
+            var regex = /[#|@](\w+)$/ig;
+            $(document).on('keyup', '.emojionearea-editor', function() {
+                let status_text = $.trim($(this).text());
+                let regex_text = status_text.match(regex);
+                if (regex_text != null) {
+                    $.post('http://localhost/facebook/core/ajax/mention.php', {
+                        regex: regex_text,
+                    }, function(data) {
+                        console.log(data)
+                        $('.mention_someone').html(data);
+                    })
+                }
+            })
+            //-----------Mnetion--->
+
+
+
             function updateNotifications(userid) {
                 $.post('http://localhost/facebook/core/ajax/notifications.php', {
                     userupdateNotifications: userid
@@ -2708,6 +2885,20 @@ if(login::isLoggedIn()){
         })
 
         //-------Notifications---->
+
+        $(document).on('click', '#not_accept', function() {
+            var This = $(this);
+            var userid = "<?php echo $userid ?>";
+            var profileid = $(this).parents('.notification').data('profileid')
+
+            $.post('http://localhost/facebook/core/ajax/request.php', {
+                Confirmrequest: profileid,
+                userid: userid
+            }, function(data) {
+                console.log(data)
+                $(This).parents('.notification').hide();
+            })
+        })
 
 
 

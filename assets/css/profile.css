@@ -2652,13 +2652,13 @@ li {
     align-items: center;
     justify-content: center;
 }
-.not_image img:first-of-type {
+.not_image .GreyImg {
     width: 56px;
     height: 56px;
     border-radius: 50%;
     object-fit: cover;
 }
-.not_image img:last-of-type {
+.not_image .sec_img {
     width: 28px;
     height: 28px;
     border-radius: 50%;
@@ -2670,8 +2670,8 @@ li {
     margin-left: 12px;
 }
 .not_who {
-    word-break: break-all;
-    width: 90%;
+    word-break: normal;
+    width: 95%;
     font-weight: normal;
     font-size: 14px;
 }
@@ -2686,7 +2686,7 @@ li {
 }
 .not_dot {
     width: 12px;
-    height: 12px;
+    height: 9px;
     border-radius: 50%;
     background: #1876f2;
     justify-self: center;
@@ -2706,4 +2706,49 @@ li {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.req_iconn {
+    height: 28px;
+    width: 28px;
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yL/r/h2iqxBqDts0.png');
+    background-position: 0px -783px;
+    background-size: auto;
+    background-repeat: no-repeat;
+    display: inline-block;
+    position: absolute;
+    bottom: 1.4rem;
+    right: -8px;
+}
+.req_iconn1 {
+    height: 28px;
+    width: 28px;
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yL/r/h2iqxBqDts0.png');
+    background-position: 0px -783px;
+    background-size: auto;
+    background-repeat: no-repeat;
+    display: inline-block;
+    position: absolute;
+    bottom: -8px;
+    right: -8px;
+}
+.not_requesto {
+    padding: 1rem 10px;
+}
+.not_requesto button {
+    border: none;
+    outline: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.not_requesto button:first-of-type {
+    margin-right: 5px;
+    background: #1877f2;
+    color: #fff;
+}
+.not_requesto button:last-of-type {
+    margin-right: 5px;
+    background: #e4e6eb;
+    color: #000;
 }

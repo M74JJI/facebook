@@ -28,6 +28,7 @@ if(isset($_POST['comment'])){
     'total'=>'0',
     'type'=>'comment',
     'status'=>'0',
+    'icon'=>'comment',
     'createdAt'=>date('Y-m-d H:i:s'),
 
     

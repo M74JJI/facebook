@@ -15,17 +15,28 @@ if(isset($_POST['request'])){
 
     $loadUser->create('friendrequest',array('requestReceiver'=>$profileid, 'requestSender'=>$userid,'requestStatus'=>'0','requestedAt'=>date('Y-m-d H:i:s')));
     $loadUser->create('follow',array('receiver'=>$profileid,'sender'=>$userid,'followedAt'=>date('Y-m-d H:i:s')));
+    $loadUser->create('notifications',
+    array('not_from' => $userid,
+    'user'=>$profileid,
+    'postid'=>'0',
+    'total'=>'0',
+    'type'=>'request',
+    'status'=>'0',
+    'icon'=>'request',
+    'friendStatus'=>'0',
+    'createdAt'=>date('Y-m-d H:i:s'),
 
+    
+));
 }
 
 if(isset($_POST['Confirmrequest'])){
     $profileid =$_POST['Confirmrequest'];
     $userid =$_POST['userid'];
 
-
     $loadPost->ConfirmRequest($profileid,$userid);
+    $loadUser->updateRequestNot($profileid,$userid);    
     $loadUser->create('follow',array('receiver'=>$profileid,'sender'=>$userid,'followedAt'=>date('Y-m-d H:i:s')));
-
     
 }
 if(isset($_POST['Cancelrequest'])){

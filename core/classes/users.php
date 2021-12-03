@@ -93,9 +93,9 @@ class User{
                     return ''.$seconds.'s ago';
                 }
             }else if($minutes <= 60){
-                return ''.$minutes.'min ago';
+                return ''.$minutes.' min ago';
             }else if ($hours <=24){
-                return ''.$hours.'hours ago';
+                return ''.$hours.' hours ago';
             }else if($month <=30){
                 return ''.date('M j',$time);
             }else{
@@ -475,6 +475,29 @@ class User{
                              $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
                              $statement->bindValue(':notificationid',$notificationid,PDO::PARAM_INT);
                              $statement->execute();
+                             return $statement->fetchAll(PDO::FETCH_OBJ);
+                        }
+                       
+                        public function updateRequestNot($profileid,$userid){
+                            $statement = $this->pdo->prepare("
+                            UPDATE notifications SET friendStatus = '1', total = '0',user=:profileid,not_from=:userid
+                            WHERE not_from=:profileid
+                            AND user=:userid
+                            
+                            AND type='request'
+                            ");
+                             $statement->bindValue(':userid',$userid,PDO::PARAM_INT);                             
+                             $statement->bindValue(':profileid',$profileid,PDO::PARAM_INT);         
+                             $statement->execute();                    
+                             return $statement->fetchAll(PDO::FETCH_OBJ);
+                        }
+                        public function getMentions($mention){
+                            $statement = $this->pdo->prepare("
+                            SELECT id,first_name,link,profile_picture FROM users as u LEFT JOIN profile as p on p.user_id=u.id WHERE
+                             first_name Like :mention OR last_name Like :mention OR link LIKE :mention
+                            ");
+                             $statement->bindValue(':mention',$mention.'%',PDO::PARAM_INT);                                     
+                             $statement->execute();                    
                              return $statement->fetchAll(PDO::FETCH_OBJ);
                         }
 
