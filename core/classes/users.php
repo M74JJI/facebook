@@ -491,17 +491,28 @@ class User{
                              $statement->execute();                    
                              return $statement->fetchAll(PDO::FETCH_OBJ);
                         }
-                        public function getMentions($mention){
-                            $statement = $this->pdo->prepare("
-                            SELECT id,first_name,link,profile_picture FROM users as u LEFT JOIN profile as p on p.user_id=u.id WHERE
-                             first_name Like :mention OR last_name Like :mention OR link LIKE :mention
-                            ");
-                             $statement->bindValue(':mention',$mention.'%',PDO::PARAM_INT);                                     
-                             $statement->execute();                    
-                             return $statement->fetchAll(PDO::FETCH_OBJ);
-                        }
+                     
 
                        
+
+   public function getMentions($mention,$userid){
+    $stmt = $this->pdo->prepare("SELECT * FROM users
+      LEFT JOIN profile  ON profile.user_id = users.id 
+     WHERE 
+     (users.first_name LIKE :mention OR users.last_name LIKE :mention OR users.link LIKE :mention AND user_id !=:userid)");
+    $stmt->bindValue(":mention", $mention.'%');
+    $stmt->bindParam(":userid", $userid,PDO::PARAM_INT);
+        $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+    public function mentionUser($ment){
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE link=:ment");
+    $stmt->bindParam(":ment", $ment,PDO::PARAM_STR);
+        $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+    
+
 
 
 

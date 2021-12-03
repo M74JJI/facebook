@@ -33,7 +33,7 @@ if(login::isLoggedIn()){
     <link rel="stylesheet" href="assets/css/friends.css" />
     <link rel="stylesheet" href="assets/css/header_menu.css" />
     <link rel="stylesheet" href="assets/css/chat.css" />
-
+    <link rel="icon" href="https://static.xx.fbcdn.net/rsrc.php/yD/r/d4ZIVX-5C-b.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -85,7 +85,7 @@ if(login::isLoggedIn()){
                         </g>
                     </svg>
 
-                    <input type="text" placeholder="Search facebook" id="search_input" />
+                    <input type="text" autocomplete="off" placeholder="Search facebook" id="search_input" />
 
 
                     <div class="search_results" id="search_results">
@@ -98,7 +98,7 @@ if(login::isLoggedIn()){
         <div class="middle">
             <div class="active_border">
 
-                <a href="<?php echo BASE_URL ?>" class="icon_container">
+                <a href="<?php echo BASE_URL ?>" class="icon_container1">
                     <svg viewBox="0 0 28 28" fill="#1b74e4" class="a8c37x1j ms05siws hwsy1cff b7h9ocf4 aaxa7vy3"
                         height="28" width="28">
                         <path
@@ -107,9 +107,9 @@ if(login::isLoggedIn()){
                     </svg>
                 </a>
             </div>
-            <div class="">
+            <div class="" style="height:35px;display:flex;align-items:center">
 
-                <a class="icon_container ">
+                <a href="<?php echo BASE_URL.'/friends' ?>" class="icon_container ">
                     <svg viewBox="0 0 28 28" fill="#65676b" class="a8c37x1j ms05siws hwsy1cff b7h9ocf4 em6zcovv"
                         height="28" width="28">
                         <path
@@ -274,7 +274,28 @@ if(login::isLoggedIn()){
                             </div>
                         </a>
 
-                        <?php    }
+                        <?php    }else if($notif->type=='postMention'){ ?>
+                        <a class="notification" data-notid="<?php echo $notif-> not_id?>"
+                            data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
+                            <div class="not_image">
+                                <img class="GreyImg" src="<?php echo $notif->profile_picture ?>" alt="">
+                                <i class="tag1_icon"></i>
+                            </div>
+                            <div class="not_infos">
+                                <div class="not_who">
+                                    <span><?php echo $notif->first_name.' '.$notif->last_name ?></span> tagged you
+                                    in a post
+                                </div>
+                                <div class="not_time">
+                                    <?php echo $loadUser->timeAgo($notif->createdAt) ?>
+                                </div>
+
+                            </div>
+                            <div class="not_dot">
+
+                            </div>
+                        </a>
+                        <?php }
                     
                     
                     
@@ -903,7 +924,10 @@ if(login::isLoggedIn()){
            
 
            if(empty($post->shareId)){
-               echo $post->post;
+
+               $temp = $post->post;
+               $new = preg_replace("/@([\w]+)/","<a class='mention_link' href='".BASE_URL."$1'>$0</a>",$temp);
+                echo $new;
              
            }else{
                 echo $post->shareText;
@@ -1622,23 +1646,38 @@ if(login::isLoggedIn()){
         <script src="assets/dist/emojionearea.js"></script>
         <script>
         //-----------Notifications---->
+
+
+        //-----------Mnetion--->
+        var regex = /[#|@](\w+)$/ig;
+        $(document).on('keyup', '.emojionearea-editor', function() {
+            let status_text = $.trim($(this).text());
+            let regex_text = status_text.match(regex);
+
+            if (regex_text != null) {
+                $.post('http://localhost/facebook/core/ajax/mention.php', {
+                    regex: regex_text,
+                }, function(data) {
+                    $('.mention_someone').html(data);
+                    $('.a7a_mention').click(function() {
+                        var mention_link = $(this).find('.mention_name').data(
+                            'link');
+                        console.log('->', mention_link)
+                        var mention_profileid = $(this).find('.mention_name').data(
+                            'profileid');
+                        var old_status = $('.emojionearea-editor').text();
+                        var new_status = old_status.replace(regex, '');
+                        $('.emojionearea-editor').text('' + new_status + '@' +
+                            mention_link + '');
+                        $('.mention_someone').empty();
+                    })
+                })
+            } else {
+                $('.mention_someone').empty();
+            }
+        })
         $(function() {
 
-
-            //-----------Mnetion--->
-            var regex = /[#|@](\w+)$/ig;
-            $(document).on('keyup', '.emojionearea-editor', function() {
-                let status_text = $.trim($(this).text());
-                let regex_text = status_text.match(regex);
-                if (regex_text != null) {
-                    $.post('http://localhost/facebook/core/ajax/mention.php', {
-                        regex: regex_text,
-                    }, function(data) {
-                        console.log(data)
-                        $('.mention_someone').html(data);
-                    })
-                }
-            })
             //-----------Mnetion--->
 
 
@@ -2075,9 +2114,14 @@ if(login::isLoggedIn()){
             } else {
                 var strImg = '';
             }
+
+            let mention = post_text.match(regex);
+
+
             if (strImg == '') {
                 $.post('http://localhost/facebook/core/ajax/postSubmit.php', {
                     post_text_only: post_text,
+                    mention: mention
                 }, function(data) {
                     console.log(data)
                 })
@@ -2085,9 +2129,9 @@ if(login::isLoggedIn()){
                 $.post('http://localhost/facebook/core/ajax/postSubmit.php', {
                     post_images: strImg,
                     post_text: post_text,
+                    mention: mention,
                 }, function(data) {
 
-                    console.log(data)
                 })
 
             }

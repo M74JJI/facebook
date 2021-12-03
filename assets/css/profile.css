@@ -27,7 +27,7 @@ header {
 .left {
     display: flex;
     align-items: center;
-    padding: 5px 20px;
+    padding: 7px 20px;
 }
 .logo {
     display: flex;
@@ -45,7 +45,7 @@ header {
 }
 
 .search {
-    background-color: #f0f2f5;
+    background-color: F0F2F5;
     border-radius: 50px;
     display: flex;
     align-items: center;
@@ -82,17 +82,29 @@ header {
 .middle {
     display: flex;
     align-items: center;
-    padding: 5px 20px;
 }
 .icon_container {
     position: relative;
-    height: 46px;
+    height: 47px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 30px;
+    padding: 0 42px;
     cursor: pointer;
     border-radius: 10px;
+    margin-right: 10px;
+}
+.icon_container1 {
+    position: relative;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 35px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-right: 10px;
+    transform: translateX(5px);
 }
 .icon_container:hover {
     background-color: #eee;
@@ -102,8 +114,8 @@ header {
 }
 .not_icon {
     position: absolute;
-    top: 0;
-    right: 25px;
+    top: 3px;
+    right: 34px;
     background-color: red;
     color: white;
     width: 17px;
@@ -745,6 +757,7 @@ header {
 }
 .box_area {
     margin-top: -3rem;
+    position: relative;
 }
 .textarea_post {
     width: 100%;
@@ -1901,7 +1914,7 @@ li {
     -webkit-filter: invert(20%);
 }
 .active_border {
-    border-bottom: 2px solid #1b74e4;
+    border-bottom: 3px solid #1b74e4;
 }
 .emojioneemoji {
     width: 20px !important;
@@ -2597,6 +2610,7 @@ li {
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
     padding: 15px 10px;
     border-radius: 10px;
+    display: none;
 }
 .not_poin {
     background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yK/r/uCJRJgNXt8r.png');
@@ -2751,4 +2765,45 @@ li {
     margin-right: 5px;
     background: #e4e6eb;
     color: #000;
+}
+.mention_someone {
+    padding: 0;
+    position: absolute;
+    top: 15px;
+    z-index: 9999999999;
+}
+.a7a_mention {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    background: #eee;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 250px;
+}
+.a7a_mention img {
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+.mention_name {
+    font-weight: 600;
+    font-size: 14px;
+}
+.mention_link {
+    color: #1876f2;
+}
+.tag1_icon {
+    height: 28px;
+    width: 28px;
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yL/r/h2iqxBqDts0.png');
+    background-position: 0px -696px;
+    background-size: auto;
+    background-repeat: no-repeat;
+    display: inline-block;
+    position: absolute;
+    bottom: -8px;
+    right: -8px;
 }
