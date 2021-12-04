@@ -1247,61 +1247,7 @@ if(login::isLoggedIn()){
                 $('.mention_someone').empty();
             }
         })
-        $(function() {
 
-            //-----------Mnetion--->
-
-
-
-            function updateNotifications(userid) {
-                $.post('http://localhost/facebook/core/ajax/notifications.php', {
-                    userupdateNotifications: userid
-                }, function(data) {
-                    if (data.trim() == '0') {
-                        $('.not_numbr').empty()
-                        $('.not_numbr').css('background', 'transparent');
-
-                    } else {
-                        $('.not_numbr').html(data);
-                        $('.not_numbr').css('background', '#e41e3f');
-
-                    }
-                })
-            }
-            var notificationDelay;
-            var userid = "<?php echo $userid; ?>"
-            notificationDelay = setInterval(function() {
-                updateNotifications(userid);
-            }, 1000)
-        })
-
-        $(document).on('click', '#open_notif', function() {
-            $('.notifications').toggle();
-            var userid = "<?php echo $userid; ?>";
-            $.post('http://localhost/facebook/core/ajax/notifications.php', {
-                notifications: userid,
-            }, function(data) {})
-        })
-        $(document).on('click', '.notification', function() {
-            $(this).find('.not_image').find('.GreyImg')
-                .css('-webkit-filter', 'invert(15%)');
-            $(this).find('.not_infos').css('color', '#65676b');
-            $(this).find('.not_infos').find('.not_time').css('color', '#65676b');
-            $(this).find('.not_infos').find('.not_who span').css('color', '#65676b');
-
-            var postid = $(this).data('postid');
-            var profileid = $(this).data('profileid');
-            var notificationid = $(this).data('notid');
-            var userid = "<?php echo $userid; ?>";
-            $.post('http://localhost/facebook/core/ajax/notifications.php', {
-                updateNotifications: userid,
-                profileid: profileid,
-                postid: postid,
-                notificationid: notificationid,
-            }, function(data) {
-
-            })
-        })
         //-----------Notifications---->
 
 
@@ -1361,26 +1307,11 @@ if(login::isLoggedIn()){
 
         //menu bar
 
-        $(document).on('click', '#open_thatmenu', function() {
-            $('#menu_header').css('display', 'block');
-        })
         $(document).on('click', '#open_thatmenu1', function() {
             $('#menu_header1').toggle()
         })
-        $(document).mouseup(function(e) {
-            var container = new Array();
 
 
-            container.push('#menu_header');
-
-            $.each(container, function(key, value) {
-                if (!$(value).is(e.target) && $(value).has(e.target)
-                    .length === 0) {
-                    $(value).css('display', 'none');
-
-                }
-            })
-        })
 
         //--------Open Chat--------------------->
         //--------Change svg color->
@@ -2474,19 +2405,6 @@ if(login::isLoggedIn()){
 
         //-------Notifications---->
 
-        $(document).on('click', '#not_accept', function() {
-            var This = $(this);
-            var userid = "<?php echo $userid ?>";
-            var profileid = $(this).parents('.notification').data('profileid')
-
-            $.post('http://localhost/facebook/core/ajax/request.php', {
-                Confirmrequest: profileid,
-                userid: userid
-            }, function(data) {
-                console.log(data)
-                $(This).parents('.notification').hide();
-            })
-        })
 
 
 

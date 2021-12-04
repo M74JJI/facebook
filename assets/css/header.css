@@ -5,12 +5,17 @@ header {
     background: #fff;
     width: 100%;
     font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    -webkit-box-shadow: 1px 8px 15px -7px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 8px 15px -7px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .h_left {
     display: flex;
     align-items: center;
-    padding: 5px 1rem;
+    padding: 7px 1rem;
 }
 .fb_logo {
     width: 38px;
@@ -143,4 +148,197 @@ header {
     padding-left: 1.2rem;
     padding-top: 1rem;
     font-weight: 600;
+}
+.h_middle {
+    display: flex;
+    align-items: center;
+    transform: translateX(3rem);
+}
+.a_middle {
+    position: relative;
+    height: 100%;
+    display: block;
+    padding: 7px 45px;
+    margin-left: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.active_middle {
+    height: 100%;
+    display: block;
+    padding: 10px 45px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(2px);
+}
+.a_middle:hover {
+    background: #eee;
+}
+.active_middle {
+    border-bottom: 3px solid #3181e6;
+}
+.not_icon {
+    position: absolute;
+    top: 0;
+    right: 35%;
+    background: #e41e3f;
+    width: 18px;
+    height: 18px;
+    font-size: 14px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+.h_right {
+    padding-right: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+.find_friends_btn {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    background: #e4e6eb;
+    border-radius: 50px;
+    padding: 8px 13px;
+    cursor: pointer;
+}
+.pic_img_prf {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 50px;
+}
+.pic_img_prf:hover {
+    background: #eee;
+}
+.pic_img_prf img {
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.pic_img_prf span {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+}
+.ri_scx {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e4e6eb;
+    cursor: pointer;
+}
+.ri_scx:hover {
+    background: #e4e6ebc7;
+}
+.all_menu {
+    position: absolute;
+    right: -6rem;
+    top: 45px;
+    background: #f7f8fa;
+    border-radius: 10px;
+    height: 90vh;
+    width: 575px;
+    padding: 10px 1rem;
+}
+.all_h {
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.full_fucking_menu {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    overflow-y: auto;
+    height: 95%;
+}
+.all_left {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+}
+.amm_s_ic {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yV/r/GiDsMbzTaS0.png');
+    background-position: -34px -174px;
+    background-size: auto;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(40%);
+}
+.all_search {
+    background: #f0f2f5;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    border-radius: 50px;
+}
+.all_search input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    font-size: 15px;
+}
+.m_ar231 {
+    margin-top: 10px;
+    border-bottom: 1px solid #ced0d4;
+}
+.h2_13 {
+    font-weight: 600;
+    font-size: 16px;
+    padding: 10px 0;
+}
+.m_ar231 {
+    width: 100%;
+}
+.xc748 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.xc748:hover {
+    background: #eee;
+}
+.xc748 img {
+    width: 36px;
+    height: 36px;
+    margin-right: 10px;
+}
+.xc748_2 {
+    display: flex;
+    flex-direction: column;
+}
+.xc748_2 span:first-of-type {
+    font-size: 14px;
+    font-weight: 500;
+}
+.xc748_2 span:last-of-type {
+    font-size: 12px;
+    color: #65676b;
+    width: 95%;
+}
+.all_right {
+    padding: 15px;
+    background: #fff;
 }
