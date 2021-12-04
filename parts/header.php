@@ -122,23 +122,17 @@
             <img src="<?php echo $userInfo->profile_picture ?>" alt="">
             <span><?php echo $userInfo->first_name ?></span>
         </a>
-        <a class="ri_scx"> <svg viewBox="0 0 44 44" width="1.2rem" height="1.2rem">
-                <circle cx="7" cy="7" r="6"></circle>
-                <circle cx="22" cy="7" r="6"></circle>
-                <circle cx="37" cy="7" r="6"></circle>
-                <circle cx="7" cy="22" r="6"></circle>
-                <circle cx="22" cy="22" r="6"></circle>
-                <circle cx="37" cy="22" r="6"></circle>
-                <circle cx="7" cy="37" r="6"></circle>
-                <circle cx="22" cy="37" r="6"></circle>
-                <circle cx="37" cy="37" r="6"></circle>
-            </svg></a>
         <div style="position:relative;">
-            <a class="ri_scx"> <svg viewBox="0 0 28 28" alt="" class="a8c37x1j ms05siws hwsy1cff b7h9ocf4 fzdkajry"
-                    height="20" width="20">
-                    <path
-                        d="M14 2.042c6.76 0 12 4.952 12 11.64S20.76 25.322 14 25.322a13.091 13.091 0 0 1-3.474-.461.956 .956 0 0 0-.641.047L7.5 25.959a.961.961 0 0 1-1.348-.849l-.065-2.134a.957.957 0 0 0-.322-.684A11.389 11.389 0 0 1 2 13.682C2 6.994 7.24 2.042 14 2.042ZM6.794 17.086a.57.57 0 0 0 .827.758l3.786-2.874a.722.722 0 0 1 .868 0l2.8 2.1a1.8 1.8 0 0 0 2.6-.481l3.525-5.592a.57.57 0 0 0-.827-.758l-3.786 2.874a.722.722 0 0 1-.868 0l-2.8-2.1a1.8 1.8 0 0 0-2.6.481Z">
-                    </path>
+            <a class="ri_scx" id="open_all"> <svg viewBox="0 0 44 44" width="1.2rem" height="1.2rem">
+                    <circle cx="7" cy="7" r="6"></circle>
+                    <circle cx="22" cy="7" r="6"></circle>
+                    <circle cx="37" cy="7" r="6"></circle>
+                    <circle cx="7" cy="22" r="6"></circle>
+                    <circle cx="22" cy="22" r="6"></circle>
+                    <circle cx="37" cy="22" r="6"></circle>
+                    <circle cx="7" cy="37" r="6"></circle>
+                    <circle cx="22" cy="37" r="6"></circle>
+                    <circle cx="37" cy="37" r="6"></circle>
                 </svg></a>
             <div class="all_menu">
                 <div class="all_h">Menu</div>
@@ -417,6 +411,14 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div style="position:relative;">
+            <a class="ri_scx"> <svg viewBox="0 0 28 28" alt="" height="20" width="20">
+                    <path
+                        d="M14 2.042c6.76 0 12 4.952 12 11.64S20.76 25.322 14 25.322a13.091 13.091 0 0 1-3.474-.461.956 .956 0 0 0-.641.047L7.5 25.959a.961.961 0 0 1-1.348-.849l-.065-2.134a.957.957 0 0 0-.322-.684A11.389 11.389 0 0 1 2 13.682C2 6.994 7.24 2.042 14 2.042ZM6.794 17.086a.57.57 0 0 0 .827.758l3.786-2.874a.722.722 0 0 1 .868 0l2.8 2.1a1.8 1.8 0 0 0 2.6-.481l3.525-5.592a.57.57 0 0 0-.827-.758l-3.786 2.874a.722.722 0 0 1-.868 0l-2.8-2.1a1.8 1.8 0 0 0-2.6.481Z">
+                    </path>
+                </svg></a>
+
         </div>
         <div style="position:relative">
             <a class="ri_scx" id="open_notif"> <svg viewBox="0 0 28 28" alt=""
@@ -734,6 +736,9 @@
 $(document).on('click', '#open_search', function() {
     $('#search_results').show();
     $('#search_input').focus()
+    $('.notifications').hide();
+    $('.menu_header').hide();
+    $('.all_menu').hide();
 })
 $(document).on('focus', '#search_input', function() {
     $('#search_icon1').hide();
@@ -824,6 +829,11 @@ $(document).on('click', '#delete_search', function() {
 //--Menu->
 $(document).on('click', '#open_thatmenu', function() {
     $('#menu_header').css('display', 'block');
+    $('.notifications').hide();
+    $('.all_menu').hide();
+    $(this).css('background', '#e7f3ff')
+    $(this).find('svg').css('fill', '#1876f2')
+
 })
 //--Menu->
 
@@ -872,6 +882,15 @@ $(function() {
 
 $(document).on('click', '#open_notif', function() {
     $('.notifications').toggle();
+    $('.menu_header').hide();
+    $('.all_menu').hide();
+    if ($(this).is(':visible')) {
+        $(this).css('background', '#e7f3ff')
+        $(this).find('svg').css('fill', '#1876f2')
+    } else {
+        $(this).css('background', '#eee')
+        $(this).find('svg').css('fill', '#eee')
+    }
     var userid = "<?php echo $userid; ?>";
     $.post('http://localhost/facebook/core/ajax/notifications.php', {
         notifications: userid,
@@ -900,6 +919,15 @@ $(document).on('click', '.notification', function() {
 
 //---->notifications->
 
+//-Open All menu--->
+$(document).on('click', '#open_all', function() {
+    $('.all_menu').toggle();
+    $('.notifications').hide();
+    $('#menu_header').hide();
+    $(this).css('background', '#e7f3ff')
+    $(this).find('svg').css('fill', '#1876f2')
+})
+//-Open All menu--->
 //----Close ---->
 $(document).on('click', '#close_search', function() {
     $('#search_results').hide()
@@ -913,6 +941,39 @@ $(document).mouseup(function(e) {
         if (!$(value).is(e.target) && $(value).has(e.target)
             .length === 0) {
             $(value).hide()
+
+
+        }
+    })
+})
+$(document).mouseup(function(e) {
+    var container = new Array();
+    container.push('.notifications');
+
+    $.each(container, function(key, value) {
+        if (!$(value).is(e.target) && $(value).has(e.target)
+            .length === 0) {
+            $(value).hide()
+            $('#open_notif').css('background', '#e4e6eb')
+            $('#open_notif').find('svg').css('fill', '#000')
+
+
+        }
+    })
+})
+$(document).mouseup(function(e) {
+    var container = new Array();
+    container.push('#menu_header');
+    container.push('.all_menu');
+
+    $.each(container, function(key, value) {
+        if (!$(value).is(e.target) && $(value).has(e.target)
+            .length === 0) {
+            $(value).hide()
+            $('#open_thatmenu').css('background', '#e4e6eb')
+            $('#open_thatmenu').find('svg').css('fill', '#000')
+            $('#open_all').css('background', '#e4e6eb')
+            $('#open_all').find('svg').css('fill', '#000')
 
 
         }
