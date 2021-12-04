@@ -1947,7 +1947,7 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
                 $(document).mouseup(function(e) {
                     var container = new Array();
 
-                    container.push('.search_results');
+
                     container.push('.confirm_request_popup');
                     container.push('.friends_popup');
                     container.push('#menu_header');

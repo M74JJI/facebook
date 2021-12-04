@@ -18,7 +18,7 @@ echo '<ul style="background-color:white;padding:10px;">';
  
    
     ?>
-<li>
+<li data-profileid="<?php echo $result->user_id ?>" id="searched_user">
     <a class="search_ind" href="<?php echo BASE_URL.$result->link ?>">
         <img src="<?php echo BASE_URL.$result->profile_picture ?>"
             style="width:40px;height:40px;border-radius:50%;cursor:ponter;object-fit:cover;" alt="">
@@ -69,4 +69,17 @@ echo '<ul style="background-color:white;padding:10px;">';
 <?php
 } }
 echo '</ul>';
+
+
+if(isset($_POST['search_id'])){
+    $search_id=($_POST['search_id']);
+    $userid=($_POST['userid']);
+    $loadUser->create('search',array('searched_id'=>$search_id, 'user_idd'=>$userid,'createdAt'=>date('Y-m-d H:i:s')));
+}
+if(isset($_POST['updatesearchdate'])){
+    $search_id=($_POST['updatesearchdate']);
+    $userid=($_POST['userid']);
+    $loadUser->updateSearchDate($search_id,$userid);
+}
+
 ?>

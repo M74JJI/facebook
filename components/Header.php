@@ -215,56 +215,6 @@ if(login::isLoggedIn()){
     <script src="assets/js/header.js"></script>
     <script src="assets/js/jquery.js"></script>
     <script>
-    $(document).on('keyup', '#search_input', function() {
-        var searchTerm = $(this).val();
 
-        if (searchTerm == '') {
-
-
-        } else {
-
-
-            $.post('http://localhost/facebook/core/ajax/search.php', {
-                searchTerm: searchTerm,
-
-            }, function(data) {
-
-                if (data == '') {
-
-                    $('.search_results').html('no results found');
-                } else {
-                    $('.search_results').html(data);
-
-                }
-            })
-        }
-
-    })
-    //cleaner
-    $(document).on('blur', '#search_input', function() {
-        $('.search_results').hide();
-
-    })
-
-    //menu bar
-
-    $(document).on('click', '#open_thatmenu', function() {
-        console.log('a7aaaaaaa')
-        $('#menu_header').css('display', 'block');
-    })
-    $(document).mouseup(function(e) {
-        var container = new Array();
-
-
-        container.push('#menu_header');
-
-        $.each(container, function(key, value) {
-            if (!$(value).is(e.target) && $(value).has(e.target)
-                .length === 0) {
-                $(value).css('display', 'none');
-
-            }
-        })
-    })
     </script>
 </header>

@@ -242,10 +242,7 @@ if(login::isLoggedIn()){
 
     })
     //cleaner
-    $(document).on('blur', '#search_input', function() {
-        $('.search_results').hide();
 
-    })
 
     //menu bar
 
