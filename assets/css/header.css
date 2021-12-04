@@ -72,6 +72,7 @@ header {
     padding: 7px 1rem 7px 0;
     display: none;
 }
+
 .s_h {
     display: flex;
     align-items: center;
@@ -261,11 +262,20 @@ header {
 }
 .full_fucking_menu {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1.7fr 1fr;
     gap: 1rem;
     overflow-y: auto;
     height: 95%;
 }
+.full_fucking_menu::-webkit-scrollbar {
+    width: 6px;
+    background-color: #f7f8fa;
+}
+.full_fucking_menu::-webkit-scrollbar-thumb {
+    background: #aeaeafa1;
+    border-radius: 5px;
+}
+
 .all_left {
     background: #fff;
     border-radius: 10px;
@@ -339,6 +349,121 @@ header {
     width: 95%;
 }
 .all_right {
-    padding: 15px;
+    padding: 15px 10px;
     background: #fff;
+    margin-right: 1rem;
+    border-radius: 10px;
+    height: 500px;
+    width: 170px;
+    position: fixed;
+    right: 2rem;
+}
+.r_tit {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+.m_post_icon {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yV/r/GiDsMbzTaS0.png');
+    background-position: 0px -132px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.m_story_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yC/r/WbWAp7wNa07.png');
+    background-position: 0px -387px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.m_post_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yB/r/mj6tKn3JC24.png');
+    background-position: 0px -542px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.m_page_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yB/r/mj6tKn3JC24.png');
+    background-position: 0px -521px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.m_ad_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yB/r/mj6tKn3JC24.png');
+    background-position: 0px -1004px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.m_group_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yB/r/mj6tKn3JC24.png');
+    background-position: 0px -479px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.m_event_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yB/r/mj6tKn3JC24.png');
+    background-position: 0px -647px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.m_post_mar {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yC/r/WbWAp7wNa07.png');
+    background-position: 0px -366px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.m_post_job {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yB/r/mj6tKn3JC24.png');
+    background-position: 0px -626px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.a7aton {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    gap: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-bottom: 2px;
+}
+.a7aton:hover {
+    background: rgba(238, 238, 238, 0.357);
+}
+.m_b217 {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e4e6eb;
 }

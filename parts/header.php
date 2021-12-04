@@ -360,6 +360,60 @@
                     </div>
                     <div class="all_right">
                         <div class="r_tit">Create</div>
+                        <div class="a7aton">
+                            <div class="m_b217">
+                                <i class="m_post_icon"></i>
+                            </div>
+                            Post
+                        </div>
+                        <div class="a7aton">
+                            <div class="m_b217">
+                                <i class="m_story_icon"></i>
+                            </div>
+                            Story
+                        </div>
+                        <div class="a7aton">
+                            <div class="m_b217">
+                                <i class="m_post_icon"></i>
+                            </div>
+                            Room
+                        </div>
+                        <div class="a7aton">
+                            <div class="m_b217">
+                                <i class="m_page_icon"></i>
+                            </div>
+                            Page
+                        </div>
+                        <div class="a7aton">
+                            <div class="m_b217">
+                                <i class="m_ad_icon"></i>
+                            </div>
+                            Ad
+                        </div>
+                        <div class="a7aton">
+                            <div class="m_b217">
+                                <i class="m_group_icon"></i>
+                            </div>
+                            Group
+                        </div>
+                        <div class="a7aton">
+                            <div class="m_b217">
+                                <i class="m_event_icon"></i>
+                            </div>
+                            Event
+                        </div>
+                        <div class="a7aton">
+                            <div class="m_b217">
+                                <i class="m_post_mar"></i>
+                            </div>
+                            Marketplace Listing
+                        </div>
+                        <div class="a7aton">
+                            <div class="m_b217">
+                                <i class="m_post_job"></i>
+                            </div>
+                            Job
+                        </div>
                     </div>
                 </div>
             </div>
