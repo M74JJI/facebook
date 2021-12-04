@@ -74,12 +74,23 @@ echo '</ul>';
 if(isset($_POST['search_id'])){
     $search_id=($_POST['search_id']);
     $userid=($_POST['userid']);
+
+   $check = $loadUser->checkSearchIfExists($search_id,$userid);
+
+   if($check->total == 0){
     $loadUser->create('search',array('searched_id'=>$search_id, 'user_idd'=>$userid,'createdAt'=>date('Y-m-d H:i:s')));
+
+   }
 }
 if(isset($_POST['updatesearchdate'])){
     $search_id=($_POST['updatesearchdate']);
     $userid=($_POST['userid']);
     $loadUser->updateSearchDate($search_id,$userid);
+}
+if(isset($_POST['delete_search'])){
+    $search_id=($_POST['delete_search']);
+    $userid=($_POST['userid']);
+    $loadUser->delete('search',array('searched_id'=>$search_id,'user_idd'=>$userid));
 }
 
 ?>

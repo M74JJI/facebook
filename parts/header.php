@@ -62,23 +62,25 @@
                     <input autocomplete="off" type="text" placeholder="Search Facebook" id="search_input">
                 </div>
             </div>
+            <div class="s_hhs">Recent searches
+            </div>
             <ul class="h_resultos_hermanos">
                 <?php
               foreach ($search_history as $search){ ?>
-                <a href="<?php echo BASE_URL.$search->link ?>" class="history_item"
-                    data-profileid="<?php echo $search->search_id ?>">
-                    <div class="his_l">
+                <div class="history_item" data-profileid="<?php echo $search->searched_id ?>">
+                    <a href="<?php echo BASE_URL.$search->link ?>" class="his_l">
                         <img src="<?php echo $search->profile_picture ?>" alt="">
                         <span><?php echo $search->first_name.' '.$search->last_name?></span>
-                    </div>
-                    <div class="rem_ic_h">
+                    </a>
+                    <div class="rem_ic_h" id="delete_search">
                         <i class="rem_h_ic"></i>
                     </div>
-                </a>
+                </div>
 
                 <?php }
               ?>
             </ul>
+            <ul class="h_resultos_hermanos1"></ul>
         </div>
     </div>
     <div class="h_middle"></div>
@@ -101,9 +103,15 @@ $(document).on('keyup', '#search_input', function() {
     var searchTerm = $(this).val();
 
     if (searchTerm == '') {
+        $('.s_hhs').show()
+        $('.h_resultos_hermanos').show()
+        $('.h_resultos_hermanos1').hide()
 
 
     } else {
+        $('.s_hhs').hide()
+        $('.h_resultos_hermanos').hide()
+        $('.h_resultos_hermanos1').show()
 
 
         $.post('http://localhost/facebook/core/ajax/search.php', {
@@ -113,9 +121,9 @@ $(document).on('keyup', '#search_input', function() {
 
             if (data == '') {
 
-                $('.h_resultos_hermanos').html('no results found');
+                $('.h_resultos_hermanos1').html('no results found');
             } else {
-                $('.h_resultos_hermanos').html(data);
+                $('.h_resultos_hermanos1').html(data);
 
             }
         })
@@ -154,10 +162,12 @@ $(document).on('click', '#searched_user', function() {
     })
 })
 
-//---update date for new clicked searched user->
-$(document).on('click', '.history_item', function() {
-    var profileid = $(this).data('profileid');
+//---update date-->
+$(document).on('click', '.his_l', function() {
+    var profileid = $(this).parents('.history_item').data('profileid');
     var userid = "<?php echo $userid ?>";
+    console.log(profileid)
+
 
     $.post('http://localhost/facebook/core/ajax/search.php', {
         updatesearchdate: profileid,
@@ -167,7 +177,23 @@ $(document).on('click', '.history_item', function() {
 
     })
 })
-//---update date for new clicked searched user->
+//---update date -->
+
+//---remove from search -->
+$(document).on('click', '#delete_search', function() {
+    var This = $(this)
+    var search = $(this).parents('.history_item').data('profileid')
+    var userid = "<?php echo $userid ?>";
+
+    $.post('http://localhost/facebook/core/ajax/search.php', {
+        delete_search: search,
+        userid: userid
+    }, function(data) {
+        $(This).parents('.history_item').hide();
+    })
+
+})
+//---remove from search -->
 
 //-----Search History--->
 </script>

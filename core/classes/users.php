@@ -514,7 +514,7 @@ class User{
     
     public function getSearchHistory($userid){
         $statement=$this->pdo->prepare("SELECT * FROM search LEFT JOIN profile ON profile.user_id=search.searched_id LEFT JOIN users ON users.id=search.searched_id WHERE user_idd=:userid
-        ORDER BY createdAt DESC
+        ORDER BY createdAt DESC LIMIT 50
         ");
         $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
         $statement->execute();
@@ -523,12 +523,23 @@ class User{
 
     public function updateSearchDate($search_id,$userid){
         $date = date('Y-m-d H:i:s'); 
-        $statement=$this->pdo->prepare("UPDATE search SET createdAt=:date WHERE search_id=:search_id AND user_idd=:userid");
+        $statement=$this->pdo->prepare("UPDATE search SET createdAt=:date WHERE searched_id=:search_id AND user_idd=:userid");
         $statement->bindParam(':userid',$userid,PDO::PARAM_INT);
         $statement->bindValue(':search_id',$search_id,PDO::PARAM_INT);
         $statement->bindValue(':date',$date);
         $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_OBJ);                       
+        return $statement->fetchAll(PDO::FETCH_OBJ);             
+                  
+    }
+    public function checkSearchIfExists($search_id,$userid){
+
+        $statement=$this->pdo->prepare("SELECT count(*) as total FROM search WHERE searched_id = :search_id AND user_idd=:userid");
+        $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+        $statement->bindValue(':search_id',$search_id,PDO::PARAM_INT);
+  
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_OBJ);             
+                  
     }
 
 
