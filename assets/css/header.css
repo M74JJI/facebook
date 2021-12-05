@@ -256,6 +256,7 @@ header {
     display: none;
     -webkit-box-shadow: -2px 1px 5px 2px rgba(0, 0, 0, 0.2);
     box-shadow: -2px 1px 5px 2px rgba(0, 0, 0, 0.2);
+    user-select: none;
 }
 .all_h {
     font-size: 24px;
@@ -475,6 +476,4 @@ header {
 .active_alkhawa {
     background: #e7f3ff;
     color: #1876f2;
-}
-.open_notif {
 }

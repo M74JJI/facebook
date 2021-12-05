@@ -2443,6 +2443,7 @@ li {
     padding: 15px 10px;
     border-radius: 10px;
     display: none;
+    user-select: none;
 }
 .not_poin {
     background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yK/r/uCJRJgNXt8r.png');

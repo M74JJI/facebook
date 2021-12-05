@@ -1999,15 +1999,13 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
 
                 //menu bar
 
-                $(document).on('click', '#open_thatmenu', function() {
-                    $('#menu_header').css('display', 'block');
-                })
+
                 $(document).mouseup(function(e) {
                     var container = new Array();
 
                     container.push('.search_results');
 
-                    container.push('#menu_header');
+
 
                     $.each(container, function(key, value) {
                         if (!$(value).is(e.target) && $(value).has(e.target)
