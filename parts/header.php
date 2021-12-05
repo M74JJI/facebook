@@ -671,6 +671,123 @@
                 </svg></a>
 
             <div class="wrapper" id="menu_header">
+                <div class="h_settings">
+                    <div class="h_s_head" id="back_menu">
+                        <div class="backiintio"><i class="bacibitcho"></i> </div> Settings & privacy
+                    </div>
+                    <a class="capoutchinho_haha">
+                        <div class="cpi7412">
+                            <i class="sett_ik"></i>
+                        </div>
+                        <span>Settings</span>
+                    </a>
+                    <a class="capoutchinho_haha">
+                        <div class="cpi7412">
+                            <i class="pr_2401"></i>
+                        </div>
+                        <span>Privacy Checkup</span>
+                    </a>
+                    <a class="capoutchinho_haha">
+                        <div class="cpi7412">
+                            <i class="pr_ic15789"></i>
+                        </div>
+                        <span>Privacy Shortcuts</span>
+                    </a>
+                    <a class="capoutchinho_haha">
+                        <div class="cpi7412">
+                            <i class="logger_icon"></i>
+                        </div>
+                        <span>Activity Log</span>
+                    </a>
+                    <a class="capoutchinho_haha">
+                        <div class="cpi7412">
+                            <i class="news_iccc"></i>
+                        </div>
+                        <span>News Feed Preferences</span>
+                    </a>
+                    <a class="capoutchinho_haha">
+                        <div class="cpi7412">
+                            <i class="languego_icon"></i>
+                        </div>
+                        <span>Language</span>
+                    </a>
+                </div>
+                <div class="h_helpSupp">
+                    <div class="h_s_head" id="back_menu">
+                        <div class="backiintio"><i class="bacibitcho"></i> </div> Help & Support
+                    </div>
+                    <a class="capoutchinho_haha">
+                        <div class="cpi7412">
+                            <i class="helpikino_icon"></i>
+                        </div>
+                        <span>Help Center</span>
+                    </a>
+                    <a class="capoutchinho_haha">
+                        <div class="cpi7412">
+                            <i class="supporitnhi_icon"></i>
+                        </div>
+                        <span>Support Inbox</span>
+                    </a> <a class="capoutchinho_haha">
+                        <div class="cpi7412">
+                            <i class="reeporinho_icon"></i>
+                        </div>
+                        <span>Report a Problem</span>
+                    </a>
+
+                </div>
+                <div class="h_displayaccess">
+                    <div class="h_s_head" id="back_menu">
+                        <div class="backiintio"><i class="bacibitcho"></i> </div>
+                        Display & Accessibility
+                    </div>
+                    <a class="capoutchinho_haha">
+                        <div class="cpi7412-3">
+                            <i class="darkinho_icon"></i>
+                        </div>
+
+                        <div class="kasamino_21">
+                            <span>Dark Mode</span>
+                            <span>Adjust the appearance of Facebook to reduce glare and give your eyes a break.</span>
+                        </div>
+                    </a>
+                    <label class="change_someshitos" for="off_dark">
+                        <span>Off</span>
+                        <input type="radio" name="dark" id="off_dark" checked>
+                    </label>
+                    <label class="change_someshitos" for="on_dark">
+                        <span>On</span>
+                        <input type="radio" name="dark" id="on_dark">
+                    </label>
+
+                    <a class="capoutchinho_haha">
+                        <div class="cpi7412-3" style="width:60px">
+                            <i class="compactinho_icon"></i>
+                        </div>
+
+                        <div class="kasamino_21">
+                            <span>Compact Mode</span>
+                            <span>Make your font size smaller so more content can fit on the screen.</span>
+                        </div>
+                    </a>
+                    <label class="change_someshitos" for="off_compact">
+                        <span>Off</span>
+                        <input type="radio" name="compact" id="off_compact" checked>
+                    </label>
+                    <label class="change_someshitos" for="on_compact">
+                        <span>On</span>
+                        <input type="radio" name="compact" id="on_compact">
+                    </label>
+                    <div class="menu_me_wrap1" style="cursor:pointer;padding:15px 5px;margin-top:5px">
+                        <a href="#" class="header_feedback">
+                            <div class="feddback_left"><i class="keyboardinho_icon"></i></div>
+                            <div class="feedback_right">
+                                <span class="text-blacko">Keyboard</span>
+                            </div>
+                        </a>
+                        <div class="arrow_right"><i class="arrow_img"></i></div>
+                    </div>
+
+                </div>
                 <ul class="menu-bar">
                     <li class="menu_me_wrap">
                         <div class="menu_me">
@@ -690,8 +807,8 @@
                             </div>
                         </div>
                     </li>
-                    <li class="menu_me_wrap1" style="margin-top:10px">
-                        <a href="#" class="header_feedback">
+                    <li class="menu_me_wrap1" style="margin-top:10px" id="open_settings">
+                        <a class="header_feedback">
                             <div class="feddback_left"><i class="setting_img"></i></div>
                             <div class="feedback_right">
                                 <span class="text-blacko">Setting & Privacy</span>
@@ -699,7 +816,7 @@
                         </a>
                         <div class="arrow_right" style="margin-top:2px"><i class="arrow_img"></i></div>
                     </li>
-                    <li class="menu_me_wrap1">
+                    <li class="menu_me_wrap1" id="open_help">
                         <a href="#" class="header_feedback">
                             <div class="feddback_left"><i class="help_img"></i></div>
                             <div class="feedback_right">
@@ -708,7 +825,7 @@
                         </a>
                         <div class="arrow_right"><i class="arrow_img"></i></div>
                     </li>
-                    <li class="menu_me_wrap1">
+                    <li class="menu_me_wrap1" id="open_display">
                         <a href="#" class="header_feedback">
                             <div class="feddback_left"><i class="dark_img"></i></div>
                             <div class="feedback_right">
@@ -928,6 +1045,33 @@ $(document).on('click', '#open_all', function() {
     $(this).find('svg').css('fill', '#1876f2')
 })
 //-Open All menu--->
+
+//-open sub menus----->
+$(document).on('click', '#open_settings', function() {
+    $('.menu-bar').hide();
+    $('.h_settings').show();
+})
+
+$(document).on('click', '#open_help', function() {
+    $('.menu-bar').hide();
+    $('.h_helpSupp').show();
+})
+
+$(document).on('click', '#open_display', function() {
+    $('.menu-bar').hide();
+    $('.h_display').show();
+})
+$(document).on('click', '#back_menu', function() {
+    $('.menu-bar').show();
+    $('.h_settings').hide();
+    $('.h_help').hide();
+    $('.h_display').hide();
+})
+
+//-open sub menus----->
+
+
+
 //----Close ---->
 $(document).on('click', '#close_search', function() {
     $('#search_results').hide()
@@ -945,8 +1089,7 @@ $(document).mouseup(function(e) {
 
         }
     })
-})
-$(document).mouseup(function(e) {
+}) $(document).mouseup(function(e) {
     var container = new Array();
     container.push('.notifications');
 
@@ -960,8 +1103,7 @@ $(document).mouseup(function(e) {
 
         }
     })
-})
-$(document).mouseup(function(e) {
+}) $(document).mouseup(function(e) {
     var container = new Array();
     container.push('#menu_header');
     container.push('.all_menu');

@@ -13,6 +13,7 @@
     border: 1px solid #eee;
     display: none;
 }
+
 .menu_me_wrap {
     padding: 7px;
     border-bottom: 1px solid #ced0d4;
@@ -22,6 +23,7 @@
     position: relative;
     border-radius: 10px;
     padding: 6px 0;
+    cursor: pointer;
 }
 .menu_me {
     display: flex;
@@ -160,4 +162,246 @@
     .wrapper {
         width: 300px;
     }
+}
+.h_settings {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    padding: 15px;
+    z-index: 9999999;
+    border-radius: 10px;
+    display: none;
+}
+.h_s_head {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 23px;
+    margin-bottom: 15px;
+}
+.bacibitcho {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yV/r/GiDsMbzTaS0.png');
+    background-position: -50px -86px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.backiintio {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.backiintio:hover {
+    background: #eee;
+}
+.capoutchinho_haha {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 5px;
+}
+.capoutchinho_haha:hover {
+    background: rgba(238, 238, 238, 0.576);
+}
+.cpi7412 {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: #e4e6eb;
+}
+.sett_ik {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yA/r/h8Upq4ztJkX.png');
+    background-position: 0px -431px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.pr_2401 {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/lUeP8pN1WpZ.png');
+    background-position: 0px -88px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.pr_ic15789 {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/xzjVYw3GBU-.png');
+    background-position: 0px -277px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.logger_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yB/r/mj6tKn3JC24.png');
+    background-position: 0px -962px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.news_iccc {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/y1/r/LIvHkhexa24.png');
+    background-position: 0px -323px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.languego_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yB/r/ZzXSIDijNcu.png');
+    background-position: 0px -644px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.h_helpSupp {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    padding: 15px;
+    z-index: 9999999;
+    border-radius: 10px;
+    display: none;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+.helpikino_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/lUeP8pN1WpZ.png');
+    background-position: 0px -109px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.supporitnhi_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yB/r/ZzXSIDijNcu.png');
+    background-position: 0px -518px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.reeporinho_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yn/r/dVfEf2-Px4o.png');
+    background-position: 0px -229px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.h_displayaccess {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    padding: 15px;
+    z-index: 9999999;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+.kasamino_21 {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-left: 5px;
+}
+
+.darkinho_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yH/r/S1qZOGbC1W1.png');
+    background-position: 0px -298px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+.cpi7412-3 {
+    width: 70px;
+    height: 40px;
+    background: #e4e6eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+}
+.kasamino_21 span:first-of-type {
+    font-size: 16px;
+}
+
+.kasamino_21 span:last-of-type {
+    font-size: 13px;
+    color: #65676b;
+}
+.change_someshitos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 80%;
+    margin-left: 2.5rem;
+    margin-top: 5px;
+    font-size: 14px;
+}
+.change_someshitos:hover {
+    background: rgba(238, 238, 238, 0.453);
+}
+.change_someshitos input {
+    width: 19px;
+    height: 19px;
+    font-weight: 600;
+}
+.compactinho_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/lUeP8pN1WpZ.png');
+    background-position: 0px -172px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.keyboardinho_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/lgxgxxU6HJr.png');
+    background-position: 0px -171px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
 }
