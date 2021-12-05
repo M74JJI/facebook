@@ -118,7 +118,7 @@
         <a class="find_friends_btn">
             Find Friends
         </a>
-        <a class="pic_img_prf">
+        <a href="<?php echo BASE_URL.$userInfo->link ?>" class="pic_img_prf">
             <img src="<?php echo $userInfo->profile_picture ?>" alt="">
             <span><?php echo $userInfo->first_name ?></span>
         </a>
@@ -790,13 +790,13 @@
                 </div>
                 <ul class="menu-bar">
                     <li class="menu_me_wrap">
-                        <div class="menu_me">
+                        <a href="<?php echo BASE_URL.$userInfo->link ?>" class="menu_me">
                             <img src="<?php echo $userInfo->profile_picture ?>" alt="">
                             <div class="menu_me_name">
                                 <span><?php echo $userInfo->first_name.' '.$userInfo->last_name;?></span>
                                 <span>See your profile</span>
                             </div>
-                        </div>
+                        </a>
                     </li>
                     <li class="menu_me_wrap">
                         <div class="header_feedback1" style=" padding: 10px 5px;margin-top: 0; cursor:pointer">
@@ -945,11 +945,16 @@ $(document).on('click', '#delete_search', function() {
 
 //--Menu->
 $(document).on('click', '#open_thatmenu', function() {
-    $('#menu_header').css('display', 'block');
+    $('#menu_header').toggle();
     $('.notifications').hide();
     $('.all_menu').hide();
-    $(this).css('background', '#e7f3ff')
-    $(this).find('svg').css('fill', '#1876f2')
+    if ($('#menu_header').is(":visible")) {
+        $('#open_thatmenu').css('background', '#e7f3ff');
+        $('#open_thatmenu').find('svg').css('fill', '#1876f1');
+    } else {
+        $(this).css('background', '#e4e6eb')
+        $(this).find('svg').css('fill', '#000000')
+    }
 
 })
 //--Menu->
@@ -1001,18 +1006,22 @@ $(document).on('click', '#open_notif', function() {
     $('.notifications').toggle();
     $('.menu_header').hide();
     $('.all_menu').hide();
-    if ($(this).is(':visible')) {
-        $(this).css('background', '#e7f3ff')
-        $(this).find('svg').css('fill', '#1876f2')
+    if ($('.notifications').is(":visible")) {
+        $('#open_notif').css('background', '#e7f3ff');
+        $('#open_notif').find('svg').css('fill', '#1876f1');
     } else {
-        $(this).css('background', '#eee')
-        $(this).find('svg').css('fill', '#eee')
+        $(this).css('background', '#e4e6eb')
+        $(this).find('svg').css('fill', '#000000')
     }
+
     var userid = "<?php echo $userid; ?>";
     $.post('http://localhost/facebook/core/ajax/notifications.php', {
         notifications: userid,
     }, function(data) {})
 })
+
+
+
 $(document).on('click', '.notification', function() {
     $(this).find('.not_image').find('.GreyImg')
         .css('-webkit-filter', 'invert(15%)');
@@ -1041,8 +1050,14 @@ $(document).on('click', '#open_all', function() {
     $('.all_menu').toggle();
     $('.notifications').hide();
     $('#menu_header').hide();
-    $(this).css('background', '#e7f3ff')
-    $(this).find('svg').css('fill', '#1876f2')
+    if ($('.all_menu').is(":visible")) {
+        $('#open_all').css('background', '#e7f3ff');
+        $('#open_all').find('svg').css('fill', '#1876f1');
+    } else {
+        $(this).css('background', '#e4e6eb')
+        $(this).find('svg').css('fill', '#000000')
+    }
+
 })
 //-Open All menu--->
 
@@ -1059,13 +1074,13 @@ $(document).on('click', '#open_help', function() {
 
 $(document).on('click', '#open_display', function() {
     $('.menu-bar').hide();
-    $('.h_display').show();
+    $('.h_displayaccess').show();
 })
 $(document).on('click', '#back_menu', function() {
-    $('.menu-bar').show();
     $('.h_settings').hide();
-    $('.h_help').hide();
-    $('.h_display').hide();
+    $('.h_helpSupp').hide();
+    $('.h_displayaccess').hide();
+    $('.menu-bar').show();
 })
 
 //-open sub menus----->
@@ -1089,7 +1104,9 @@ $(document).mouseup(function(e) {
 
         }
     })
-}) $(document).mouseup(function(e) {
+})
+/*
+$(document).mouseup(function(e) {
     var container = new Array();
     container.push('.notifications');
 
@@ -1103,23 +1120,30 @@ $(document).mouseup(function(e) {
 
         }
     })
-}) $(document).mouseup(function(e) {
-    var container = new Array();
-    container.push('#menu_header');
-    container.push('.all_menu');
-
-    $.each(container, function(key, value) {
-        if (!$(value).is(e.target) && $(value).has(e.target)
-            .length === 0) {
-            $(value).hide()
-            $('#open_thatmenu').css('background', '#e4e6eb')
-            $('#open_thatmenu').find('svg').css('fill', '#000')
-            $('#open_all').css('background', '#e4e6eb')
-            $('#open_all').find('svg').css('fill', '#000')
-
-
-        }
-    })
 })
+*/
+$(document).mouseup(function(e) {
+    if (!$(e.target).closest('.notifications, #open_notif').length) {
+        $(".notifications").hide();
+        $('#open_notif').css('background', '#e4e6eb')
+        $('#open_notif').find('svg').css('fill', '#000')
+    }
+})
+
+$(document).mouseup(function(e) {
+    if (!$(e.target).closest('.all_menu, #open_all').length) {
+        $(".all_menu").hide();
+        $('#open_all').css('background', '#e4e6eb')
+        $('#open_all').find('svg').css('fill', '#000')
+    }
+})
+$(document).mouseup(function(e) {
+    if (!$(e.target).closest('#menu_header, #open_thatmenu').length) {
+        $("#menu_header").hide();
+        $('#open_thatmenu').css('background', '#e4e6eb')
+        $('#open_thatmenu').find('svg').css('fill', '#000')
+    }
+})
+
 //----Close ---->
 </script>

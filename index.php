@@ -2411,7 +2411,6 @@ if(login::isLoggedIn()){
         $(document).mouseup(function(e) {
             var container = new Array();
 
-            container.push('#menu_header1');
             container.push('.save-popup');
             container.push('.post-menu ');
 
