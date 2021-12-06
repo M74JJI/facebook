@@ -189,8 +189,8 @@ class Post extends User{
              ) um
              
         where seqnum = 1 AND receiver=:userid or sender=:userid
-        
-        
+                     
+        order by messageAt desc
         
         ");
          $statement->bindValue(':userid',$userid,PDO::PARAM_STR);

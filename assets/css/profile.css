@@ -576,10 +576,8 @@ a {
     justify-content: center;
 }
 .privacy_box_box {
-    transform: translateY(-2rem);
 }
 .privacy_box_box span {
-    transform: translateY(-1.9em);
     background: #e4e6eb;
     display: flex;
     align-items: center;
@@ -601,7 +599,6 @@ a {
     font-size: 12px;
 }
 .box_area {
-    margin-top: -3rem;
     position: relative;
 }
 .textarea_post {
@@ -2639,10 +2636,4 @@ li {
     position: absolute;
     bottom: -8px;
     right: -8px;
-}
-@media (max-width: 770px) {
-    .post {
-        padding: 0;
-        width: 100%;
-    }
 }

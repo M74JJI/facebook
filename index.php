@@ -1243,8 +1243,14 @@ if(login::isLoggedIn()){
                 userid: userid,
             }, function(data) {
 
-                $('.chat_popup_container').append(data);
+                if ($('.popup_chat[data-chat=' + chatid + ']').length > 0) {
 
+                } else {
+                    $('.popin_dem_chats').append(data);
+
+                    scrolla(chatid);
+
+                }
             })
 
         })

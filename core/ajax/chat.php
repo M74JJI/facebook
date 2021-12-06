@@ -33,7 +33,8 @@ if(isset($_POST['popup_chat'])){
         </div>
         <div class="h_m_ic"><i class="fa-solid fa-phone" style=" font-size: 15px;"></i></div>
         <div class="h_m_ic"><i class="fa-solid fa-minus" style=" font-size: 21px;"></i></div>
-        <div class="h_m_ic"><i class="fa-solid fa-xmark" style=" font-size: 21px;"></i></div>
+        <div class="h_m_ic" id="close_chat" data-chat="<?php echo $chatid; ?>"><i class="fa-solid fa-xmark"
+                style=" font-size: 21px;"></i></div>
 
     </div>
     <div class="popup_chat_area" data-chat="<?php echo $chatid; ?>">

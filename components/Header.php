@@ -412,8 +412,8 @@
                 </div>
             </div>
         </div>
-        <div style="position:relative;" id="open_messages">
-            <a class="ri_scx"> <svg viewBox="0 0 28 28" alt="" height="20" width="20">
+        <div style="position:relative;">
+            <a class="ri_scx" id="open_messages"> <svg class="svgmsg" viewBox="0 0 28 28" alt="" height="20" width="20">
                     <path
                         d="M14 2.042c6.76 0 12 4.952 12 11.64S20.76 25.322 14 25.322a13.091 13.091 0 0 1-3.474-.461.956 .956 0 0 0-.641.047L7.5 25.959a.961.961 0 0 1-1.348-.849l-.065-2.134a.957.957 0 0 0-.322-.684A11.389 11.389 0 0 1 2 13.682C2 6.994 7.24 2.042 14 2.042ZM6.794 17.086a.57.57 0 0 0 .827.758l3.786-2.874a.722.722 0 0 1 .868 0l2.8 2.1a1.8 1.8 0 0 0 2.6-.481l3.525-5.592a.57.57 0 0 0-.827-.758l-3.786 2.874a.722.722 0 0 1-.868 0l-2.8-2.1a1.8 1.8 0 0 0-2.6.481Z">
                     </path>
@@ -1245,6 +1245,22 @@ $(document).mouseup(function(e) {
 
 //update messages and users list->
 
+//--open list->
+$(document).on('click', '#open_messages', function(e) {
+    $('.messages_popup').toggle();
+    $('#menu_header').hide();
+    $('.notifications').hide();
+    $('.all_menu').hide();
+    if ($('.messages_popup').is(":visible")) {
+        $('#open_messages').css('background', '#e7f3ff');
+        $('#open_messages').find('.svgmsg').css('fill', '#1876f1');
+    } else {
+        $(this).css('background', '#e4e6eb')
+        $(this).find('svg').css('fill', '#000000')
+    }
+})
+//--open list->
+
 function updateList() {
     $.post('http://localhost/facebook/core/chat/updateHeaderList.php', {
 
@@ -1303,33 +1319,63 @@ $(document).on('keyup', '#light_send', function(e) {
     }
 
 })
+var listChat = [];
+
+$(document).on('click', '.ms74g', function() {
+    var chatid = $(this).data('chat');
+    listChat.push(chatid);
+
+
+})
+$(document).on('click', '.contact_tochat', function() {
+    var chatid = $(this).data('chatid');
+    listChat.push(chatid);
+
+
+})
 
 function loadMessages() {
 
-    $.post('http://localhost/facebook/core/ajax/refreshMessages.php', {
-        refreshmsgs: 23,
-        chatid: 25,
-    }, function(data) {
-        if ($('.messaging_popup[data-chat=25]').length > 0) {
+    for (let i = 0; i < listChat.length; i++) {
+        $.post('http://localhost/facebook/core/ajax/refreshMessages.php', {
+            refreshmsgs: "<?php echo $userid ?>",
+            chatid: listChat[i],
+        }, function(data) {
+            if ($('.messaging_popup[data-chat=' + listChat[i] + ']').length > 0) {
 
-        } else {
-            $('.messaging_popup').html(data);
-            if ($('.popup_chat_area[data-chat=25]').length > 0) {
-                scrolla(25);
+            } else {
+
+                $('.messaging_popup').html(data);
+                if ($('.popup_chat_area[data-chat=' + listChat[i] + ']').length > 0) {
+                    scrolla(listChat[i]);
+
+                }
 
             }
 
-        }
-
-    })
+        })
+    }
 
 }
 
+
 a = setInterval(function() {
-    loadMessages();
+    if (listChat.length > 0) {
+        loadMessages();
+    }
 }, 1000)
 
+
 //--->send messsage-->
+
+//---close chat tab*-->
+$(document).on('click', '#close_chat', function() {
+    var chatid = $(this).data('chat');
+    $('.popup_chat[data-chat=' + chatid + ']').remove();
+})
+
+//---close chat tab*-->
+
 
 //---Scroll to last-->
 
@@ -1362,6 +1408,13 @@ $(document).mouseup(function(e) {
         $(".notifications").hide();
         $('#open_notif').css('background', '#e4e6eb')
         $('#open_notif').find('svg').css('fill', '#000')
+    }
+})
+$(document).mouseup(function(e) {
+    if (!$(e.target).closest('.messages_popup, #open_messages').length) {
+        $(".messages_popup").hide();
+        $('#open_messages').css('background', '#e4e6eb')
+        $('#open_messages').find('.svgmsg').css('fill', '#000')
     }
 })
 
