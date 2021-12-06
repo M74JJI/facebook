@@ -299,6 +299,7 @@
 @media (max-width: 770px) {
     .facebook_middle {
         padding: 0;
-        left: 0;
+        left: 10px;
+        right: -10px;
     }
 }

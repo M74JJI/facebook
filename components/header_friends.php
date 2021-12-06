@@ -1,7 +1,7 @@
 <header>
     <div class="h_left">
         <a href="<?php echo BASE_URL ?>">
-            <img class="fb_logo" src="assets/images/fb_logo.png" alt="">
+            <img class="fb_logo" src="../assets/images/fb_logo.png" alt="">
         </a>
         <div class="search" id="open_search">
             <svg viewBox="0 0 16 16" width="1em" height="1em" fill="#65676b">
@@ -69,7 +69,7 @@
               foreach ($search_history as $search){ ?>
                 <div class="history_item" data-profileid="<?php echo $search->searched_id ?>">
                     <a href="<?php echo BASE_URL.$search->link ?>" class="his_l">
-                        <img src="<?php echo $search->profile_picture ?>" alt="">
+                        <img src="<?php echo BASE_URL.$search->profile_picture ?>" alt="">
                         <span><?php echo $search->first_name.' '.$search->last_name?></span>
                     </a>
                     <div class="rem_ic_h" id="delete_search">
@@ -119,7 +119,7 @@
             Find Friends
         </a>
         <a href="<?php echo BASE_URL.$userInfo->link ?>" class="pic_img_prf hide_bicko">
-            <img src="<?php echo $userInfo->profile_picture ?>" alt="">
+            <img src="<?php echo BASE_URL.$userInfo->profile_picture ?>" alt="">
             <span><?php echo $userInfo->first_name ?></span>
         </a>
         <div style="position:relative;">
@@ -146,42 +146,42 @@
                         <div class="m_ar231">
                             <div class="h2_13">Social</div>
                             <div class="xc748">
-                                <img src="assets/images/home/campus.png" alt="">
+                                <img src="../assets/images/home/campus.png" alt="">
                                 <div class="xc748_2">
                                     <span>Campus</span>
                                     <span>A unique, exclusive space for college students on Facebook.</span>
                                 </div>
                             </div>
                             <div class="xc748">
-                                <img src="assets/images/home/events.png" alt="">
+                                <img src="../assets/images/home/events.png" alt="">
                                 <div class="xc748_2">
                                     <span>Events</span>
                                     <span>Organize or find events and other things to do online and nearby.</span>
                                 </div>
                             </div>
                             <div class="xc748">
-                                <img src="assets/images/home/friends.png" alt="">
+                                <img src="../assets/images/home/friends.png" alt="">
                                 <div class="xc748_2">
                                     <span>Find Friends</span>
                                     <span>Search for friends or people you may know.</span>
                                 </div>
                             </div>
                             <div class="xc748">
-                                <img src="assets/images/home/groups.png" alt="">
+                                <img src="../assets/images/home/groups.png" alt="">
                                 <div class="xc748_2">
                                     <span>Groups</span>
                                     <span>Connect with people who share your interests.</span>
                                 </div>
                             </div>
                             <div class="xc748">
-                                <img src="assets/images/home/feed.png" alt="">
+                                <img src="../assets/images/home/feed.png" alt="">
                                 <div class="xc748_2">
                                     <span>News Feed</span>
                                     <span>See relevant posts from people and Pages you follow.</span>
                                 </div>
                             </div>
                             <div class="xc748">
-                                <img src="assets/images/home/pages.png" alt="">
+                                <img src="../assets/images/home/pages.png" alt="">
                                 <div class="xc748_2">
                                     <span>Pages</span>
                                     <span>Discover and connect with businesses on Facebook.</span>
@@ -194,21 +194,21 @@
                         <div class="m_ar231">
                             <div class="h2_13">Entertainment</div>
                             <div class="xc748">
-                                <img src="assets/images/home/gaming.png" alt="">
+                                <img src="../assets/images/home/gaming.png" alt="">
                                 <div class="xc748_2">
                                     <span>Gaming Video</span>
                                     <span>Watch and connect with your favorite games and streamers.</span>
                                 </div>
                             </div>
                             <div class="xc748">
-                                <img src="assets/images/home/play.png" alt="">
+                                <img src="../assets/images/home/play.png" alt="">
                                 <div class="xc748_2">
                                     <span>Play Games</span>
                                     <span>Play your favorite games.</span>
                                 </div>
                             </div>
                             <div class="xc748">
-                                <img src="assets/images/home/watch.png" alt="">
+                                <img src="../assets/images/home/watch.png" alt="">
                                 <div class="xc748_2">
                                     <span>Watch</span>
                                     <span>A video destination personalized to your interests and connections.</span>
@@ -221,14 +221,14 @@
                         <div class="m_ar231">
                             <div class="h2_13">Shopping</div>
                             <div class="xc748">
-                                <img src="assets/images/home/pay.png" alt="">
+                                <img src="../assets/images/home/pay.png" alt="">
                                 <div class="xc748_2">
                                     <span>Facebook Pay</span>
                                     <span>A seamless, secure way to pay on the apps you already use.</span>
                                 </div>
                             </div>
                             <div class="xc748">
-                                <img src="assets/images/home/marketplace.png" alt="">
+                                <img src="../assets/images/home/marketplace.png" alt="">
                                 <div class="xc748_2">
                                     <span>Marketplace</span>
                                     <span>Buy and sell in your community.</span>
@@ -242,14 +242,14 @@
                             <div class="h2_13">Personal</div>
 
                             <div class="xc748">
-                                <img src="assets/images/home/recent.png" alt="">
+                                <img src="../assets/images/home/recent.png" alt="">
                                 <div class="xc748_2">
                                     <span>Recent Ad Activity</span>
                                     <span>See all the ads you interacted with on Facebook.</span>
                                 </div>
                             </div>
                             <div class="xc748">
-                                <img src="assets/images/home/memories.png" alt="">
+                                <img src="../assets/images/home/memories.png" alt="">
                                 <div class="xc748_2">
                                     <span>Memories</span>
                                     <span>Browse your old photos, videos and posts on Facebook.</span>
@@ -258,7 +258,7 @@
 
 
                             <div class="xc748">
-                                <img src="assets/images/home/saved.png" alt="">
+                                <img src="../assets/images/home/saved.png" alt="">
                                 <div class="xc748_2">
                                     <span>Saved</span>
                                     <span>Find posts, photos and videos that you saved for later.</span>
@@ -266,7 +266,7 @@
                             </div>
 
                             <div class="xc748">
-                                <img src="assets/images/home/weather.png" alt="">
+                                <img src="../assets/images/home/weather.png" alt="">
                                 <div class="xc748_2">
                                     <span>Weather</span>
                                     <span>Check your local forecast and sign up for daily weather notifications.</span>
@@ -281,14 +281,14 @@
                             <div class="h2_13">Professional</div>
 
                             <div class="xc748">
-                                <img src="assets/images/home/ads.png" alt="">
+                                <img src="../assets/images/home/ads.png" alt="">
                                 <div class="xc748_2">
                                     <span>Ads</span>
                                     <span>Create, manage and track the performance of your ads.</span>
                                 </div>
                             </div>
                             <div class="xc748">
-                                <img src="assets/images/home/jobs.png" alt="">
+                                <img src="../assets/images/home/jobs.png" alt="">
                                 <div class="xc748_2">
                                     <span>Jobs</span>
                                     <span>Find a job that's right for you.</span>
@@ -300,14 +300,14 @@
                             </div>
 
                             <div class="xc748">
-                                <img src="assets/images/home/climate.png" alt="">
+                                <img src="../assets/images/home/climate.png" alt="">
                                 <div class="xc748_2">
                                     <span>Climate science center</span>
                                     <span>Learn about climate change and its effects.</span>
                                 </div>
                             </div>
                             <div class="xc748">
-                                <img src="assets/images/home/covid.png" alt="">
+                                <img src="../assets/images/home/covid.png" alt="">
                                 <div class="xc748_2">
                                     <span>COVID-19 Information Center</span>
                                     <span>See the latest prevention tips, community resources and updates from health
@@ -315,7 +315,7 @@
                                 </div>
                             </div>
                             <div class="xc748">
-                                <img src="assets/images/home/community.png" alt="">
+                                <img src="../assets/images/home/community.png" alt="">
                                 <div class="xc748_2">
                                     <span>Community Help</span>
                                     <span>Get involved in your community by creating a drive, requesting or offering
@@ -323,7 +323,7 @@
                                 </div>
                             </div>
                             <div class="xc748">
-                                <img src="assets/images/home/fundraisers.png" alt="">
+                                <img src="../assets/images/home/fundraisers.png" alt="">
                                 <div class="xc748_2">
                                     <span>Fundraisers</span>
                                     <span>Donate and raise money for nonprofits and personal causes.</span>
@@ -336,14 +336,14 @@
                             </div>
 
                             <div class="xc748">
-                                <img src="assets/images/home/messenger.png" alt="">
+                                <img src="../assets/images/home/messenger.png" alt="">
                                 <div class="xc748_2">
                                     <span>Messenger</span>
                                     <span>Chat instantly with your friends and connections.</span>
                                 </div>
                             </div>
                             <div class="xc748">
-                                <img src="assets/images/home/messkids.png" alt="">
+                                <img src="../assets/images/home/messkids.png" alt="">
                                 <div class="xc748_2">
                                     <span>Messenger Kids</span>
                                     <span>Let kids message with close friends and family.</span>
@@ -483,7 +483,7 @@ foreach ($allusers as $last){
      ?>
                     <div class="ms74g" data-userid="<?php echo $userid ?>" data-chat="<?php echo $infos->user_id ?>">
                         <div class="ty415">
-                            <img src="<?php echo $infos->profile_picture ?>" alt="">
+                            <img src="<?php echo BASE_URL.$infos->profile_picture ?>" alt="">
                         </div>
                         <div class="tx45">
                             <span
@@ -536,8 +536,9 @@ foreach ($allusers as $last){
                     <a class="notification" data-notid="<?php echo $notif-> not_id?>"
                         data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
                         <div class="not_image">
-                            <img class="GreyImg" src="<?php echo $notif->profile_picture ?>" alt="">
-                            <img class="sec_img" src="<?php echo 'assets/images/not/'.$notif->icon.'.png' ?>" alt="">
+                            <img class="GreyImg" src="<?php echo BASE_URL.$notif->profile_picture ?>" alt="">
+                            <img class="sec_img" src="<?php echo BASE_URL.'assets/images/not/'.$notif->icon.'.png' ?>"
+                                alt="">
                         </div>
                         <div class="not_infos">
                             <div class="not_who">
@@ -560,8 +561,9 @@ foreach ($allusers as $last){
                     <a class="notification" data-notid="<?php echo $notif-> not_id?>"
                         data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
                         <div class="not_image">
-                            <img class="GreyImg" src="<?php echo $notif->profile_picture ?>" alt="">
-                            <img class="sec_img" src="<?php echo 'assets/images/not/'.$notif->icon.'.png' ?>" alt="">
+                            <img class="GreyImg" src="<?php echo BASE_URL.$notif->profile_picture ?>" alt="">
+                            <img class="sec_img" src="<?php echo BASE_URL.'assets/images/not/'.$notif->icon.'.png' ?>"
+                                alt="">
                         </div>
                         <div class="not_infos">
                             <div class="not_who">
@@ -581,7 +583,7 @@ foreach ($allusers as $last){
                     <a class="notification" data-notid="<?php echo $notif-> not_id?>"
                         data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
                         <div class="not_image">
-                            <img class="GreyImg" src="<?php echo $notif->profile_picture ?>" alt="">
+                            <img class="GreyImg" src="<?php echo BASE_URL.$notif->profile_picture ?>" alt="">
                             <i class="req_iconn"></i>
                         </div>
                         <div class="not_infos">
@@ -605,7 +607,7 @@ foreach ($allusers as $last){
                     <a class="notification" data-notid="<?php echo $notif-> not_id?>"
                         data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
                         <div class="not_image">
-                            <img class="GreyImg" src="<?php echo $notif->profile_picture ?>" alt="">
+                            <img class="GreyImg" src="<?php echo BASE_URL.$notif->profile_picture ?>" alt="">
                             <i class="req_iconn1"></i>
                         </div>
                         <div class="not_infos">
@@ -626,7 +628,7 @@ foreach ($allusers as $last){
                     <a class="notification" data-notid="<?php echo $notif-> not_id?>"
                         data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
                         <div class="not_image">
-                            <img class="GreyImg" src="<?php echo $notif->profile_picture ?>" alt="">
+                            <img class="GreyImg" src="<?php echo BASE_URL.$notif->profile_picture ?>" alt="">
                             <i class="tag1_icon"></i>
                         </div>
                         <div class="not_infos">
@@ -654,8 +656,9 @@ foreach ($allusers as $last){
                         data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
                         <div class="not_image">
                             <img class="GreyImg" style="-webkit-filter: invert(15%);"
-                                src="<?php echo $notif->profile_picture ?>" alt="">
-                            <img class="sec_img" src="<?php echo 'assets/images/not/'.$notif->icon.'.png' ?>" alt="">
+                                src="<?php echo BASE_URL.$notif->profile_picture ?>" alt="">
+                            <img class="sec_img" src="<?php echo BASE_URL.'assets/images/not/'.$notif->icon.'.png' ?>"
+                                alt="">
                         </div>
                         <div class="not_infos" style="color:#65676b">
                             <div class="not_who" style="color:#65676b">
@@ -677,8 +680,9 @@ foreach ($allusers as $last){
                         data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
                         <div class="not_image">
                             <img class="GreyImg" style="-webkit-filter: invert(15%);"
-                                src="<?php echo $notif->profile_picture ?>" alt="">
-                            <img class="sec_img" src="<?php echo 'assets/images/not/'.$notif->icon.'.png' ?>" alt="">
+                                src="<?php echo BASE_URL.$notif->profile_picture ?>" alt="">
+                            <img class="sec_img" src="<?php echo BASE_URL.'assets/images/not/'.$notif->icon.'.png' ?>"
+                                alt="">
                         </div>
                         <div class="not_infos" style="color:#65676b">
                             <div class="not_who" style="color:#65676b">
@@ -697,7 +701,7 @@ foreach ($allusers as $last){
                         data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
                         <div class="not_image">
                             <img class="GreyImg" style="-webkit-filter: invert(15%);"
-                                src="<?php echo $notif->profile_picture ?>" alt="">
+                                src="<?php echo BASE_URL.$notif->profile_picture ?>" alt="">
                             <i class="req_iconn"></i>
                         </div>
                         <div class="not_infos" style="color:#65676b">
@@ -722,7 +726,7 @@ foreach ($allusers as $last){
                         data-postid="<?php echo $notif->postid ?>" data-profileid="<?php echo $notif->not_from ?>">
                         <div class="not_image">
                             <img class="GreyImg" style="-webkit-filter: invert(15%);"
-                                src="<?php echo $notif->profile_picture ?>" alt="">
+                                src="<?php echo BASE_URL.$notif->profile_picture ?>" alt="">
                             <i class="req_iconn1"></i>
                         </div>
                         <div class="not_infos" style="color:#65676b">
@@ -880,7 +884,7 @@ foreach ($allusers as $last){
                 <ul class="menu-bar">
                     <li class="menu_me_wrap">
                         <a href="<?php echo BASE_URL.$userInfo->link ?>" class="menu_me">
-                            <img src="<?php echo $userInfo->profile_picture ?>" alt="">
+                            <img src="<?php echo BASE_URL.$userInfo->profile_picture ?>" alt="">
                             <div class="menu_me_name">
                                 <span><?php echo $userInfo->first_name.' '.$userInfo->last_name;?></span>
                                 <span>See your profile</span>
@@ -940,7 +944,6 @@ foreach ($allusers as $last){
 <div class="popin_dem_chats">
 
 </div>
-
 
 <script>
 $(document).ready(function() {

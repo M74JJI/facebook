@@ -1,4 +1,5 @@
-.friends_holder1 {
+.friends_holder {
+    margin-top: 2rem;
     display: grid;
     overflow-x: hidden;
 }
