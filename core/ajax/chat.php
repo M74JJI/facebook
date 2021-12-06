@@ -14,7 +14,7 @@ if(isset($_POST['popup_chat'])){
     $messageData = $loadPost->messageData($userid,$chatid);
     
  ?>
-<div class="popup_chat" sta-userid="<?php echo $userid; ?>" data-chatid="<?php echo $chatid; ?>">
+<div class="popup_chat" data-userid="<?php echo $userid; ?>" data-chat="<?php echo $chatid; ?>">
     <div class="chat_header">
         <div class="left_popp">
             <img src="<?php echo $chat->profile_picture ?>" alt="">
@@ -28,11 +28,11 @@ if(isset($_POST['popup_chat'])){
             </svg>
         </div>
         <div class="h_m_ic">
-            <i class="fa-solid fa-video" style=" font-size: 17px;"></i>
+            <i class="fa-solid fa-video" style=" font-size: 15px;"></i>
         </div>
-        <div class="h_m_ic"><i class="fa-solid fa-phone" style=" font-size: 17px;"></i></div>
-        <div class="h_m_ic"><i class="fa-solid fa-minus" style=" font-size: 23px;"></i></div>
-        <div class="h_m_ic"><i class="fa-solid fa-xmark" style=" font-size: 23px;"></i></div>
+        <div class="h_m_ic"><i class="fa-solid fa-phone" style=" font-size: 15px;"></i></div>
+        <div class="h_m_ic"><i class="fa-solid fa-minus" style=" font-size: 21px;"></i></div>
+        <div class="h_m_ic"><i class="fa-solid fa-xmark" style=" font-size: 21px;"></i></div>
 
     </div>
     <div class="popup_chat_area">
@@ -133,7 +133,8 @@ if(isset($_POST['popup_chat'])){
             </div>
         </div>
         <div class="m14_right">
-            <input type="text" id="<?php echo 'c-'.$chatid ?>" placeholder="Aa" style="opacity:0">
+            <input type="text" id="light_send" placeholder="Aa" data-userid="<?php echo $userid; ?>"
+                data-chat="<?php echo $chatid; ?>">
         </div>
 
     </div>

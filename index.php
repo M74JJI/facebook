@@ -40,8 +40,13 @@ if(login::isLoggedIn()){
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="assets/dist/emojionearea.css">
+    <link rel="stylesheet" href="assets/emojis/emojis.css">
     <link rel="stylesheet" href="assets/css/home.css" />
+
     <script src="assets/js/jquery.js"></script>
+    <script src="assets/emojis/DisMojiPicker.js"></script>
+
+    <script src="assets/dist/emojionearea.js"></script>
 
 </head>
 
@@ -233,7 +238,7 @@ if(login::isLoggedIn()){
                         </svg>
                         Live Video
                     </div>
-                    <div class="home_choice">
+                    <div class="home_choice" id="open_post_imgs_direct">
                         <svg viewBox="0 0 24 24" width="1.5rem" height="1.5rem" fill="#45bd62">
                             <g fill-rule="evenodd" transform="translate(-444 -156)">
                                 <g>
@@ -1137,7 +1142,7 @@ if(login::isLoggedIn()){
 
         <script src="assets/js/header.js"></script>
 
-        <script src="assets/dist/emojionearea.js"></script>
+
         <script>
         $('#post_textarea').emojioneArea({
 
@@ -1240,9 +1245,6 @@ if(login::isLoggedIn()){
 
                 $('.chat_popup_container').append(data);
 
-                $('#c-' + chatid + '').emojioneArea({
-
-                })
             })
 
         })
@@ -2062,6 +2064,16 @@ if(login::isLoggedIn()){
             })
         })
         //------------Click Outside----------------->
+
+
+        $(document).on('click', '#open_post_imgs_direct', function() {
+            $('#post_box').show();
+            $('.added_ikhe').show();
+            $('#post_imgs_preview').hide();
+            $('.facebook_left').css('opacity', '0.3');
+            $('.facebook_middle').css('opacity', '0.3');
+            $('.facebook_right').css('opacity', '0.3');
+        })
         </script>
 </body>
 

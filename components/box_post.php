@@ -133,10 +133,10 @@ $(document).on('click', '#open-edit-post', function() {
         $('#post_textarea1').emojioneArea({
 
         })
-        $('#post_box1').show();
         $('.facebook_left').css('opacity', '0.3');
         $('.facebook_middle').css('opacity', '0.3');
         $('.facebook_right').css('opacity', '0.3');
+        $('#post_box1').show();
     });
 
 

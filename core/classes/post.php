@@ -182,12 +182,17 @@ class Post extends User{
          return $statement->fetchAll(PDO::FETCH_OBJ);
     }
     public function lastmessages($userid){
-        $statement = $this->pdo->prepare("SELECT * FROM messages LEFT JOIN profile ON 
-        (SELECT IF( messages.receiver =:userid,messages.sender,messages.receiver )) 
-        = profile.user_id LEFT JOIN users ON profile.user_id=users.id
-        WHERE (messages.receiver = 23 OR messages.sender=:userid) 
-        AND profile.user_id !=:userid
-         GROUP BY profile.id ORDER BY messages.messageAt DESC  ");
+        $statement = $this->pdo->prepare("SELECT um.* 
+        from (select um.*,
+                     row_number() over (partition by least(um.sender, um.receiver), greatest(um.sender, um.receiver) order by um.messageAt desc) as seqnum
+              from messages um 
+             ) um
+             
+        where seqnum = 1 AND receiver=:userid or sender=:userid
+        
+        
+        
+        ");
          $statement->bindValue(':userid',$userid,PDO::PARAM_STR);
          $statement->execute();
          return $statement->fetchAll(PDO::FETCH_OBJ);
