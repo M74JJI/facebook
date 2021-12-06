@@ -3,7 +3,7 @@
         <a href="<?php echo BASE_URL ?>">
             <img class="fb_logo" src="assets/images/fb_logo.png" alt="">
         </a>
-        <div class="search">
+        <div class="search" id="open_search">
             <svg viewBox="0 0 16 16" width="1em" height="1em" fill="#65676b">
                 <g fill-rule="evenodd" transform="translate(-448 -544)">
                     <g fill-rule="nonzero">
@@ -22,7 +22,7 @@
                     </g>
                 </g>
             </svg>
-            <input type="text" placeholder="Search Facebook" id="open_search">
+            <input type="text" placeholder="Search Facebook" class="open_search">
         </div>
         <div class="search_results" id="search_results">
             <div class="s_h">
@@ -115,10 +115,10 @@
 
     </div>
     <div class="h_right">
-        <a class="find_friends_btn">
+        <a class="find_friends_btn hide_bicko">
             Find Friends
         </a>
-        <a href="<?php echo BASE_URL.$userInfo->link ?>" class="pic_img_prf">
+        <a href="<?php echo BASE_URL.$userInfo->link ?>" class="pic_img_prf hide_bicko">
             <img src="<?php echo $userInfo->profile_picture ?>" alt="">
             <span><?php echo $userInfo->first_name ?></span>
         </a>
@@ -459,7 +459,7 @@
                     <input type="text" placeholder="Search Facebook">
                 </div>
                 <div class="ms74g">
-                    <div class="ty415">
+                    <div class="ty415" style="width: 65px;">
                         <i class="b454"></i>
                     </div>
                     <div class="tx45">
@@ -1267,8 +1267,7 @@ var t = setInterval(updateList, 1000);
 $(document).on('click', '.ms74g', function() {
     var userid = "<?php echo $userid ?>"
     var chat = $(this).data('chat');
-    console.log(userid)
-    console.log(chat)
+
 
     $.post('http://localhost/facebook/core/ajax/chat.php', {
         popup_chat: chat,
@@ -1279,7 +1278,7 @@ $(document).on('click', '.ms74g', function() {
         } else {
             $('.popin_dem_chats').append(data);
             $('#c-' + chat + '').disMojiPicker()
-
+            scrolla(chat);
 
         }
 
@@ -1304,12 +1303,53 @@ $(document).on('keyup', '#light_send', function(e) {
             $(This).val('')
             $(This).parents('.popu_char_a7em').siblings('.popup_chat_area').find('.messaging_popup')
                 .html(data);
+            scrolla(chatid);
+
         })
     }
 
 })
+
+function loadMessages() {
+
+    $.post('http://localhost/facebook/core/ajax/refreshMessages.php', {
+        refreshmsgs: 23,
+        chatid: 25,
+    }, function(data) {
+        if ($('.messaging_popup[data-chat=25]').length > 0) {
+
+        } else {
+            $('.messaging_popup').html(data);
+            if ($('.popup_chat_area[data-chat=25]').length > 0) {
+                scrolla(25);
+
+            }
+
+        }
+
+    })
+
+}
+
+a = setInterval(function() {
+    loadMessages();
+}, 1000)
+
 //--->send messsage-->
 
+//---Scroll to last-->
+
+function scrolla(chat) {
+
+    var viewheight = $('.popup_chat_area[data-chat=' + chat + ']').height();
+    console.log(viewheight)
+    var totalHeight = $('.popup_chat_area[data-chat=' + chat + ']')[0].scrollHeight;
+    console.log(totalHeight)
+    if (totalHeight > viewheight) {
+        $('.popup_chat_area[data-chat=' + chat + ']').scrollTop(totalHeight - viewheight);
+    }
+}
+//---Scroll to last-->
 
 
 //---->Open from full menu---->

@@ -40,6 +40,7 @@ header {
     border-radius: 50px;
     padding-left: 10px;
     width: 235px;
+    z-index: 999999999999999999999999999999999999999999999999999999999;
 }
 .search input,
 .search1 input {
@@ -54,6 +55,7 @@ header {
     width: 200px;
     height: 37px;
 }
+
 .search_results {
     position: absolute;
     top: 0;
@@ -71,6 +73,7 @@ header {
     transition: all 0.2s;
     padding: 7px 1rem 7px 0;
     display: none;
+    z-index: 999999999999999999999999999999999999999999999999999999999;
 }
 
 .s_h {
@@ -487,6 +490,7 @@ header {
     max-height: 70vh;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
+    display: none;
 }
 .messg_header {
     display: flex;
@@ -633,4 +637,26 @@ header {
     z-index: 9999999999999999999999999999999;
     display: flex;
     gap: 1rem;
+}
+@media (max-width: 1260px) {
+    .open_search {
+        display: none;
+    }
+    .search {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        cursor: pointer;
+    }
+    .search svg {
+        transform: translateX(3px);
+    }
+    .hide_bicko {
+        display: none;
+    }
+}
+@media (max-width: 770px) {
+    .h_middle {
+        display: none;
+    }
 }

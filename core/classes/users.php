@@ -542,6 +542,25 @@ class User{
                   
     }
 
+    public function checkifOpenChat($userid,$chatid){
+
+        $statement=$this->pdo->prepare("SELECT um.* 
+        from (select um.*,
+                     row_number() over (partition by least(um.chat_id, um.user_id), greatest(um.chat_id, um.user_id) order by um.openAt desc) as seqnum
+              from openchat um 
+             ) um
+             
+        where seqnum = 1 AND chat_id=:userid AND user_id=:chatid LIMIT 1");
+        $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+        $statement->bindValue(':chatid',$chatid,PDO::PARAM_INT);
+  
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_OBJ);             
+                  
+    }
+
+
+
 
 
 

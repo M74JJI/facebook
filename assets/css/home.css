@@ -236,3 +236,69 @@
     border-radius: 50%;
     object-fit: cover;
 }
+
+@media (max-width: 1544px) {
+    .facebook_left {
+        width: 300px;
+    }
+    .facebook_middle {
+        left: 400px;
+    }
+    .facebook_right {
+        width: 250px;
+    }
+}
+
+@media (max-width: 1404px) {
+    .facebook_middle {
+        left: 370px;
+    }
+}
+@media (max-width: 1354px) {
+    .facebook_middle {
+        left: 300px;
+    }
+    .facebook_left {
+        width: 220px;
+    }
+}
+@media (max-width: 1314px) {
+    .facebook_middle {
+        left: 240px;
+    }
+}
+@media (max-width: 1220px) {
+    .facebook_middle {
+        width: 600px;
+    }
+}
+@media (max-width: 1128px) {
+    .facebook_left {
+        display: none;
+    }
+    .facebook_middle {
+        left: 3rem;
+        width: 700px;
+    }
+}
+@media (max-width: 1042px) {
+    .facebook_middle {
+        width: 600px;
+    }
+}
+@media (max-width: 930px) {
+    .facebook_right {
+        display: none;
+    }
+    .facebook_middle {
+        width: 100%;
+        position: relative;
+        padding: 1rem 3rem;
+    }
+}
+@media (max-width: 770px) {
+    .facebook_middle {
+        padding: 0;
+        left: 0;
+    }
+}

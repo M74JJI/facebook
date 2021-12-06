@@ -7,12 +7,17 @@ include '../../connect/login.php';
 $userid=login::isLoggedIn();
 
 
-if(isset($_POST['popup_chat'])){
-    $chatid=$_POST['popup_chat'];
+if(isset($_POST['open_chat'])){
+    $chatid=$_POST['open_chat'];
     $userid=$_POST['userid'];
     $chat=$loadUser->getUserInfo($chatid);   
     $messageData = $loadPost->messageData($userid,$chatid);
-    $loadUser->create('openchat',array('user_id'=>$chatid,'chat_id'=>$userid,'openAt'=>date('Y-m-d H:i:s'))); 
+  
+    $check=$loadUser->checkifOpenChat($userid,$chatid);
+
+     if($check->open == 1){
+
+    
     
  ?>
 <div class="popup_chat" data-userid="<?php echo $userid; ?>" data-chat="<?php echo $chatid; ?>">
@@ -140,6 +145,9 @@ if(isset($_POST['popup_chat'])){
 </div>
 
 <?php
+}else{
+    echo 'a77777777a';
 }
+ }
 
 ?>

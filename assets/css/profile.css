@@ -2640,3 +2640,10 @@ li {
     bottom: -8px;
     right: -8px;
 }
+@media (max-width: 770px) {
+    .post {
+        padding: 0;
+        width: 300px;
+        width: 100%;
+    }
+}
