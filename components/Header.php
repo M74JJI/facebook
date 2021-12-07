@@ -1275,8 +1275,10 @@ var t = setInterval(updateList, 1000);
 
 //----open chat -->
 $(document).on('click', '.ms74g', function() {
+    var This = $(this)
     var userid = "<?php echo $userid ?>"
     var chat = $(this).data('chat');
+    $('.messages_popup').hide();
 
 
     $.post('http://localhost/facebook/core/ajax/chat.php', {
@@ -1284,10 +1286,11 @@ $(document).on('click', '.ms74g', function() {
         userid: userid
     }, function(data) {
         if ($('.popup_chat[data-chat=' + chat + ']').length > 0) {
-
+            $(This).find('input#ligh_send[data-chat=' + chat + ']').focus();
         } else {
             $('.popin_dem_chats').append(data);
-            $('#c-' + chat + '').disMojiPicker()
+            $(This).find('input#ligh_send[data-chat=' + chat + ']').focus();
+
             scrolla(chat);
 
         }
@@ -1345,9 +1348,9 @@ function loadMessages() {
 
             } else {
 
-                $('.messaging_popup').html(data);
+                $('.messaging_popup[data-chat=' + listChat[i] + ']').html(data);
                 if ($('.popup_chat_area[data-chat=' + listChat[i] + ']').length > 0) {
-                    scrolla(listChat[i]);
+                    /* scrolla(listChat[i]); */
 
                 }
 
@@ -1375,6 +1378,37 @@ $(document).on('click', '#close_chat', function() {
 })
 
 //---close chat tab*-->
+
+
+//---Blur Chqt Popup----->
+
+
+
+$(document).mouseup(function(e) {
+
+    $(this).find('.chat_header').find('.h_m_ic svg').css('fill', '#bec2c9');
+    $(this).find('.chat_header').find('.h_m_ic svg path').css('fill', '#bec2c9');
+    $(this).find('.chat_header').find('.strokesvg').css('stroke', '#bec2c9');
+    $(this).find('.popu_char_a7em').find('.m24_icon svg').css('fill', '#bec2c9');
+
+
+})
+$(document).on('click', '.popup_chat', function() {
+
+    $(this).find('.chat_header').find('.h_m_ic svg').css('fill', '#1437ef');
+    $(this).find('.chat_header').find('.h_m_ic svg path').css('fill', '#1437ef');
+    $(this).find('.chat_header').find('.strokesvg').css('stroke', '#1437ef');
+    $(this).find('.popu_char_a7em').find('.m24_icon svg').css('fill', '#00b3ff');
+
+
+})
+$(document).on('click', '.popup_chat_area', function() {
+
+    $(this).siblings('.popu_char_a7em').find('.m14_right').find('#light_send').focus()
+})
+
+//---Blur Chqt Popup----->
+
 
 
 //---Scroll to last-->

@@ -1229,10 +1229,7 @@ if(login::isLoggedIn()){
 
         //--------Open Chat--------------------->
         //--------Change svg color->
-        $(document).on('click', '.popup_chat', function() {
 
-            $(this).find('.h_m_ic i').css('color', '#1437ef');
-        })
         //--------Change svg color->
         $(document).on('click', '.contact_tochat', function() {
             var userid = "<?php echo $userid ?>"
@@ -1247,7 +1244,7 @@ if(login::isLoggedIn()){
 
                 } else {
                     $('.popin_dem_chats').append(data);
-
+                    $('#ligh_send[data-chat=' + chatid + ']').focus();
                     scrolla(chatid);
 
                 }

@@ -156,6 +156,7 @@
     border-radius: 50%;
     object-fit: cover;
     align-self: flex-end;
+    margin-right: 5px;
 }
 .timeit {
     margin-top: 5px;
