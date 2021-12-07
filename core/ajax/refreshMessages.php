@@ -25,7 +25,8 @@ if(isset($_POST['refreshmsgs'])){
     </div>
 
 </div>
-<div class="messaging_popup" data-count="<?php echo count($messageData) ?>" data-chat="<?php echo $chatid; ?>"> <?php foreach ($messageData as $i => $message){
+<div class="messaging_popup" data-count="<?php echo count($messageData) ?>" data-chat="<?php echo $chatid; ?>"
+    data-time="<?php echo $chat->last_activity ?>"> <?php foreach ($messageData as $i => $message){
                 if($message->user_id == $userid){ ?> <div class="mess_right">
         <div class="mssssg"><?php echo $message->message ?></div>
         <?php
@@ -91,4 +92,29 @@ if(isset($_POST['refreshmsgs'])){
 
 <?php
 }
+
+if(isset($_POST['update_on_tick'])){
+    $update_on_tick=$_POST['update_on_tick'];
+    $chat=$loadUser->getUserInfo($update_on_tick);   
+    if(time() - strtotime($chat->last_activity)<2){ ?>
+
+<?php }
+
+
+
+
+}
+if(isset($_POST['doiupdateOnline'])){
+    $doiupdateOnline=$_POST['doiupdateOnline'];
+    $time=$_POST['time'];
+    $chat=$loadUser->getUserInfo($doiupdateOnline);   
+    if(strtotime($time) - strtotime($chat->last_activity)>-2){ 
+    echo 'blach';
+}else{}
+
+
+
+
+}
+
 ?>

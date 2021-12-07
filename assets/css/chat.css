@@ -200,3 +200,27 @@
     border-radius: 50%;
     object-fit: cover;
 }
+.active_now_wrap {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 3px;
+    bottom: 2px;
+}
+.active_dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #31a24c;
+}
+.active_now_text {
+    position: absolute;
+    font-size: 13px;
+    font-weight: normal;
+    right: -15px;
+}

@@ -19,7 +19,13 @@ if(isset($_POST['popup_chat'])){
 <div class="popup_chat" data-userid="<?php echo $userid; ?>" data-chat="<?php echo $chatid; ?>">
     <div class="chat_header">
         <div class="left_popp">
-            <img src="<?php echo $chat->profile_picture ?>" alt="">
+            <div style="position: relative;">
+                <img src="<?php echo $chat->profile_picture ?>" alt="">
+                <div class="updatem_online" data-chat="<?php echo $chatid; ?>">
+
+
+                </div>
+            </div>
             <span style="word-break:keep-all;font-weight:500">
                 <?php if(strlen($full_name)>14) {
                     echo substr($full_name,0,13).'...';
@@ -68,7 +74,9 @@ if(isset($_POST['popup_chat'])){
     <div class="popup_chat_area" data-chat="<?php echo $chatid; ?>">
         <div class="ar27_h">
             <img src="<?php echo $chat->profile_picture ?>" alt="">
-            <div class="h27_name" style="word-break:keep-all"><?php echo $chat->first_name.' '.$chat->last_name ?></div>
+
+            <div class="h27_name" style="word-break:keep-all"><?php echo $chat->first_name.' '.$chat->last_name ?>
+            </div>
             <div class="h23_det">
                 You're friends on Facebook
 
@@ -79,7 +87,8 @@ if(isset($_POST['popup_chat'])){
             </div>
 
         </div>
-        <div class="messaging_popup" data-count="<?php echo count($messageData) ?>" data-chat="<?php echo $chatid; ?>"> <?php foreach ($messageData as $i => $message){
+        <div class="messaging_popup" data-count="<?php echo count($messageData) ?>" data-chat="<?php echo $chatid; ?>"
+            data-time="<?php echo $chat->last_activity ?>"> <?php foreach ($messageData as $i => $message){
                 if($message->user_id == $userid){ ?> <div class="mess_right">
                 <div class="mssssg"><?php echo $message->message ?></div>
                 <?php
@@ -200,7 +209,13 @@ if(isset($_POST['popup_chat'])){
     </div>
 </div>
 
+
 <?php
 }
+
+
+
+
+
 
 ?>

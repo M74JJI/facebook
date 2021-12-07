@@ -1368,6 +1368,7 @@ function loadMessages() {
             dataCount: listChat[i],
             profileid: "<?php echo $userid ?>",
         }, function(data) {
+
             if (count == data) {
 
             } else {
@@ -1394,6 +1395,43 @@ a = setInterval(function() {
         loadMessages();
     }
 }, 1000)
+
+a = setInterval(function() {
+
+    if (listChat.length > 0) {
+        updaet_online_tick();
+    }
+}, 1000)
+
+function updaet_online_tick() {
+    for (let i = 0; i < listChat.length; i++) {
+        var time = $('.messaging_popup[data-chat=' + listChat[i] + ']').data('time');
+        $.post('http://localhost/facebook/core/ajax/refreshMessages.php', {
+            doiupdateOnline: listChat[i],
+            time: time,
+        }, function(data) {
+            console.log(data)
+            if (data == 'blach') {
+                console.log(data)
+            } else {
+                $.post('http://localhost/facebook/core/ajax/refreshMessages.php', {
+                    update_on_tick: listChat[i],
+                }, function(data) {
+                    $('.updatem_online[data-chat=' + listChat[i] + ']').html(
+                        '<div class="active_now_wrap"> <div class="active_dot"></div></div>');
+                })
+            }
+        })
+
+
+    }
+}
+
+
+//---Update online in chat----->
+
+
+//---Update online in chat----->
 
 
 //--->send messsage-->
