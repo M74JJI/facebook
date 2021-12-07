@@ -44,7 +44,6 @@ if(login::isLoggedIn()){
     <link rel="stylesheet" href="assets/css/home.css" />
 
     <script src="assets/js/jquery.js"></script>
-    <script src="assets/emojis/DisMojiPicker.js"></script>
 
     <script src="assets/dist/emojionearea.js"></script>
 
@@ -1039,9 +1038,33 @@ if(login::isLoggedIn()){
                         <div class="contact_tochat" data-chatid="<?php echo $friend->user_id ?>">
                             <img src="<?php echo BASE_URL.$friend->profile_picture ?>" alt="">
                             <span> <?php echo $friend->first_name.' '.$friend->last_name ?></span>
+                            <?php
+                            if(time() - strtotime($friend->last_activity)>2){
+                                if(strlen($loadUser->timeAgoAlt($friend->last_activity))<4){
+                                    ?>
+                            <div class="online_tag" style="width:20px">
+                                <span><?php echo $loadUser->timeAgoAlt($friend->last_activity) ?></span>
+                            </div>
+                            <?php
+                                }else{
+                                    ?>
+                            <div class="online_tag">
+                                <span><?php echo $loadUser->timeAgoAlt($friend->last_activity) ?></span>
+                            </div>
+                            <?php
+                                }
+                            }else{ ?>
+                            <div class="online_tag" style="width:15px;height:15px;left:1.8rem">
+                                <div class="green_round_point"></div>
+                            </div>
+                            <?php }
+                            ?>
                         </div>
                         <?php }
                         ?>
+
+
+
 
                     </div>
                 </div>
@@ -1991,6 +2014,26 @@ if(login::isLoggedIn()){
 
             })
         })
+
+        //update contact list->
+        function updateContactsList() {
+            var updateContactList = "<?php echo $userid ?>";
+            $.post('http://localhost/facebook/core/chat/updateContactList.php', {
+                updateContactList: updateContactList,
+            }, function(data) {
+                $('.mm_list_friends').html(data);
+            })
+
+        }
+
+        var updatconList = setInterval(function() {
+            updateContactsList();
+        }, 1000)
+        //update contact list->
+
+
+
+
         //------create collection-->
 
         $(document).on('click', '#open-save-post', function() {

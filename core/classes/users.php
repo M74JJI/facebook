@@ -559,6 +559,13 @@ class User{
                   
     }
 
+    public function updateOnlineStatus($userid){
+        $statement=$this->pdo->prepare("UPDATE users SET last_activity=NOW() WHERE id=:userid");
+        $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+        $statement->execute();
+        
+    }
+
 
 
 

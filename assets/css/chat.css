@@ -124,6 +124,7 @@
 }
 .mess_right {
     float: right;
+    margin-right: 10px;
     clear: both;
     padding-bottom: 20px;
     position: relative;
@@ -174,4 +175,28 @@
     margin-left: 5px;
     border: none;
     outline: none;
+}
+.m14_right {
+    position: relative;
+}
+.m14_right .emojionearea-button {
+    transform: translateY(0) translateX(11rem) !important;
+}
+.m14_right .emojionearea-picker {
+    transform: translateY(1rem) translateX(11rem) !important;
+}
+.m14_right .emojionearea-editor {
+    background: red;
+    transform: translateY(0) translateX(0rem) !important;
+}
+.not_seen {
+    position: absolute;
+    right: -10px;
+    width: 10px;
+}
+.seen_message {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    object-fit: cover;
 }

@@ -157,12 +157,12 @@
 }
 
 .box_area .emojionearea-picker,
-.emojionearea .emojionearea-picker.emojionearea-picker-position-top {
+.box_area .emojionearea .emojionearea-picker.emojionearea-picker-position-top {
     position: absolute !important;
     top: 7.5rem !important;
 }
 .box_area .textarea_post,
-.emojionearea {
+.box_area .emojionearea {
     resize: none !important;
     flex: 1 !important;
     font-family: inherit !important;
@@ -174,7 +174,7 @@
 }
 
 .box_area .textarea_post,
-.emojionearea {
+.box_area .emojionearea {
     border: none !important;
     box-shadow: none !important;
 }
@@ -218,6 +218,7 @@
     background: #e4e6eb;
 }
 .contact_tochat {
+    position: relative;
     display: flex;
     align-items: center;
     column-gap: 10px;
@@ -302,4 +303,29 @@
         left: 10px;
         right: -10px;
     }
+}
+.online_tag {
+    position: absolute;
+    bottom: 0;
+    left: 1.6rem;
+    background: #f0f2f5;
+    height: 20px;
+    width: 25px;
+    border-radius: 50%;
+    font-size: 0.625rem;
+    font-weight: bold;
+    color: #31a24c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.online_tag span {
+    display: inline-block;
+    text-align: center;
+}
+.green_round_point {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #31a24c;
 }

@@ -1290,7 +1290,12 @@ $(document).on('click', '.ms74g', function() {
         } else {
             $('.popin_dem_chats').append(data);
             $(This).find('input#ligh_send[data-chat=' + chat + ']').focus();
+            $('#ligh_send[data-chat=' + chat + ']').emojioneArea({
 
+            });
+            /*$('#light_send').emojioneArea({
+                position: 'right',
+            })*/
             scrolla(chat);
 
         }
@@ -1322,7 +1327,7 @@ $(document).on('keyup', '#light_send', function(e) {
     }
 
 })
-var listChat = [];
+
 
 $(document).on('click', '.ms74g', function() {
     var chatid = $(this).data('chat');
@@ -1337,25 +1342,46 @@ $(document).on('click', '.contact_tochat', function() {
 
 })
 
+
+
+//update last activity to update online offlien status-->
+
+function updateOnlineStatus() {
+    var userid = "<?php echo $userid ?>";
+
+    $.post('http://localhost/facebook/core/ajax/online.php', {
+        online: userid,
+    }, function(data) {
+
+    })
+}
+var online = setInterval(updateOnlineStatus, 2000);
+
+//update last activity to update online offlien status-->
+var listChat = [];
+
 function loadMessages() {
 
     for (let i = 0; i < listChat.length; i++) {
-        $.post('http://localhost/facebook/core/ajax/refreshMessages.php', {
-            refreshmsgs: "<?php echo $userid ?>",
-            chatid: listChat[i],
+        var count = $('.messaging_popup[data-chat = ' + listChat[i] + ']').data('count');
+        $.post('http://localhost/facebook/core/ajax/message.php', {
+            dataCount: listChat[i],
+            profileid: "<?php echo $userid ?>",
         }, function(data) {
-            if ($('.messaging_popup[data-chat=' + listChat[i] + ']').length > 0) {
+            if (count == data) {
 
             } else {
+                $.post('http://localhost/facebook/core/ajax/refreshMessages.php', {
+                    refreshmsgs: "<?php echo $userid ?>",
+                    chatid: listChat[i],
 
-                $('.messaging_popup[data-chat=' + listChat[i] + ']').html(data);
-                if ($('.popup_chat_area[data-chat=' + listChat[i] + ']').length > 0) {
-                    /* scrolla(listChat[i]); */
+                }, function(data) {
+                    $('.popup_chat_area[data-chat=' + listChat[i] + ']').html(data);
+                    scrolla(listChat[i]);
 
-                }
 
+                })
             }
-
         })
     }
 
@@ -1363,6 +1389,7 @@ function loadMessages() {
 
 
 a = setInterval(function() {
+
     if (listChat.length > 0) {
         loadMessages();
     }
@@ -1413,6 +1440,7 @@ $(document).on('click', '.popup_chat_area', function() {
 
 //---Scroll to last-->
 
+
 function scrolla(chat) {
 
     var viewheight = $('.popup_chat_area[data-chat=' + chat + ']').height();
@@ -1424,6 +1452,11 @@ function scrolla(chat) {
     }
 }
 //---Scroll to last-->
+
+
+
+
+
 
 
 //---->Open from full menu---->

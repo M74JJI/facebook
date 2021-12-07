@@ -206,7 +206,7 @@ class Post extends User{
     }
     public function messageData($userid,$lastPersonId){
       
-        $statement = $this->pdo->prepare("SELECT * FROM messages LEFT JOIN profile ON profile.user_id = messages.sender WHERE 
+        $statement = $this->pdo->prepare("SELECT * FROM messages LEFT JOIN profile ON profile.user_id = messages.sender LEFT JOIN users ON users.id = messages.sender WHERE 
         (receiver =:userid and sender=:lastPersonId) OR (receiver =:lastPersonId and sender=:userid)
          ORDER BY messages.messageAT ASC");
          $statement->bindValue(':userid',$userid,PDO::PARAM_STR);
