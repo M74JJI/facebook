@@ -1427,7 +1427,8 @@ function updaet_online_tick() {
                     update_on_tick: listChat[i],
                 }, function(data) {
                     $('.updatem_online[data-chat=' + listChat[i] + ']').html(
-                        '<div class="active_now_wrap"> <div class="active_dot"></div></div>');
+                        '<div class="active_now_wrap"> <div class="active_dot"></div><span class="active_text">Active now</span></div>'
+                        );
                 })
             }
         })

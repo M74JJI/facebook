@@ -224,3 +224,161 @@
     font-weight: normal;
     right: -15px;
 }
+.chat_popup_menu {
+    background: #fff;
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 8px 15px -2px rgba(0, 0, 0, 0.4);
+    box-shadow: 2px 8px 15px -2px rgba(0, 0, 0, 0.4);
+    height: 500px;
+    width: 350px;
+    padding: 15px;
+    transform: translateX(-15rem);
+}
+.chat_menu_a7a {
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+}
+.chat_menu_a7a:hover {
+    background: #eee;
+}
+.messenger_icona {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/fexxU9-Z_HC.png');
+    background-position: 0px -307px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(30%);
+}
+.get_icona {
+    -webkit-filter: invert(30%);
+    background-image: url('https://www.facebook.com/rsrc.php/v3/ym/r/1vH_aI33dQX.png');
+    background-position: 0px -42px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.profile_icona {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/fexxU9-Z_HC.png');
+    background-position: 0px -895px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(30%);
+}
+.color_icona {
+    -webkit-filter: invert(30%);
+    background-image: url('https://www.facebook.com/rsrc.php/v3/ym/r/1vH_aI33dQX.png');
+    background-position: 0px -21px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.emoji_icona {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/ym/r/1vH_aI33dQX.png');
+    background-position: 0px -63px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(30%);
+}
+.nickc_icona {
+    -webkit-filter: invert(30%);
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/fexxU9-Z_HC.png');
+    background-position: 0px -769px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.group_icona {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/ym/r/1vH_aI33dQX.png');
+    background-position: 0px -105px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(30%);
+}
+.not_icona {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/fexxU9-Z_HC.png');
+    background-position: 0px -349px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(30%);
+}
+.ign_icona {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/fexxU9-Z_HC.png');
+    background-position: 0px -1084px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(30%);
+}
+.block_icona {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yt/r/fexxU9-Z_HC.png');
+    background-position: 0px -580px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(30%);
+}
+.del_icona {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yt/r/fexxU9-Z_HC.png');
+    background-position: 0px -1063px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(30%);
+}
+.wr_icona {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yt/r/fexxU9-Z_HC.png');
+    background-position: 0px -559px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(30%);
+}
+.line_br {
+    width: 320px;
+    height: 1px;
+    padding: 0 10px;
+    background: #ced0d4;
+}
+.active_text {
+    position: absolute;
+    right: -85px;
+    width: 70px;
+    top: 7px;
+    word-break: keep-all;
+    font-size: 12px;
+}

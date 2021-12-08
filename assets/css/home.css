@@ -203,7 +203,9 @@
     margin-top: 10px;
     border-bottom: 1px solid #ced0d4;
     overflow-y: auto;
-    margin-bottom: 10px;
+    padding-bottom: 20px;
+    min-height: 100%;
+    max-height: 91vh;
 }
 .micon {
     width: 35px;
