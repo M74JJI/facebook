@@ -116,6 +116,7 @@ if(isset($_POST['dataCount'])){
     $chatid = $_POST['dataCount'];
     $userid=$_POST['profileid'];
     $messageData = $loadPost->messageData($userid,$chatid);
+    
     echo count($messageData);
  
 }

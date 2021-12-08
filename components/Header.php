@@ -971,10 +971,6 @@ $(document).ready(function() {
 
 
 
-
-
-
-
 $(document).on('click', '#open_search', function() {
     $('#search_results').show();
     $('#search_input').focus()
@@ -1032,7 +1028,7 @@ $(document).on('click', '#searched_user', function() {
         search_id: search_id,
         userid: userid
     }, function(data) {
-        console.log(data);
+
     })
 })
 
@@ -1040,14 +1036,14 @@ $(document).on('click', '#searched_user', function() {
 $(document).on('click', '.his_l', function() {
     var profileid = $(this).parents('.history_item').data('profileid');
     var userid = "<?php echo $userid ?>";
-    console.log(profileid)
+
 
 
     $.post('http://localhost/facebook/core/ajax/search.php', {
         updatesearchdate: profileid,
         userid: userid
     }, function(data) {
-        console.log(data)
+
 
     })
 })
@@ -1096,7 +1092,7 @@ $(document).on('click', '#not_accept', function() {
         Confirmrequest: profileid,
         userid: userid
     }, function(data) {
-        console.log(data)
+
         $(This).parents('.notification').hide();
     })
 })
@@ -1376,6 +1372,13 @@ function loadMessages() {
         }, function(data) {
 
             if (count == data) {
+                $.post('http://localhost/facebook/core/chat/updateSeen.php', {
+                    update_seen: listChat[i],
+                    userid: "<?php echo $userid ?>"
+                }, function(data) {
+
+                    $('.update_seen_or[data-chat=' + listChat[i] + ']').html(data);
+                })
 
             } else {
                 $.post('http://localhost/facebook/core/ajax/refreshMessages.php', {
@@ -1416,7 +1419,7 @@ function updaet_online_tick() {
             doiupdateOnline: listChat[i],
             time: time,
         }, function(data) {
-            console.log(data)
+
             if (data == 'blach') {
 
             } else {
@@ -1465,7 +1468,7 @@ $(document).on('click', '#close_chat', function() {
             offlinechatid: chatid,
             userid: "<?php echo $userid ?>",
         }, function(data) {
-            console.log(data)
+
         })
     }
 })
@@ -1510,9 +1513,9 @@ $(document).on('click', '.popup_chat_area', function() {
 function scrolla(chat) {
 
     var viewheight = $('.popup_chat_area[data-chat=' + chat + ']').height();
-    console.log(viewheight)
+
     var totalHeight = $('.popup_chat_area[data-chat=' + chat + ']')[0].scrollHeight;
-    console.log(totalHeight)
+
     if (totalHeight > viewheight) {
         $('.popup_chat_area[data-chat=' + chat + ']').scrollTop(totalHeight - viewheight);
     }

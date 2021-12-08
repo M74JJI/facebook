@@ -1178,7 +1178,7 @@ if(login::isLoggedIn()){
             $.post('http://localhost/facebook/core/chat/update0to1.php', {
                 update0to1: "<?php echo $userid ?>"
             }, function(data) {
-                console.log(data)
+
             })
 
         })
@@ -1369,7 +1369,7 @@ if(login::isLoggedIn()){
         function mainReactSubmit(typeR, postId, userId, profileId, nf_3) {
 
 
-            console.log(nf_3)
+
             $.post('http://localhost/facebook/core/ajax/react.php', {
                 reactType: typeR,
                 postId: postId,
@@ -1608,7 +1608,7 @@ if(login::isLoggedIn()){
         $(document).on('click', '.com-react-icon', function() {
             var com_bundle = $(this).parents('.com-react-bundle-wrap');
             var commentid = $(com_bundle).data('commentid');
-            console.log('commentid--->', commentid);
+
             var likeReact = $(this).parent();
             comReactApply(likeReact, commentid);
         })
@@ -1630,7 +1630,7 @@ if(login::isLoggedIn()){
             } else if ($(sClass).hasClass('com-angry-react-click')) {
                 comReactSub('angry', commentid);
             } else {
-                console.log('not found');
+
             }
 
         }
@@ -1648,7 +1648,7 @@ if(login::isLoggedIn()){
             var com_nf_3 = $(grandParent).parent('.com-react').siblings('.com-text-option-wrap').find(
                 '.com-nf-3-wrap');
 
-            console.log('ahiooooo--->', com_nf_3);
+
 
 
             if ($(spanClass).attr('class') !== undefined) {
@@ -1671,22 +1671,22 @@ if(login::isLoggedIn()){
         }
 
         $(document).on('click', '.com-like-action-text', function() {
-            console.log('rrrrrr')
+
             var thisParents = $(this).parents('.com-rlike-react');
-            console.log('adadadad', thisParents);
+
             var postid = $(thisParents).data('postid');
-            console.log('postid->', postid);
+
             var userid = $(thisParents).data('userid');
             var profileid = $(thisParents).data('profileid');
             var commentid = $(thisParents).data('commentid');
-            console.log('commentid->', commentid);
+
             var typeText = $(thisParents).find('.com-like-action-text');
             var typeR = $(typeText).text();
             var com_nf_3 = $(thisParents).parents('.com-react').siblings(
                     '.com-text-option-wrap')
                 .find(
                     '.com-nf-3-wrap');
-            console.log('ahiooooo--->', com_nf_3);
+
 
             var spanClass = $(thisParents).find('.com-like-action-text').find('span');
             if ($(spanClass).attr('class') !== undefined) {
@@ -1712,7 +1712,7 @@ if(login::isLoggedIn()){
                 },
                 function(data) {
                     $(com_nf_3).empty().html(data);
-                    console.log(data);
+
                 });
 
         }
@@ -1728,7 +1728,7 @@ if(login::isLoggedIn()){
                 },
                 function(data) {
                     $(com_nf_3).empty().html(data);
-                    console.log(data);
+
                 });
 
         }
@@ -1777,7 +1777,7 @@ if(login::isLoggedIn()){
             var commentid = $(this).data('commentid');
             var editedText = $(this).siblings('status-prof-textarea').find('.editCom');
             var editedTextVal = $(editedText).val();
-            console.log(editedTextVal)
+
             $.post('http://localhost/facebook/core/ajax/editComment.php', {
                 postid: postid,
                 userid: userid,
@@ -1838,7 +1838,7 @@ if(login::isLoggedIn()){
                 postid: postid,
                 userid: userid,
             }, function(data) {
-                console.log(data)
+
 
             })
 
@@ -1905,9 +1905,7 @@ if(login::isLoggedIn()){
                     var This = $(this);
                     var msg = $(this).html();
                     var msgg = msg.slice(0, -15);
-                    console.log(useridd)
-                    console.log(chatidd)
-                    console.log(msg)
+
                     var blasa = $(this).parents('.popu_char_a7em')
                         .siblings('.popup_chat_area')
                         .find('.messaging_popup');
@@ -1922,7 +1920,7 @@ if(login::isLoggedIn()){
                         },
                         success: function(data) {
                             $(blasa).html(data);
-                            console.log(data)
+
                             /* 
                              loadUser();
                              console.log(data);
@@ -2021,7 +2019,7 @@ if(login::isLoggedIn()){
                 },
                 success: function(data) {
                     $('.save-popup').hide();
-                    console.log(data)
+
 
                 }
 
@@ -2065,7 +2063,7 @@ if(login::isLoggedIn()){
         //---------Show more--->
         $(document).on('click', '.show_more_com', function() {
             var This = $(this);
-            console.log('a7a')
+
             var slicer = 6;
             var postid = $(this).data('postid');
 
@@ -2087,8 +2085,7 @@ if(login::isLoggedIn()){
         $(document).on('click', '#delete_post', function() {
             var postid = $(this).data('postid');
             var userid = $(this).data('userid');
-            console.log(postid)
-            console.log(userid)
+
             $.post('http://localhost/facebook/core/ajax/deletePost.php', {
                 delete_post: postid,
                 userid: userid,
