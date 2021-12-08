@@ -960,7 +960,13 @@ $('#lala').click(function() {
 
 
 
-
+//------>reset Online----->
+$(document).ready(function() {
+    $.post('http://localhost/facebook/core/chat/resetOnline.php', {
+        resetOnline: "<?php echo $userid ?>"
+    })
+})
+//------>reset Online----->
 
 
 

@@ -17,6 +17,8 @@ if(isset($_POST['popup_chat'])){
     $checkk=$loadUser->checkIfOnlineExist($userid,$chatid);
    if($checkk->total==0){
     $loadUser->create('online',array('user_id'=>$userid,'chat_id'=>$chatid,'status'=>1));
+   }else{
+    $loadUser->updateOnlinetoOnline($userid,$chatid);
    }
     $lastMessage = $loadUser->getLastMsgSendByUser($userid,$chatid);
  

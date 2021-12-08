@@ -10,10 +10,14 @@ if(isset($_POST['useridMsg'])){
     $chatid=$_POST['chatid'];
     $msg=$_POST['msg'];
     $a7a=$loadUser->getUserInfo($chatid);
+    $online=$loadUser->getOnlineStatus($chatid,$userid);
 
-    if(time()- strtotime($a7a->last_activity)<2){
-        $loadUser->create('messages',array('message'=>$msg,'sender'=>$userid,'receiver'=>$chatid,'status'=>1,'messageAt'=>date('Y-m-d H:i:s')));
+    if(time()- strtotime($a7a->last_activity)<2 && $online->status==1){
+        $loadUser->create('messages',array('message'=>$msg,'sender'=>$userid,'receiver'=>$chatid,'status'=>2,'messageAt'=>date('Y-m-d H:i:s')));
+    }else if(time()- strtotime($a7a->last_activity)<2 && $online->status==0){
+        $loadUser->create('messages',array('message'=>$msg,'sender'=>$userid,'status'=>1,'receiver'=>$chatid,'messageAt'=>date('Y-m-d H:i:s')));
     }else{
+        
         $loadUser->create('messages',array('message'=>$msg,'sender'=>$userid,'status'=>0,'receiver'=>$chatid,'messageAt'=>date('Y-m-d H:i:s')));
     }
     
