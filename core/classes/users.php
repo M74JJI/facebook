@@ -565,7 +565,88 @@ class User{
         $statement->execute();
         
     }
+    public function getLastMsgSendByUser($userid,$chatid){
+        $statement=$this->pdo->prepare("SELECT * FROM messages WHERE sender=:userid AND receiver=:chatid ORDER BY messageAt DESC LIMIT 1");
+        $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+        $statement->bindValue(':chatid',$chatid,PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_OBJ);
+        
+    }
 
+   
+    public function getChatList($userid){
+        $statement=$this->pdo->prepare("SELECT DISTINCT messages.sender FROM messages WHERE sender!=:userid");
+        $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_OBJ);
+        
+    }
+
+    public function update0to1all($userid,$list){
+       
+        foreach($list as $l){
+            $statement=$this->pdo->prepare("UPDATE messages SET status=1 WHERE receiver=:userid AND sender=:chat ORDER BY messageAt DESC
+            LIMIT 1");
+            $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement->bindValue(':chat',$l->sender);
+            $statement->execute();
+        }
+       
+        
+    }
+    public function updateOnlinetoOffline($userid,$list){
+       
+        foreach($list as $l){
+            $statement=$this->pdo->prepare("UPDATE online SET status=0 WHERE user_id=:userid AND chat_id=:chat ");
+            $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement->bindValue(':chat',$l->sender);
+            $statement->execute();
+        }
+       
+        
+    }
+    public function update1to2($msg){
+       
+      
+            $statement=$this->pdo->prepare("UPDATE messages SET status=2 WHERE msg_id=:msg");
+            $statement->bindValue(':msg',$msg,PDO::PARAM_INT);
+
+            $statement->execute();
+        
+       
+        
+    }
+    public function updateOnlineMsg($msg){
+       
+      
+            $statement=$this->pdo->prepare("UPDATE messages SET online=1 WHERE msg_id=:msg");
+            $statement->bindValue(':msg',$msg,PDO::PARAM_INT);
+
+            $statement->execute();
+        
+       
+        
+    }
+    public function updateOnlineMsg0($msg){
+       
+      
+            $statement=$this->pdo->prepare("UPDATE messages SET online=0 WHERE msg_id=:msg");
+            $statement->bindValue(':msg',$msg,PDO::PARAM_INT);
+
+            $statement->execute();
+        
+       
+        
+    }
+
+    public function checkIfOnlineExist($userid,$chatid){
+            $statement=$this->pdo->prepare("SELECT count(*) as total FROM online WHERE user_id=:userid AND chat_id=:chatid");
+            $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement->bindValue(':chatid',$chatid,PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_OBJ); 
+    }
 
 
 

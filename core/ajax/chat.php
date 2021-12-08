@@ -14,7 +14,12 @@ if(isset($_POST['popup_chat'])){
     $messageData = $loadPost->messageData($userid,$chatid);
     $loadUser->create('openchat',array('user_id'=>$chatid,'chat_id'=>$userid,'openAt'=>date('Y-m-d H:i:s'))); 
     $full_name=$chat->first_name.' '.$chat->last_name; 
-    
+    $checkk=$loadUser->checkIfOnlineExist($userid,$chatid);
+   if($checkk->total==0){
+    $loadUser->create('online',array('user_id'=>$userid,'chat_id'=>$chatid,'status'=>1));
+   }
+    $lastMessage = $loadUser->getLastMsgSendByUser($userid,$chatid);
+ 
  ?>
 <div class="popup_chat" data-userid="<?php echo $userid; ?>" data-chat="<?php echo $chatid; ?>">
     <div class="chat_header">
@@ -98,40 +103,49 @@ if(isset($_POST['popup_chat'])){
                 <div class="timeit"><?php echo $loadUser->timeAgoAlt($message->messageAt) ?></div>
 
                 <?php }else{}
+                    if($lastMessage->msg_id == $message->msg_id && $i==count($messageData)-1){
                 ?>
-                <?php
-                if($i==count($messageData)-1 && time() - strtotime($chat->last_activity)>2){ ?>
-                <div class="not_seen">
-                    <svg fill="#cdd0d3" height="14px" width="14px" viewBox="2 2 20 20" role="img"
-                        data-testid="message_delivery_state_sent" xmlns="http://www.w3.org/2000/svg">
-                        <title>Sent</title>
-                        <path
-                            d="m12 2a10 10 0 1 0 10 10 10.011 10.011 0 0 0 -10-10zm0 18.5a8.5 8.5 0 1 1 8.5-8.5 8.51 8.51 0 0 1 -8.5 8.5z">
-                        </path>
-                        <path
-                            d="m15.982 8.762-5.482 5.487-2.482-2.478a.75.75 0 0 0 -1.06 1.06l3.008 3.008a.748.748 0 0 0 1.06 0l6.016-6.016a.75.75 0 0 0 -1.06-1.061z">
-                        </path>
-                    </svg>
+                <div class="update_seen_or" data-chat="<?php echo $chatid ?>">
+                    <?php
+                    if($lastMessage->status ==0){
+                        ?>
+                    <div class="not_seen">
+                        <svg fill="#cdd0d3" height="14px" width="14px" viewBox="2 2 20 20" role="img"
+                            data-testid="message_delivery_state_sent" xmlns="http://www.w3.org/2000/svg">
+                            <title>Sent</title>
+                            <path
+                                d="m12 2a10 10 0 1 0 10 10 10.011 10.011 0 0 0 -10-10zm0 18.5a8.5 8.5 0 1 1 8.5-8.5 8.51 8.51 0 0 1 -8.5 8.5z">
+                            </path>
+                            <path
+                                d="m15.982 8.762-5.482 5.487-2.482-2.478a.75.75 0 0 0 -1.06 1.06l3.008 3.008a.748.748 0 0 0 1.06 0l6.016-6.016a.75.75 0 0 0 -1.06-1.061z">
+                            </path>
+                        </svg>
 
+                    </div>
+                    <?php
+                    }else if($lastMessage->status==1){
+                        ?>
+                    <div class="not_seen">
+                        <svg fill="#cdd0d3" height="14px" width="14px" viewBox="2 2 20 20" role="img"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <title>Delivered</title>
+                            <path
+                                d="m12 2a10 10 0 1 0 10 10 10.011 10.011 0 0 0 -10-10zm5.219 8-6.019 6.016a1 1 0 0 1 -1.414 0l-3.005-3.008a1 1 0 1 1 1.419-1.414l2.3 2.3 5.309-5.31a1 1 0 1 1 1.41 1.416z">
+                            </path>
+                        </svg>
+                    </div>
+                    <?php
+                    }else if($lastMessage->status==2){
+                        ?>
+                    <div class="not_seen">
+                        <img class="seen_message" src="<?php echo BASE_URL.$chat->profile_picture ?>" alt="">
+                    </div>
+                    <?php
+                    }
+                     
+                     ?>
                 </div>
-                <?php }else if( time() - strtotime($chat->last_activity)<2 && $message->status == 0){ ?>
-                <div class="not_seen">
-                    <svg fill="#cdd0d3" height="14px" width="14px" viewBox="2 2 20 20" role="img"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <title>Delivered</title>
-                        <path
-                            d="m12 2a10 10 0 1 0 10 10 10.011 10.011 0 0 0 -10-10zm5.219 8-6.019 6.016a1 1 0 0 1 -1.414 0l-3.005-3.008a1 1 0 1 1 1.419-1.414l2.3 2.3 5.309-5.31a1 1 0 1 1 1.41 1.416z">
-                        </path>
-                    </svg>
-                </div>
-
-                <?php } else if($message->status ==1){  ?>
-                <div class="not_seen">
-                    <img class="seen_message" src="<?php echo BASE_URL.$chat->profile_picture ?>" alt="">
-                </div>
-                <?php }
-                ?>
-
+                <?php } ?>
             </div>
 
             <?php  }else{ ?>

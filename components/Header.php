@@ -1412,7 +1412,7 @@ function updaet_online_tick() {
         }, function(data) {
             console.log(data)
             if (data == 'blach') {
-                console.log(data)
+
             } else {
                 $.post('http://localhost/facebook/core/ajax/refreshMessages.php', {
                     update_on_tick: listChat[i],
@@ -1434,12 +1434,34 @@ function updaet_online_tick() {
 //---Update online in chat----->
 
 
+//-----Update Seen Status------->
+function updateSeenOrNot() {
+
+}
+//-----Update Seen Status------->
+
+
+
+
+
+
+
 //--->send messsage-->
 
 //---close chat tab*-->
 $(document).on('click', '#close_chat', function() {
     var chatid = $(this).data('chat');
     $('.popup_chat[data-chat=' + chatid + ']').remove();
+    var index = listChat.indexOf(chatid);
+    if (index > -10) {
+        listChat.splice(index, 1)
+        $.post('http://localhost/facebook/core/chat/offline.php', {
+            offlinechatid: chatid,
+            userid: "<?php echo $userid ?>",
+        }, function(data) {
+            console.log(data)
+        })
+    }
 })
 
 //---close chat tab*-->

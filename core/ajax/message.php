@@ -9,9 +9,13 @@ if(isset($_POST['useridMsg'])){
     $userid = $_POST['useridMsg'];
     $chatid=$_POST['chatid'];
     $msg=$_POST['msg'];
+    $a7a=$loadUser->getUserInfo($chatid);
 
-    
-    $loadUser->create('messages',array('message'=>$msg,'sender'=>$userid,'receiver'=>$chatid,'messageAt'=>date('Y-m-d H:i:s')));
+    if(time()- strtotime($a7a->last_activity)<2){
+        $loadUser->create('messages',array('message'=>$msg,'sender'=>$userid,'receiver'=>$chatid,'status'=>1,'messageAt'=>date('Y-m-d H:i:s')));
+    }else{
+        $loadUser->create('messages',array('message'=>$msg,'sender'=>$userid,'status'=>0,'receiver'=>$chatid,'messageAt'=>date('Y-m-d H:i:s')));
+    }
     
     $messageData = $loadPost->messageData($userid,$chatid);
      foreach ($messageData as $i => $message){

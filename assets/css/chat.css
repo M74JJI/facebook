@@ -201,8 +201,8 @@
     object-fit: cover;
 }
 .active_now_wrap {
-    width: 13px;
-    height: 13px;
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
     background: #fff;
     display: flex;
@@ -213,8 +213,8 @@
     bottom: 2px;
 }
 .active_dot {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: #31a24c;
 }

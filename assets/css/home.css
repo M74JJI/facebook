@@ -324,8 +324,8 @@
     text-align: center;
 }
 .green_round_point {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: #31a24c;
 }

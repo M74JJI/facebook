@@ -1173,6 +1173,17 @@ if(login::isLoggedIn()){
 
 
 
+        //--Update Seen Status from 0 to 1 For all messages receiver------------------->
+        $(document).ready(function() {
+            $.post('http://localhost/facebook/core/chat/update0to1.php', {
+                update0to1: "<?php echo $userid ?>"
+            }, function(data) {
+                console.log(data)
+            })
+
+        })
+
+        //--Update Seen Status from 0 to 1 For all messages receiver------------------->
 
 
 
@@ -1262,13 +1273,16 @@ if(login::isLoggedIn()){
                 popup_chat: chatid,
                 userid: userid,
             }, function(data) {
-
                 if ($('.popup_chat[data-chat=' + chatid + ']').length > 0) {
 
                 } else {
                     $('.popin_dem_chats').append(data);
-                    $('#ligh_send[data-chat=' + chatid + ']').focus();
+
+                    //  $('#ligh_send[data-chat=' + chatid + ']').focus();*/
                     scrolla(chatid);
+                    $('#ligh_send[data-chat=' + chatid + ']').emojioneArea({
+
+                    });
 
                 }
             })

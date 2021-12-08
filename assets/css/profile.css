@@ -1034,6 +1034,7 @@ li {
     background: #f0f2f5;
 }
 .post_text {
+    display:flex;
     padding: 10px;
 }
 .post_images {
