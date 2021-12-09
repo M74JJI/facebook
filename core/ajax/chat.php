@@ -113,7 +113,7 @@ if(isset($_POST['popup_chat'])){
             </svg>
             <?php
 
-              }else{ ?>
+              }else if($nickname != '' && $nickname->chat_nickname != NULL && $nickname->chat_nickname != ''){ ?>
             <span style="word-break:keep-all;font-weight:500;">
                 <?php if(strlen($nickname->chat_nickname)>14) {
                     echo substr($nickname->chat_nickname,0,13).'...';
@@ -126,7 +126,22 @@ if(isset($_POST['popup_chat'])){
                     d="M1 2.414A1 1 0 012.414 1L8.293 6.88a1 1 0 001.414 0L15.586 1A1 1 0 0117 2.414L9.707 9.707a1 1 0 01-1.414 0L1 2.414z">
                 </path>
             </svg>
-            <?php }
+            <?php }else{
+          ?>
+            <span style="word-break:keep-all;font-weight:500">
+                <?php if(strlen($full_name)>13) {
+                  echo substr($full_name,0,13).'...';
+              } else{
+               echo $full_name;
+              } ?>
+            </span>
+            <svg class="hnxzwevs" width="10px" height="10px" viewBox="0 0 18 10">
+                <path fill="var(--primary-text)" fill-rule="evenodd" clip-rule="evenodd"
+                    d="M1 2.414A1 1 0 012.414 1L8.293 6.88a1 1 0 001.414 0L15.586 1A1 1 0 0117 2.414L9.707 9.707a1 1 0 01-1.414 0L1 2.414z">
+                </path>
+            </svg>
+            <?php
+            }
             ?>
 
 
