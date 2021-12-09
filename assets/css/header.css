@@ -40,7 +40,7 @@ header {
     border-radius: 50px;
     padding-left: 10px;
     width: 235px;
-    z-index: 999999999999999999999999999999999999999999999999999999999;
+    z-index: 99999999;
 }
 .search input,
 .search1 input {
@@ -635,11 +635,12 @@ header {
     position: fixed;
     right: 3rem;
     bottom: 0;
-    z-index: 9999999999999999999999999999999;
+    z-index: 9999999;
     display: flex;
     flex-direction: row;
     gap: 1rem;
 }
+
 @media (max-width: 1260px) {
     .open_search {
         display: none;
@@ -661,4 +662,99 @@ header {
     .h_middle {
         display: none;
     }
+}
+.nicknames_popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 8px 15px -2px rgba(0, 0, 0, 0.4);
+    box-shadow: 2px 8px 15px -2px rgba(0, 0, 0, 0.4);
+    width: 550px;
+    z-index: 9999999999999999999999999999999999999999999999999999999999999996999;
+    display: none;
+}
+.nicknames_header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+.nicknames_body {
+    padding: 10px;
+}
+.nickname_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.nickname_item:hover {
+    background: #eee;
+}
+.nick_left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.nick_left img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.nick_col {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.nick_col span:first-of-type {
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.nick_col span:last-of-type {
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: #65676b;
+}
+.edito_icona {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yi/r/reJRaA-O916.png');
+    background-position: 0px 0px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(10%);
+}
+.nick_right {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nick_right:hover {
+    background: rgba(238, 238, 238, 0.425);
+}
+.fixed_opacity {
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.8;
+    z-index: 99999999;
+    display: none;
 }

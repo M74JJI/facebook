@@ -116,10 +116,9 @@ $(document).on('keyup', '.emojionearea-editor', function() {
 
 
 $(document).on('click', '.home_post_open', function() {
+    $('.fixed_opacity').show();
     $('#post_box').show();
-    $('.facebook_left').css('opacity', '0.3');
-    $('.facebook_middle').css('opacity', '0.3');
-    $('.facebook_right').css('opacity', '0.3');
+
 })
 $(document).on('click', '#open-edit-post', function() {
     var postid = $(this).data('postid');
@@ -133,9 +132,7 @@ $(document).on('click', '#open-edit-post', function() {
         $('#post_textarea1').emojioneArea({
 
         })
-        $('.facebook_left').css('opacity', '0.3');
-        $('.facebook_middle').css('opacity', '0.3');
-        $('.facebook_right').css('opacity', '0.3');
+        $('.fixed_opacity').show();
         $('#post_box1').show();
     });
 
@@ -143,16 +140,14 @@ $(document).on('click', '#open-edit-post', function() {
 
 })
 $(document).on('click', '#close_post', function() {
+    $('.fixed_opacity').hide();
     $('#post_box').hide();
-    $('.facebook_left').css('opacity', '1');
-    $('.facebook_middle').css('opacity', '1');
-    $('.facebook_right').css('opacity', '1');
+
 })
 $(document).on('click', '#close_post1', function() {
+    $('.fixed_opacity').hide();
     $('#post_box1').hide();
-    $('.facebook_left').css('opacity', '1');
-    $('.facebook_middle').css('opacity', '1');
-    $('.facebook_right').css('opacity', '1');
+
 })
 
 //-------------Show POST POPU----------------->

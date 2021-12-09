@@ -940,8 +940,11 @@ foreach ($allusers as $last){
 <div class="popin_dem_chats">
 
 </div>
+<div class="nicknames_popup">
 
+</div>
 
+<div class="fixed_opacity"></div>
 <script>
 $(document).ready(function() {
 
@@ -1428,7 +1431,7 @@ function updaet_online_tick() {
                 }, function(data) {
                     $('.updatem_online[data-chat=' + listChat[i] + ']').html(
                         '<div class="active_now_wrap"> <div class="active_dot"></div><span class="active_text">Active now</span></div>'
-                        );
+                    );
                 })
             }
         })
@@ -1478,6 +1481,25 @@ $(document).on('click', '#close_chat', function() {
 
 
 //---Blur Chqt Popup----->
+
+
+//--->Nickanames------>
+$(document).on('click', '#open_nicknames', function() {
+    var userid = "<?php echo $userid ?>"
+    var chat = $(this).parents('.popup_chat').data('chat');
+    $.post('http://localhost/facebook/core/chat/nicknames.php', {
+        nickname: chat,
+        userid: userid
+    }, function(data) {
+        $('.popup_chat[data-chat=' + chat + ']').find('.chat_popup_menu').hide();
+        $('.fixed_opacity').show();
+        $('.nicknames_popup').html(data).show();
+
+
+    })
+})
+//--->Nickanames------>
+
 
 
 
@@ -1531,12 +1553,7 @@ function scrolla(chat) {
 
 //---->Open from full menu---->
 
-$(document).on('click', '#full_open_post', function() {
-    $('#post_box').show();
-    $('.facebook_left').css('opacity', '0.3');
-    $('.facebook_middle').css('opacity', '0.3');
-    $('.facebook_right').css('opacity', '0.3');
-})
+
 //---->Open from full menu---->
 
 
@@ -1563,21 +1580,22 @@ $(document).mouseup(function(e) {
     }
 })
 $(document).mouseup(function(e) {
-    if (!$(e.target).closest('#post_box').length) {
+    if (!$(e.target).closest('#post_box,#post_box1,.nicknames_popup').length) {
         $("#post_box").hide();
-        $('.facebook_left').css('opacity', '1');
-        $('.facebook_middle').css('opacity', '1');
-        $('.facebook_right').css('opacity', '1');
+        $("#post_box1").hide();
+        $(".nicknames_popup").hide();
+        $('.fixed_opacity').hide();
+
     }
 })
+/*
 $(document).mouseup(function(e) {
     if (!$(e.target).closest('#post_box1').length) {
         $("#post_box1").hide();
-        $('.facebook_left').css('opacity', '1');
-        $('.facebook_middle').css('opacity', '1');
-        $('.facebook_right').css('opacity', '1');
+        $('.fixed_opacity').hide();
     }
 })
+*/
 $(document).mouseup(function(e) {
     if (!$(e.target).closest('#menu_header, #open_thatmenu').length) {
         $("#menu_header").hide();

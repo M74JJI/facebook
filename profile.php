@@ -1128,21 +1128,6 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
                     }
                 })
 
-                $('.post_open').on('click', function() {
-                    $('.post_box').css('display', 'flex');
-                    /*    $('.profile_top_container').css('opacity', '0.1');
-                        $('.profile_middle').css('opacity', '0.1'); */
-                })
-                $('.choice').on('click', function() {
-                    $('.post_box').css('display', 'flex');
-                    $('.profile_top_container').css('opacity', '0.1');
-                    $('.profile_middle').css('opacity', '0.1');
-                })
-                $('#close_post').on('click', function() {
-                    $('.post_box').css('display', 'none');
-                    $('.profile_top_container').css('opacity', '1');
-                    $('.profile_middle').css('opacity', '1');
-                })
                 var fileCollection = new Array();
                 $(document).on('change', '#post_photo', function(e) {
                     var count = 0;

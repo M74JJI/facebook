@@ -24,6 +24,65 @@ if(isset($_POST['popup_chat'])){
  
  ?>
 <div class="popup_chat" data-userid="<?php echo $userid; ?>" data-chat="<?php echo $chatid; ?>">
+    <div class="chat_popup_menu">
+        <div class="motalinho_jnab"></div>
+        <div class="chat_menu_a7a">
+            <i class="messenger_icona"></i>
+            Open in Messenger
+        </div>
+        <div class="chat_menu_a7a">
+            <i class="get_icona"></i>
+            Get the Messenger App
+        </div>
+        <a href="<?php echo BASE_URL.$chat->link; ?>" class="chat_menu_a7a">
+            <i class="profile_icona"></i>
+            View profile
+
+        </a>
+        <div class="line_br"></div>
+        <div class="chat_menu_a7a">
+            <i class="color_icona"></i>
+            Color
+        </div>
+        <div class="chat_menu_a7a">
+            <i class="emoji_icona"></i>
+            Emoji
+        </div>
+        <div class="chat_menu_a7a" id="open_nicknames">
+            <i class="nickc_icona"></i>
+            Nicknames
+        </div>
+        <div class="line_br"></div>
+        <div class="chat_menu_a7a">
+            <i class="group_icona"></i>
+            Create group
+        </div>
+        <div class="line_br"></div>
+        <div class="chat_menu_a7a">
+            <i class="not_icona"></i>
+            Mute notifications
+        </div>
+        <div class="chat_menu_a7a">
+            <i class="ign_icona"></i>
+            Ignore messages
+
+        </div>
+        <div class="chat_menu_a7a">
+            <i class="block_icona"></i>
+            Block
+
+        </div>
+        <div class="line_br"></div>
+        <div class="chat_menu_a7a">
+            <i class="del_icona"></i>
+            Delete chat
+        </div>
+        <div class="chat_menu_a7a">
+            <i class="wr_icona"></i>
+            Something's Wrong
+        </div>
+
+    </div>
     <div class="chat_header">
         <div class="left_popp">
             <div style="position: relative;">
