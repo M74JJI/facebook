@@ -670,7 +670,53 @@ class User{
             return $statement->fetch(PDO::FETCH_OBJ); 
         
     }
-
+    public function checkNickname($userid,$chatid){
+            $statement=$this->pdo->prepare("SELECT count(*) as total FROM nicknames WHERE user_id=:userid AND chat_id=:chatid ");
+            $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement->bindValue(':chatid',$chatid,PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_OBJ); 
+        
+    }
+    public function getNicknames($userid,$chatid){
+            $statement=$this->pdo->prepare("SELECT *  FROM nicknames WHERE user_id=:userid AND chat_id=:chatid LIMIT 1");
+            $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement->bindValue(':chatid',$chatid,PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_OBJ); 
+        
+    }
+    public function updateChatNickname($userid,$chatid,$chat_nickname){
+            $statement=$this->pdo->prepare("UPDATE nicknames SET user_nickname=:chat_nickname  WHERE user_id=:userid AND chat_id=:chatid");
+            $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement->bindValue(':chatid',$chatid,PDO::PARAM_INT);
+            $statement->bindValue(':chat_nickname',$chat_nickname,PDO::PARAM_STR);
+            $statement->execute();
+ 
+            $statement=$this->pdo->prepare("UPDATE nicknames SET chat_nickname=:chat_nickname  WHERE user_id=:chatid AND chat_id=:userid");
+            $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement->bindValue(':chatid',$chatid,PDO::PARAM_INT);
+            $statement->bindValue(':chat_nickname',$chat_nickname,PDO::PARAM_STR);
+            $statement->execute();
+    
+        
+    }
+    public function updateChatNickname2($userid,$chatid,$chat_nickname){
+            $statement=$this->pdo->prepare("UPDATE nicknames SET chat_nickname=:chat_nickname  WHERE user_id=:userid AND chat_id=:chatid");
+            $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement->bindValue(':chatid',$chatid,PDO::PARAM_INT);
+            $statement->bindValue(':chat_nickname',$chat_nickname,PDO::PARAM_STR);
+            $statement->execute();
+ 
+            $statement1=$this->pdo->prepare("UPDATE nicknames SET user_nickname=:chat_nickname  WHERE user_id=:chatid AND chat_id=:userid");
+            $statement1->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement1->bindValue(':chatid',$chatid,PDO::PARAM_INT);
+            $statement1->bindValue(':chat_nickname',$chat_nickname,PDO::PARAM_STR);
+            $statement1->execute();
+    
+        
+    }
+   
 
 
 

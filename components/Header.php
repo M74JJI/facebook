@@ -1498,6 +1498,13 @@ $(document).on('click', '#open_nicknames', function() {
 
     })
 })
+$(document).on('click', '.exit_nickname', function() {
+    $(this).parents('.nicknames_popup').hide();
+    $('.fixed_opacity').hide();
+})
+
+
+
 //--->Nickanames------>
 
 

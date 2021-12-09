@@ -682,13 +682,21 @@ header {
     justify-content: center;
     font-weight: 700;
     font-size: 20px;
-    padding: 20px 0;
+    padding: 10px 0;
     border-bottom: 1px solid #e5e5e5;
 }
 .nicknames_body {
     padding: 10px;
 }
 .nickname_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.nickname_item1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -757,4 +765,58 @@ header {
     opacity: 0.8;
     z-index: 99999999;
     display: none;
+}
+.exit_nickname {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #eee;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.exit_nickname:hover {
+    background: rgba(238, 238, 238, 0.521);
+}
+.zfzfzfzfkzpofgj {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yA/r/raOLVscIxIn.png');
+    background-position: -105px -107px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(40%);
+}
+.sub_iconaka {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/eL6V-otH1ae.png');
+    background-position: 0px -25px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(10%);
+}
+.nick_col input {
+    height: 36px;
+    width: 420px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    outline: none;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding-left: 10px;
+}
+.nick_col input:focus {
+    border: 1px solid #1876f2;
+    background: #fff;
+}
+.nick_col input:hover {
+    background: #eee;
 }
