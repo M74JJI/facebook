@@ -21,6 +21,10 @@ if(isset($_POST['popup_chat'])){
     $loadUser->updateOnlinetoOnline($userid,$chatid);
    }
     $lastMessage = $loadUser->getLastMsgSendByUser($userid,$chatid);
+    $checkkk=$loadUser->checkNickname($userid,$chatid);
+    if($checkkk->total !=0){
+        $nickname=$loadUser->getNicknames($userid,$chatid);
+    }
  
  ?>
 <div class="popup_chat" data-userid="<?php echo $userid; ?>" data-chat="<?php echo $chatid; ?>">
@@ -73,7 +77,7 @@ if(isset($_POST['popup_chat'])){
 
         </div>
         <div class="line_br"></div>
-        <div class="chat_menu_a7a">
+        <div class="chat_menu_a7a" id="delete_chat">
             <i class="del_icona"></i>
             Delete chat
         </div>
@@ -84,7 +88,7 @@ if(isset($_POST['popup_chat'])){
 
     </div>
     <div class="chat_header">
-        <div class="left_popp">
+        <div class="left_popp" style="padding-right:1rem">
             <div style="position: relative;">
                 <img src="<?php echo $chat->profile_picture ?>" alt="">
                 <div class="updatem_online" data-chat="<?php echo $chatid; ?>">
@@ -92,8 +96,11 @@ if(isset($_POST['popup_chat'])){
 
                 </div>
             </div>
+            <?php 
+              if($checkkk->total ==0){
+            ?>
             <span style="word-break:keep-all;font-weight:500">
-                <?php if(strlen($full_name)>14) {
+                <?php if(strlen($full_name)>13) {
                     echo substr($full_name,0,13).'...';
                 } else{
                  echo $full_name;
@@ -104,6 +111,25 @@ if(isset($_POST['popup_chat'])){
                     d="M1 2.414A1 1 0 012.414 1L8.293 6.88a1 1 0 001.414 0L15.586 1A1 1 0 0117 2.414L9.707 9.707a1 1 0 01-1.414 0L1 2.414z">
                 </path>
             </svg>
+            <?php
+
+              }else{ ?>
+            <span style="word-break:keep-all;font-weight:500;">
+                <?php if(strlen($nickname->chat_nickname)>14) {
+                    echo substr($nickname->chat_nickname,0,13).'...';
+                } else{
+                 echo $nickname->chat_nickname;
+                } ?>
+            </span>
+            <svg class="hnxzwevs" width="10px" height="10px" viewBox="0 0 18 10">
+                <path fill="var(--primary-text)" fill-rule="evenodd" clip-rule="evenodd"
+                    d="M1 2.414A1 1 0 012.414 1L8.293 6.88a1 1 0 001.414 0L15.586 1A1 1 0 0117 2.414L9.707 9.707a1 1 0 01-1.414 0L1 2.414z">
+                </path>
+            </svg>
+            <?php }
+            ?>
+
+
         </div>
 
         <div class="h_m_ic">

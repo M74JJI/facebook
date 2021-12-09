@@ -582,7 +582,32 @@ class User{
         return $statement->fetchAll(PDO::FETCH_OBJ);
         
     }
+    public function getChatListWithCount($userid,$list){
+        $listed=array();
+        $i=0;
+       foreach($list as $a){
+        $statement=$this->pdo->prepare("SELECT count(*) as total FROM messages WHERE sender=:chatid AND receiver=:userid");
+        $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+        $statement->bindValue(':chatid',$a->sender,PDO::PARAM_INT);
+        $statement->execute();
+        $res=$statement->fetch(PDO::FETCH_OBJ);
+        $listed[$i]['chat']=$a->sender;
+        $listed[$i]['count']=$res->total;
+    $i++;
+       }
+       return $listed;
+       
+        
+    }
 
+    public function checkChatChanges($userid,$chatid){
+        $statement=$this->pdo->prepare("SELECT count(*) as total FROM messages WHERE receiver=:userid AND sender=:chatid");
+        $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+        $statement->bindValue(':chatid',$chatid,PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_OBJ);
+        
+    }
     public function update0to1all($userid,$list){
        
         foreach($list as $l){
@@ -714,6 +739,14 @@ class User{
             $statement1->bindValue(':chat_nickname',$chat_nickname,PDO::PARAM_STR);
             $statement1->execute();
     
+        
+    }
+    public function deleteAllChat($userid,$chatid){
+            $statement=$this->pdo->prepare("DELETE  FROM messages WHERE (sender=:userid AND receiver=:chatid) OR (receiver=:userid AND sender=:chatid)");
+            $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement->bindValue(':chatid',$chatid,PDO::PARAM_INT);
+            $statement->execute();
+ 
         
     }
    

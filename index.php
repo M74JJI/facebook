@@ -1290,9 +1290,6 @@ if(login::isLoggedIn()){
 
 
 
-
-
-
         $('input#comment-inputt').emojioneArea({
 
         })

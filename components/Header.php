@@ -1313,6 +1313,7 @@ $(document).on('click', '.ms74g', function() {
 //--->send messsage-->
 $(document).on('keyup', '#light_send', function(e) {
     if (e.keyCode == 13) {
+        console.log('clicked')
         var msg = $(this).val();
         var userid = $(this).data('userid');
         var chatid = $(this).data('chat');
@@ -1323,6 +1324,7 @@ $(document).on('keyup', '#light_send', function(e) {
             chatid: chatid,
             msg: msg
         }, function(data) {
+            console.log(data)
             $(This).val('')
             $(This).parents('.popu_char_a7em').siblings('.popup_chat_area').find('.messaging_popup')
                 .html(data);
@@ -1333,6 +1335,21 @@ $(document).on('keyup', '#light_send', function(e) {
 
 })
 
+
+//---Scroll to last-->
+
+
+function scrolla(chat) {
+
+    var viewheight = $('.popup_chat_area[data-chat=' + chat + ']').height();
+
+    var totalHeight = $('.popup_chat_area[data-chat=' + chat + ']')[0].scrollHeight;
+
+    if (totalHeight > viewheight) {
+        $('.popup_chat_area[data-chat=' + chat + ']').scrollTop(totalHeight - viewheight);
+    }
+}
+//---Scroll to last--
 
 $(document).on('click', '.ms74g', function() {
     var chatid = $(this).data('chat');
@@ -1430,7 +1447,7 @@ function updaet_online_tick() {
                     update_on_tick: listChat[i],
                 }, function(data) {
                     $('.updatem_online[data-chat=' + listChat[i] + ']').html(
-                        '<div class="active_now_wrap"> <div class="active_dot"></div><span class="active_text">Active now</span></div>'
+                        '<div class="active_now_wrap"> <div class="active_dot"></div></div>'
                     );
                 })
             }
@@ -1453,9 +1470,91 @@ function updateSeenOrNot() {
 }
 //-----Update Seen Status------->
 
+//---->Delete Chat--->
+$(document).on('click', '#delete_chat', function() {
+    var userid = "<?php echo $userid ?>"
+    var chatid = $(this).parents('.popup_chat').data('chat');
+    $.post('http://localhost/facebook/core/chat/deleteChat.php', {
+        delete_chat: chatid,
+        userid: userid,
+    }, function(data) {
+        console.log(data)
+    })
+})
+//---->Delete Chat--->
+
+//---->get chat count on ready-------->
+chatCount = [];
+$(document).ready(function() {
+    $.post('http://localhost/facebook/core/chat/chatCount.php', {
+        chat_count: "<?php echo $userid ?>",
+    }, function(data) {
+        chatCount = JSON.parse(data);
 
 
+    })
 
+})
+//---->get chat count on ready-------->
+
+//-----db nchofo ila tbdlat--->
+function ftahkosomochat() {
+
+    if (chatCount.length > 0) {
+        for (var i = 0; i < chatCount.length; i++) {
+            var chat = chatCount[i].chat;
+            var totall = chatCount[i].count;
+            var userid = "<?php echo $userid ?>";
+
+            $.post('http://localhost/facebook/core/chat/chatCount.php', {
+                checkChatChanges: userid,
+                chat: chat,
+                totall: totall
+            }, function(data) {
+                var datta = JSON.parse(data)
+                var chat = datta[0].chat
+                var totalt = datta[0].total
+                var countt = datta[0].count
+
+                /*/ console.log('total-->', total);
+                 console.log('data-->', data);*/
+                if (countt != totalt) {
+                    $.post('http://localhost/facebook/core/ajax/chat.php', {
+                        popup_chat: chat,
+                        userid: userid
+                    }, function(data) {
+                        if ($('.popup_chat[data-chat=' + chat + ']').length > 0) {
+                            $('.popup_chat[data-chat=' + chat + ']').find('input#ligh_send[data-chat=' +
+                                chat + ']').focus();
+                        } else {
+                            $('.popin_dem_chats').append(data);
+                            $('.popup_chat[data-chat=' + chat + ']').find('input#ligh_send[data-chat=' +
+                                chat + ']').focus();
+                            $('#ligh_send[data-chat=' + chat + ']').emojioneArea({
+
+                            });
+                            /*$('#light_send').emojioneArea({
+                                position: 'right',
+                            })*/
+                            scrolla(chat);
+
+                        }
+
+                    })
+                }
+
+            })
+        }
+    }
+
+
+}
+
+//-----db nchofo ila tbdlat--->
+
+a = setInterval(function() {
+    ftahkosomochat();
+}, 1000)
 
 
 
@@ -1530,27 +1629,12 @@ $(document).on('click', '.popup_chat', function() {
 })
 $(document).on('click', '.popup_chat_area', function() {
 
-    $(this).siblings('.popu_char_a7em').find('.m14_right').find('#light_send').focus()
-})
+        $(this).siblings('.popu_char_a7em').find('.m14_right').find('#light_send').focus()
+    })
 
-//---Blur Chqt Popup----->
+    //---Blur Chqt Popup----->
 
-
-
-//---Scroll to last-->
-
-
-function scrolla(chat) {
-
-    var viewheight = $('.popup_chat_area[data-chat=' + chat + ']').height();
-
-    var totalHeight = $('.popup_chat_area[data-chat=' + chat + ']')[0].scrollHeight;
-
-    if (totalHeight > viewheight) {
-        $('.popup_chat_area[data-chat=' + chat + ']').scrollTop(totalHeight - viewheight);
-    }
-}
-//---Scroll to last-->
+    >
 
 
 
@@ -1558,19 +1642,19 @@ function scrolla(chat) {
 
 
 
-//---->Open from full menu---->
+    //---->Open from full menu---->
 
 
-//---->Open from full menu---->
+    //---->Open from full menu---->
 
 
-$(document).mouseup(function(e) {
-    if (!$(e.target).closest('.notifications, #open_notif').length) {
-        $(".notifications").hide();
-        $('#open_notif').css('background', '#e4e6eb')
-        $('#open_notif').find('svg').css('fill', '#000')
-    }
-})
+    $(document).mouseup(function(e) {
+        if (!$(e.target).closest('.notifications, #open_notif').length) {
+            $(".notifications").hide();
+            $('#open_notif').css('background', '#e4e6eb')
+            $('#open_notif').find('svg').css('fill', '#000')
+        }
+    })
 $(document).mouseup(function(e) {
     if (!$(e.target).closest('.messages_popup, #open_messages').length) {
         $(".messages_popup").hide();
