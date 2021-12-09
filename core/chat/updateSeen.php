@@ -14,7 +14,7 @@ if(isset($_POST['update_seen'])){
     $online=$loadUser->getOnlineStatus($chatid,$userid);
     $lastMessage = $loadUser->getLastMsgSendByUser($userid,$chatid);
     $chat=$loadUser->getUserInfo($chatid);
-    if($online !='' &&  $online->status==1){
+    if($online !='' &&  $online->status==1 && $online->ok==1){
       $loadUser->update1to2($lastMessage->msg_id);
       $lastMessag1 = $loadUser->getLastMsgSendByUser($userid,$chatid); ?>
 <div class="not_seen">

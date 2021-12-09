@@ -235,6 +235,7 @@
     position: absolute;
     left: -360px;
     top: -6rem;
+    display: none;
 }
 .chat_menu_a7a {
     border-radius: 5px;

@@ -1313,7 +1313,7 @@ $(document).on('click', '.ms74g', function() {
 //--->send messsage-->
 $(document).on('keyup', '#light_send', function(e) {
     if (e.keyCode == 13) {
-        console.log('clicked')
+
         var msg = $(this).val();
         var userid = $(this).data('userid');
         var chatid = $(this).data('chat');
@@ -1324,7 +1324,7 @@ $(document).on('keyup', '#light_send', function(e) {
             chatid: chatid,
             msg: msg
         }, function(data) {
-            console.log(data)
+
             $(This).val('')
             $(This).parents('.popu_char_a7em').siblings('.popup_chat_area').find('.messaging_popup')
                 .html(data);
@@ -1383,6 +1383,7 @@ var online = setInterval(updateOnlineStatus, 2000);
 var listChat = [];
 
 function loadMessages() {
+
 
     for (let i = 0; i < listChat.length; i++) {
         var count = $('.messaging_popup[data-chat = ' + listChat[i] + ']').data('count');
@@ -1458,6 +1459,9 @@ function updaet_online_tick() {
 }
 
 
+
+
+
 //---Update online in chat----->
 
 
@@ -1478,7 +1482,7 @@ $(document).on('click', '#delete_chat', function() {
         delete_chat: chatid,
         userid: userid,
     }, function(data) {
-        console.log(data)
+
     })
 })
 //---->Delete Chat--->
@@ -1490,12 +1494,49 @@ $(document).ready(function() {
         chat_count: "<?php echo $userid ?>",
     }, function(data) {
         chatCount = JSON.parse(data);
-
-
     })
+
+    $.post('http://localhost/facebook/core/chat/z3marahOnline.php', {
+        resetOnlinat: "<?php echo $userid ?>",
+    }, function(data) {})
+
 
 })
 //---->get chat count on ready-------->
+
+
+//aandk tnsa hna tzid reset dyalha
+
+
+//--z3ma rah Online--->
+$(document).on('click', '.popup_chat', function() {
+    var lghaleblahchatid = $(this).data('chat');
+    var userid = $(this).data('userid');
+    $.post('http://localhost/facebook/core/chat/z3marahOnline.php', {
+        lghaleblahchatid: lghaleblahchatid,
+        userid: userid
+    })
+
+})
+
+
+
+$(document).mouseup(function(e) {
+    if (!$(e.target).closest('.popup_chat').length) {
+        console.log('hhhhhhhh')
+        for (let i = 0; i < listChat.length; i++) {
+            var lghaleblahchatid = listChat[i];
+            var userid = "<?php echo $userid ?>"
+            $.post('http://localhost/facebook/core/chat/z3marahOnline.php', {
+                lghaleblahchatid2: lghaleblahchatid,
+                userid: userid
+            })
+        }
+
+    }
+})
+//--z3ma rah Online--->
+
 
 //-----db nchofo ila tbdlat--->
 function ftahkosomochat() {
@@ -1564,6 +1605,11 @@ a = setInterval(function() {
 $(document).on('click', '#close_chat', function() {
     var chatid = $(this).data('chat');
     $('.popup_chat[data-chat=' + chatid + ']').remove();
+    var ind = chatCount.findIndex(i => i.chat == chatid);
+    if (ind > -1) {
+        chatCount.splice(ind, 1)
+
+    }
     var index = listChat.indexOf(chatid);
     if (index > -10) {
         listChat.splice(index, 1)

@@ -695,6 +695,29 @@ class User{
             return $statement->fetch(PDO::FETCH_OBJ); 
         
     }
+    public function bdlOkfOnline($userid,$chatid){
+            $statement=$this->pdo->prepare("UPDATE online set ok=1  WHERE user_id=:userid AND chat_id=:chatid LIMIT 1");
+            $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement->bindValue(':chatid',$chatid,PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_OBJ); 
+        
+    }
+    public function bdlOkfOnlinel0($userid,$chatid){
+            $statement=$this->pdo->prepare("UPDATE online set ok=0  WHERE user_id=:userid AND chat_id=:chatid LIMIT 1");
+            $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement->bindValue(':chatid',$chatid,PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_OBJ); 
+        
+    }
+    public function rdOnline0kamlin($userid){
+            $statement=$this->pdo->prepare("UPDATE online set ok=0  WHERE user_id=:userid");
+            $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_OBJ); 
+        
+    }
     public function checkNickname($userid,$chatid){
             $statement=$this->pdo->prepare("SELECT count(*) as total FROM nicknames WHERE user_id=:userid AND chat_id=:chatid ");
             $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
