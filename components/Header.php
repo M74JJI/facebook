@@ -945,6 +945,9 @@ foreach ($allusers as $last){
 </div>
 
 <div class="fixed_opacity"></div>
+<div class="errors_popup">
+
+</div>
 <script>
 $(document).ready(function() {
 
@@ -1597,6 +1600,29 @@ a = setInterval(function() {
     ftahkosomochat();
 }, 1000)
 
+//---Open Chat Menu---->
+$(document).on('click', '.left_popp', function() {
+    $(this).parents('.chat_header').siblings('.chat_popup_menu').toggle();
+})
+/*
+$(document).mouseup(function(e) {
+    var container = new Array();
+    container.push('.chat_popup_menu');
+    $.each(container, function(key, value) {
+        if (!$(value).is(e.target) && $(value).has(e.target)
+            .length === 0) {
+            $(value).hide()
+
+
+        }
+    })
+})*/
+$(document).mouseup(function(e) {
+    if (!$(e.target).closest('.chat_popup_menu').length) {
+
+    }
+})
+//---Open Chat Menu---->
 
 
 //--->send messsage-->
@@ -1653,6 +1679,64 @@ $(document).on('click', '.exit_nickname', function() {
 //--->Nickanames------>
 
 
+//----Send Files+------->
+$(document).on('click', '#open_send_file', function() {
+    $(this).siblings('#send_file').click();
+})
+
+$(document).on('change', '#send_file', function(e) {
+    var This = $(this)
+    const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dmhcnhtng/upload';
+    const PRESET = 'ml_default';
+    var files = e.target.files;
+    var formData = new FormData();
+    if (files.length > 5) {
+        $('.fixed_opacity').show();
+        $('.errors_popup').html(
+            '<div class="exit_nickname" style="margin-top:10px" id="close_erros_send"> <i class="zfzfzfzfkzpofgj"></i> </div> <div class="errors_heading"> Unable to Attach File </div> <div class="error_texting">Maximum of 5 files are allowed per time,please try again.</div> <button id="close_erros_send" class="close_erros_send">Close</button>'
+        ).show();
+    } else {
+        for (var i = 0; i < files.length; i++) {
+            var name = files[i].name;
+            var extension = name.split('.').pop().toLowerCase();
+            if (jQuery.inArray(extension, ['jpg', 'png', 'gif', 'webp', 'icon', 'jpeg']) == -1) {
+                $('.fixed_opacity').show();
+                $('.errors_popup').html(
+                    '<div class="exit_nickname" style="margin-top:10px" id="close_erros_send"> <i class="zfzfzfzfkzpofgj"></i> </div> <div class="errors_heading">Unable to Attach File</div><div class="error_texting">The type of file you are trying to attach is not allowed.Please try again with a different format. </div> <button id="close_erros_send" class="close_erros_send">Close</button > '
+                ).show();
+            }
+            var reader = new FileReader();
+            reader.readAsDataURL(files[i]);
+            var file_size = files[i].size || files[i].fileSize;
+            var size = (file_size / (1024 * 1024)).toFixed(2);
+            if (size > 10) {
+                $('.fixed_opacity').show();
+                $('.errors_popup').html(
+                    '<div class="exit_nickname" style="margin-top:10px" id="close_erros_send"> <i class="zfzfzfzfkzpofgj"></i> </div> <div class="errors_heading"> Unable to Attach File </div> <div class="error_texting">Maximum file size allowed is 10mb,please try again.</div> <button id="close_erros_send" class="close_erros_send">Close</button>'
+                ).show();
+            } else {
+                $(This).parents('.popu_char_a7em').hide();
+                $(This).parents('.popu_char_a7em').siblings('.chat_errors_container').css('display', 'flex');
+                reader.onload = function(e) {
+
+                    $(This).parents('.popu_char_a7em').siblings('.chat_errors_container').find(
+                            '.imginos_preview')
+                        .append('<div class="img_pazdad"><img src="' + e.target.result + '"></div>');
+                }
+
+            }
+
+        }
+    }
+
+})
+
+//----Send Files+------->
+
+$(document).on('click', '#close_erros_send', function() {
+    $('.fixed_opacity').hide();
+    $('.errors_popup').hide();
+})
 
 
 $(document).mouseup(function(e) {
@@ -1717,9 +1801,10 @@ $(document).mouseup(function(e) {
     }
 })
 $(document).mouseup(function(e) {
-    if (!$(e.target).closest('#post_box,#post_box1,.nicknames_popup').length) {
+    if (!$(e.target).closest('#post_box,#post_box1,.nicknames_popup,.errors_popup').length) {
         $("#post_box").hide();
         $("#post_box1").hide();
+        $(".errors_popup").hide();
         $(".nicknames_popup").hide();
         $('.fixed_opacity').hide();
 

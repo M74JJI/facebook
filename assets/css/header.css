@@ -676,6 +676,21 @@ header {
     z-index: 9999999999999999999999999999999999999999999999999999999999999996999;
     display: none;
 }
+.errors_popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 8px 15px -2px rgba(0, 0, 0, 0.4);
+    box-shadow: 2px 8px 15px -2px rgba(0, 0, 0, 0.4);
+    width: 550px;
+    z-index: 9999999999999999999999999999999999999999999999999999999999999996999;
+    padding: 1rem;
+    padding-bottom: 3rem;
+    display: none;
+}
 .nicknames_header {
     display: flex;
     align-items: center;
@@ -684,6 +699,12 @@ header {
     font-size: 20px;
     padding: 10px 0;
     border-bottom: 1px solid #e5e5e5;
+}
+.errors_heading {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 20px;
 }
 .nicknames_body {
     padding: 10px;
@@ -819,4 +840,22 @@ header {
 }
 .nick_col input:hover {
     background: #eee;
+}
+.error_texting {
+    padding: 20px 0;
+    font-size: 13px;
+}
+.close_erros_send {
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 8px 10px;
+    background: #1b74e4;
+    color: #fff;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    bottom: 10px;
 }

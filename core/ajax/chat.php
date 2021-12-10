@@ -28,7 +28,7 @@ if(isset($_POST['popup_chat'])){
  
  ?>
 <div class="popup_chat" data-userid="<?php echo $userid; ?>" data-chat="<?php echo $chatid; ?>">
-    <div class="chat_popup_menu">
+    <div class="chat_popup_menu" data-chat="<?php echo $chatid; ?>">
         <div class="motalinho_jnab"></div>
         <div class="chat_menu_a7a">
             <i class="messenger_icona"></i>
@@ -265,7 +265,41 @@ if(isset($_POST['popup_chat'])){
 
         </div>
 
+
     </div>
+    <div class="chat_errors_container">
+        <svg class="unavailable_svg" viewBox="0 0 24 24" height="20px" width="20px" fill="#bcc0c4">
+            <g fill-rule="evenodd">
+                <polygon fill="none" points="-6,30 30,30 30,-6 -6,-6 "></polygon>
+                <path
+                    d="m18,11l-5,0l0,-5c0,-0.552 -0.448,-1 -1,-1c-0.5525,0 -1,0.448 -1,1l0,5l-5,0c-0.5525,0 -1,0.448 -1,1c0,0.552 0.4475,1 1,1l5,0l0,5c0,0.552 0.4475,1 1,1c0.552,0 1,-0.448 1,-1l0,-5l5,0c0.552,0 1,-0.448 1,-1c0,-0.552 -0.448,-1 -1,-1m-6,13c-6.6275,0 -12,-5.3725 -12,-12c0,-6.6275 5.3725,-12 12,-12c6.627,0 12,5.3725 12,12c0,6.6275 -5.373,12 -12,12">
+                </path>
+            </g>
+        </svg>
+        <div class="preview_sender_bitch">
+            <div class="imginos_preview">
+
+                <div class="add_pc_i_more" id="open_send_file" data-chat="<?php echo $chatid; ?>">
+                    <i class="a7atahona"></i>
+                </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:0 5px;">
+                <input type="text" class="input_img_text" placeholder="Aa">
+                <div class="round_cuck">
+                    <i class="fas fa-smile"></i>
+                </div>
+            </div>
+        </div>
+        <div class="round_cuck">
+            <svg fill="#00b2ff" width="20px" height="20px" viewBox="0 0 24 24">
+                <path
+                    d="M16.6915026,12.4744748 L3.50612381,13.2599618 C3.19218622,13.2599618 3.03521743,13.4170592 3.03521743,13.5741566 L1.15159189,20.0151496 C0.8376543,20.8006365 0.99,21.89 1.77946707,22.52 C2.41,22.99 3.50612381,23.1 4.13399899,22.8429026 L21.714504,14.0454487 C22.6563168,13.5741566 23.1272231,12.6315722 22.9702544,11.6889879 C22.8132856,11.0605983 22.3423792,10.4322088 21.714504,10.118014 L4.13399899,1.16346272 C3.34915502,0.9 2.40734225,1.00636533 1.77946707,1.4776575 C0.994623095,2.10604706 0.8376543,3.0486314 1.15159189,3.99121575 L3.03521743,10.4322088 C3.03521743,10.5893061 3.34915502,10.7464035 3.50612381,10.7464035 L16.6915026,11.5318905 C16.6915026,11.5318905 17.1624089,11.5318905 17.1624089,12.0031827 C17.1624089,12.4744748 16.6915026,12.4744748 16.6915026,12.4744748 Z"
+                    fill-rule="evenodd" stroke="none"></path>
+            </svg>
+        </div>
+
+    </div>
+    <input type="file" id="send_file" multiple="multiple" style="display: none" data-chat="<?php echo $chatid; ?>">
     <div class="popu_char_a7em">
         <div class="m14_left">
             <div class="m24_icon">
@@ -278,7 +312,8 @@ if(isset($_POST['popup_chat'])){
                     </g>
                 </svg>
             </div>
-            <div class="m24_icon">
+
+            <div class="m24_icon" id="open_send_file" data-chat="<?php echo $chatid; ?>">
                 <svg viewBox="0 0 24 24" width="20px" height="20px">
                     <g fill-rule="evenodd" transform="translate(-444 -156)">
                         <g>

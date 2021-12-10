@@ -17,6 +17,7 @@
     justify-content: space-between;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 2px 2px 0 rgba(0, 0, 0, 0.1);
     z-index: 11;
+    user-select: none;
 }
 .left_popp {
     display: flex;
@@ -396,4 +397,88 @@
     border-left: 10px solid #fff;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
+}
+.chat_errors_container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    padding-bottom: 1rem;
+    display: flex;
+    align-items: flex-end;
+    z-index: 2;
+    background: #fff;
+    display: none;
+}
+.unavailable_svg {
+    cursor: not-allowed;
+}
+.preview_sender_bitch {
+    background: #f0f2f5;
+    border-radius: 20px;
+    margin-left: 10px;
+    padding: 10px;
+    transform: translateY(10px);
+}
+.imginos_preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0;
+}
+.imginos_preview img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.imginos_preview .img_pazdad {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+}
+.input_img_text {
+    padding-top: 5px;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+}
+.round_cuck {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.round_cuck i {
+    font-size: 20px;
+    color: #00b2ff;
+}
+.round_cuck:hover {
+    background: rgba(207, 203, 203, 0.233);
+}
+.add_pc_i_more {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background: #d6d9de;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.a7atahona {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yU/r/FP_pQnfuqge.png');
+    background-position: 0px -25px;
+    background-size: auto;
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(10%);
 }
