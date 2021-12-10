@@ -79,6 +79,81 @@ if($message->sender ==$userid){ ?>
 <?php }
 }
 }
+if(isset($_POST['messageImages'])){
+    $userid = $_POST['messageImages'];
+    $chatid=$_POST['chatid'];
+    $msg=$_POST['msg'];
+    $images=$_POST['images'];
+    $a7a=$loadUser->getUserInfo($chatid);
+    $online=$loadUser->getOnlineStatus($chatid,$userid);
+
+
+    if(time()- strtotime($a7a->last_activity)<2 && $online->status==1){
+        $loadUser->create('messages',array('message'=>$msg,'sender'=>$userid,'receiver'=>$chatid,'status'=>2,'images'=>$images,'messageAt'=>date('Y-m-d H:i:s')));
+    }else if(time()- strtotime($a7a->last_activity)<2 && $online->status==0){
+        $loadUser->create('messages',array('message'=>$msg,'sender'=>$userid,'status'=>1,'receiver'=>$chatid,'images'=>$images,'messageAt'=>date('Y-m-d H:i:s')));
+    }else{
+        
+        $loadUser->create('messages',array('message'=>$msg,'sender'=>$userid,'status'=>0,'receiver'=>$chatid,'images'=>$images,'messageAt'=>date('Y-m-d H:i:s')));
+    }
+    
+    $messageData = $loadPost->messageData($userid,$chatid);
+     foreach ($messageData as $i => $message){
+        if($message->user_id == $userid){ ?>
+<div class="mess_right">
+    <div class="mssssg"><?php echo $message->message ?></div>
+    <?php
+
+        if($i<count($messageData)-1 && strtotime($message->messageAt) - strtotime($messageData[$i+1]->messageAt)>-5000){
+            ?>
+    <div class="timeit"><?php echo $loadUser->timeAgo($message->messageAt) ?></div>
+
+    <?php }else{}
+        ?>
+
+</div>
+
+<?php  }else{ ?>
+
+<div class="mess_left">
+    <img src="<?php echo $message->profile_picture ?>" alt="">
+    <div class="mssssg1"><?php echo $message->message ?></div>
+</div>
+
+<?php  }
+        ?>
+
+
+<?php  } ?>
+<?php
+exit;
+$messageData = $loadPost->messageData($userid,$chatid);
+
+foreach($messageData as $message){
+
+if($message->sender ==$userid){ ?>
+<div class="msg_sender">
+    <div class="actual_msg">
+        <?php echo $message->message ?>
+        <div class="msg_time1">
+            <?php echo $loadUser->timeAgoAlt($message->messageAt) ?>
+        </div>
+    </div>
+</div>
+<?php }else{ ?>
+<div class="msg_receiver">
+    <img src="<?php echo $message->profile_picture ?>" alt="">
+    <div class="actual_msg1">
+        <?php echo $message->message ?>
+        <div class="msg_time2">
+            <?php echo $loadUser->timeAgoAlt($message->messageAt) ?>
+        </div>
+    </div>
+
+</div>
+<?php }
+}
+}
 
 if(isset($_POST['showmsg'])){
     $chatid = $_POST['showmsg'];

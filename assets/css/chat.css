@@ -438,6 +438,32 @@
     height: 50px;
     border-radius: 10px;
 }
+
+.remove_image_a7aton {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #fff;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.remove_image_a7aton:hover {
+    opacity: 0.8;
+}
+.msa7_dik_pic {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yX/r/5JVhSAHqR6r.png');
+    background-position: -39px -126px;
+    background-size: auto;
+    width: 12px;
+    height: 12px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
 .input_img_text {
     padding-top: 5px;
     width: 100%;

@@ -1684,16 +1684,14 @@ $(document).on('click', '#open_send_file', function() {
     var chat = $(this).data('chat')
     $('#send_file[data-chat=' + chat + ']').click();
 })
-var files = []
+var files = [];
+var imagess = [];
 $(document).on('change', '#send_file', function(e) {
     var chat = $(this).data('chat')
     var This = $(this)
-    const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dmhcnhtng/upload';
-    const PRESET = 'ml_default';
-    var filess = e.target.files;
-    files = filess
-    console.log(files)
 
+    var filess = e.target.files;
+    files = Array.from(filess);
     var formData = new FormData();
     if (files.length > 5) {
         $('.fixed_opacity').show();
@@ -1720,13 +1718,37 @@ $(document).on('change', '#send_file', function(e) {
                         '<div class="exit_nickname" style="margin-top:10px" id="close_erros_send"> <i class="zfzfzfzfkzpofgj"></i> </div> <div class="errors_heading"> Unable to Attach File </div> <div class="error_texting">Maximum file size allowed is 10mb,please try again.</div> <button id="close_erros_send" class="close_erros_send">Close</button>'
                     ).show();
                 } else {
+                    var CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dmhcnhtng/upload';
+                    var PRESET = 'n9tyxxgb';
+                    for (let i = 0; i < files.length; i++) {
+                        var formData = new FormData();
+                        formData.append('file', files[i]);
+                        formData.append('upload_preset', PRESET);
+                        axios({
+                            url: CLOUDINARY_URL,
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            data: formData,
+                        }).then(function(response) {
+                            var image = response.data.secure_url;
+                            imagess += '{name:' + image + '},';
+
+                        }).catch(function(error) {
+                            console.log(error)
+                        })
+                    }
                     $('.popu_char_a7em[data-chat=' + chat + ']').hide();
                     $('.chat_errors_container[data-chat=' + chat + ']').css('display', 'flex');
                     reader.onload = function(e) {
 
                         $('.chat_errors_container[data-chat=' + chat + ']').find(
                                 '.imginos_preview')
-                            .append('<div class="img_pazdad"><img src="' + e.target.result + '"></div>');
+                            .append(
+                                '<div class="img_pazdad"><div class="remove_image_a7aton" data-i="' + i +
+                                '" data-chat="' + chat + '"><i class="msa7_dik_pic"></i></div><img src="' +
+                                e.target.result + '"></div>');
                     }
 
                 }
@@ -1737,6 +1759,19 @@ $(document).on('change', '#send_file', function(e) {
     }
 
 })
+//-----remove specific image--->
+$(document).on('click', '.remove_image_a7aton', function() {
+    var chat = $(this).data('chat');
+    var img = $(this).data('i');
+    for (var i = 0; i < files.length; i++) {
+        if (i == img) {
+            files[i].splice(i, 1);
+        }
+    }
+    console.log(img)
+    console.log(files)
+})
+//-----remove specific image--->
 
 //----Send Files+------->
 
@@ -1744,6 +1779,28 @@ $(document).on('click', '#close_erros_send', function() {
     $('.fixed_opacity').hide();
     $('.errors_popup').hide();
 })
+
+//------>upload to cloudinary and send msg--->
+$(document).on('click', '#send_msg_and_img', function() {
+
+    var chat = $(this).data('chat');
+    var text = $('.input_img_text[data-chat=' + chat + ']').val();
+    $.post('http://localhost/facebook/core/ajax/message.php', {
+        messageImages: "<?php echo $userid ?>",
+        chatid: chat,
+        msg: text,
+        images: imagess
+    }, function(data) {
+        console.log(data);
+        $('.chat_errors_container[data-chat=' + chat + ']').hide()
+        $('.popu_char_a7em[data-chat=' + chat + ']').show();
+    })
+
+
+})
+//------>upload to cloudinary--->
+
+
 
 
 $(document).mouseup(function(e) {
