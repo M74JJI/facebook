@@ -1681,14 +1681,19 @@ $(document).on('click', '.exit_nickname', function() {
 
 //----Send Files+------->
 $(document).on('click', '#open_send_file', function() {
-    $(this).siblings('#send_file').click();
+    var chat = $(this).data('chat')
+    $('#send_file[data-chat=' + chat + ']').click();
 })
-
+var files = []
 $(document).on('change', '#send_file', function(e) {
+    var chat = $(this).data('chat')
     var This = $(this)
     const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dmhcnhtng/upload';
     const PRESET = 'ml_default';
-    var files = e.target.files;
+    var filess = e.target.files;
+    files = filess
+    console.log(files)
+
     var formData = new FormData();
     if (files.length > 5) {
         $('.fixed_opacity').show();
@@ -1704,27 +1709,29 @@ $(document).on('change', '#send_file', function(e) {
                 $('.errors_popup').html(
                     '<div class="exit_nickname" style="margin-top:10px" id="close_erros_send"> <i class="zfzfzfzfkzpofgj"></i> </div> <div class="errors_heading">Unable to Attach File</div><div class="error_texting">The type of file you are trying to attach is not allowed.Please try again with a different format. </div> <button id="close_erros_send" class="close_erros_send">Close</button > '
                 ).show();
-            }
-            var reader = new FileReader();
-            reader.readAsDataURL(files[i]);
-            var file_size = files[i].size || files[i].fileSize;
-            var size = (file_size / (1024 * 1024)).toFixed(2);
-            if (size > 10) {
-                $('.fixed_opacity').show();
-                $('.errors_popup').html(
-                    '<div class="exit_nickname" style="margin-top:10px" id="close_erros_send"> <i class="zfzfzfzfkzpofgj"></i> </div> <div class="errors_heading"> Unable to Attach File </div> <div class="error_texting">Maximum file size allowed is 10mb,please try again.</div> <button id="close_erros_send" class="close_erros_send">Close</button>'
-                ).show();
             } else {
-                $(This).parents('.popu_char_a7em').hide();
-                $(This).parents('.popu_char_a7em').siblings('.chat_errors_container').css('display', 'flex');
-                reader.onload = function(e) {
+                var reader = new FileReader();
+                reader.readAsDataURL(files[i]);
+                var file_size = files[i].size || files[i].fileSize;
+                var size = (file_size / (1024 * 1024)).toFixed(2);
+                if (size > 10) {
+                    $('.fixed_opacity').show();
+                    $('.errors_popup').html(
+                        '<div class="exit_nickname" style="margin-top:10px" id="close_erros_send"> <i class="zfzfzfzfkzpofgj"></i> </div> <div class="errors_heading"> Unable to Attach File </div> <div class="error_texting">Maximum file size allowed is 10mb,please try again.</div> <button id="close_erros_send" class="close_erros_send">Close</button>'
+                    ).show();
+                } else {
+                    $('.popu_char_a7em[data-chat=' + chat + ']').hide();
+                    $('.chat_errors_container[data-chat=' + chat + ']').css('display', 'flex');
+                    reader.onload = function(e) {
 
-                    $(This).parents('.popu_char_a7em').siblings('.chat_errors_container').find(
-                            '.imginos_preview')
-                        .append('<div class="img_pazdad"><img src="' + e.target.result + '"></div>');
+                        $('.chat_errors_container[data-chat=' + chat + ']').find(
+                                '.imginos_preview')
+                            .append('<div class="img_pazdad"><img src="' + e.target.result + '"></div>');
+                    }
+
                 }
-
             }
+
 
         }
     }

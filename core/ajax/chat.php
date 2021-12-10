@@ -267,7 +267,7 @@ if(isset($_POST['popup_chat'])){
 
 
     </div>
-    <div class="chat_errors_container">
+    <div class="chat_errors_container" data-chat="<?php echo $chatid; ?>">
         <svg class="unavailable_svg" viewBox="0 0 24 24" height="20px" width="20px" fill="#bcc0c4">
             <g fill-rule="evenodd">
                 <polygon fill="none" points="-6,30 30,30 30,-6 -6,-6 "></polygon>
@@ -300,7 +300,7 @@ if(isset($_POST['popup_chat'])){
 
     </div>
     <input type="file" id="send_file" multiple="multiple" style="display: none" data-chat="<?php echo $chatid; ?>">
-    <div class="popu_char_a7em">
+    <div class="popu_char_a7em" data-chat="<?php echo $chatid; ?>">
         <div class="m14_left">
             <div class="m24_icon">
                 <svg viewBox="0 0 24 24" height="20px" width="20px">
