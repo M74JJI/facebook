@@ -1686,6 +1686,7 @@ $(document).on('click', '#open_send_file', function() {
 })
 var files = [];
 var imagess = [];
+
 $(document).on('change', '#send_file', function(e) {
     var chat = $(this).data('chat')
     var This = $(this)
@@ -1693,7 +1694,7 @@ $(document).on('change', '#send_file', function(e) {
     var filess = e.target.files;
     files = Array.from(filess);
     var formData = new FormData();
-    if (files.length > 5) {
+    if (files.length > 10) {
         $('.fixed_opacity').show();
         $('.errors_popup').html(
             '<div class="exit_nickname" style="margin-top:10px" id="close_erros_send"> <i class="zfzfzfzfkzpofgj"></i> </div> <div class="errors_heading"> Unable to Attach File </div> <div class="error_texting">Maximum of 5 files are allowed per time,please try again.</div> <button id="close_erros_send" class="close_erros_send">Close</button>'
@@ -1718,27 +1719,7 @@ $(document).on('change', '#send_file', function(e) {
                         '<div class="exit_nickname" style="margin-top:10px" id="close_erros_send"> <i class="zfzfzfzfkzpofgj"></i> </div> <div class="errors_heading"> Unable to Attach File </div> <div class="error_texting">Maximum file size allowed is 10mb,please try again.</div> <button id="close_erros_send" class="close_erros_send">Close</button>'
                     ).show();
                 } else {
-                    var CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dmhcnhtng/upload';
-                    var PRESET = 'n9tyxxgb';
-                    for (let i = 0; i < files.length; i++) {
-                        var formData = new FormData();
-                        formData.append('file', files[i]);
-                        formData.append('upload_preset', PRESET);
-                        axios({
-                            url: CLOUDINARY_URL,
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                            },
-                            data: formData,
-                        }).then(function(response) {
-                            var image = response.data.secure_url;
-                            imagess += '{name:' + image + '},';
 
-                        }).catch(function(error) {
-                            console.log(error)
-                        })
-                    }
                     $('.popu_char_a7em[data-chat=' + chat + ']').hide();
                     $('.chat_errors_container[data-chat=' + chat + ']').css('display', 'flex');
                     reader.onload = function(e) {
@@ -1781,20 +1762,51 @@ $(document).on('click', '#close_erros_send', function() {
 })
 
 //------>upload to cloudinary and send msg--->
+var imagesMessage = '';
+var loading;
 $(document).on('click', '#send_msg_and_img', function() {
 
     var chat = $(this).data('chat');
     var text = $('.input_img_text[data-chat=' + chat + ']').val();
-    $.post('http://localhost/facebook/core/ajax/message.php', {
-        messageImages: "<?php echo $userid ?>",
-        chatid: chat,
-        msg: text,
-        images: imagess
-    }, function(data) {
-        console.log(data);
-        $('.chat_errors_container[data-chat=' + chat + ']').hide()
-        $('.popu_char_a7em[data-chat=' + chat + ']').show();
-    })
+    var CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dmhcnhtng/upload';
+    var PRESET = 'n9tyxxgb';
+    for (let i = 0; i < files.length; i++) {
+        var formData = new FormData();
+        formData.append('file', files[i]);
+        formData.append('upload_preset', PRESET);
+        loading = 1;
+        axios({
+            url: CLOUDINARY_URL,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            data: formData,
+        }).then(function(response) {
+            var image = response.data.secure_url;
+            imagess += '{\"name\":\"' + image + '\"},';
+            loading = 0
+
+        }).catch(function(error) {
+            console.log(error)
+        })
+    }
+    var str = imagess.replace(/,\s*$/, "");
+    imagesMessage = '[' + str + ']';
+    if (imagesMessage != '' || text != '' && loading == 0) {
+        $.post('http://localhost/facebook/core/ajax/message.php', {
+            messageImages: "<?php echo $userid ?>",
+            chatid: chat,
+            msg: text,
+            images: imagesMessage
+        }, function(data) {
+            console.log(data);
+            $('.chat_errors_container[data-chat=' + chat + ']').hide()
+            $('.popu_char_a7em[data-chat=' + chat + ']').show();
+        })
+    }
+
+
 
 
 })

@@ -196,9 +196,160 @@ if(isset($_POST['popup_chat'])){
         </div>
         <div class="messaging_popup" data-count="<?php echo count($messageData) ?>" data-chat="<?php echo $chatid; ?>"
             data-time="<?php echo $chat->last_activity ?>"> <?php foreach ($messageData as $i => $message){
-                if($message->user_id == $userid){ ?> <div class="mess_right">
-                <div class="mssssg"><?php echo $message->message ?></div>
+                if($message->user_id == $userid){ ?>
+            <div class="mess_right">
+                <!---Start--------------------------------mssssg------>
+                <?php 
+                if($message->images =='' && $message->message !=''){
+                    echo '<div class="mssssg">'.$message->message.'</div>';
+                }else if($message->images != '' && $message->message==''){
+                    $images=json_decode($message->images);
+                    
+                    if(count($images)==1){
+                        ?>
+                <div class="images_in_messages_1">
+                    <img src="<?php echo $images[0]->name ?>" alt="">
+                </div>
+                <?php 
+                    }
+                    else if(count($images)==2){
+                        ?>
+                <div class="images_in_messages_2">
+                    <img src="<?php echo $images[0]->name ?>" alt="">
+                    <img src="<?php echo $images[1]->name ?>" alt="">
+                </div>
+                <?php 
+                    }
+                    else if(count($images)==3){
+                        ?>
+                <div class="images_in_messages_3">
+                    <img src="<?php echo $images[0]->name ?>" alt="">
+                    <img src="<?php echo $images[1]->name ?>" alt="">
+                    <img src="<?php echo $images[2]->name ?>" alt="">
+                </div>
+                <?php 
+                    }
+                    else if(count($images)==4){
+                        ?>
+                <div class="images_in_messages_4">
+                    <img src="<?php echo $images[0]->name ?>" alt="">
+                    <img src="<?php echo $images[1]->name ?>" alt="">
+                    <img src="<?php echo $images[2]->name ?>" alt="">
+                    <img src="<?php echo $images[3]->name ?>" alt="">
+                </div>
+                <?php 
+                    }
+                    else if(count($images)==5){
+                        ?>
+                <div class="images_in_messages_5">
+                    <div class="images_in_flex_2">
+                        <img src="<?php echo $images[0]->name ?>" alt="">
+                        <img src="<?php echo $images[1]->name ?>" alt="">
+                    </div>
+                    <div class="images_in_flex_3">
+                        <img src="<?php echo $images[2]->name ?>" alt="">
+                        <img src="<?php echo $images[3]->name ?>" alt="">
+                        <img src="<?php echo $images[4]->name ?>" alt="">
+                    </div>
+                </div>
+                <?php 
+                    }
+                    else {
+                        ?>
+                <div class="images_in_messages_6">
+                    <?php
+                   foreach ($images as $img){
+                       ?>
+                    <img src="<?php echo $img->name ?>" alt="">
+                    <?php
+                   }
+                   ?>
+
+                </div>
+                <?php 
+                    }
+                    
+                }else if($message->message !='' && $message->images !=''){
+                    $images=json_decode($message->images);
+                    
+                    if(count($images)==1){
+                        ?>
+                <div class="mssssg" style="width:fit-content;float:right;margin-bottom:5px">
+                    <?php echo $message->message ?></div>
+                <div class="images_in_messages_1">
+                    <img src="<?php echo $images[0]->name ?>" alt="">
+                </div>
+                <?php 
+                    }
+                    else if(count($images)==2){
+                        ?> <div class="mssssg" style="width:fit-content;float:right;margin-bottom:5px">
+                    <?php echo $message->message ?></div>
+                <div class="images_in_messages_2">
+                    <img src="<?php echo $images[0]->name ?>" alt="">
+                    <img src="<?php echo $images[1]->name ?>" alt="">
+                </div>
+                <?php 
+                    }
+                    else if(count($images)==3){
+                        ?> <div class="mssssg" style="width:fit-content;float:right;margin-bottom:5px">
+                    <?php echo $message->message ?></div>
+                <div class="images_in_messages_3">
+                    <img src="<?php echo $images[0]->name ?>" alt="">
+                    <img src="<?php echo $images[1]->name ?>" alt="">
+                    <img src="<?php echo $images[2]->name ?>" alt="">
+                </div>
+                <?php 
+                    }
+                    else if(count($images)==4){
+                        ?> <div class="mssssg" style="width:fit-content;float:right;margin-bottom:5px">
+                    <?php echo $message->message ?></div>
+                <div class="images_in_messages_4">
+                    <img src="<?php echo $images[0]->name ?>" alt="">
+                    <img src="<?php echo $images[1]->name ?>" alt="">
+                    <img src="<?php echo $images[2]->name ?>" alt="">
+                    <img src="<?php echo $images[3]->name ?>" alt="">
+                </div>
+                <?php 
+                    }
+                    else if(count($images)==5){
+                        ?> <div class="mssssg" style="width:fit-content;float:right;margin-bottom:5px">
+                    <?php echo $message->message ?></div>
+                <div class="images_in_messages_5">
+                    <div class="images_in_flex_2">
+                        <img src="<?php echo $images[0]->name ?>" alt="">
+                        <img src="<?php echo $images[1]->name ?>" alt="">
+                    </div>
+                    <div class="images_in_flex_3">
+                        <img src="<?php echo $images[2]->name ?>" alt="">
+                        <img src="<?php echo $images[3]->name ?>" alt="">
+                        <img src="<?php echo $images[4]->name ?>" alt="">
+                    </div>
+                </div>
+                <?php 
+                    }
+                    else {
+                        ?> <div class="mssssg" style="width:fit-content;float:right;margin-bottom:5px">
+                    <?php echo $message->message ?></div>
+                <div class="images_in_messages_6">
+                    <?php
+                   foreach ($images as $img){
+                       ?>
+                    <img src="<?php echo $img->name ?>" alt="">
+                    <?php
+                   }
+                   ?>
+
+                </div>
+                <?php 
+                    }
+                }
+                ?>
+
+
+                <!---End-------------------------------------->
                 <?php
+
+
 
                 if($i<count($messageData)-1 && strtotime($message->messageAt) - strtotime($messageData[$i+1]->messageAt)>-5000){
                     ?>
@@ -253,8 +404,160 @@ if(isset($_POST['popup_chat'])){
             <?php  }else{ ?>
 
             <div class="mess_left">
-                <img src="<?php echo $message->profile_picture ?>" alt="">
-                <div class="mssssg1"><?php echo $message->message ?></div>
+                <!---Start--------------------------------mssssg------>
+                <?php 
+                if($message->images =='' && $message->message !=''){
+                    echo '<img class="p45545_img" src='.$message->profile_picture.'><div class="mssssg1">'.$message->message.'</div>';
+                }else if($message->images != '' && $message->message==''){
+                    $images=json_decode($message->images);
+                    
+                    if(count($images)==1){
+                        ?>
+                <img class="p45545_img" src="<?php echo $message->profile_picture ?>" alt="">
+                <div class="images_in_messages_1">
+                    <img src="<?php echo $images[0]->name ?>" alt="">
+                </div>
+                <?php 
+                    }
+                    else if(count($images)==2){
+                        ?> <img class="p45545_img" src="<?php echo $message->profile_picture ?>" alt="">
+                <div class="images_in_messages_2">
+                    <img src="<?php echo $images[0]->name ?>" alt="">
+                    <img src="<?php echo $images[1]->name ?>" alt="">
+                </div>
+                <?php 
+                    }
+                    else if(count($images)==3){
+                        ?> <img class="p45545_img" src="<?php echo $message->profile_picture ?>" alt="">
+                <div class="images_in_messages_3">
+                    <img src="<?php echo $images[0]->name ?>" alt="">
+                    <img src="<?php echo $images[1]->name ?>" alt="">
+                    <img src="<?php echo $images[2]->name ?>" alt="">
+                </div>
+                <?php 
+                    }
+                    else if(count($images)==4){
+                        ?> <img class="p45545_img" src="<?php echo $message->profile_picture ?>" alt="">
+                <div class="images_in_messages_4">
+                    <img src="<?php echo $images[0]->name ?>" alt="">
+                    <img src="<?php echo $images[1]->name ?>" alt="">
+                    <img src="<?php echo $images[2]->name ?>" alt="">
+                    <img src="<?php echo $images[3]->name ?>" alt="">
+                </div>
+                <?php 
+                    }
+                    else if(count($images)==5){
+                        ?> <img class="p45545_img" src="<?php echo $message->profile_picture ?>" alt="">
+                <div class="images_in_messages_5">
+                    <div class="images_in_flex_2">
+                        <img src="<?php echo $images[0]->name ?>" alt="">
+                        <img src="<?php echo $images[1]->name ?>" alt="">
+                    </div>
+                    <div class="images_in_flex_3">
+                        <img src="<?php echo $images[2]->name ?>" alt="">
+                        <img src="<?php echo $images[3]->name ?>" alt="">
+                        <img src="<?php echo $images[4]->name ?>" alt="">
+                    </div>
+                </div>
+                <?php 
+                    }
+                    else {
+                        ?> <img class="p45545_img" src="<?php echo $message->profile_picture ?>" alt="">
+                <div class="images_in_messages_6">
+                    <?php
+                   foreach ($images as $img){
+                       ?>
+                    <img src="<?php echo $img->name ?>" alt="">
+                    <?php
+                   }
+                   ?>
+
+                </div>
+                <?php 
+                    }
+                    
+                }else if($message->message !='' && $message->images !=''){
+                    $images=json_decode($message->images);
+                    
+                    if(count($images)==1){
+                        ?> <img class="p45545_img" src="<?php echo $message->profile_picture ?>" alt="">
+                <div>
+                    <div class="mssssg1" style="width:fit-content;float:left;margin-bottom:5px">
+                        <?php echo $message->message ?></div>
+                    <div class="images_in_messages_1">
+                        <img src="<?php echo $images[0]->name ?>" alt="">
+                    </div>
+                </div>
+                <?php 
+                    }
+                    else if(count($images)==2){
+                        ?> <div class="mssssg1" style="width:fit-content;float:left;margin-bottom:5px">
+                    <?php echo $message->message ?></div>
+                <div class="images_in_messages_2">
+                    <img src="<?php echo $images[0]->name ?>" alt="">
+                    <img src="<?php echo $images[1]->name ?>" alt="">
+                </div>
+                <?php 
+                    }
+                    else if(count($images)==3){
+                        ?><div class="mssssg1" style="width:fit-content;float:left;margin-bottom:5px">
+                    <?php echo $message->message ?></div>
+                <div class="images_in_messages_3">
+                    <img src="<?php echo $images[0]->name ?>" alt="">
+                    <img src="<?php echo $images[1]->name ?>" alt="">
+                    <img src="<?php echo $images[2]->name ?>" alt="">
+                </div>
+                <?php 
+                    }
+                    else if(count($images)==4){
+                        ?> <div class="mssssg1" style="width:fit-content;float:left;margin-bottom:5px">
+                    <?php echo $message->message ?></div>
+                <div class="images_in_messages_4">
+                    <img src="<?php echo $images[0]->name ?>" alt="">
+                    <img src="<?php echo $images[1]->name ?>" alt="">
+                    <img src="<?php echo $images[2]->name ?>" alt="">
+                    <img src="<?php echo $images[3]->name ?>" alt="">
+                </div>
+                <?php 
+                    }
+                    else if(count($images)==5){
+                        ?><div class="mssssg1" style="width:fit-content;float:left;margin-bottom:5px">
+                    <?php echo $message->message ?></div>
+                <div class="images_in_messages_5">
+                    <div class="images_in_flex_2">
+                        <img src="<?php echo $images[0]->name ?>" alt="">
+                        <img src="<?php echo $images[1]->name ?>" alt="">
+                    </div>
+                    <div class="images_in_flex_3">
+                        <img src="<?php echo $images[2]->name ?>" alt="">
+                        <img src="<?php echo $images[3]->name ?>" alt="">
+                        <img src="<?php echo $images[4]->name ?>" alt="">
+                    </div>
+                </div>
+                <?php 
+                    }
+                    else {
+                        ?> <div class="mssssg1" style="width:fit-content;float:left;margin-bottom:5px">
+                    <?php echo $message->message ?></div>
+                <div class="images_in_messages_6">
+                    <?php
+                   foreach ($images as $img){
+                       ?>
+                    <img src="<?php echo $img->name ?>" alt="">
+                    <?php
+                   }
+                   ?>
+
+                </div>
+                <?php 
+                    }
+                }
+                ?>
+
+
+                <!---End-------------------------------------->
+
+
             </div>
 
             <?php  }
@@ -277,10 +580,11 @@ if(isset($_POST['popup_chat'])){
             </g>
         </svg>
         <div class="preview_sender_bitch">
-            <div class="imginos_preview">
-
-                <div class="add_pc_i_more" id="open_send_file" data-chat="<?php echo $chatid; ?>">
-                    <i class="a7atahona"></i>
+            <div class="overflowee">
+                <div class="imginos_preview">
+                    <div class="add_pc_i_more" id="open_send_file" data-chat="<?php echo $chatid; ?>">
+                        <i class="a7atahona"></i>
+                    </div>
                 </div>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;padding:0 5px;">
