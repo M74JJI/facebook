@@ -202,14 +202,26 @@ if(isset($_POST['popup_chat'])){
                 <?php 
                 if($message->images =='' && $message->message !=''){
                     echo '<div class="mssssg">'.$message->message.'</div>';
+                    
                 }else if($message->images != '' && $message->message==''){
                     $images=json_decode($message->images);
                     
                     if(count($images)==1){
                         ?>
+
+
+
                 <div class="images_in_messages_1">
+                    <div class="message_manipulation">
+                        <div class="msg_kk_hold">
+                            <i class="fas fa-share-square"></i>
+                        </div>
+
+
+                    </div>
                     <img src="<?php echo $images[0]->name ?>" alt="">
                 </div>
+
                 <?php 
                     }
                     else if(count($images)==2){

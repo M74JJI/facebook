@@ -102,19 +102,17 @@
 .m14_left {
     display: flex;
     align-items: center;
-    column-gap: 10px;
 }
 .m24_icon svg {
     fill: #00b2ff;
 }
 .m24_icon {
     cursor: pointer;
-    height: 24px;
-    width: 24px;
+    height: 30px;
+    width: 30px;
     border-radius: 50%;
     display: flex;
     align-items: center;
-    padding: 2px;
     justify-content: center;
 }
 .m24_icon:hover {
@@ -519,6 +517,8 @@
 }
 .images_in_messages_1 {
     margin-top: 5px;
+    display: flex;
+    align-items: center;
 }
 .images_in_messages_1 img {
     max-height: 200px;
@@ -606,4 +606,7 @@
     height: 70px;
     object-fit: cover;
     border-radius: 5px;
+}
+.message_manipulation {
+    margin-right: 15px;
 }
