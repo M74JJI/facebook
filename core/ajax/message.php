@@ -86,7 +86,7 @@ if(isset($_POST['messageImages'])){
     $images=$_POST['images'];
     $a7a=$loadUser->getUserInfo($chatid);
     $online=$loadUser->getOnlineStatus($chatid,$userid);
-
+    $lastMessage = $loadUser->getLastMsgSendByUser($userid,$chatid);
 
     if(time()- strtotime($a7a->last_activity)<2 && $online->status==1){
         $loadUser->create('messages',array('message'=>$msg,'sender'=>$userid,'receiver'=>$chatid,'status'=>2,'images'=>$images,'messageAt'=>date('Y-m-d H:i:s')));
@@ -259,7 +259,7 @@ if(isset($_POST['messageImages'])){
     <div class="timeit"><?php echo $loadUser->timeAgoAlt($message->messageAt) ?></div>
 
     <?php }else{}
-                    if($lastMessage->msg_id == $message->msg_id && $i==count($messageData)-1){
+                    if($lastMessage->msg_id == $message->msg_id && $i==count($messageData)-1 ){
                 ?>
     <div class="update_seen_or" data-chat="<?php echo $chatid ?>">
         <?php

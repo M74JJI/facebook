@@ -1764,52 +1764,73 @@ $(document).on('click', '#close_erros_send', function() {
 //------>upload to cloudinary and send msg--->
 var imagesMessage = '';
 var loading;
+var str;
+var a7aa = 0;
 $(document).on('click', '#send_msg_and_img', function() {
 
     var chat = $(this).data('chat');
     var text = $('.input_img_text[data-chat=' + chat + ']').val();
     var CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dmhcnhtng/upload';
     var PRESET = 'n9tyxxgb';
-    for (let i = 0; i < files.length; i++) {
-        var formData = new FormData();
-        formData.append('file', files[i]);
-        formData.append('upload_preset', PRESET);
-        loading = 1;
-        axios({
-            url: CLOUDINARY_URL,
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            data: formData,
-        }).then(function(response) {
-            var image = response.data.secure_url;
-            imagess += '{\"name\":\"' + image + '\"},';
-            loading = 0
 
-        }).catch(function(error) {
-            console.log(error)
-        })
+    async function uplaodIntoCloudinary() {
+        for (var i = 0; i < files.length; i++) {
+
+            var formData = new FormData();
+            formData.append('file', files[i]);
+            formData.append('upload_preset', PRESET);
+            await axios({
+                url: CLOUDINARY_URL,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                data: formData,
+            }).then(function(response) {
+                var image = response.data.secure_url;
+                imagess += '{\"name\":\"' + image + '\"},';
+                console.log('added')
+
+            }).catch(function(error) {
+                console.log(error)
+            })
+        }
+
+
     }
-    var str = imagess.replace(/,\s*$/, "");
-    imagesMessage = '[' + str + ']';
-    if (imagesMessage != '' || text != '' && loading == 0) {
+
+
+    uplaodIntoCloudinary().then(() => {
+        str = imagess.replace(/,\s*$/, "");
+        imagesMessage = '[' + str + ']';
+        $('#send_file').val(null);
+        imagess = [];
+        $('#send_file').attr('value', '');
+
         $.post('http://localhost/facebook/core/ajax/message.php', {
             messageImages: "<?php echo $userid ?>",
             chatid: chat,
             msg: text,
             images: imagesMessage
         }, function(data) {
-            console.log(data);
+
             $('.chat_errors_container[data-chat=' + chat + ']').hide()
             $('.popu_char_a7em[data-chat=' + chat + ']').show();
+            scrolla(chat);
+
+            str = '';
+            imagesMessage = '';
         })
-    }
+
+
+    });
 
 
 
 
 })
+
+
 //------>upload to cloudinary--->
 
 
