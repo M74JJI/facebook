@@ -34,7 +34,59 @@ if(isset($_POST['refreshmsgs'])){
         <!---Start--------------------------------mssssg------>
         <?php 
                 if($message->images =='' && $message->message !=''){
-                    echo '<div class="mssssg">'.$message->message.'</div>';
+                    ?>
+        <div class="only_message_texto">
+            <div class="message_manipulation">
+                <div class="hidddem_bitch">
+                    <div class="dots_msg_rem" style="position:relative;" id="open_msg_ots">
+                        <div class=" msg_kk_hold">
+                            <img class="a99a_mg" style="width:14px" src="assets/svg/dots.png" alt="">
+                        </div>
+                        <div class="msg_rem_menu">
+                            <button data-msg="<?php echo $message->msg_id ?>" id="remove_msg">Remove</button>
+                        </div>
+                    </div>
+                    <?php 
+                           if($message->message !='You unsent a message' ){
+                               ?>
+                    <div class="react_messages_wrappp" style="position:relative;" id="open_msg_react">
+                        <div class="msg_kk_hold">
+                            <img class="a99a_mg" src="assets/svg/emoji_light.png" alt="">
+                        </div>
+                        <div class="react_msg_wrapper" data-msg="<?php echo $message->msg_id ?>"
+                            data-sender="<?php echo $message->sender ?>"
+                            data-receiver="<?php echo $message->receiver ?>">
+                            <img class="react_msg_icon" src="assets/images/msg/love.png" alt="" id="click-msg-love">
+                            <img class="react_msg_icon" src="assets/images/msg/haha.png" alt="" id="click-msg-haha">
+                            <img class="react_msg_icon" src="assets/images/msg/wow.png" alt="" id="click-msg-wow">
+                            <img class="react_msg_icon" src="assets/images/msg/sad.png" alt="" id="click-msg-sad">
+                            <img class="react_msg_icon" src="assets/images/msg/angry.png" alt="" id="click-msg-angry">
+                            <img class="react_msg_icon" src="assets/images/msg/like.png" alt="" id="click-msg-like">
+                        </div>
+                    </div>
+                    <?php
+                           }
+                           ?>
+
+
+
+                </div>
+
+            </div>
+            <div class="mssssg"
+                style="<?php if($message->message=='You unsent a message'){echo 'background:transparent;color:#bcc0c4;border:1px solid #ced0d4;padding:10px;border-radius:50px';} ?>">
+                <?php echo $message->message ?></div>
+            <div class="msg_reactss">
+                <?php if($message->sReact != '' && $message->rReact==NULL){
+                            echo '<img src="'.BASE_URL.'assets/images/msg/'.$message->sReact.'.png" alt=""><span style="font-size:11px;margin-left:5px;color:#222">  1</span>';
+                        }else if($message->rReact != '' && $message->sReact==NULL){
+                            echo '<img src="'.BASE_URL.'assets/images/msg/'.$message->rReact.'.png" alt=""><span style="font-size:11px;margin-left:5px;color:#222">  1</span>';
+                        }else if($message->rReact != '' && $message->sReact!=''){
+                            echo '<img src="'.BASE_URL.'assets/images/msg/'.$message->rReact.'.png" alt=""><img src="'.BASE_URL.'assets/images/msg/'.$message->sReact.'.png" alt=""><span style="font-size:11px;margin-left:5px;color:#222">  2</span>';
+                        } ?>
+            </div>
+        </div>
+        <?php
                 }else if($message->images != '' && $message->message==''){
                     $images=json_decode($message->images);
                     

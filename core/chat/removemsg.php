@@ -12,3 +12,10 @@ if(isset($_POST['remove_msg'])){
  $loadUser->removeMessageUpdate($msg);
 
 }
+if(isset($_POST['deletemsg'])){
+ $msg=$_POST['deletemsg'];
+
+  
+ $loadUser->removeMessage($msg);
+
+}

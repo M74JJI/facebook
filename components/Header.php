@@ -1944,6 +1944,17 @@ $(document).on('click', '#unsend_msg', function() {
     })
 })
 
+$(document).on('click', '#remove_msg', function() {
+    var msg = $(this).data('msg');
+
+    $(this).parents('.msg_rem_menu').hide();
+    $.post('http://localhost/facebook/core/chat/removemsg.php', {
+        deletemsg: msg,
+
+
+    })
+})
+
 
 
 //--react messages---->

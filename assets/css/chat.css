@@ -795,7 +795,7 @@
     gap: 2px;
     position: absolute;
     bottom: -10px;
-    right: 20px;
+    right: 10px;
     border-radius: 50px;
 }
 .msg_reactss img {
@@ -836,6 +836,7 @@
     background: #eee;
 }
 .only_message_texto {
+    position: relative;
     display: flex;
     align-items: center;
 }

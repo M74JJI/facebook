@@ -833,6 +833,15 @@ class User{
         
     }
    
+   
+    public function removeMessage($msg){
+            $statement=$this->pdo->prepare("DELETE FROM messages WHERE msg_id =:msg");
+            $statement->bindValue(':msg',$msg,PDO::PARAM_INT);
+            $statement->execute();
+         
+        
+    }
+   
 
 
 
