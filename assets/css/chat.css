@@ -743,3 +743,26 @@
 }
 .forward_recent {
 }
+.sent_forward_btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #e4e6eb;
+    color: #bec3c9;
+    cursor: not-allowed;
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+.sentedtefde {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/y3/r/7b9klEQ1SqF.png');
+    background-position: -25px -360px;
+    background-size: auto;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(80%);
+}

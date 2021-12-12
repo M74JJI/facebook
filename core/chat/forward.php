@@ -26,7 +26,7 @@ if(isset($_POST['forward'])){
         <img src="<?php echo $recent->profile_picture ?>" alt="">
         <span><?php echo $recent->first_name.' '.$recent->last_name ?></span>
     </div>
-    <button class="forward_send" id="forward_sendd">Send</button>
+    <button class="forward_send" id="forward_sendd1">Send</button>
 </div>
 <?php
     }

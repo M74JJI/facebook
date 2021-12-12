@@ -1755,11 +1755,52 @@ $(document).on('click', '#forward_sendd', function() {
         $(This).text('Undo');
         $.post('http://localhost/facebook/core/chat/forward_msg.php', {
             updateRecent: "<?php echo $userid ?>",
+            msg: msg,
         }, function(data) {
-
             $('.forward_recent').html(data);
         })
+        setTimeout(function() {
+            $(This).attr('disabled', 'disabled');
+            $(This).removeClass().addClass('sent_forward_btn')
+            $(This).html('<i class="sentedtefde">/</i>Sent');
+            var damn = $('.forward_recent').find('.forward_friend_item[data-chat=' + chatid +
+                '] button');
+            $(damn).attr('disabled', 'disabled').removeClass();
+            $(damn).addClass('sent_forward_btn');
+            $(damn).html('<i class="sentedtefde">/</i>Sent');
 
+        }, 4000)
+
+
+    })
+
+})
+$(document).on('click', '#forward_sendd1', function() {
+    var This = $(this)
+    var userid = "<?php echo $userid ?>";
+    var chatid = $(this).parents('.forward_friend_item').data('chat');
+    var msg = $(this).parents('.forward_friend_item').data('msg');
+
+    $.post('http://localhost/facebook/core/chat/forward_msg.php', {
+        forward_chat: chatid,
+        chatid: chatid,
+        msg: msg,
+        userid: userid
+    }, function(data) {
+        $(This).attr('id', 'undo_forward1');
+        $(This).attr('data-msg', data);
+        $(This).text('Undo');
+        setTimeout(function() {
+            $(This).attr('disabled', 'disabled');
+            $(This).removeClass().addClass('sent_forward_btn')
+            $(This).html('<i class="sentedtefde">/</i>Sent');
+            var damn = $('.forward_friends').find('.forward_friend_item[data-chat=' + chatid +
+                '] button');
+            $(damn).attr('disabled', 'disabled').removeClass();
+            $(damn).addClass('sent_forward_btn');
+            $(damn).html('<i class="sentedtefde">/</i>Sent');
+
+        }, 4000)
 
     })
 
@@ -1774,6 +1815,18 @@ $(document).on('click', '#undo_forward', function() {
         userid: "<?php echo $userid ?>"
     }, function(data) {
         $(This).attr('id', 'forward_sendd');
+        $(This).text('Send');
+    })
+})
+$(document).on('click', '#undo_forward1', function() {
+    var delete_message = $(this).data('msg');
+    var This = $(this);
+
+    $.post('http://localhost/facebook/core/chat/forward_msg.php', {
+        delete_message: delete_message,
+        userid: "<?php echo $userid ?>"
+    }, function(data) {
+        $(This).attr('id', 'forward_sendd1');
         $(This).text('Send');
     })
 })

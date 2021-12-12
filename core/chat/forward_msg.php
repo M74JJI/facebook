@@ -32,7 +32,6 @@ if(time()- strtotime($a7a->last_activity)<2 && $online->status==1){
            $laodUser->updateRecentForwards($userid,$chatid);
         } 
         }else{
-
         $id=$loadUser->create('messages',array('message'=>$message->message,'images'=>$message->images,'sender'=>$userid,'status'=>0,'receiver'=>$chatid,'messageAt'=>date('Y-m-d
         H:i:s')));
         if($checkforward->total==0){
@@ -51,6 +50,7 @@ if(time()- strtotime($a7a->last_activity)<2 && $online->status==1){
         } 
         if(isset($_POST['updateRecent'])){
             $userid=$_POST['updateRecent'];
+            $msg=$_POST['msg'];
             $recentForwards=$loadUser->getRecentForwards($userid);
             ?><div class="forwad_list_contacts_header">
     Recent
@@ -62,7 +62,7 @@ if(time()- strtotime($a7a->last_activity)<2 && $online->status==1){
         <img src="<?php echo $recent->profile_picture ?>" alt="">
         <span><?php echo $recent->first_name.' '.$recent->last_name ?></span>
     </div>
-    <button class="forward_send" id="forward_sendd">Send</button>
+    <button class="forward_send" id="forward_sendd1">Send</button>
 </div>
 <?php
               }
