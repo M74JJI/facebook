@@ -1,3 +1,8 @@
+<?php 
+//reset everything here
+$loadUser->resetOnline($userid);
+$loadUser->rdOnline0kamlin($userid);
+?>
 <header>
     <div class="h_left">
         <a href="<?php echo BASE_URL ?>">
@@ -1003,13 +1008,6 @@ $('#lala').click(function() {
 
 
 
-//------>reset Online----->
-$(document).ready(function() {
-    $.post('http://localhost/facebook/core/chat/resetOnline.php', {
-        resetOnline: "<?php echo $userid ?>"
-    })
-})
-//------>reset Online----->
 
 
 
@@ -1536,9 +1534,7 @@ $(document).ready(function() {
         chatCount = JSON.parse(data);
     })
 
-    $.post('http://localhost/facebook/core/chat/z3marahOnline.php', {
-        resetOnlinat: "<?php echo $userid ?>",
-    }, function(data) {})
+
 
 
 })
