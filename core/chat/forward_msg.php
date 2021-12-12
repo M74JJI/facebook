@@ -48,22 +48,5 @@ if(time()- strtotime($a7a->last_activity)<2 && $online->status==1){
             $userid=$_POST['userid'];
             $loadUser->delete('messages',array('msg_id'=>$msg));
         } 
-        if(isset($_POST['updateRecent'])){
-            $userid=$_POST['updateRecent'];
-            $msg=$_POST['msg'];
-            $recentForwards=$loadUser->getRecentForwards($userid);
-            ?><div class="forwad_list_contacts_header">
-    Recent
-</div><?php
-            foreach($recentForwards as $recent){
-                ?>
-<div class="forward_friend_item" data-chat="<?php echo $recent->user_id ?>" data-msg="<?php echo $msg ?>">
-    <div class="forward_friend_it_left">
-        <img src="<?php echo $recent->profile_picture ?>" alt="">
-        <span><?php echo $recent->first_name.' '.$recent->last_name ?></span>
-    </div>
-    <button class="forward_send" id="forward_sendd1">Send</button>
-</div>
-<?php
-              }
-        }
+     
+        
