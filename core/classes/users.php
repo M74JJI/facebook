@@ -772,6 +772,39 @@ class User{
  
         
     }
+    public function getMessageById($msg){
+            $statement=$this->pdo->prepare("SELECT * FROM messages WHERE msg_id=:msg");
+            $statement->bindValue(':msg',$msg,PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_OBJ);
+ 
+        
+    }
+   
+    public function checkIfForwardRecentExists($userid,$chatid){
+            $statement=$this->pdo->prepare("SELECT count(*) as total FROM recentforward WHERE molchi_id=:userid AND recent_id=:chatid");
+            $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement->bindValue(':chatid',$chatid,PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_OBJ);
+        
+    }
+    public function getRecentForwards($userid){
+            $statement=$this->pdo->prepare("SELECT * FROM recentforward LEFT JOIN profile ON profile.user_id =recentforward.recent_id LEFT JOIN users ON users.id=recentforward.recent_id
+             WHERE molchi_id=:userid ORDER BY createdAt DESC LIMIT 5");
+            $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_OBJ);
+        
+    }
+    public function updateRecentForwards($userid,$chatid){
+            $statement=$this->pdo->prepare("UPDATE recentforward SET createdAt=NOW() WHERE molchi_id=:userid AND recent_id=:chatid");
+            $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement->bindValue(':chatid',$chatid,PDO::PARAM_INT);
+            $statement->execute();
+         
+        
+    }
    
 
 
