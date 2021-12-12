@@ -201,7 +201,49 @@ if(isset($_POST['popup_chat'])){
                 <!---Start--------------------------------mssssg------>
                 <?php 
                 if($message->images =='' && $message->message !=''){
-                    echo '<div class="mssssg">'.$message->message.'</div>';
+                  
+                    ?>
+                <div class="only_message_texto">
+                    <div class="message_manipulation">
+                        <div class="hidddem_bitch">
+                            <div class="dots_msg_rem" style="position:relative;" id="open_msg_ots">
+                                <div class=" msg_kk_hold">
+                                    <img class="a99a_mg" style="width:14px" src="assets/svg/dots.png" alt="">
+                                </div>
+                                <div class="msg_rem_menu">
+                                    <button data-msg="<?php echo $message->msg_id ?>" id="unsend_msg">Remove</button>
+                                </div>
+                            </div>
+                            <div class="react_messages_wrappp" style="position:relative;" id="open_msg_react">
+                                <div class="msg_kk_hold">
+                                    <img class="a99a_mg" src="assets/svg/emoji_light.png" alt="">
+                                </div>
+                                <div class="react_msg_wrapper" data-msg="<?php echo $message->msg_id ?>"
+                                    data-sender="<?php echo $message->sender ?>"
+                                    data-receiver="<?php echo $message->receiver ?>">
+                                    <img class="react_msg_icon" src="assets/images/msg/love.png" alt=""
+                                        id="click-msg-love">
+                                    <img class="react_msg_icon" src="assets/images/msg/haha.png" alt=""
+                                        id="click-msg-haha">
+                                    <img class="react_msg_icon" src="assets/images/msg/wow.png" alt=""
+                                        id="click-msg-wow">
+                                    <img class="react_msg_icon" src="assets/images/msg/sad.png" alt=""
+                                        id="click-msg-sad">
+                                    <img class="react_msg_icon" src="assets/images/msg/angry.png" alt=""
+                                        id="click-msg-angry">
+                                    <img class="react_msg_icon" src="assets/images/msg/like.png" alt=""
+                                        id="click-msg-like">
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+                    <div class="mssssg"><?php echo $message->message ?></div>
+                </div>
+                <?php
                     
                 }else if($message->images != '' && $message->message==''){
                     $images=json_decode($message->images);
@@ -214,20 +256,55 @@ if(isset($_POST['popup_chat'])){
                 <div class="images_in_messages_1">
                     <div class="message_manipulation">
                         <div class="hidddem_bitch">
-                            <div class="msg_kk_hold">
-                                <img class="a99a_mg" style="width:14px" src="assets/svg/dots.png" alt="">
+                            <div class="dots_msg_rem" style="position:relative;" id="open_msg_ots">
+                                <div class=" msg_kk_hold">
+                                    <img class="a99a_mg" style="width:14px" src="assets/svg/dots.png" alt="">
+                                </div>
+                                <div class="msg_rem_menu">
+                                    <button data-msg="<?php echo $message->msg_id ?>" id="unsend_msg">Remove</button>
+                                </div>
                             </div>
-                            <div class="msg_kk_hold">
-                                <img class="a99a_mg" src="assets/svg/emoji_light.png" alt="">
+                            <div class="react_messages_wrappp" style="position:relative;" id="open_msg_react">
+                                <div class="msg_kk_hold">
+                                    <img class="a99a_mg" src="assets/svg/emoji_light.png" alt="">
+                                </div>
+                                <div class="react_msg_wrapper" data-msg="<?php echo $message->msg_id ?>"
+                                    data-sender="<?php echo $message->sender ?>"
+                                    data-receiver="<?php echo $message->receiver ?>">
+                                    <img class="react_msg_icon" src="assets/images/msg/love.png" alt=""
+                                        id="click-msg-love">
+                                    <img class="react_msg_icon" src="assets/images/msg/haha.png" alt=""
+                                        id="click-msg-haha">
+                                    <img class="react_msg_icon" src="assets/images/msg/wow.png" alt=""
+                                        id="click-msg-wow">
+                                    <img class="react_msg_icon" src="assets/images/msg/sad.png" alt=""
+                                        id="click-msg-sad">
+                                    <img class="react_msg_icon" src="assets/images/msg/angry.png" alt=""
+                                        id="click-msg-angry">
+                                    <img class="react_msg_icon" src="assets/images/msg/like.png" alt=""
+                                        id="click-msg-like">
+                                </div>
                             </div>
+
+
 
                         </div>
                         <div class="msg_kk_hold" id="open_forward" data-msg="<?php echo $message->msg_id ?>">
                             <img class="a99a_mg" src="assets/svg/share-outline.png" alt="">
+
                         </div>
 
                     </div>
                     <img class="img" src="<?php echo $images[0]->name ?>" alt="">
+                    <div class="msg_reactss">
+                        <?php if($message->sReact != '' && $message->rReact==NULL){
+                            echo '<img src="'.BASE_URL.'assets/images/msg/'.$message->sReact.'.png" alt=""><span style="font-size:11px;margin-left:5px;color:#222">  1</span>';
+                        }else if($message->rReact != '' && $message->sReact==NULL){
+                            echo '<img src="'.BASE_URL.'assets/images/msg/'.$message->rReact.'.png" alt=""><span style="font-size:11px;margin-left:5px;color:#222">  1</span>';
+                        }else if($message->rReact != '' && $message->sReact!=''){
+                            echo '<img src="'.BASE_URL.'assets/images/msg/'.$message->rReact.'.png" alt=""><img src="'.BASE_URL.'assets/images/msg/'.$message->sReact.'.png" alt=""><span style="font-size:11px;margin-left:5px;color:#222">  2</span>';
+                        } ?>
+                    </div>
                 </div>
 
                 <?php 

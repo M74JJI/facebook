@@ -516,6 +516,7 @@
     -webkit-filter: invert(10%);
 }
 .images_in_messages_1 {
+    position: relative;
     margin-top: 5px;
     display: flex;
     align-items: center;
@@ -614,6 +615,7 @@
     display: flex;
     align-items: center;
     width: fit-content;
+    height: 40px;
 }
 .msg_kk_hold {
     width: 26px;
@@ -765,4 +767,79 @@
     background-repeat: no-repeat;
     display: inline-block;
     -webkit-filter: invert(80%);
+}
+.react_msg_wrapper {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 50px;
+    background: #fff;
+    -webkit-box-shadow: 1px 8px 15px -7px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 8px 15px -7px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: -58px;
+    left: -3rem;
+    gap: 5px;
+    clip-depth: 2;
+    display: none;
+}
+.react_msg_wrapper .react_msg_icon {
+    width: 32px;
+    cursor: pointer;
+}
+.msg_reactss {
+    background: #fff;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    position: absolute;
+    bottom: -10px;
+    right: 20px;
+    border-radius: 50px;
+}
+.msg_reactss img {
+    width: 15px;
+}
+.hidddem_bitch {
+    opacity: 0;
+    visibility: hidden;
+}
+.images_in_messages_1:hover .hidddem_bitch {
+    opacity: 1;
+    visibility: visible;
+}
+.msg_rem_menu {
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    position: absolute;
+    top: -50px;
+    left: -20px;
+    box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    display: none;
+}
+.msg_rem_menu button {
+    border: none;
+    outline: none;
+    display: block;
+    width: 100%;
+    background: transparent;
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 8px 25px 8px 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.msg_rem_menu button:hover {
+    background: #eee;
+}
+.only_message_texto {
+    display: flex;
+    align-items: center;
+}
+.only_message_texto:hover .hidddem_bitch {
+    opacity: 1;
+    visibility: visible;
 }

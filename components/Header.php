@@ -1797,7 +1797,6 @@ $(document).on('click', '#forward_sendd1', function() {
         $(rec).text('Undo');
         setTimeout(function() {
             if ($(This).attr('changed') == 'yes') {
-
                 $(This).attr('disabled', 'disabled');
                 $(This).removeClass().addClass('sent_forward_btn')
                 $(This).html('<i class="sentedtefde">/</i>Sent');
@@ -1853,6 +1852,101 @@ $(document).on('click', '#undo_forward1', function() {
 })
 
 //--->Forwards------>
+
+//--react messages---->
+$(document).on('click', '#open_msg_react', function() {
+    $('.react_msg_wrapper').hide();
+    $(this).find('.react_msg_wrapper').css('display', 'flex');
+})
+
+$(document).mouseup(function(e) {
+    if (!$('.react_msg_wrapper').is(e.target) && $('.react_msg_wrapper').has(e.target)
+        .length === 0) {
+        $(this).find('.react_msg_wrapper').hide();
+    }
+})
+$(document).mouseup(function(e) {
+    if (!$('.msg_rem_menu').is(e.target) && $('.msg_rem_menu').has(e.target)
+        .length === 0) {
+        $(this).find('.msg_rem_menu').hide();
+    }
+})
+
+$(document).on('click', '#open_msg_ots', function() {
+    $(this).find('.msg_rem_menu').show();
+})
+
+
+
+$(document).on('click', '#click-msg-love', function() {
+    var msg = $(this).parents('.react_msg_wrapper').data('msg');
+
+    $.post('http://localhost/facebook/core/chat/react.php', {
+        reactmsg: msg,
+        react: 'love',
+        userid: "<?php echo $userid ?>"
+    })
+})
+$(document).on('click', '#click-msg-haha', function() {
+    var msg = $(this).parents('.react_msg_wrapper').data('msg');
+
+    $.post('http://localhost/facebook/core/chat/react.php', {
+        reactmsg: msg,
+        react: 'haha',
+        userid: "<?php echo $userid ?>"
+    })
+})
+$(document).on('click', '#click-msg-wow', function() {
+    var msg = $(this).parents('.react_msg_wrapper').data('msg');
+
+    $.post('http://localhost/facebook/core/chat/react.php', {
+        reactmsg: msg,
+        react: 'wow',
+        userid: "<?php echo $userid ?>"
+    })
+})
+$(document).on('click', '#click-msg-sad', function() {
+    var msg = $(this).parents('.react_msg_wrapper').data('msg');
+
+    $.post('http://localhost/facebook/core/chat/react.php', {
+        reactmsg: msg,
+        react: 'sad',
+        userid: "<?php echo $userid ?>"
+    })
+})
+$(document).on('click', '#click-msg-angry', function() {
+    var msg = $(this).parents('.react_msg_wrapper').data('msg');
+
+    $.post('http://localhost/facebook/core/chat/react.php', {
+        reactmsg: msg,
+        react: 'angry',
+        userid: "<?php echo $userid ?>"
+    })
+})
+$(document).on('click', '#click-msg-like', function() {
+    var msg = $(this).parents('.react_msg_wrapper').data('msg');
+
+    $.post('http://localhost/facebook/core/chat/react.php', {
+        reactmsg: msg,
+        react: 'like',
+        userid: "<?php echo $userid ?>"
+    })
+})
+
+$(document).on('click', '#unsend_msg', function() {
+    var msg = $(this).data('msg');
+
+    $(this).parents('.msg_rem_menu').hide();
+    $.post('http://localhost/facebook/core/chat/removemsg.php', {
+        remove_msg: msg,
+
+
+    })
+})
+
+
+
+//--react messages---->
 
 
 //----Send Files+------->

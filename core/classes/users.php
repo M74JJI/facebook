@@ -805,6 +805,33 @@ class User{
          
         
     }
+    public function messageReactSender($msg,$react){
+            $statement=$this->pdo->prepare("UPDATE messages SET sReact=:react WHERE msg_id =:msg");
+            $statement->bindValue(':msg',$msg,PDO::PARAM_INT);
+            $statement->bindValue(':react',$react,PDO::PARAM_STR);
+            $statement->execute();
+         
+        
+    }
+   
+    public function messageReactReceiver($msg,$react){
+            $statement=$this->pdo->prepare("UPDATE messages SET rReact=:react WHERE msg_id =:msg");
+            $statement->bindValue(':msg',$msg,PDO::PARAM_INT);
+            $statement->bindValue(':react',$react,PDO::PARAM_STR);
+            $statement->execute();
+         
+        
+    }
+   
+
+   
+    public function removeMessageUpdate($msg){
+            $statement=$this->pdo->prepare("UPDATE messages SET message='You unsent a message',images='',sReact='',rReact='' WHERE msg_id =:msg");
+            $statement->bindValue(':msg',$msg,PDO::PARAM_INT);
+            $statement->execute();
+         
+        
+    }
    
 
 

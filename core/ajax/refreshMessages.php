@@ -110,7 +110,12 @@ if(isset($_POST['refreshmsgs'])){
         <div class="mssssg" style="width:fit-content;float:right;margin-bottom:5px">
             <?php echo $message->message ?></div>
         <div class="images_in_messages_1">
-            <img src="<?php echo $images[0]->name ?>" alt="">
+            <img class="img" src="<?php echo $images[0]->name ?>" alt="">
+            <div class="msg_reactss">
+                <?php if($message->sReact != '' && $message->rReact==NULL){
+                            echo '<img src="'.BASE_URL.'assets/images/msg/'.$message->sReact.'.png" alt=""><span style="font-size:11px;margin-left:5px;color:#222">  1</span>';
+                        } ?>
+            </div>
         </div>
         <?php 
                     }
