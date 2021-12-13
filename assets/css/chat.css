@@ -797,6 +797,8 @@
     bottom: -10px;
     right: 10px;
     border-radius: 50px;
+    -webkit-box-shadow: 1px 8px 15px -7px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 8px 15px -7px rgba(0, 0, 0, 0.1);
 }
 .msg_reactss img {
     width: 15px;
@@ -843,4 +845,65 @@
 .only_message_texto:hover .hidddem_bitch {
     opacity: 1;
     visibility: visible;
+}
+.reply_wrapper {
+    position: absolute;
+    bottom: 45px;
+    left: 0;
+    padding: 5px 15px;
+    width: 100%;
+    border-top: 1px solid#ced0d4;
+    background: #fff;
+    display: none;
+}
+.reply_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+}
+.close_reply_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yG/r/1cpzacTO1oq.png');
+    background-position: -125px -71px;
+    background-size: auto;
+    width: 12px;
+    height: 12px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(20%);
+}
+.reply_header_left {
+    font-size: 13px;
+    font-family: inherit;
+}
+.close_reply-wrap {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.close_reply-wrap:hover {
+    background: #eee;
+}
+.reply_to_msg {
+    font-size: 11px;
+    color: #65676b;
+    font-family: inherit;
+    max-width: 220px;
+    overflow: hidden;
+}
+.replied_messaage {
+    background: #f6f9fa;
+    color: #65676b;
+    padding: 5px;
+    font-size: 13px;
+    border-radius: 50px;
+    width: fit-content;
+    margin-bottom: 15px;
+    position: absolute;
+    top: -23px;
+    right: 0;
 }

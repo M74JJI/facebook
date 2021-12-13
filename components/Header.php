@@ -1425,12 +1425,14 @@ function loadMessages() {
 
     for (let i = 0; i < listChat.length; i++) {
         var count = $('.messaging_popup[data-chat = ' + listChat[i] + ']').data('count');
+        var reactChanged = $('.messaging_popup[data-chat = ' + listChat[i] + ']').data('changed');
+
         $.post('http://localhost/facebook/core/ajax/message.php', {
             dataCount: listChat[i],
             profileid: "<?php echo $userid ?>",
         }, function(data) {
 
-            if (count == data) {
+            if (count == data && reactChanged == 'false') {
                 $.post('http://localhost/facebook/core/chat/updateSeen.php', {
                     update_seen: listChat[i],
                     userid: "<?php echo $userid ?>"
@@ -1448,6 +1450,7 @@ function loadMessages() {
                     $('.popup_chat_area[data-chat=' + listChat[i] + ']').html(data);
                     scrolla(listChat[i]);
 
+                    $('.messaging_popup[data-chat = ' + listChat[i] + ']').data('changed', 'false');
 
                 })
             }
@@ -1559,7 +1562,7 @@ $(document).on('click', '.popup_chat', function() {
 
 $(document).mouseup(function(e) {
     if (!$(e.target).closest('.popup_chat').length) {
-        console.log('hhhhhhhh')
+
         for (let i = 0; i < listChat.length; i++) {
             var lghaleblahchatid = listChat[i];
             var userid = "<?php echo $userid ?>"
@@ -1853,6 +1856,66 @@ $(document).on('click', '#undo_forward1', function() {
 
 //--->Forwards------>
 
+//--Reply to msg-------->
+$(document).on('click', '#reply_msg', function() {
+    var msg_id = $(this).data('msg_id');
+    var msg = $(this).data('msg');
+    var name = $(this).data('name');
+    var sender = $(this).data('sender');
+    var userid = "<?php echo $userid ?>"
+    var pr = $(this).parents('.popup_chat_area').siblings('.reply_wrapper');
+    $(pr).attr('data-msg_id', msg_id);
+    if (sender == true) {
+        $(this).parents('.popup_chat_area').siblings('.reply_wrapper').html(
+            ' <div class="reply_header"> <div class="reply_header_left"> Replying to yourself </div> <div class="close_reply-wrap"><i class="close_reply_icon"></i></div> </div><div class="reply_to_msg">' +
+            msg + '</div>'
+        ).show()
+    } else {
+        $(this).parents('.popup_chat_area').siblings('.reply_wrapper').html(
+            ' <div class="reply_header"> <div class="reply_header_left"> Replying to ' + name +
+            ' </div> <div class="close_reply-wrap"><i class="close_reply_icon"></i></div> </div> <div class="reply_to_msg">' +
+            msg + '</div>'
+        ).show()
+    }
+    $(this).parents('.popup_chat').find('#light_send').attr('id', 'send_reply');
+})
+$(document).on('click', '.close_reply-wrap', function() {
+    $(this).parents('.reply_wrapper').hide();
+})
+$(document).on('keyup', '#send_reply', function(e) {
+    var This = $(this);
+    if (e.keyCode == 13) {
+        var msg_id = $(this).parents('.popu_char_a7em').siblings('.reply_wrapper').data('msg_id');
+        var message = $(this).val();
+        var userid = "<?php echo $userid ?>"
+        var chat = $(this).parents('.popup_chat').data('chat');
+        console.log(message)
+        if (message != '') {
+
+            $.post('http://localhost/facebook/core/chat/reply.php', {
+                replyMessage: msg_id,
+                message: message,
+                chat: chat,
+                userid: userid
+            }, function(data) {
+                console.log(data)
+                $(This).val('');
+            })
+        }
+
+    }
+
+})
+
+
+
+
+
+
+//--Reply to msg-------->
+
+
+
 //--react messages---->
 $(document).on('click', '#open_msg_react', function() {
     $('.react_msg_wrapper').hide();
@@ -1880,7 +1943,9 @@ $(document).on('click', '#open_msg_ots', function() {
 
 $(document).on('click', '#click-msg-love', function() {
     var msg = $(this).parents('.react_msg_wrapper').data('msg');
+    var chat = $(this).parents('.messaging_popup').data('chat');
 
+    $('.messaging_popup[data-chat = ' + chat + ']').data('changed', 'true');
     $.post('http://localhost/facebook/core/chat/react.php', {
         reactmsg: msg,
         react: 'love',
@@ -1889,7 +1954,9 @@ $(document).on('click', '#click-msg-love', function() {
 })
 $(document).on('click', '#click-msg-haha', function() {
     var msg = $(this).parents('.react_msg_wrapper').data('msg');
+    var chat = $(this).parents('.messaging_popup').data('chat');
 
+    $('.messaging_popup[data-chat = ' + chat + ']').data('changed', 'true');
     $.post('http://localhost/facebook/core/chat/react.php', {
         reactmsg: msg,
         react: 'haha',
@@ -1898,7 +1965,9 @@ $(document).on('click', '#click-msg-haha', function() {
 })
 $(document).on('click', '#click-msg-wow', function() {
     var msg = $(this).parents('.react_msg_wrapper').data('msg');
+    var chat = $(this).parents('.messaging_popup').data('chat');
 
+    $('.messaging_popup[data-chat = ' + chat + ']').data('changed', 'true');
     $.post('http://localhost/facebook/core/chat/react.php', {
         reactmsg: msg,
         react: 'wow',
@@ -1907,7 +1976,9 @@ $(document).on('click', '#click-msg-wow', function() {
 })
 $(document).on('click', '#click-msg-sad', function() {
     var msg = $(this).parents('.react_msg_wrapper').data('msg');
+    var chat = $(this).parents('.messaging_popup').data('chat');
 
+    $('.messaging_popup[data-chat = ' + chat + ']').data('changed', 'true');
     $.post('http://localhost/facebook/core/chat/react.php', {
         reactmsg: msg,
         react: 'sad',
@@ -1916,7 +1987,9 @@ $(document).on('click', '#click-msg-sad', function() {
 })
 $(document).on('click', '#click-msg-angry', function() {
     var msg = $(this).parents('.react_msg_wrapper').data('msg');
+    var chat = $(this).parents('.messaging_popup').data('chat');
 
+    $('.messaging_popup[data-chat = ' + chat + ']').data('changed', 'true');
     $.post('http://localhost/facebook/core/chat/react.php', {
         reactmsg: msg,
         react: 'angry',
@@ -1925,7 +1998,9 @@ $(document).on('click', '#click-msg-angry', function() {
 })
 $(document).on('click', '#click-msg-like', function() {
     var msg = $(this).parents('.react_msg_wrapper').data('msg');
+    var chat = $(this).parents('.messaging_popup').data('chat');
 
+    $('.messaging_popup[data-chat = ' + chat + ']').data('changed', 'true');
     $.post('http://localhost/facebook/core/chat/react.php', {
         reactmsg: msg,
         react: 'like',
@@ -2032,8 +2107,7 @@ $(document).on('click', '.remove_image_a7aton', function() {
             files[i].splice(i, 1);
         }
     }
-    console.log(img)
-    console.log(files)
+
 })
 //-----remove specific image--->
 
@@ -2072,7 +2146,7 @@ $(document).on('click', '#send_msg_and_img', function() {
             }).then(function(response) {
                 var image = response.data.secure_url;
                 imagess += '{\"name\":\"' + image + '\"},';
-                console.log('added')
+
 
             }).catch(function(error) {
                 console.log(error)

@@ -195,7 +195,7 @@ if(isset($_POST['popup_chat'])){
 
         </div>
         <div class="messaging_popup" data-count="<?php echo count($messageData) ?>" data-chat="<?php echo $chatid; ?>"
-            data-time="<?php echo $chat->last_activity ?>"> <?php foreach ($messageData as $i => $message){
+            data-changed="false" data-time="<?php echo $chat->last_activity ?>"> <?php foreach ($messageData as $i => $message){
                 if($message->user_id == $userid){ ?>
             <div class="mess_right">
                 <!---Start--------------------------------mssssg------>
@@ -206,14 +206,28 @@ if(isset($_POST['popup_chat'])){
                 <div class="only_message_texto">
                     <div class="message_manipulation">
                         <div class="hidddem_bitch">
+
                             <div class="dots_msg_rem" style="position:relative;" id="open_msg_ots">
                                 <div class=" msg_kk_hold">
                                     <img class="a99a_mg" style="width:14px" src="assets/svg/dots.png" alt="">
                                 </div>
                                 <div class="msg_rem_menu">
+                                    <?php
+                                    
+                                        if($message->message !='You unsent a message' ){
+                                            ?>
+                                    <button data-msg="<?php echo $message->msg_id ?>" id="unsend_msg">Remove</button>
+                                    <button data-msg="<?php echo $message->msg_id ?>" id="reply_msg">Forward</button>
+                                    <?php
+                                            }else{
+                                                ?>
                                     <button data-msg="<?php echo $message->msg_id ?>" id="remove_msg">Remove</button>
+                                    <?php
+                                            }
+                                   ?>
                                 </div>
                             </div>
+
                             <?php 
                            if($message->message !='You unsent a message' ){
                                ?>
@@ -223,7 +237,8 @@ if(isset($_POST['popup_chat'])){
                                 </div>
                                 <div class="react_msg_wrapper" data-msg="<?php echo $message->msg_id ?>"
                                     data-sender="<?php echo $message->sender ?>"
-                                    data-receiver="<?php echo $message->receiver ?>">
+                                    data-receiver="<?php echo $message->receiver ?>"
+                                    data-chat="<?php echo $message->user_id ?>">
                                     <img class="react_msg_icon" src="assets/images/msg/love.png" alt=""
                                         id="click-msg-love">
                                     <img class="react_msg_icon" src="assets/images/msg/haha.png" alt=""
@@ -238,6 +253,10 @@ if(isset($_POST['popup_chat'])){
                                         id="click-msg-like">
                                 </div>
                             </div>
+                            <div class="msg_kk_hold">
+                                <i class="fas fa-reply"></i>
+                            </div>
+
                             <?php
                            }
                            ?>
@@ -278,7 +297,18 @@ if(isset($_POST['popup_chat'])){
                                     <img class="a99a_mg" style="width:14px" src="assets/svg/dots.png" alt="">
                                 </div>
                                 <div class="msg_rem_menu">
+                                    <?php 
+                                if($message->message !='You unsent a message'){
+                                ?>
                                     <button data-msg="<?php echo $message->msg_id ?>" id="unsend_msg">Remove</button>
+                                    <button data-msg="<?php echo $message->msg_id ?>" id="reply_msg">Reply</button>
+                                    <?php
+                                }else{
+                                    ?>
+                                    <button data-msg="<?php echo $message->msg_id ?>" id="remove_msg">Remove</button>
+                                    <?php
+                                }
+                                ?>
                                 </div>
                             </div>
                             <div class="react_messages_wrappp" style="position:relative;" id="open_msg_react">
@@ -684,6 +714,9 @@ if(isset($_POST['popup_chat'])){
 
 
     </div>
+    <div class="reply_wrapper">
+
+    </div>
     <div class="chat_errors_container" data-chat="<?php echo $chatid; ?>">
         <svg class="unavailable_svg" viewBox="0 0 24 24" height="20px" width="20px" fill="#bcc0c4">
             <g fill-rule="evenodd">
@@ -717,6 +750,7 @@ if(isset($_POST['popup_chat'])){
         </div>
 
     </div>
+
     <input type="file" id="send_file" multiple="multiple" style="display: none" data-chat="<?php echo $chatid; ?>">
     <div class="popu_char_a7em" data-chat="<?php echo $chatid; ?>">
         <div class="m14_left">

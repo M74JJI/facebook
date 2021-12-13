@@ -28,13 +28,21 @@ if(isset($_POST['refreshmsgs'])){
 
 </div>
 <div class="messaging_popup" data-count="<?php echo count($messageData) ?>" data-chat="<?php echo $chatid; ?>"
-    data-time="<?php echo $chat->last_activity ?>"> <?php foreach ($messageData as $i => $message){
+    data-changed="false" data-time="<?php echo $chat->last_activity ?>"> <?php foreach ($messageData as $i => $message){
+        if($message->repliedTo !=''){
+            $replied=$loadUser->getMessageById($message->repliedTo);
+        }
                 if($message->user_id == $userid){ ?>
-    <div class="mess_right">
+    <div class="mess_right" style="<?php if($message->repliedTo !=''){echo 'margin-top:20px'; } ?>">
         <!---Start--------------------------------mssssg------>
         <?php 
                 if($message->images =='' && $message->message !=''){
+                    if($message->repliedTo !=''){
+                        echo "<div class='replied_messaage'>$replied->message</div>";
+                    }
+                      
                     ?>
+
         <div class="only_message_texto">
             <div class="message_manipulation">
                 <div class="hidddem_bitch">
@@ -42,19 +50,39 @@ if(isset($_POST['refreshmsgs'])){
                         <div class=" msg_kk_hold">
                             <img class="a99a_mg" style="width:14px" src="assets/svg/dots.png" alt="">
                         </div>
-                        <div class="msg_rem_menu">
+                        <div class="msg_rem_menu"
+                            style="<?php if($message->message !='You unsent a message'){echo 'top:-86px';} ?>">
+                            <?php
+                                    
+                                        if($message->message !='You unsent a message' ){
+                                            ?>
+                            <button data-msg="<?php echo $message->msg_id ?>" id="unsend_msg">Remove</button>
+                            <button data-msg="<?php echo $message->msg_id ?>" id="open_forward"
+                                data-msg="<?php echo $message->msg_id ?>">Forward</button>
+                            <?php
+                                            }else{
+                                                ?>
                             <button data-msg="<?php echo $message->msg_id ?>" id="remove_msg">Remove</button>
+                            <?php
+                                            }
+                                   ?>
                         </div>
                     </div>
                     <?php 
                            if($message->message !='You unsent a message' ){
                                ?>
+                    <div class="msg_kk_hold" id="reply_msg" data-msg_id="<?php echo $message->msg_id ?>"
+                        data-msg="<?php echo $message->message ?>"
+                        data-name="<?php if($message->sender != $userid){echo $message->first_name;} ?>"
+                        data-sender="<?php if($message->sender ==$userid){ echo 'true';}else{echo 'false';} ?>"> <i
+                            class="fas fa-reply"></i>
+                    </div>
                     <div class="react_messages_wrappp" style="position:relative;" id="open_msg_react">
                         <div class="msg_kk_hold">
                             <img class="a99a_mg" src="assets/svg/emoji_light.png" alt="">
                         </div>
                         <div class="react_msg_wrapper" data-msg="<?php echo $message->msg_id ?>"
-                            data-sender="<?php echo $message->sender ?>"
+                            data-sender="<?php echo $message->sender ?>" data-chat="<?php echo $message->user_id ?>"
                             data-receiver="<?php echo $message->receiver ?>">
                             <img class="react_msg_icon" src="assets/images/msg/love.png" alt="" id="click-msg-love">
                             <img class="react_msg_icon" src="assets/images/msg/haha.png" alt="" id="click-msg-haha">
@@ -64,6 +92,7 @@ if(isset($_POST['refreshmsgs'])){
                             <img class="react_msg_icon" src="assets/images/msg/like.png" alt="" id="click-msg-like">
                         </div>
                     </div>
+
                     <?php
                            }
                            ?>
