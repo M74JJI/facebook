@@ -907,3 +907,15 @@
     max-width: 230px;
     word-break: break-all;
 }
+.dots_msg_rem {
+    position: relative;
+    transform: translateX(-5px);
+}
+.motalat_rem_menu {
+    position: absolute;
+    bottom: -15px;
+    left: 15%;
+    border-top: 15px solid #fff;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
