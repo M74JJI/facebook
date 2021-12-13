@@ -201,23 +201,28 @@ if(isset($_POST['popup_chat'])){
                 <!---Start--------------------------------mssssg------>
                 <?php 
                 if($message->images =='' && $message->message !=''){
-                  
+                    if($message->repliedTo !=''){
+                        echo "<div class='replied_messaage'>$replied->message</div>";
+                    }
+                      
                     ?>
+
                 <div class="only_message_texto">
                     <div class="message_manipulation">
                         <div class="hidddem_bitch">
-
                             <div class="dots_msg_rem" style="position:relative;" id="open_msg_ots">
                                 <div class=" msg_kk_hold">
                                     <img class="a99a_mg" style="width:14px" src="assets/svg/dots.png" alt="">
                                 </div>
-                                <div class="msg_rem_menu">
+                                <div class="msg_rem_menu"
+                                    style="<?php if($message->message !='You unsent a message'){echo 'top:-86px';} ?>">
                                     <?php
                                     
                                         if($message->message !='You unsent a message' ){
                                             ?>
                                     <button data-msg="<?php echo $message->msg_id ?>" id="unsend_msg">Remove</button>
-                                    <button data-msg="<?php echo $message->msg_id ?>" id="reply_msg">Forward</button>
+                                    <button data-msg="<?php echo $message->msg_id ?>" id="open_forward"
+                                        data-msg="<?php echo $message->msg_id ?>">Forward</button>
                                     <?php
                                             }else{
                                                 ?>
@@ -227,18 +232,23 @@ if(isset($_POST['popup_chat'])){
                                    ?>
                                 </div>
                             </div>
-
                             <?php 
                            if($message->message !='You unsent a message' ){
                                ?>
+                            <div class="msg_kk_hold" id="reply_msg" data-msg_id="<?php echo $message->msg_id ?>"
+                                data-msg="<?php echo $message->message ?>"
+                                data-name="<?php if($message->sender != $userid){echo $message->first_name;} ?>"
+                                data-sender="<?php if($message->sender ==$userid){ echo 'true';}else{echo 'false';} ?>">
+                                <i class="fas fa-reply"></i>
+                            </div>
                             <div class="react_messages_wrappp" style="position:relative;" id="open_msg_react">
                                 <div class="msg_kk_hold">
                                     <img class="a99a_mg" src="assets/svg/emoji_light.png" alt="">
                                 </div>
                                 <div class="react_msg_wrapper" data-msg="<?php echo $message->msg_id ?>"
                                     data-sender="<?php echo $message->sender ?>"
-                                    data-receiver="<?php echo $message->receiver ?>"
-                                    data-chat="<?php echo $message->user_id ?>">
+                                    data-chat="<?php echo $message->user_id ?>"
+                                    data-receiver="<?php echo $message->receiver ?>">
                                     <img class="react_msg_icon" src="assets/images/msg/love.png" alt=""
                                         id="click-msg-love">
                                     <img class="react_msg_icon" src="assets/images/msg/haha.png" alt=""
@@ -253,9 +263,6 @@ if(isset($_POST['popup_chat'])){
                                         id="click-msg-like">
                                 </div>
                             </div>
-                            <div class="msg_kk_hold">
-                                <i class="fas fa-reply"></i>
-                            </div>
 
                             <?php
                            }
@@ -267,7 +274,7 @@ if(isset($_POST['popup_chat'])){
 
                     </div>
                     <div class="mssssg"
-                        style="float:right; <?php if($message->message=='You unsent a message'){echo 'background:transparent;color:#bcc0c4;border:1px solid #ced0d4;padding:10px;border-radius:50px';} ?>">
+                        style="<?php if($message->message=='You unsent a message'){echo 'background:transparent;color:#bcc0c4;border:1px solid #ced0d4;padding:10px;border-radius:50px';} ?>">
                         <?php echo $message->message ?></div>
                     <div class="msg_reactss">
                         <?php if($message->sReact != '' && $message->rReact==NULL){

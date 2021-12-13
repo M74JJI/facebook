@@ -329,11 +329,11 @@ if(isset($_POST['refreshmsgs'])){
 
 
 
-                if($i<count($messageData)-1 && strtotime($message->messageAt) - strtotime($messageData[$i+1]->messageAt)>-5000){
+              /*  if($i<count($messageData)-1 && strtotime($message->messageAt) - strtotime($messageData[$i+1]->messageAt)>-5000){
                     ?>
         <div class="timeit"><?php echo $loadUser->timeAgoAlt($message->messageAt) ?></div>
 
-        <?php }else{}
+        <?php }else{}*/
                     if($lastMessage->msg_id == $message->msg_id && $i==count($messageData)-1){
                 ?>
         <div class="update_seen_or" data-chat="<?php echo $chatid ?>">

@@ -1364,8 +1364,7 @@ $(document).on('keyup', '#light_send', function(e) {
         }, function(data) {
 
             $(This).val('')
-            $(This).parents('.popu_char_a7em').siblings('.popup_chat_area').find('.messaging_popup')
-                .html(data);
+
             scrolla(chatid);
 
         })
@@ -1881,10 +1880,12 @@ $(document).on('click', '#reply_msg', function() {
 })
 $(document).on('click', '.close_reply-wrap', function() {
     $(this).parents('.reply_wrapper').hide();
+    $(this).parents('.popup_chat').find('#send_reply').attr('id', 'light_send');
 })
 $(document).on('keyup', '#send_reply', function(e) {
-    var This = $(this);
+
     if (e.keyCode == 13) {
+        var This = $(this);
         var msg_id = $(this).parents('.popu_char_a7em').siblings('.reply_wrapper').data('msg_id');
         var message = $(this).val();
         var userid = "<?php echo $userid ?>"
@@ -1900,6 +1901,8 @@ $(document).on('keyup', '#send_reply', function(e) {
             }, function(data) {
                 console.log(data)
                 $(This).val('');
+                $(This).parents('.popu_char_a7em').siblings('.reply_wrapper').hide();
+                $(This).attr('id', 'light_send');
             })
         }
 
