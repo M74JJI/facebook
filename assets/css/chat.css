@@ -128,6 +128,9 @@
     padding-bottom: 20px;
     position: relative;
     max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 .mess_left {
     float: left;
@@ -898,12 +901,9 @@
 .replied_messaage {
     background: #f6f9fa;
     color: #65676b;
-    padding: 5px;
+    padding: 7px;
     font-size: 13px;
     border-radius: 50px;
-    width: fit-content;
-    margin-bottom: 15px;
-    position: absolute;
-    top: -23px;
-    right: 0;
+    max-width: 230px;
+    word-break: break-all;
 }

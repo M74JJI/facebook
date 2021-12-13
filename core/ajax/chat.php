@@ -267,7 +267,7 @@ if(isset($_POST['popup_chat'])){
 
                     </div>
                     <div class="mssssg"
-                        style="<?php if($message->message=='You unsent a message'){echo 'background:transparent;color:#bcc0c4;border:1px solid #ced0d4;padding:10px;border-radius:50px';} ?>">
+                        style="float:right; <?php if($message->message=='You unsent a message'){echo 'background:transparent;color:#bcc0c4;border:1px solid #ced0d4;padding:10px;border-radius:50px';} ?>">
                         <?php echo $message->message ?></div>
                     <div class="msg_reactss">
                         <?php if($message->sReact != '' && $message->rReact==NULL){
@@ -338,7 +338,6 @@ if(isset($_POST['popup_chat'])){
                         </div>
                         <div class="msg_kk_hold" id="open_forward" data-msg="<?php echo $message->msg_id ?>">
                             <img class="a99a_mg" src="assets/svg/share-outline.png" alt="">
-
                         </div>
 
                     </div>
@@ -559,7 +558,7 @@ if(isset($_POST['popup_chat'])){
                         ?>
                 <img class="p45545_img" src="<?php echo $message->profile_picture ?>" alt="">
                 <div class="images_in_messages_1">
-                    <img src="<?php echo $images[0]->name ?>" alt="">
+                    <img class="img" src="<?php echo $images[0]->name ?>" alt="">
                 </div>
                 <?php 
                     }
@@ -629,7 +628,7 @@ if(isset($_POST['popup_chat'])){
                     <div class="mssssg1" style="width:fit-content;float:left;margin-bottom:5px">
                         <?php echo $message->message ?></div>
                     <div class="images_in_messages_1">
-                        <img src="<?php echo $images[0]->name ?>" alt="">
+                        <img class="img" src="<?php echo $images[0]->name ?>" alt="">
                     </div>
                 </div>
                 <?php 
