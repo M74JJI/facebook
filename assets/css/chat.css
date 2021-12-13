@@ -133,11 +133,15 @@
     align-items: flex-end;
 }
 .mess_left {
-    float: left;
+    float: flex;
+    margin-right: 10px;
     clear: both;
     padding-bottom: 20px;
-    max-width: 70%;
+    position: relative;
+    max-width: 90%;
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 .mssssg {
     color: #fff;
@@ -760,7 +764,23 @@
     -webkit-box-shadow: 1px 8px 15px -7px rgba(0, 0, 0, 0.1);
     box-shadow: 1px 8px 15px -7px rgba(0, 0, 0, 0.1);
 }
+.msg_reactss1 {
+    background: #fff;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    position: absolute;
+    bottom: -10px;
+    left: 10px;
+    border-radius: 50px;
+    -webkit-box-shadow: 1px 8px 15px -7px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 8px 15px -7px rgba(0, 0, 0, 0.1);
+}
 .msg_reactss img {
+    width: 15px;
+}
+.msg_reactss1 img {
     width: 15px;
 }
 .hidddem_bitch {
