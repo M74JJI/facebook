@@ -36,10 +36,17 @@ if(isset($_POST['refreshmsgs'])){
     <div class="mess_right">
         <!---Start--------------------------------mssssg------>
         <?php 
+         if($message->repliedTo !='' && $replied->images ==''){
+            echo "<div class='replied_messaage'>$replied->message</div>";
+        }else if($message->repliedTo !='' && $replied->images !=''){
+            $imgs=json_decode($replied->images);
+            $img=$imgs[0]->name;
+        ?>
+        <img src="<?php echo $img ?>" style="width:70px;border-radius:25px" alt="">
+        <?php
+        }
                 if($message->images =='' && $message->message !=''){
-                    if($message->repliedTo !=''){
-                        echo "<div class='replied_messaage'>$replied->message</div>";
-                    }
+                   
                       
                     ?>
 
@@ -135,12 +142,16 @@ if(isset($_POST['refreshmsgs'])){
                         <div class=" msg_kk_hold">
                             <img class="a99a_mg" style="width:14px" src="assets/svg/dots.png" alt="">
                         </div>
-                        <div class="msg_rem_menu">
+                        <div class="msg_rem_menu" style="transform: translateY(-2.8rem) translateX(1px);">
+                            <div class="motalat_rem_menu"></div>
                             <?php 
                                 if($message->message !='You unsent a message'){
                                 ?>
                             <button data-msg="<?php echo $message->msg_id ?>" id="unsend_msg">Remove</button>
-                            <button data-msg="<?php echo $message->msg_id ?>" id="reply_msg">Reply</button>
+                            <button data-msg="<?php echo $message->message ?>" id="reply_msg"
+                                data-msg_id="<?php echo $message->msg_id ?>" data-msg="<?php echo $message->message ?>"
+                                data-name="<?php if($message->sender != $userid){echo $message->first_name;} ?>"
+                                data-sender="<?php if($message->sender ==$userid){ echo 'true';}else{echo 'false';} ?>">Reply</button>
                             <?php
                                 }else{
                                     ?>
@@ -154,8 +165,8 @@ if(isset($_POST['refreshmsgs'])){
                         <div class="msg_kk_hold">
                             <img class="a99a_mg" src="assets/svg/emoji_light.png" alt="">
                         </div>
-                        <div class="react_msg_wrapper" data-msg="<?php echo $message->msg_id ?>"
-                            data-sender="<?php echo $message->sender ?>"
+                        <div class="react_msg_wrapper" style="transform:translateX(7rem) translateY(-7px)"
+                            data-msg="<?php echo $message->msg_id ?>" data-sender="<?php echo $message->sender ?>"
                             data-receiver="<?php echo $message->receiver ?>">
                             <img class="react_msg_icon" src="assets/images/msg/love.png" alt="" id="click-msg-love">
                             <img class="react_msg_icon" src="assets/images/msg/haha.png" alt="" id="click-msg-haha">
@@ -191,27 +202,211 @@ if(isset($_POST['refreshmsgs'])){
                     else if(count($images)==2){
                         ?>
         <div class="images_in_messages_2">
-            <img src="<?php echo $images[0]->name ?>" alt="">
-            <img src="<?php echo $images[1]->name ?>" alt="">
+            <div class="message_manipulation">
+                <div class="hidddem_bitch">
+                    <div class="dots_msg_rem" style="position:relative;" id="open_msg_ots">
+                        <div class=" msg_kk_hold">
+                            <img class="a99a_mg" style="width:14px" src="assets/svg/dots.png" alt="">
+                        </div>
+                        <div class="msg_rem_menu" style="transform: translateY(-2.8rem) translateX(1px);">
+                            <div class="motalat_rem_menu"></div>
+                            <?php 
+                                if($message->message !='You unsent a message'){
+                                ?>
+                            <button data-msg="<?php echo $message->msg_id ?>" id="unsend_msg">Remove</button>
+                            <button data-msg="<?php echo $message->message ?>" id="reply_msg"
+                                data-msg_id="<?php echo $message->msg_id ?>" data-msg="<?php echo $message->message ?>"
+                                data-name="<?php if($message->sender != $userid){echo $message->first_name;} ?>"
+                                data-sender="<?php if($message->sender ==$userid){ echo 'true';}else{echo 'false';} ?>">Reply</button>
+                            <?php
+                                }else{
+                                    ?>
+                            <button data-msg="<?php echo $message->msg_id ?>" id="remove_msg">Remove</button>
+                            <?php
+                                }
+                                ?>
+                        </div>
+                    </div>
+                    <div class="react_messages_wrappp" style="position:relative;" id="open_msg_react">
+                        <div class="msg_kk_hold">
+                            <img class="a99a_mg" src="assets/svg/emoji_light.png" alt="">
+                        </div>
+                        <div class="react_msg_wrapper" style="transform:translateX(7rem) translateY(-7px)"
+                            data-msg="<?php echo $message->msg_id ?>" data-sender="<?php echo $message->sender ?>"
+                            data-receiver="<?php echo $message->receiver ?>">
+                            <img class="react_msg_icon" src="assets/images/msg/love.png" alt="" id="click-msg-love">
+                            <img class="react_msg_icon" src="assets/images/msg/haha.png" alt="" id="click-msg-haha">
+                            <img class="react_msg_icon" src="assets/images/msg/wow.png" alt="" id="click-msg-wow">
+                            <img class="react_msg_icon" src="assets/images/msg/sad.png" alt="" id="click-msg-sad">
+                            <img class="react_msg_icon" src="assets/images/msg/angry.png" alt="" id="click-msg-angry">
+                            <img class="react_msg_icon" src="assets/images/msg/like.png" alt="" id="click-msg-like">
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="msg_kk_hold" id="open_forward" data-msg="<?php echo $message->msg_id ?>">
+                    <img class="a99a_mg" src="assets/svg/share-outline.png" alt="">
+                </div>
+
+            </div>
+            <img class="img" src="<?php echo $images[0]->name ?>" alt="">
+            <img class="img" src="<?php echo $images[1]->name ?>" alt="">
+            <div class="msg_reactss">
+                <?php if($message->sReact != '' && $message->rReact==NULL){
+                            echo '<img src="'.BASE_URL.'assets/images/msg/'.$message->sReact.'.png" alt=""><span style="font-size:11px;margin-left:5px;color:#222">  1</span>';
+                        }else if($message->rReact != '' && $message->sReact==NULL){
+                            echo '<img src="'.BASE_URL.'assets/images/msg/'.$message->rReact.'.png" alt=""><span style="font-size:11px;margin-left:5px;color:#222">  1</span>';
+                        }else if($message->rReact != '' && $message->sReact!=''){
+                            echo '<img src="'.BASE_URL.'assets/images/msg/'.$message->rReact.'.png" alt=""><img src="'.BASE_URL.'assets/images/msg/'.$message->sReact.'.png" alt=""><span style="font-size:11px;margin-left:5px;color:#222">  2</span>';
+                        } ?>
+            </div>
         </div>
         <?php 
                     }
                     else if(count($images)==3){
                         ?>
         <div class="images_in_messages_3">
-            <img src="<?php echo $images[0]->name ?>" alt="">
-            <img src="<?php echo $images[1]->name ?>" alt="">
-            <img src="<?php echo $images[2]->name ?>" alt="">
+            <div class="message_manipulation">
+                <div class="hidddem_bitch">
+                    <div class="dots_msg_rem" style="position:relative;" id="open_msg_ots">
+                        <div class=" msg_kk_hold">
+                            <img class="a99a_mg" style="width:14px" src="assets/svg/dots.png" alt="">
+                        </div>
+                        <div class="msg_rem_menu" style="transform: translateY(-2.8rem) translateX(1px);">
+                            <div class="motalat_rem_menu"></div>
+                            <?php 
+                                if($message->message !='You unsent a message'){
+                                ?>
+                            <button data-msg="<?php echo $message->msg_id ?>" id="unsend_msg">Remove</button>
+                            <button data-msg="<?php echo $message->message ?>" id="reply_msg"
+                                data-msg_id="<?php echo $message->msg_id ?>" data-msg="<?php echo $message->message ?>"
+                                data-name="<?php if($message->sender != $userid){echo $message->first_name;} ?>"
+                                data-sender="<?php if($message->sender ==$userid){ echo 'true';}else{echo 'false';} ?>">Reply</button>
+                            <?php
+                                }else{
+                                    ?>
+                            <button data-msg="<?php echo $message->msg_id ?>" id="remove_msg">Remove</button>
+                            <?php
+                                }
+                                ?>
+                        </div>
+                    </div>
+                    <div class="react_messages_wrappp" style="position:relative;" id="open_msg_react">
+                        <div class="msg_kk_hold">
+                            <img class="a99a_mg" src="assets/svg/emoji_light.png" alt="">
+                        </div>
+                        <div class="react_msg_wrapper" style="transform:translateX(7rem) translateY(-7px)"
+                            data-msg="<?php echo $message->msg_id ?>" data-sender="<?php echo $message->sender ?>"
+                            data-receiver="<?php echo $message->receiver ?>">
+                            <img class="react_msg_icon" src="assets/images/msg/love.png" alt="" id="click-msg-love">
+                            <img class="react_msg_icon" src="assets/images/msg/haha.png" alt="" id="click-msg-haha">
+                            <img class="react_msg_icon" src="assets/images/msg/wow.png" alt="" id="click-msg-wow">
+                            <img class="react_msg_icon" src="assets/images/msg/sad.png" alt="" id="click-msg-sad">
+                            <img class="react_msg_icon" src="assets/images/msg/angry.png" alt="" id="click-msg-angry">
+                            <img class="react_msg_icon" src="assets/images/msg/like.png" alt="" id="click-msg-like">
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="msg_kk_hold" id="open_forward" data-msg="<?php echo $message->msg_id ?>">
+                    <img class="a99a_mg" src="assets/svg/share-outline.png" alt="">
+                </div>
+
+            </div>
+            <div style="display:flex;flex-direction:column;gap:2px">
+                <img class="img" src="<?php echo $images[0]->name ?>" alt="" style="width:180px">
+                <div style="display:flex;align-items:center;gap:2px">
+                    <img class="img" src="<?php echo $images[1]->name ?>" alt="">
+                    <img class="img" src="<?php echo $images[2]->name ?>" alt="">
+                </div>
+            </div>
+            <div class="msg_reactss">
+                <?php if($message->sReact != '' && $message->rReact==NULL){
+                            echo '<img src="'.BASE_URL.'assets/images/msg/'.$message->sReact.'.png" alt=""><span style="font-size:11px;margin-left:5px;color:#222">  1</span>';
+                        }else if($message->rReact != '' && $message->sReact==NULL){
+                            echo '<img src="'.BASE_URL.'assets/images/msg/'.$message->rReact.'.png" alt=""><span style="font-size:11px;margin-left:5px;color:#222">  1</span>';
+                        }else if($message->rReact != '' && $message->sReact!=''){
+                            echo '<img src="'.BASE_URL.'assets/images/msg/'.$message->rReact.'.png" alt=""><img src="'.BASE_URL.'assets/images/msg/'.$message->sReact.'.png" alt=""><span style="font-size:11px;margin-left:5px;color:#222">  2</span>';
+                        } ?>
+            </div>
         </div>
         <?php 
                     }
                     else if(count($images)==4){
                         ?>
         <div class="images_in_messages_4">
-            <img src="<?php echo $images[0]->name ?>" alt="">
-            <img src="<?php echo $images[1]->name ?>" alt="">
-            <img src="<?php echo $images[2]->name ?>" alt="">
-            <img src="<?php echo $images[3]->name ?>" alt="">
+            <div class="message_manipulation">
+                <div class="hidddem_bitch">
+                    <div class="dots_msg_rem" style="position:relative;" id="open_msg_ots">
+                        <div class=" msg_kk_hold">
+                            <img class="a99a_mg" style="width:14px" src="assets/svg/dots.png" alt="">
+                        </div>
+                        <div class="msg_rem_menu" style="transform: translateY(-2.8rem) translateX(1px);">
+                            <div class="motalat_rem_menu"></div>
+                            <?php 
+                                if($message->message !='You unsent a message'){
+                                ?>
+                            <button data-msg="<?php echo $message->msg_id ?>" id="unsend_msg">Remove</button>
+                            <button data-msg="<?php echo $message->message ?>" id="reply_msg"
+                                data-msg_id="<?php echo $message->msg_id ?>" data-msg="<?php echo $message->message ?>"
+                                data-name="<?php if($message->sender != $userid){echo $message->first_name;} ?>"
+                                data-sender="<?php if($message->sender ==$userid){ echo 'true';}else{echo 'false';} ?>">Reply</button>
+                            <?php
+                                }else{
+                                    ?>
+                            <button data-msg="<?php echo $message->msg_id ?>" id="remove_msg">Remove</button>
+                            <?php
+                                }
+                                ?>
+                        </div>
+                    </div>
+                    <div class="react_messages_wrappp" style="position:relative;" id="open_msg_react">
+                        <div class="msg_kk_hold">
+                            <img class="a99a_mg" src="assets/svg/emoji_light.png" alt="">
+                        </div>
+                        <div class="react_msg_wrapper" style="transform:translateX(7rem) translateY(-7px)"
+                            data-msg="<?php echo $message->msg_id ?>" data-sender="<?php echo $message->sender ?>"
+                            data-receiver="<?php echo $message->receiver ?>">
+                            <img class="react_msg_icon" src="assets/images/msg/love.png" alt="" id="click-msg-love">
+                            <img class="react_msg_icon" src="assets/images/msg/haha.png" alt="" id="click-msg-haha">
+                            <img class="react_msg_icon" src="assets/images/msg/wow.png" alt="" id="click-msg-wow">
+                            <img class="react_msg_icon" src="assets/images/msg/sad.png" alt="" id="click-msg-sad">
+                            <img class="react_msg_icon" src="assets/images/msg/angry.png" alt="" id="click-msg-angry">
+                            <img class="react_msg_icon" src="assets/images/msg/like.png" alt="" id="click-msg-like">
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="msg_kk_hold" id="open_forward" data-msg="<?php echo $message->msg_id ?>">
+                    <img class="a99a_mg" src="assets/svg/share-outline.png" alt="">
+                </div>
+
+            </div>
+            <div style="display:flex;flex-direction:column;gap:2px">
+                <div style="display:flex;align-items:center;gap:2px">
+                    <img class="img" src="<?php echo $images[0]->name ?>" alt="">
+                    <img class="img" src="<?php echo $images[1]->name ?>" alt="">
+                </div>
+                <div style="display:flex;align-items:center;gap:2px">
+                    <img class="img" src="<?php echo $images[2]->name ?>" alt="">
+                    <img class="img" src="<?php echo $images[3]->name ?>" alt="">
+                </div>
+            </div>
+            <div class="msg_reactss">
+                <?php if($message->sReact != '' && $message->rReact==NULL){
+                            echo '<img src="'.BASE_URL.'assets/images/msg/'.$message->sReact.'.png" alt=""><span style="font-size:11px;margin-left:5px;color:#222">  1</span>';
+                        }else if($message->rReact != '' && $message->sReact==NULL){
+                            echo '<img src="'.BASE_URL.'assets/images/msg/'.$message->rReact.'.png" alt=""><span style="font-size:11px;margin-left:5px;color:#222">  1</span>';
+                        }else if($message->rReact != '' && $message->sReact!=''){
+                            echo '<img src="'.BASE_URL.'assets/images/msg/'.$message->rReact.'.png" alt=""><img src="'.BASE_URL.'assets/images/msg/'.$message->sReact.'.png" alt=""><span style="font-size:11px;margin-left:5px;color:#222">  2</span>';
+                        } ?>
+            </div>
         </div>
         <?php 
                     }

@@ -15,6 +15,7 @@ if(isset($_POST['replyMessage'])){
     $userid=$_POST['userid'];
     $a7a=$loadUser->getUserInfo($chatid);
     $online=$loadUser->getOnlineStatus($chatid,$userid);
+   
     if(time()- strtotime($a7a->last_activity)<2 && $online->status==1){
         $loadUser->create('messages',array('message'=>$message,'sender'=>$userid,'repliedTo'=>$msg_id,'receiver'=>$chatid,'status'=>2,'messageAt'=>date('Y-m-d H:i:s')));
     }else if(time()- strtotime($a7a->last_activity)<2 && $online->status==0){

@@ -1890,7 +1890,7 @@ $(document).on('keyup', '#send_reply', function(e) {
         var message = $(this).val();
         var userid = "<?php echo $userid ?>"
         var chat = $(this).parents('.popup_chat').data('chat');
-        console.log(message)
+
         if (message != '') {
 
             $.post('http://localhost/facebook/core/chat/reply.php', {
