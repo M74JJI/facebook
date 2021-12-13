@@ -46,7 +46,7 @@ if(isset($_POST['refreshmsgs'])){
         <div class="only_message_texto">
             <div class="message_manipulation">
                 <div class="hidddem_bitch">
-                    <div class="dots_msg_rem" style="position:relative;" id="open_msg_ots">
+                    <div class="dots_msg_rem" id="open_msg_ots">
                         <div class=" msg_kk_hold">
                             <img class="a99a_mg" style="width:14px" src="assets/svg/dots.png" alt="">
                         </div>
@@ -81,8 +81,10 @@ if(isset($_POST['refreshmsgs'])){
                         <div class="msg_kk_hold">
                             <img class="a99a_mg" src="assets/svg/emoji_light.png" alt="">
                         </div>
-                        <div class="react_msg_wrapper" data-msg="<?php echo $message->msg_id ?>"
-                            data-sender="<?php echo $message->sender ?>" data-chat="<?php echo $message->user_id ?>"
+                        <div class="react_msg_wrapper"
+                            style=" <?php if(strlen($message->message)>7 && strlen($message->message)<16){echo 'left:-6.5rem';}else if(strlen($message->message)>16){echo 'left:-2rem';} ?>"
+                            data-msg="<?php echo $message->msg_id ?>" data-sender="<?php echo $message->sender ?>"
+                            data-chat="<?php echo $message->user_id ?>"
                             data-receiver="<?php echo $message->receiver ?>">
                             <img class="react_msg_icon" src="assets/images/msg/love.png" alt="" id="click-msg-love">
                             <img class="react_msg_icon" src="assets/images/msg/haha.png" alt="" id="click-msg-haha">

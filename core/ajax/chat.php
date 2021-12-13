@@ -210,7 +210,7 @@ if(isset($_POST['popup_chat'])){
                 <div class="only_message_texto">
                     <div class="message_manipulation">
                         <div class="hidddem_bitch">
-                            <div class="dots_msg_rem" style="position:relative;" id="open_msg_ots">
+                            <div class="dots_msg_rem" id="open_msg_ots">
                                 <div class=" msg_kk_hold">
                                     <img class="a99a_mg" style="width:14px" src="assets/svg/dots.png" alt="">
                                 </div>

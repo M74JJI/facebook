@@ -1447,7 +1447,7 @@ function loadMessages() {
 
                 }, function(data) {
                     $('.popup_chat_area[data-chat=' + listChat[i] + ']').html(data);
-                    scrolla(listChat[i]);
+                    /* scrolla(listChat[i]);*/
 
                     $('.messaging_popup[data-chat = ' + listChat[i] + ']').data('changed', 'false');
 
