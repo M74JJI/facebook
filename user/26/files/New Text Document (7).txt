@@ -1,0 +1,5 @@
+.child:hover .child-menu { display: block; }
+
+ .parent { overflow-y:auto; overflow-x:hidden; width:100px; height:150px  }
+    .child { position:static; }
+    .child-menu { position:absolute; display:inline-block; display: none; }

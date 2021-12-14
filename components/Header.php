@@ -1878,7 +1878,7 @@ $(document).on('click', '#reply_msg', function() {
         ).show()
     }
     $(this).parents('.popup_chat_area').siblings('.popu_char_a7em').find('#light_send').attr('id',
-    'send_reply');
+        'send_reply');
 })
 $(document).on('click', '.close_reply-wrap', function() {
     $(this).parents('.reply_wrapper').hide();
@@ -2042,8 +2042,12 @@ $(document).on('click', '#send_msg_and_files', function() {
             userid: "<?php echo $userid ?>"
         }, function(data) {
             $('.attach_files_wrapper[data-chat=' + chat + ']').hide();
-            $('.popup_chat[data-chat=' + chat + ']').siblings('.more_plus_wrapper').hide();
+            $('.popup_chat_area[data-chat=' + chat + ']').siblings('.more_plus_wrapper').hide();
+            $('.popu_char_a7em[data-chat=' + chat + ']').find('.m24_icon.hide_plus').show()
+            $('.popu_char_a7em[data-chat=' + chat + ']').find('#light_send').css('width',
+                '100%')
             $('.popu_char_a7em[data-chat=' + chat + ']').show();
+            scrolla(chat);
         })
     })
 })
