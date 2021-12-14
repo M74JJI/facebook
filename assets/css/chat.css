@@ -133,15 +133,14 @@
     align-items: flex-end;
 }
 .mess_left {
-    float: flex;
-    margin-right: 10px;
+    float: left;
     clear: both;
     padding-bottom: 20px;
     position: relative;
     max-width: 90%;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
+    justify-content: flex-start;
 }
 .mssssg {
     color: #fff;
@@ -537,6 +536,18 @@
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     cursor: pointer;
+}
+.img_left {
+    max-height: 200px;
+    min-width: 150px;
+    max-width: 180px;
+    object-fit: cover;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    cursor: pointer;
+    margin-right: 5px;
 }
 .images_in_messages_2 {
     position: relative;
@@ -975,4 +986,12 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2px;
+}
+.motalat_rem_menu1 {
+    position: absolute;
+    bottom: -15px;
+    right: 5%;
+    border-top: 15px solid #fff;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
 }
