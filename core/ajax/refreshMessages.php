@@ -47,9 +47,16 @@ if(isset($_POST['refreshmsgs'])){
         }
          if( $message->files != ''){
              $files=json_decode($message->files);
-             if($message->message ==''){
-                
+             
+             if($message->message !=''){
+                ?>
+        <div class="mssssg"
+            style="margin-bottom:2px;<?php if($message->message=='You unsent a message'){echo 'background:transparent;color:#bcc0c4;border:1px solid #ced0d4;padding:10px;border-radius:50px';} ?>">
+            <?php echo $message->message ?></div>
+        <?php
+            }
                  ?>
+
         <div class="only_message_texto">
 
             <div class="message_manipulation">
@@ -113,6 +120,8 @@ if(isset($_POST['refreshmsgs'])){
 
             </div>
             <?php 
+          
+            if($message->message!='You unsent a message'){
              foreach($files as $file){
                  $name =substr($file->name,14,strlen($file->name));
                  ?>
@@ -122,7 +131,7 @@ if(isset($_POST['refreshmsgs'])){
                 <?php echo $name; ?>
             </a>
             <?php
-            } 
+            } }
             ?>
             <div class="msg_reactss">
                 <?php if($message->sReact != '' && $message->rReact==NULL){
@@ -135,7 +144,7 @@ if(isset($_POST['refreshmsgs'])){
             </div>
         </div>
         <?php
-             }
+             
          }
                else if($message->images =='' && $message->message !=''){
                    

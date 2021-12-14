@@ -2039,7 +2039,9 @@ $(document).on('click', '#send_msg_and_files', function() {
             chat: chat,
             userid: "<?php echo $userid ?>"
         }, function(data) {
-            console.log(data)
+            $('.attach_files_wrapper[data-chat=' + chat + ']').hide();
+            $('.popup_chat[data-chat=' + chat + ']').siblings('.more_plus_wrapper').hide();
+            $('.popu_char_a7em[data-chat=' + chat + ']').show();
         })
     })
 })
