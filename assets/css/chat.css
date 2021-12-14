@@ -158,11 +158,10 @@
     word-break: break-all;
 }
 .p45545_img {
-    width: 30px;
-    height: 30px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     object-fit: cover;
-    align-self: flex-end;
     margin-right: 5px;
 }
 .timeit {

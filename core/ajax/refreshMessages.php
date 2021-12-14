@@ -1060,12 +1060,16 @@ if(isset($_POST['refreshmsgs'])){
 
     <?php  }else{ ?>
 
+    <!---Left Side--------------------------------mssssg------>
+
+
     <div class="mess_left">
         <!---Start--------------------------------mssssg------>
         <?php 
                 if($message->images =='' && $message->message !=''){
                 ?>
         <div class="only_message_texto">
+            <img src="<?php echo BASE_URL.$message->profile_picture ?>" class="p45545_img" alt="">
             <div class="mssssg"
                 style="<?php if($message->message=='You unsent a message'){echo 'background:transparent;color:#bcc0c4;border:1px solid #ced0d4;padding:10px;border-radius:50px';} ?>">
                 <?php echo $message->message ?></div>
@@ -1079,7 +1083,7 @@ if(isset($_POST['refreshmsgs'])){
                             <img class="a99a_mg" src="assets/svg/emoji_light.png" alt="">
                         </div>
                         <div class="react_msg_wrapper"
-                            style=" <?php if(strlen($message->message)>7 && strlen($message->message)<16){echo 'left:-6.5rem';}else if(strlen($message->message)>16){echo 'left:-2rem';} ?>"
+                            style=" <?php if(strlen($message->message)<8){echo 'left:-4rem';} else if(strlen($message->message)>8 && strlen($message->message)<16 ){echo 'left:-6rem';} else if(strlen($message->message)>16){echo 'left:-9rem';} ?>"
                             data-msg="<?php echo $message->msg_id ?>" data-sender="<?php echo $message->sender ?>"
                             data-chat="<?php echo $message->user_id ?>"
                             data-receiver="<?php echo $message->receiver ?>">
@@ -1132,7 +1136,7 @@ if(isset($_POST['refreshmsgs'])){
                 </div>
 
             </div>
-            <div class="msg_reactss1">
+            <div class="msg_reactss1" style="left:35px">
                 <?php if($message->sReact != '' && $message->rReact==NULL){
                             echo '<img src="'.BASE_URL.'assets/images/msg/'.$message->sReact.'.png" alt=""><span style="font-size:11px;margin-left:5px;color:#222">  1</span>';
                         }else if($message->rReact != '' && $message->sReact==NULL){
