@@ -948,6 +948,14 @@
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
 }
+.motalat_rem_menu_files {
+    position: absolute;
+    bottom: -15px;
+    right: 27%;
+    border-top: 15px solid #fff;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
 .images_in_messages_3 {
     position: relative;
     margin-top: 5px;

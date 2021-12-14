@@ -1541,8 +1541,8 @@ if(isset($_POST['popup_chat'])){
                                     <img class="a99a_mg" style="width:14px" src="assets/svg/dots.png" alt="">
                                 </div>
                                 <div class="msg_rem_menu"
-                                    style="<?php if($message->message !='You unsent a message'){echo 'top:-6rem';} ?>">
-                                    <div class="motalat_rem_menu"></div>
+                                    style="transform:translateX(-2rem);<?php if($message->message !='You unsent a message'){echo 'top:-6rem';} ?>">
+                                    <div class="motalat_rem_menu_files"></div>
                                     <?php
                                     
                                         if($message->message !='You unsent a message' ){
