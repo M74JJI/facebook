@@ -1478,7 +1478,8 @@ if(isset($_POST['popup_chat'])){
                  ?>
 
                 <div class="only_message_texto">
-                    <img src="<?php echo BASE_URL.$message->profile_picture ?>" class="p45545_img" alt="">
+                    <img src="<?php echo BASE_URL.$message->profile_picture ?>" class="p45545_img"
+                        style="align-self:center" alt="">
 
                     <?php 
           
