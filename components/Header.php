@@ -1862,15 +1862,16 @@ $(document).on('click', '#reply_msg', function() {
     var name = $(this).data('name');
     var sender = $(this).data('sender');
     var userid = "<?php echo $userid ?>"
-    var pr = $(this).parents('.popup_chat_area').siblings('.reply_wrapper');
+    var pr = $(this).parents('.popup_chat').siblings('.reply_wrapper');
     $(pr).attr('data-msg_id', msg_id);
+
     if (sender == true) {
-        $(this).parents('.popup_chat_area').siblings('.reply_wrapper').html(
+        $(this).parents('.popup_chat').siblings('.reply_wrapper').html(
             ' <div class="reply_header"> <div class="reply_header_left"> Replying to yourself </div> <div class="close_reply-wrap"><i class="close_reply_icon"></i></div> </div><div class="reply_to_msg">' +
             msg + '</div>'
         ).show()
     } else {
-        $(this).parents('.popup_chat_area').siblings('.reply_wrapper').html(
+        $(this).parents('.popup_chat').siblings('.reply_wrapper').html(
             ' <div class="reply_header"> <div class="reply_header_left"> Replying to ' + name +
             ' </div> <div class="close_reply-wrap"><i class="close_reply_icon"></i></div> </div> <div class="reply_to_msg">' +
             msg + '</div>'

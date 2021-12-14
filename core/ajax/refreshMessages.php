@@ -36,20 +36,28 @@ if(isset($_POST['refreshmsgs'])){
     <div class="mess_right">
         <!---Start--------------------------------mssssg------>
         <?php 
-         if($message->repliedTo !='' && $replied->images ==''){
+         if($message->repliedTo !='' && $replied->images =='' && $replied->files ==''  && $replied->message !=''){
             echo "<div class='replied_messaage'>$replied->message</div>";
-        }else if($message->repliedTo !='' && $replied->images !=''){
+        }else if($message->repliedTo !='' && $replied->images !='' && $replied->files ==''){
             $imgs=json_decode($replied->images);
             $img=$imgs[0]->name;
         ?>
         <img src="<?php echo $img ?>" style="width:70px;border-radius:25px" alt="">
         <?php
+        }else if($message->repliedTo !='' && $replied->images =='' && $replied->files !=''){
+            $files=json_decode($replied->files);
+            $name =substr($files[0]->name,14,strlen($files[0]->name));
+            ?>
+        <a href="<?php echo BASE_URL.$files[0]->name ?>" class="msg_file" download>
+            <div class="white_attach"> <i class="attahcfile_icon"></i> </div>
+            <?php echo $name; ?>
+        </a>
+        <?php 
         }
-         if( $message->files != ''){
-             $files=json_decode($message->files);
-             
-             if($message->message !=''){
-                ?>
+          if( $message->files != ''){
+            $files=json_decode($message->files);
+            if($message->message !=''){
+            ?>
         <div class="mssssg"
             style="margin-bottom:2px;<?php if($message->message=='You unsent a message'){echo 'background:transparent;color:#bcc0c4;border:1px solid #ced0d4;padding:10px;border-radius:50px';} ?>">
             <?php echo $message->message ?></div>
@@ -122,16 +130,18 @@ if(isset($_POST['refreshmsgs'])){
             <?php 
           
             if($message->message!='You unsent a message'){
+               echo '<div style=display:flex;flex-direction:column;gap:2px>';
              foreach($files as $file){
                  $name =substr($file->name,14,strlen($file->name));
                  ?>
-
             <a href="<?php echo BASE_URL.$file->name ?>" class="msg_file" download>
                 <div class="white_attach"> <i class="attahcfile_icon"></i> </div>
                 <?php echo $name; ?>
             </a>
             <?php
-            } }
+            } 
+            echo '</div>';
+        }
             ?>
             <div class="msg_reactss">
                 <?php if($message->sReact != '' && $message->rReact==NULL){
