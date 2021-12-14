@@ -1,0 +1,6 @@
+CREATE TABLE `clients` (
+`id` int(3) NOT NULL,
+`nom` varchar(20) DEFAULT NULL,
+`prenom` varchar(20) DEFAULT NULL,
+PRIMARY KEY(`id`),
+)

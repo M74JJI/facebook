@@ -1918,6 +1918,135 @@ $(document).on('keyup', '#send_reply', function(e) {
 //--Reply to msg-------->
 
 
+//----Attahc Files----->
+$(document).on('click', '#open_plus_chat_menu', function() {
+    $(this).parents('.popu_char_a7em').siblings('.more_plus_wrapper').css('display', 'flex')
+    $(this).parents('.m14_left').siblings('.m14_right').find('#light_send').css('width', '230px')
+    $(this).siblings('.m24_icon.hide_plus').hide()
+    $(this).hide()
+    $(this).siblings('#close_plus_chat_menu').css('display', 'flex');
+})
+$(document).on('click', '#close_plus_chat_menu', function() {
+    $(this).parents('.popu_char_a7em').siblings('.more_plus_wrapper').hide()
+    $(this).parents('.m14_left').siblings('.m14_right').find('#light_send').css('width', '100%')
+    $(this).siblings('.m24_icon.hide_plus').show()
+    $(this).hide()
+    $(this).siblings('#close_plus_chat_menu').hide();
+})
+$(document).on('click', '#open_attach_files', function() {
+    $(this).siblings('#attach_file').click();
+
+
+})
+
+$(document).on('change', '#attach_file', function(e) {
+    var attachs = e.target.files;
+    var chat = $(this).data('chat')
+    var This = $(this)
+    files = Array.from(attachs);
+
+    var formData = new FormData();
+    if (files.length > 5) {
+        $('.fixed_opacity').show();
+        $('.errors_popup').html(
+            '<div class="exit_nickname" style="margin-top:10px" id="close_erros_send"> <i class="zfzfzfzfkzpofgj"></i> </div> <div class="errors_heading"> Unable to Attach File </div> <div class="error_texting">Maximum of 5 files are allowed per time,please try again.</div> <button id="close_erros_send" class="close_erros_send">Close</button>'
+        ).show();
+    } else {
+        for (var i = 0; i < files.length; i++) {
+            var name = files[i].name;
+            var extension = name.split('.').pop().toLowerCase();
+            if (jQuery.inArray(extension, ['zip', 'rar', 'pdf', 'docx', 'doc', 'ppt', 'pptx', 'txt']) == -1) {
+                $('.fixed_opacity').show();
+                $('.errors_popup').html(
+                    '<div class="exit_nickname" style="margin-top:10px" id="close_erros_send"> <i class="zfzfzfzfkzpofgj"></i> </div> <div class="errors_heading">Unable to Attach File</div><div class="error_texting">The type of file you are trying to attach is not allowed.Please try again with a different format. </div> <button id="close_erros_send" class="close_erros_send">Close</button > '
+                ).show();
+            } else {
+                var reader = new FileReader();
+                reader.readAsDataURL(files[i]);
+                var file_size = files[i].size || files[i].fileSize;
+                var size = (file_size / (1024 * 1024)).toFixed(2);
+                if (size > 10) {
+                    $('.fixed_opacity').show();
+                    $('.errors_popup').html(
+                        '<div class="exit_nickname" style="margin-top:10px" id="close_erros_send"> <i class="zfzfzfzfkzpofgj"></i> </div> <div class="errors_heading"> Unable to Attach File </div> <div class="error_texting">Maximum file size allowed is 10mb,please try again.</div> <button id="close_erros_send" class="close_erros_send">Close</button>'
+                    ).show();
+                } else {
+
+
+                    $('.popu_char_a7em[data-chat=' + chat + ']').hide();
+                    $('.attach_files_wrapper[data-chat=' + chat + ']').css('display', 'flex');
+
+
+                    reader.onload = function(e) {
+                        if (name.length < 13) {
+                            $('.attach_files_wrapper[data-chat=' + chat + ']').find(
+                                    '.imginos_preview')
+                                .append(
+                                    '<div class="attach_preview"> <div class="remove_attached_file"> <i class="remove_attachxxxx"></i> </div> <div class="white_attach"> <i class="attahcfile_icon"></i> </div> <span class="atach_name">' +
+                                    name + '.' + extension + '</span> </div>'
+                                );
+                        } else {
+                            var namee = name.substring(0, 13);
+                            $('.attach_files_wrapper[data-chat=' + chat + ']').find(
+                                    '.imginos_preview')
+                                .append(
+                                    '<div class="attach_preview"> <div class="remove_attached_file"> <i class="remove_attachxxxx"></i> </div> <div class="white_attach"> <i class="attahcfile_icon"></i> </div> <span class="atach_name">' +
+                                    namee + '.' + extension + '</span> </div>'
+                                );
+                        }
+
+                    }
+
+                }
+            }
+
+
+        }
+    }
+})
+attachedfiles = "";
+$(document).on('click', '#send_msg_and_files', function() {
+    var chat = $(this).data('chat');
+    var text = $(this).parents('.attach_files_wrapper').find('.input_img_text').val();
+    var form_data = new FormData();
+    var attachs = '';
+    async function attachFiles() {
+        for (var i = 0; i < files.length; i++) {
+            form_data.append('file', files[i]);
+            await $.ajax({
+                url: 'http://localhost/facebook/core/ajax/uploadFiles.php',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: 'post',
+                success: function(data) {
+                    var file_name = data;
+                    attachedfiles += '{\"name\":\"' + file_name + '\"},';
+
+                }
+            })
+        }
+    }
+
+
+    attachFiles().then(() => {
+        strr = attachedfiles.replace(/,\s*$/, "");
+        attached = '[' + strr + ']';
+        $.post('http://localhost/facebook/core/chat/sendFiles.php', {
+            sendFiles: attached,
+            text: text,
+            chat: chat,
+            userid: "<?php echo $userid ?>"
+        }, function(data) {
+            console.log(data)
+        })
+    })
+})
+
+//----Attahc Files----->
+
+
 
 //--react messages---->
 $(document).on('click', '#open_msg_react', function() {
@@ -2201,7 +2330,7 @@ $(document).mouseup(function(e) {
     $(this).find('.chat_header').find('.h_m_ic svg').css('fill', '#bec2c9');
     $(this).find('.chat_header').find('.h_m_ic svg path').css('fill', '#bec2c9');
     $(this).find('.chat_header').find('.strokesvg').css('stroke', '#bec2c9');
-    $(this).find('.popu_char_a7em').find('.m24_icon svg').css('fill', '#bec2c9');
+    $(this).find('.popu_char_a7em').find('.m24_icon.hide_plus svg').css('fill', '#bec2c9');
 
 
 })
@@ -2210,7 +2339,7 @@ $(document).on('click', '.popup_chat', function() {
     $(this).find('.chat_header').find('.h_m_ic svg').css('fill', '#1437ef');
     $(this).find('.chat_header').find('.h_m_ic svg path').css('fill', '#1437ef');
     $(this).find('.chat_header').find('.strokesvg').css('stroke', '#1437ef');
-    $(this).find('.popu_char_a7em').find('.m24_icon svg').css('fill', '#00b3ff');
+    $(this).find('.popu_char_a7em').find('.m24_icon.hide_plus svg').css('fill', '#00b2ff');
 
 
 })

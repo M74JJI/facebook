@@ -422,6 +422,18 @@
     background: #fff;
     display: none;
 }
+.attach_files_wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    padding-bottom: 1rem;
+    display: flex;
+    align-items: flex-end;
+    z-index: 2;
+    background: #fff;
+    display: none;
+}
 .unavailable_svg {
     cursor: not-allowed;
 }
@@ -875,6 +887,7 @@
     background: #fff;
     display: none;
 }
+
 .reply_header {
     display: flex;
     align-items: center;
@@ -1003,4 +1016,118 @@
     border-top: 15px solid #fff;
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
+}
+.more_plus_wrapper {
+    position: absolute;
+    bottom: 45px;
+    left: 0;
+    padding: 5px 8px 5px 0;
+    width: 100%;
+    border-top: 1px solid#ced0d4;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    display: none;
+}
+.more_plus_hold {
+    background: #e4e6eb;
+    border-radius: 5px;
+    margin-left: 8px;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 36px;
+    cursor: pointer;
+}
+.attach_files_icon {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yU/r/FP_pQnfuqge.png');
+    background-position: 0px -239px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.video_icon_plus {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yM/r/5zBYwUnomYJ.png');
+    background-position: 0px -605px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.microphone_icon_plus {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yU/r/FP_pQnfuqge.png');
+    background-position: 0px -197px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.hide_hid {
+    display: none;
+}
+.attach_preview {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+    background: #d6d9de;
+    border-radius: 10px;
+    width: 150px;
+    position: relative;
+    height: 50px;
+    transform: translateY(10px);
+}
+.white_attach {
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.attahcfile_icon {
+    background-image: url('https://www.facebook.com/rsrc.php/v3/yU/r/FP_pQnfuqge.png');
+    background-position: 0px -323px;
+    background-size: auto;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.atach_name {
+    font-weight: 600;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+}
+
+.remove_attached_file {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #fff;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.remove_attached_file:hover {
+    opacity: 0.8;
+}
+.remove_attachxxxx {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/ifs0beGGd1a.png');
+    background-position: -125px -71px;
+    background-size: auto;
+    width: 12px;
+    height: 12px;
+    background-repeat: no-repeat;
+    display: inline-block;
 }
