@@ -2303,7 +2303,7 @@ if(isset($_POST['refreshmsgs'])){
 </div>
 
 
-</div>
+
 
 
 
