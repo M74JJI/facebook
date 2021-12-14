@@ -1131,3 +1131,15 @@
     background-repeat: no-repeat;
     display: inline-block;
 }
+.msg_file {
+    background: #f0f2f5;
+    padding: 10px;
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 150px;
+    max-width: 200px;
+}
