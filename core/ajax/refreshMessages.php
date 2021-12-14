@@ -1063,10 +1063,19 @@ if(isset($_POST['refreshmsgs'])){
     <div class="mess_left">
         <!---Start--------------------------------mssssg------>
         <?php 
+         if($message->repliedTo !='' && $replied->images ==''){
+            echo "<div class='replied_messaage'>$replied->message</div>";
+        }else if($message->repliedTo !='' && $replied->images !=''){
+            $imgs=json_decode($replied->images);
+            $img=$imgs[0]->name;
+        ?>
+        <img src="<?php echo $img ?>" style="width:70px;border-radius:25px;padding-bottom: 2px;" alt="">
+        <?php
+        }
                 if($message->images =='' && $message->message !=''){
                 ?>
         <div class="only_message_texto">
-            <img src="<?php echo BASE_URL.$message->profile_picture ?>" class="p45545_img" alt="">
+            <img src="<?php echo BASE_URL.$message->profile_picture ?>" class="p45545_img_bla_edn" alt="">
             <div class="mssssg"
                 style="<?php if($message->message=='You unsent a message'){echo 'background:transparent;color:#bcc0c4;border:1px solid #ced0d4;padding:10px;border-radius:50px';} ?>">
                 <?php echo $message->message ?></div>
@@ -1149,8 +1158,8 @@ if(isset($_POST['refreshmsgs'])){
                      
                     if(count($images)==1){
                         ?>
-        <img src="<?php echo BASE_URL.$message->profile_picture ?>" class="p45545_img" alt="">
         <div class="images_in_messages_1">
+            <img src="<?php echo BASE_URL.$message->profile_picture ?>" class="p45545_img" alt="">
             <img class="img_left" src="<?php echo $images[0]->name ?>" alt="">
             <div class="message_manipulation">
 
@@ -1216,8 +1225,8 @@ if(isset($_POST['refreshmsgs'])){
                     }
                     else if(count($images)==2){
                         ?>
-        <img src="<?php echo BASE_URL.$message->profile_picture ?>" class="p45545_img" alt="">
         <div class="images_in_messages_2">
+            <img src="<?php echo BASE_URL.$message->profile_picture ?>" class="p45545_img" alt="">
             <img class="img" src="<?php echo $images[0]->name ?>" alt="">
             <img class="img" src="<?php echo $images[1]->name ?>" alt="">
             <div class="message_manipulation">
@@ -1284,8 +1293,8 @@ if(isset($_POST['refreshmsgs'])){
                     }
                     else if(count($images)==3){
                         ?>
-        <img src="<?php echo BASE_URL.$message->profile_picture ?>" class="p45545_img" alt="">
         <div class="images_in_messages_3">
+            <img src="<?php echo BASE_URL.$message->profile_picture ?>" class="p45545_img" alt="">
             <div style="display:flex;flex-direction:column;gap:2px">
                 <img class="img" src="<?php echo $images[0]->name ?>" style="width:180px" alt="">
                 <div style="display:flex;align-items:center;gap:2px">
@@ -1359,8 +1368,8 @@ if(isset($_POST['refreshmsgs'])){
                     }
                     else if(count($images)==4){
                         ?>
-        <img src="<?php echo BASE_URL.$message->profile_picture ?>" class="p45545_img" alt="">
         <div class="images_in_messages_4">
+            <img src="<?php echo BASE_URL.$message->profile_picture ?>" class="p45545_img" alt="">
             <div style="display:flex;flex-direction:column;gap:2px">
                 <div style="display:flex;align-items:center;gap:2px">
                     <img class="img" src="<?php echo $images[0]->name ?>" alt="">
@@ -1436,8 +1445,9 @@ if(isset($_POST['refreshmsgs'])){
         <?php 
                     }
                     else if(count($images)==5){
-                        ?> <img src="<?php echo BASE_URL.$message->profile_picture ?>" class="p45545_img" alt="">
+                        ?>
         <div class="images_in_messages_5">
+            <img src="<?php echo BASE_URL.$message->profile_picture ?>" class="p45545_img" alt="">
             <div style="display:flex;flex-direction:column;gap:2px">
                 <div style="display:flex;align-items:center;gap:2px">
                     <img class="img" src="<?php echo $images[0]->name ?>" alt="">
@@ -1514,8 +1524,9 @@ if(isset($_POST['refreshmsgs'])){
         <?php 
                     }
                     else {
-                        ?><img src="<?php echo BASE_URL.$message->profile_picture ?>" class="p45545_img" alt="">
+                        ?>
         <div class="images_in_messages_6">
+            <img src="<?php echo BASE_URL.$message->profile_picture ?>" class="p45545_img" alt="">
             <div class="gridm_6">
                 <?php 
                 foreach ($images as $img){
