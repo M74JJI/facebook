@@ -11,15 +11,16 @@ if(isset($_POST['image_name'])){
     $user_id = $loadUser->checkInput($_POST['user_id']);
 
     $loadUser->update('profile',$userid,array('profile_picture'=>$image_name));
+    $loadUser->create('profilePictures',array('picture'=>$image_name,'p_user'=>$userid));
 
 }
 if(0 < $_FILES['file']['error']){
-    echo 'aaaaaaaaaaaaaaaaaaaaaaaa';
+
     echo 'Error: '. $_FILES['file']['error'].'<br>';
 }else{
 
     $path_directory=$_SERVER['DOCUMENT_ROOT']."/facebook/user/".$userid."/profilePicture/";
-    var_dump($path_directory);
+   
     if(!file_exists($path_directory) && !is_dir($path_directory)){
       mkdir($path_directory,0777,true); 
   } 

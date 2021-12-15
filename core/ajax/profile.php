@@ -9,6 +9,7 @@ if(isset($_POST['image_name'])){
     $userid=$loadUser->checkInput(($_POST['userid']));
   
     $loadUser->update('profile',$userid,array('cover'=>$image_name));
+    $loadUser->create('coverPictures',array('cover'=>$image_name,'p_user'=>$userid));
     
   
 }else{

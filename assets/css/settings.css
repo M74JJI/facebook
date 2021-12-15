@@ -1,0 +1,32 @@
+.settings {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+.settings_left {
+    padding: 10px;
+}
+.setting_left_header {
+    font-weight: 700;
+    font-size: 24px;
+}
+.settings_left_menu {
+    padding: 0;
+}
+.settings_left_menu_item {
+    padding: 10px 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.settings_left_menu_item:hover {
+    background: #eee;
+}
+.settings_left_menu_item span {
+    font-weight: 500;
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 19px;
+}

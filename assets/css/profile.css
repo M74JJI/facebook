@@ -219,9 +219,42 @@ a {
     border-radius: 5px;
     font-size: 15px;
 }
+.profilePictures_wrap {
+    padding: 10px;
+    height: 435px;
+    width: 97%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    overflow-y: auto;
+}
+.profilePictures_wrap img {
+    width: 220px;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.coverPictures_wrap {
+    padding: 10px;
+    height: 485px;
+    overflow-y: auto;
+}
+.coverPictures_wrap img {
+    width: 220px;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.profilePictures_wrapspan {
+    padding: 15px;
+    font-weight: 600;
+}
 .profile_box {
     height: 600px;
-    width: 700px;
+    width: 720px;
     background: #fff;
     position: absolute;
     top: 50%;
@@ -233,6 +266,37 @@ a {
     -webkit-box-shadow: 37px 14px 42px 8px rgba(221, 221, 221, 0.45);
     box-shadow: 37px 14px 42px 8px rgba(221, 221, 221, 0.45);
     border: 1px solid #eee;
+}
+.cover_box {
+    height: 600px;
+    width: 470px;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: none;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    border-radius: 10px;
+    -webkit-box-shadow: 37px 14px 42px 8px rgba(221, 221, 221, 0.45);
+    box-shadow: 37px 14px 42px 8px rgba(221, 221, 221, 0.45);
+    border: 1px solid #eee;
+}
+.profilePictures_wrap::-webkit-scrollbar {
+    width: 6px;
+    background-color: #f7f8fa;
+}
+.profilePictures_wrap::-webkit-scrollbar-thumb {
+    background: #aeaeafa1;
+    border-radius: 5px;
+}
+.coverPictures_wrap::-webkit-scrollbar {
+    width: 6px;
+    background-color: #f7f8fa;
+}
+.coverPictures_wrap::-webkit-scrollbar-thumb {
+    background: #aeaeafa1;
+    border-radius: 5px;
 }
 .box_header {
     padding: 0px 0px;
@@ -2639,4 +2703,14 @@ li {
     position: absolute;
     bottom: -8px;
     right: -8px;
+}
+@media (min-width: 722) {
+    .profile_box {
+        width: 100%;
+    }
+    .profilePictures_wrap {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
 }

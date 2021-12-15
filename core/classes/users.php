@@ -842,8 +842,59 @@ class User{
         
     }
    
- 
+    public function getProfilePictures($userid){
+            $statement=$this->pdo->prepare("SELECT * FROM profilePictures WHERE p_user =:userid ORDER BY createdAt DESC");
+            $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement->execute();
+         return $statement->fetchAll(PDO::FETCH_OBJ);
+        
+    }
    
+    public function getCoverPictures($userid){
+            $statement=$this->pdo->prepare("SELECT * FROM coverPictures WHERE p_user =:userid ORDER BY createdAt DESC");
+            $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_OBJ);
+         
+        
+    }
+    public function getProfilePictureByImage($img,$userid){
+        $statement=$this->pdo->prepare("SELECT * FROM profilePictures WHERE 
+        p_user =:userid AND picture=:img LIMIT 1");
+        $statement->bindValue(':img',$img,PDO::PARAM_STR);
+        $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_OBJ);
+     
+    
+}
+public function getCoverPictureByImage($img,$userid){
+    $statement=$this->pdo->prepare("SELECT * FROM coverpictures WHERE 
+    p_user =:userid AND cover=:img LIMIT 1");
+    $statement->bindValue(':img',$img,PDO::PARAM_STR);
+    $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->fetch(PDO::FETCH_OBJ);
+ 
+
+}
+    public function updateprofilePicDate($img){
+        $statement=$this->pdo->prepare("UPDATE profilePictures SET createdAt=NOW() WHERE pp=:img");
+        $statement->bindValue(':img',$img,PDO::PARAM_INT);
+        $statement->execute();
+ 
+     
+    
+}
+ 
+public function updatecoverPicDate($img){
+    $statement=$this->pdo->prepare("UPDATE coverPictures SET createdAt=NOW() WHERE cover_id=:img");
+    $statement->bindValue(':img',$img,PDO::PARAM_INT);
+    $statement->execute();
+
+ 
+
+}
 
 
 
