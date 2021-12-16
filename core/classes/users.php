@@ -895,6 +895,23 @@ public function updatecoverPicDate($img){
  
 
 }
+ 
+public function resetCalls($userid){
+    $statement=$this->pdo->prepare("UPDATE calls SET call_status=0 WHERE call_user=:userid");
+    $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+    $statement->execute();
+
+ 
+
+}
+public function checkForCalls($userid){
+    $statement=$this->pdo->prepare("SELECT * FROM calls  WHERE call_user=:userid AND call_status=1 LIMIT 1");
+    $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->fetch(PDO::FETCH_OBJ);
+ 
+
+}
 
 
 

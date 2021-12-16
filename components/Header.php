@@ -2,6 +2,8 @@
 //reset everything here
 $loadUser->resetOnline($userid);
 $loadUser->rdOnline0kamlin($userid);
+$loadUser->resetCalls($userid);
+
 ?>
 <header>
     <div class="h_left">
@@ -990,7 +992,29 @@ foreach ($allusers as $last){
 <div class="errors_popup">
 
 </div>
+<div class="call_incoming">
+
+</div>
+
 <script>
+//-----Check For calls-->
+setInterval(function() {
+    $.post('http://localhost/facebook/core/chat/calls.php', {
+        check_for_calls: "<?php echo $userid ?>",
+    }, function(data) {
+        $('.call_incoming').html(data);
+
+    })
+}, 10000000)
+
+$(document).on('click', '#accept_call', function() {
+    var username = $(this).data('username')
+    window.open('respond.php?id=' + username + '', "_blank",
+        "resizable=yes, scrollbars=yes, titlebar=yes, width=1200, height=800, top=10, left=10");
+})
+
+//-----Check For calls-->
+
 $(document).ready(function() {
 
 
@@ -1006,7 +1030,12 @@ $('#lala').click(function() {
     $("#nnnnn").append($("#emojionearea1").val());
 })
 
+$(document).on('click', '#start_video_call', function() {
 
+    window.open('call.php?id=<?php echo $userInfo->link ?>', "_blank",
+        "resizable=yes, scrollbars=yes, titlebar=yes, width=1200, height=800, top=10, left=10");
+
+})
 
 
 

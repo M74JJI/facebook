@@ -859,3 +859,16 @@ header {
     right: 15px;
     bottom: 10px;
 }
+#video-call-div {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background: #fff;
+    transform: translate(-50%, -50%);
+    z-index: 99999999999999999999999999999999999999999999999999999999999999;
+}
+#local-video {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}

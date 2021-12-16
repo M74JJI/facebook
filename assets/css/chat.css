@@ -1151,3 +1151,12 @@
     min-width: 150px;
     max-width: 200px;
 }
+.call_incoming {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 1rem;
+    z-index: 99999999999999999999999999999999999;
+}

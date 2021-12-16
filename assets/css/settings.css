@@ -1,10 +1,10 @@
 .settings {
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: 350px 1fr;
     font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 .settings_left {
-    padding: 10px;
+    padding: 10px 0 0 3px;
 }
 .setting_left_header {
     font-weight: 700;
@@ -12,6 +12,17 @@
 }
 .settings_left_menu {
     padding: 0;
+    padding-right: 5px;
+    max-height: 94vh;
+    overflow-y: auto;
+}
+.settings_left_menu::-webkit-scrollbar {
+    width: 7px;
+    background-color: #f7f8fa;
+}
+.settings_left_menu::-webkit-scrollbar-thumb {
+    background: #aeaeafa1;
+    border-radius: 5px;
 }
 .settings_left_menu_item {
     padding: 10px 5px;

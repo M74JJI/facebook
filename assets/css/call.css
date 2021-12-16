@@ -1,0 +1,74 @@
+.call {
+    background: #000;
+    overflow-x: hidden;
+}
+.call_header {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+    z-index: 1;
+}
+.call_actions {
+    display: flex;
+    gap: 25px;
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    z-index: 1;
+    transform: translateX(-50%);
+}
+.call_actions button {
+    border: none;
+    outline: none;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.call_btn {
+    background: red;
+}
+.user_video {
+    position: absolute;
+    bottom: 5.5rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+    border-radius: 10px;
+    width: 370px;
+    height: 200px;
+    z-index: 1;
+    overflow: hidden;
+}
+.show_user_video {
+    display: none;
+}
+.user_video video {
+    width: 370px;
+    height: 200px;
+    border-radius: 10px;
+    -webkit-transform: translateZ(0);
+}
+.hide_user_video {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 2px;
+    z-index: 99;
+    fill: #fff;
+}
+.chat_video {
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
