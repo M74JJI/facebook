@@ -28,9 +28,12 @@
     justify-content: center;
     border-radius: 50%;
     cursor: pointer;
+    background-color: #666;
+}
+.call_actions button svg {
+    fill: #fff;
 }
 .call_btn {
-    background: red;
 }
 .user_video {
     position: absolute;

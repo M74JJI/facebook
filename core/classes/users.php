@@ -905,7 +905,35 @@ public function resetCalls($userid){
 
 }
 public function checkForCalls($userid){
-    $statement=$this->pdo->prepare("SELECT * FROM calls  WHERE call_user=:userid AND call_status=1 LIMIT 1");
+    $statement=$this->pdo->prepare("SELECT * FROM calls  WHERE call_chat=:userid AND call_status=1 LIMIT 1");
+    $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->fetch(PDO::FETCH_OBJ);
+ 
+
+}
+public function checkCallexist($userid,$chatid){
+    $statement=$this->pdo->prepare("SELECT count(*) as total FROM calls WHERE call_user=:userid AND call_chat=:chatid");
+    $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+    $statement->bindValue(':chatid',$chatid,PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->fetch(PDO::FETCH_OBJ);
+ 
+
+}
+
+public function sendCall($userid,$chatid){
+    $statement=$this->pdo->prepare("UPDATE calls SET call_status=1 WHERE call_user=:userid AND call_chat=:chatid");
+    $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+    $statement->bindValue(':chatid',$chatid,PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->fetch(PDO::FETCH_OBJ);
+ 
+
+}
+
+public function checkBeforeSendCall($userid){
+    $statement=$this->pdo->prepare("SELECT count(*) as total WHERE call_user=:userid AND call_status=1 LIMIT 1");
     $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
     $statement->execute();
     return $statement->fetch(PDO::FETCH_OBJ);

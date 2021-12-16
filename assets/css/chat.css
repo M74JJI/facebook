@@ -1151,6 +1151,17 @@
     min-width: 150px;
     max-width: 200px;
 }
+
+.respond_video_icon {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yc/r/_iqomRz3ARD.png');
+    background-position: 0px -1032px;
+    background-size: auto;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    -webkit-filter: invert(100%);
+}
 .call_incoming {
     position: fixed;
     top: 50%;
@@ -1159,4 +1170,85 @@
     background: #fff;
     padding: 1rem;
     z-index: 99999999999999999999999999999999999;
+    width: 500px;
+    -webkit-box-shadow: 2px 8px 15px -2px rgba(0, 0, 0, 0.4);
+    box-shadow: 2px 8px 15px -2px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    display: none;
+}
+.calls_header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e5e5;
+    transform: translateY(-1rem);
+}
+.calls_exit {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #eee;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 7;
+}
+.calls_forward:hover {
+    background: rgba(238, 238, 238, 0.521);
+}
+.caller_infos {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding-bottom: 3rem;
+}
+.caller_infos img {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+.call_col_flex {
+}
+.caller_text {
+    font-weight: 700;
+}
+.caller_caption {
+    margin-top: 2px;
+    font-weight: 600;
+    font-size: 13px;
+    color: rgb(148, 146, 146);
+}
+.calling_repond_decline {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
+.decline_call_link {
+    color: #1b74e4;
+    font-size: 14px;
+    font-weight: 600;
+}
+.accept_call_btn {
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    border: none;
+    outline: none;
+    gap: 6px;
+    color: #fff;
+    cursor: pointer;
+    background: #1b74e4;
 }

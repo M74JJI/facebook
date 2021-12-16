@@ -996,21 +996,48 @@ foreach ($allusers as $last){
 
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.js"></script>
+
 <script>
+var sound = new Howl({
+    src: ['call_ringtone.mp3'],
+    loop: true,
+    volume: 1,
+});
+
 //-----Check For calls-->
 setInterval(function() {
     $.post('http://localhost/facebook/core/chat/calls.php', {
-        check_for_calls: "<?php echo $userid ?>",
+        checkBeforeSendCall: "<?php echo $userid ?>",
     }, function(data) {
-        $('.call_incoming').html(data);
+        if (data == 'exists') {
 
-    })
-}, 10000000)
+        } else {
+
+            $.post('http://localhost/facebook/core/chat/calls.php', {
+                check_for_calls: "<?php echo $userid ?>",
+            }, function(data) {
+                if (data != '') {
+                    $('.call_incoming').html(data);
+                    $('.call_incoming').show();
+                    /*  sound.play();*/
+                }
+            })
+        }
+    });
+}, 1000)
+
 
 $(document).on('click', '#accept_call', function() {
     var username = $(this).data('username')
     window.open('respond.php?id=' + username + '', "_blank",
         "resizable=yes, scrollbars=yes, titlebar=yes, width=1200, height=800, top=10, left=10");
+    $.post('http://localhost/facebook/core/chat/calls.php', {
+        call_ongoing: "<?php echo $userid ?>",
+
+
+    }, function(data) {})
+
 })
 
 //-----Check For calls-->
@@ -1031,10 +1058,15 @@ $('#lala').click(function() {
 })
 
 $(document).on('click', '#start_video_call', function() {
-
+    var chat = $(this).data('chat');
     window.open('call.php?id=<?php echo $userInfo->link ?>', "_blank",
         "resizable=yes, scrollbars=yes, titlebar=yes, width=1200, height=800, top=10, left=10");
-
+    $.post('http://localhost/facebook/core/chat/calls.php', {
+        createCall: "<?php echo $userid ?>",
+        chat: chat
+    }, function(data) {
+        console.log(data)
+    })
 })
 
 
@@ -1478,7 +1510,8 @@ function loadMessages() {
                     $('.popup_chat_area[data-chat=' + listChat[i] + ']').html(data);
                     /* scrolla(listChat[i]);*/
 
-                    $('.messaging_popup[data-chat = ' + listChat[i] + ']').data('changed', 'false');
+                    $('.messaging_popup[data-chat = ' + listChat[i] + ']').data('changed',
+                        'false');
 
                 })
             }
@@ -1632,11 +1665,13 @@ function ftahkosomochat() {
                         userid: userid
                     }, function(data) {
                         if ($('.popup_chat[data-chat=' + chat + ']').length > 0) {
-                            $('.popup_chat[data-chat=' + chat + ']').find('input#ligh_send[data-chat=' +
+                            $('.popup_chat[data-chat=' + chat + ']').find(
+                                'input#ligh_send[data-chat=' +
                                 chat + ']').focus();
                         } else {
                             $('.popin_dem_chats').append(data);
-                            $('.popup_chat[data-chat=' + chat + ']').find('input#ligh_send[data-chat=' +
+                            $('.popup_chat[data-chat=' + chat + ']').find(
+                                'input#ligh_send[data-chat=' +
                                 chat + ']').focus();
                             $('#ligh_send[data-chat=' + chat + ']').emojioneArea({
 
@@ -1792,7 +1827,8 @@ $(document).on('click', '#forward_sendd', function() {
                 $(This).attr('disabled', 'disabled');
                 $(This).removeClass().addClass('sent_forward_btn')
                 $(This).html('<i class="sentedtefde">/</i>Sent');
-                var damn = $('.forward_recent').find('.forward_friend_item[data-chat=' +
+                var damn = $('.forward_recent').find(
+                    '.forward_friend_item[data-chat=' +
                     chatid +
                     '] button');
                 $(damn).attr('disabled', 'disabled').removeClass();
@@ -1831,7 +1867,8 @@ $(document).on('click', '#forward_sendd1', function() {
                 $(This).attr('disabled', 'disabled');
                 $(This).removeClass().addClass('sent_forward_btn')
                 $(This).html('<i class="sentedtefde">/</i>Sent');
-                var damn = $('.forward_friends').find('.forward_friend_item[data-chat=' +
+                var damn = $('.forward_friends').find(
+                    '.forward_friend_item[data-chat=' +
                     chatid +
                     '] button');
                 $(damn).attr('disabled', 'disabled').removeClass();
@@ -1986,7 +2023,9 @@ $(document).on('change', '#attach_file', function(e) {
         for (var i = 0; i < files.length; i++) {
             var name = files[i].name;
             var extension = name.split('.').pop().toLowerCase();
-            if (jQuery.inArray(extension, ['zip', 'rar', 'pdf', 'docx', 'doc', 'ppt', 'pptx', 'txt']) == -1) {
+            if (jQuery.inArray(extension, ['zip', 'rar', 'pdf', 'docx', 'doc', 'ppt', 'pptx',
+                    'txt'
+                ]) == -1) {
                 $('.fixed_opacity').show();
                 $('.errors_popup').html(
                     '<div class="exit_nickname" style="margin-top:10px" id="close_erros_send"> <i class="zfzfzfzfkzpofgj"></i> </div> <div class="errors_heading">Unable to Attach File</div><div class="error_texting">The type of file you are trying to attach is not allowed.Please try again with a different format. </div> <button id="close_erros_send" class="close_erros_send">Close</button > '
@@ -2071,9 +2110,12 @@ $(document).on('click', '#send_msg_and_files', function() {
             userid: "<?php echo $userid ?>"
         }, function(data) {
             $('.attach_files_wrapper[data-chat=' + chat + ']').hide();
-            $('.popup_chat_area[data-chat=' + chat + ']').siblings('.more_plus_wrapper').hide();
-            $('.popu_char_a7em[data-chat=' + chat + ']').find('.m24_icon.hide_plus').show()
-            $('.popu_char_a7em[data-chat=' + chat + ']').find('#light_send').css('width',
+            $('.popup_chat_area[data-chat=' + chat + ']').siblings(
+                '.more_plus_wrapper').hide();
+            $('.popu_char_a7em[data-chat=' + chat + ']').find('.m24_icon.hide_plus')
+                .show()
+            $('.popu_char_a7em[data-chat=' + chat + ']').find('#light_send').css(
+                'width',
                 '100%')
             $('.popu_char_a7em[data-chat=' + chat + ']').show();
             scrolla(chat);
@@ -2424,7 +2466,8 @@ $(document).mouseup(function(e) {
     }
 })
 $(document).mouseup(function(e) {
-    if (!$(e.target).closest('#post_box,#post_box1,.nicknames_popup,.errors_popup,.forward_popup').length) {
+    if (!$(e.target).closest('#post_box,#post_box1,.nicknames_popup,.errors_popup,.forward_popup')
+        .length) {
         $("#post_box").hide();
         $("#post_box1").hide();
         $(".errors_popup").hide();
