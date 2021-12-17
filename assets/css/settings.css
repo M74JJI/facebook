@@ -41,3 +41,213 @@
     font-size: 16px;
     line-height: 19px;
 }
+.setting_line {
+    width: 95%;
+    height: 1.5px;
+    background: #ced0d4;
+}
+.settings_right {
+    padding: 1rem;
+    width: 900px;
+    margin: 0 auto;
+}
+.s_r_header {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111;
+    font-family: inherit;
+}
+.change_setting_wrapper {
+    margin-top: 1.5rem;
+    padding: 15px;
+    border-top: 1px solid #aaaaaa;
+    border-bottom: 1px solid #aaaaaa;
+}
+.settings_change_item_wrap {
+    padding: 7px 0;
+    border-bottom: 1px solid #ebedf0;
+    background: rgba(238, 238, 238, 0.486);
+}
+.settings_change_item_wrap1 {
+    background-color: transparent;
+}
+.aoihfdouhaf {
+    border-bottom: 1px solid #ebedf0;
+    padding: 5px 0;
+}
+.settings_change_item {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 2fr 5fr 0.5fr;
+    cursor: pointer;
+    text-decoration: none;
+}
+.settings_change_item_wrap1:hover {
+    background: rgba(238, 238, 238, 0.275);
+}
+.left_s_item {
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    color: #1c1e21;
+}
+.middle_s_item {
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    color: #65676b;
+}
+.right_s_item {
+    color: #216fdb;
+}
+.right_s_item:hover {
+    text-decoration: underline;
+}
+.right_s_item i {
+    font-size: 11px;
+    visibility: hidden;
+    opacity: 0;
+}
+.right_s_item:hover i {
+    visibility: visible;
+    opacity: 1;
+}
+.seetings_name_part {
+}
+.settings_inpu_label_item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.settings_inpu_label_item input {
+    font-size: 16px;
+    color: #1c1e21;
+    outline: none;
+    border: 1px solid #ccd0d5;
+    padding: 5px 3px;
+}
+.settings_inpu_label_item label {
+    width: 50px;
+}
+.note_name_wrap {
+    padding: 15px 10px;
+    background: #dadde1;
+    border: 1px solid #ced0d4;
+}
+.note_name_wrap {
+    font-weight: normal;
+    color: #1c1e21;
+    font-size: 15px;
+    width: 375px;
+    word-break: break-all;
+    transform: translateX(-5rem);
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+.note_name_wrap a {
+    color: #216fdb;
+    text-decoration: none;
+}
+.note_wrap_line {
+    width: 395px;
+    height: 1px;
+    background: #dadde1;
+    transform: translateX(-5rem);
+    margin: 15px 0;
+}
+.other_names_sett a {
+    color: #216fdb;
+    text-decoration: none;
+    margin-left: 10px;
+    font-weight: normal;
+    letter-spacing: -0.4px;
+}
+.other_names_sett a:hover {
+    text-decoration: underline;
+}
+.note_wrap_line a:hover {
+    text-decoration: underline;
+}
+.settings_name_menu {
+}
+.review_name_changes {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.review_changes_send {
+    background: #4267b2;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.calnce_s_changes {
+    text-decoration: none;
+    border: 1px solid #ccd0d5;
+    outline: none;
+    font-size: 12px;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: #1c1e21;
+}
+.settings_error {
+    color: red;
+    font-weight: normal;
+    padding: 5px;
+}
+.username_544 {
+    font-size: 15px;
+    font-weight: normal;
+    color: #90949c;
+    margin-bottom: 15px;
+}
+.username_1251addad {
+    font-size: 15px;
+    font-weight: normal;
+    color: #333333;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+}
+.moraba3 {
+    width: 5px;
+    height: 5px;
+    background: #365899;
+    margin-right: 10px;
+}
+.afdaf54af54af {
+    background-image: url(https://www.facebook.com/rsrc.php/v3/yp/r/MR9ObHQ8m3E.png);
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: -260px -122px;
+    display: inline-block;
+    height: 11px;
+    position: relative;
+    top: 1px;
+    width: 12px;
+}
+.username_errors {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    word-break: keep-all;
+}
+.dadxxc1 {
+    background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/yf/r/0wGyCJmVUOl.png);
+    background-size: auto;
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    left: 0;
+    position: absolute;
+    top: -1px;
+    vertical-align: middle;
+    width: 13px;
+    height: 13px;
+    background-position: -213px -1873px;
+    top: 0;
+}

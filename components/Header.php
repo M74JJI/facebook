@@ -1030,7 +1030,8 @@ setInterval(function() {
 
 $(document).on('click', '#accept_call', function() {
     var username = $(this).data('username')
-    window.open('respond.php?id=' + username + '', "_blank",
+    var chat = $(this).data('chat')
+    window.open('respond.php?id=' + username + '&chat=' + chat + '', "_blank",
         "resizable=yes, scrollbars=yes, titlebar=yes, width=1200, height=800, top=10, left=10");
     $.post('http://localhost/facebook/core/chat/calls.php', {
         call_ongoing: "<?php echo $userid ?>",
@@ -1059,14 +1060,15 @@ $('#lala').click(function() {
 
 $(document).on('click', '#start_video_call', function() {
     var chat = $(this).data('chat');
-    window.open('call.php?id=<?php echo $userInfo->link ?>', "_blank",
+    window.open('call.php?id=<?php echo $userInfo->user_id ?>&chat=' + chat + '', "_blank",
         "resizable=yes, scrollbars=yes, titlebar=yes, width=1200, height=800, top=10, left=10");
     $.post('http://localhost/facebook/core/chat/calls.php', {
-        createCall: "<?php echo $userid ?>",
-        chat: chat
-    }, function(data) {
-        console.log(data)
-    })
+            createCall: "<?php echo $userid ?>",
+            chat: chat
+        },
+        function(data) {
+            console.log(data)
+        })
 })
 
 

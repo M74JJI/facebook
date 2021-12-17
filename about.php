@@ -30,8 +30,6 @@ if(isset($_GET['id'])==true && empty($_GET['id'])==false){
 <html lang="en">
 
 
-<?php include_once './components/Header.php' ?>
-
 <body>
 
 

@@ -22,6 +22,7 @@ if(login::isLoggedIn()){
      $lastMsgUserid = $lastMsgReceived->user_id;
  }
 
+ 
 ?>
 <!DOCTYPE html>
 

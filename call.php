@@ -11,6 +11,11 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
     $username =$loadUser->checkInput($_GET['id']);
     
 }
+if(isset($_GET['chat'])==true && empty($_GET['chat']===false)){
+    $chatid =$loadUser->checkInput($_GET['chat']);
+    $chat=$loadUser->getUserInfo($chatid);
+    
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -82,7 +87,11 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
 
         <video muted id="user-stream" autoplay></video>
     </div>
+
     <video id="chat-stream" class="chat_video" autoplay></video>
+    <div class="chat_bg_bg">
+        <img src="<?php echo BASE_URL.$chat->profile_picture ?>" alt="" class="called_image_mate">
+    </div>
 
     <div class="call_actions">
         <button>
@@ -257,6 +266,7 @@ function startCall() {
 
             peerConn.onaddstream = (e) => {
                 document.getElementById('chat-stream').srcObject = e.stream;
+                $('.chat_bg_bg').hide();
             };
 
             peerConn.onicecandidate = (e) => {
@@ -303,6 +313,7 @@ let isVideo = true;
 function muteVideo() {
     isVideo = !isVideo;
     localStream.getVideoTracks()[0].enabled = isVideo;
+    $('.chat_bg_bg').toggle();
 }
 $(document).on('click', '.mute_audio', function() {
     $(this).hide();

@@ -940,8 +940,50 @@ public function checkBeforeSendCall($userid){
  
 
 }
+public function updateNameDateChange($userid){
+    $statement=$this->pdo->prepare("update users set changedNameAt=NOW() WHERE id=:userid");
+    $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+    $statement->execute();
+
+ 
+
+}
+public function updateName($userid,$first_name,$middle_name,$last_name){
+    $statement=$this->pdo->prepare("
+
+    UPDATE users SET first_name=:first_name, middle_name=:middle_name,last_name=:last_name WHERE id=:userid
+
+    ");
+    $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+    $statement->bindValue(':first_name',$first_name,PDO::PARAM_STR);
+    $statement->bindValue(':middle_name',$middle_name,PDO::PARAM_STR);
+    $statement->bindValue(':last_name',$last_name,PDO::PARAM_STR);
+    $statement->execute();
+    $statement1=$this->pdo->prepare("
+
+    UPDATE profile SET first_name=:first_name, middle_name=:middle_name,last_name=:last_name WHERE user_id=:userid
+
+    ");
+    $statement1->bindValue(':userid',$userid,PDO::PARAM_INT);
+    $statement1->bindValue(':first_name',$first_name,PDO::PARAM_STR);
+    $statement1->bindValue(':middle_name',$middle_name,PDO::PARAM_STR);
+    $statement1->bindValue(':last_name',$last_name,PDO::PARAM_STR);
+    $statement1->execute();
+
+ 
+
+}
 
 
+
+public function checkifUsernameExist($username){
+    $statement=$this->pdo->prepare("SELECT count(*) as total FROM users WHERE link=:username");
+    $statement->bindValue(':username',$username,PDO::PARAM_STR);
+    $statement->execute();
+  return $statement->fetch(PDO::FETCH_OBJ);
+ 
+
+}
 
 
                         

@@ -30,7 +30,8 @@ if(isset($_POST['check_for_calls'])){
 </div>
 <div class="calling_repond_decline">
     <a href="" class="decline_call_link">Decline</a>
-    <button id="accept_call" data-username="<?php echo $info->link ?>" class="accept_call_btn">
+    <button id="accept_call" data-username="<?php echo $info->user_id ?>" data-chat="<?php echo $info->user_id ?>"
+        class="accept_call_btn">
         <i class="respond_video_icon"></i> Accept
     </button>
 </div>
