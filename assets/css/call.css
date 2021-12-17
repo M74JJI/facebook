@@ -30,7 +30,13 @@
     cursor: pointer;
     background-color: #666;
 }
-.call_actions button svg {
+.call_actions button .svg_colored {
+    fill: #fff;
+}
+.call_actions button .mute_video {
+    fill: #fff;
+}
+.call_actions button .unmute_video {
     fill: #fff;
 }
 .call_btn {
@@ -50,6 +56,8 @@
 }
 .show_user_video {
     display: none;
+    width: 30px;
+    height: 50px;
 }
 .user_video video {
     width: 370px;
@@ -61,9 +69,10 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: 2px;
+    left: 6px;
     z-index: 99;
-    fill: #fff;
+    width: 23px;
+    height: 40px;
 }
 .chat_video {
     width: 100%;
@@ -74,4 +83,10 @@
     left: 0;
     right: 0;
     bottom: 0;
+}
+.unmute_audio svg {
+    fill: #111 !important;
+}
+.unmute_video svg {
+    fill: #111 !important;
 }

@@ -77,51 +77,48 @@ if(isset($_GET['id'])==true && empty($_GET['id']===false)){
         </svg>
     </div>
     <div class="user_video">
-        <i class="fas fa-chevron-right hide_user_video"></i>
+        <img src="assets/images/arrow-right.png" alt="" class="hide_user_video">
+        <img src="assets/images/arrow-left.png" alt="" class="show_user_video">
 
-        <svg class="show_user_video" viewBox="0 0 8 28" width="40" height="50px">
-            <path d="M6 2L2 14l4 12" fill="#fff"></path>
-        </svg>
         <video muted id="user-stream" autoplay></video>
     </div>
     <video id="chat-stream" class="chat_video" autoplay></video>
 
     <div class="call_actions">
         <button>
-            <svg width="30" height="30" viewBox="0 0 16-8 -8 52 52">
+            <svg class="svg_colored" width="30" height="30" viewBox="0 0 16-8 -8 52 52">
                 <path
                     d="M26.21 26.284a.999.999 0 010 1.414c-.39.39-1.024.39-1.416 0l-3.797-3.791-3.796 3.79c-.391.391-1.024.391-1.416.001a.999.999 0 010-1.414l3.797-3.791-3.797-3.792a.998.998 0 010-1.413 1.002 1.002 0 011.416 0l3.796 3.791 3.797-3.791a1.002 1.002 0 011.416 0 .998.998 0 010 1.413l-3.797 3.792 3.797 3.791zM28 14.998H14a2 2 0 00-2 2v11a2 2 0 002 2h14a2 2 0 002-2v-11a2 2 0 00-2-2zm-5-2a1 1 0 001-1v-4a2 2 0 00-2-2H8a2 2 0 00-2 2v11a2 2 0 002 2h1a1 1 0 001-1v-3a4 4 0 014-4h9z">
                 </path>
             </svg>
         </button>
-        <button><svg class="hz965sd9 ehi1kzmu i0i9u5yc pr0mtg1e svuzmm7t g0javuny nkafkkgu qukc8cf6"
-                viewBox="-11 -14 50 50">
+        <button><svg class="svg_colored" viewBox="-11 -14 50 50">
                 <path
                     d="M7.111 11.999H4.89v2.222a.89.89 0 0 1-1.778 0V12H.89a.89.89 0 0 1 0-1.778H3.11V7.998a.89.89 0 0 1 1.778 0v2.223H7.11a.89.89 0 0 1 0 1.778zm17.333 8.055c0 .707-.6 1.28-1.266 1.28H8.822a1.295 1.295 0 0 1-1.266-1.28c0-3.532 3.778-6.396 8.444-6.396s8.444 2.864 8.444 6.396zm-3.95-8.535c-.643 0-1.31-.097-1.825-.307-.692.711-1.618 1.16-2.699 1.16a3.943 3.943 0 0 1-2.653-1.024c-.129.017-.262.03-.402.03-1.65 0-2.826-2.246-2.826-4.98 0-2.854 2.59-5.974 4.072-5.974.412 0 .778.096 1.099.29.41-.346.847-.714 1.875-.714 1.961 0 5.168 3.202 5.168 6.398 0 1.423-.452 1.867-.452 2.56 0 1.171.911 1.11.911 1.577 0 .388-.872.984-2.268.984z">
                 </path>
             </svg></button>
-        <button class="mute_video" onclick="muteVideo()">
-            <svg viewBox="0 0 48 48">
+        <button class="mute_video svg_colored" onclick="muteVideo()">
+            <svg viewBox="0 0 48 48" fill="#fff">
                 <path
                     d="M26.5 33a4 4 0 004-4V19a4 4 0 00-4-4h-11a4 4 0 00-4 4v10a4 4 0 004 4h11l10.553-3.6-3.724-1.864a1.501 1.501 0 01-.829-1.343v-4.385c0-.569.321-1.089.829-1.343l3.724-1.863a1 1 0 011.447.895v9.007a1 1 0 01-1.447.895">
                 </path>
             </svg>
         </button>
-        <button class="unmute_video" onclick="muteVideo()"><svg
-                class="hz965sd9 ehi1kzmu i0i9u5yc pr0mtg1e svuzmm7t g0javuny nkafkkgu qukc8cf6" viewBox="0 0 48 48">
+        <button class="unmute_video" onclick="muteVideo()" style="display:none;background-color:#fff">
+            <svg viewBox="0 0 48 48">
                 <path
                     d="M13.022 29.736c-.514.514-1.514.266-1.514-.724V19.007a4 4 0 013.999-4.002h10.112c.787 0 1.182.953.625 1.51l-13.222 13.22zm20.675-15.029l-2.608 2.61a1.998 1.998 0 00-.585 1.412l-.002 10.283a3.992 3.992 0 01-3.996 3.995h-10.27c-.53 0-1.039.21-1.414.585l-3.116 3.117a.999.999 0 11-1.413-1.414l21.99-22.002a.999.999 0 111.414 1.414zm3.356 14.704l-3.722-1.864a1.503 1.503 0 01-.83-1.343v-4.388c0-.569.322-1.089.83-1.343l3.722-1.864a1 1 0 011.447.895v9.012a1 1 0 01-1.447.895z">
                 </path>
             </svg></button>
-        <button class="mute_audio" onclick="muteAudio()">
-            <svg class="hz965sd9 ehi1kzmu i0i9u5yc pr0mtg1e svuzmm7t g0javuny nkafkkgu qukc8cf6" viewBox="0 0 48 48">
+        <button class="mute_audio svg_colored" onclick="muteAudio()">
+            <svg viewBox="0 0 48 48" fill="#fff">
                 <path
                     d="M20 34h8a1 1 0 0 1 0 2h-8a1 1 0 0 1 0-2m4-5.5a5 5 0 0 1-5-5V17a5 5 0 0 1 10 0v6.5a5 5 0 0 1-5 5m0 4a9 9 0 0 1-9-9 1 1 0 0 1 2 0 7 7 0 1 0 14 0 1 1 0 0 1 2 0 9 9 0 0 1-9 9">
                 </path>
             </svg>
         </button>
-        <button class="unmute_video" onclick="muteAudio()"><svg
-                class="hz965sd9 ehi1kzmu i0i9u5yc pr0mtg1e svuzmm7t g0javuny nkafkkgu qukc8cf6" viewBox="0 0 48 48">
+        <button class="unmute_audio" onclick="muteAudio()" style="display:none;background-color:#fff">
+            <svg viewBox="0 0 48 48">
                 <path
                     d="M20.01 34h8a1 1 0 1 1 0 2h-8a1 1 0 1 1 0-2m-5-10.498a1 1 0 0 1 1.999 0c0 .75.119 1.47.337 2.147a.989.989 0 0 1-.246 1c-.52.522-1.424.326-1.652-.374a8.952 8.952 0 0 1-.439-2.773m14.002 0a5 5 0 0 1-5 5 4.93 4.93 0 0 1-2.026-.435.713.713 0 0 0-.795.149l-.496.495c-.303.304-.236.824.146 1.02.951.49 2.026.77 3.17.77a7 7 0 0 0 7.002-6.999 1 1 0 0 1 2 0c0 4.97-4.03 8.999-9.002 8.999a8.902 8.902 0 0 1-4.708-1.344.969.969 0 0 0-1.196.14l-4.399 4.398a1 1 0 0 1-1.414-1.414l22-21.988a1 1 0 0 1 1.414 1.413l-6.11 6.107a1.998 1.998 0 0 0-.586 1.414v2.275zm-.721-8.036L19.9 23.85a.527.527 0 0 1-.899-.373l.008-6.474a5 5 0 0 1 9.403-2.37.704.704 0 0 1-.122.832z">
                 </path>
@@ -151,7 +148,7 @@ $(document).on('click', '#call_exit_full_screen', function() {
 
 })
 $(document).on('click', '.hide_user_video', function() {
-    $('.user_video').css('transform', 'translateX(100%)');
+    $('.user_video').css('transform', 'translateX(90%)');
     $(this).hide();
     $('.show_user_video').show();
 
@@ -307,4 +304,20 @@ function muteVideo() {
     isVideo = !isVideo;
     localStream.getVideoTracks()[0].enabled = isVideo;
 }
+$(document).on('click', '.mute_audio', function() {
+    $(this).hide();
+    $('.unmute_audio').show();
+})
+$(document).on('click', '.unmute_audio', function() {
+    $(this).hide();
+    $('.mute_audio').show();
+})
+$(document).on('click', '.unmute_video', function() {
+    $(this).hide();
+    $('.mute_video').show();
+})
+$(document).on('click', '.mute_video', function() {
+    $(this).hide();
+    $('.unmute_video').show();
+})
 </script>
