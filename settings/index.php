@@ -471,7 +471,9 @@ if(isset($_GET['option']) && !empty($_GET['option'])){
                             <?php echo $systems->os ?> · <?php echo $systems->location ?>
                             <div class="headed_col_2">Chrome</div>
                         </div>
-                        <div class="headed_link">View</div>
+                        <div class="headed_link" style="background:transparent;border:none"><i class="fas fa-ellipsis-v"
+                                style="color:#90949c;font-size:15px"></i>
+                        </div>
                     </div>
                 </div>
 
@@ -496,7 +498,14 @@ if(isset($_GET['option']) && !empty($_GET['option'])){
                                 <div class="headed_col_2"><?php echo $systems[$i]->browser ?> .
                                     <?php echo $loadUser->timeAgo($systems[$i]->time) ?></div>
                             </div>
-                            <div class="headed_link">View</div>
+                            <div class="headed_link" style="background:transparent;border:none" id="open_os_menu"><i
+                                    class="fas fa-ellipsis-v" style="color:#90949c;font-size:15px"></i>
+                                <div class="logout_os_menu">
+                                    <div class="motal_men_ous"></div>
+                                    <a>Not You ?</a>
+                                    <a>Log out</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -535,6 +544,9 @@ if(isset($_GET['option']) && !empty($_GET['option'])){
             }, function(data) {
                 $('.list_of_last_os').html(data);
             })
+        })
+        $(document).on('click', '#open_os_menu', function() {
+            $(this).find('.logout_os_menu').toggle();
         })
         $(document).on('keyup', '#username', function() {
             var text = $(this).val();
