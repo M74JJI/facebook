@@ -460,19 +460,25 @@ if(isset($_GET['option']) && !empty($_GET['option'])){
                    $systems=json_decode($infos->systems);
 
                    ?>
-                <div class="headed_menu_item">
+                <div class="headed_menu_item" data-tusing="<?php echo $systems->tusing ?>">
                     <?php 
-                 if (stripos($system->os, "Windows") !== false) {
+                 if (stripos($systems->os, "Windows") !== false) {
                     echo '<img src="../assets/images/settings/device-windows.png" style="width:40px">';
                 }
                     ?>
                     <div class="headed_coll">
                         <div class="headed_col_1">
                             <?php echo $systems->os ?> · <?php echo $systems->location ?>
-                            <div class="headed_col_2">Chrome</div>
+                            <div class="headed_col_2"><?php echo $systems[$i]->browser ?> .
+                                <?php echo $loadUser->timeAgo($systems[$i]->time) ?></div>
                         </div>
-                        <div class="headed_link" style="background:transparent;border:none"><i class="fas fa-ellipsis-v"
-                                style="color:#90949c;font-size:15px"></i>
+                        <div class="headed_link" style="background:transparent;border:none" id="open_os_menu"><i
+                                class="fas fa-ellipsis-v" style="color:#90949c;font-size:15px"></i>
+                            <div class="logout_os_menu">
+                                <div class="motal_men_ous"></div>
+                                <a>Not You ?</a>
+                                <a id="log_other_os">Log out</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -486,7 +492,8 @@ if(isset($_GET['option']) && !empty($_GET['option'])){
                     $i=0;
                  for($i;$i<2;$i++){
                         ?>
-                    <div class="headed_menu_item" style="border-bottom:1px solid #dddfe2">
+                    <div class="headed_menu_item" style="border-bottom:1px solid #dddfe2"
+                        data-tusing="<?php echo $systems[$i]->tusing ?>">
                         <?php 
                     if (stripos($systems[$i]->os, "Windows") !== false) {
                         echo '<img src="../assets/images/settings/device-windows.png" style="width:40px">';
@@ -503,7 +510,7 @@ if(isset($_GET['option']) && !empty($_GET['option'])){
                                 <div class="logout_os_menu">
                                     <div class="motal_men_ous"></div>
                                     <a>Not You ?</a>
-                                    <a>Log out</a>
+                                    <a id="log_other_os">Log out</a>
                                 </div>
                             </div>
                         </div>
@@ -511,11 +518,13 @@ if(isset($_GET['option']) && !empty($_GET['option'])){
 
                     <?php
                     }
-                    ?>
+                    if(count($systems)>2){
+                        ?>
                     <div class="headed_menu_item_èmore" id="show_more_os" style="border-bottom:1px solid #dddfe2">
                         <i class="motalat_grey"></i> See More
                     </div>
                     <?php
+                    }
                    }
                    ?>
                 </div>
@@ -543,6 +552,14 @@ if(isset($_GET['option']) && !empty($_GET['option'])){
                 show_less_os: "<?php echo $userid ?>"
             }, function(data) {
                 $('.list_of_last_os').html(data);
+            })
+        })
+        $(document).on('click', '#log_other_os', function() {
+            var tusing = $(this).parents('.headed_menu_item').data('tusing');
+            $.post('http://localhost/facebook/core/settings/settings.php', {
+                logout_other: tusing,
+            }, function(data) {
+                console.log(data)
             })
         })
         $(document).on('click', '#open_os_menu', function() {

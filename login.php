@@ -234,18 +234,18 @@ array('mobile'=>$email_phone))[0]['password'])){
 $user_id =DB::query("SELECT id FROM users WHERE mobile=:mobile",array('mobile'=>$email_phone))[0]['id'];
 $tstrong=true;
 $token =bin2hex(openssl_random_pseudo_bytes(64,$tstrong));
-$loadUser->create('token',array('token'=>sha1($token),'user_id'=>$user_id));
+$tid=$loadUser->create('token',array('token'=>sha1($token),'user_id'=>$user_id));
 $infos=$loadUser->getUserInfo($user_id);
 $data = $infos->systems;
 $devices = "";
 $tmpp=$infos->systems;
 if(substr($tmpp,0,1)=='['){
-  $dataa = ',{"os":"'.$os.'","time":"'.Date('Y-m-d H:i:s').'","location":"'.$location['city'].','.$location['country'].'","browser":"'.$browser.'"}';
+  $dataa = ',{"os":"'.$os.'","time":"'.Date('Y-m-d H:i:s').'","location":"'.$location['city'].','.$location['country'].'","browser":"'.$browser.'","tusing":"'.$tid.'"}';
   $devices = '['.substr($data,1,strlen($data)-2).''.$dataa.']';
 
  
 }else{
-  $dataa = ''.$data.',{"os":"'.$os.'","time":"'.Date('Y-m-d H:i:s').'","location":"'.$location['city'].','.$location['country'].'","browser":"'.$browser.'"}';
+  $dataa = ''.$data.',{"os":"'.$os.'","time":"'.Date('Y-m-d H:i:s').'","location":"'.$location['city'].','.$location['country'].'","browser":"'.$browser.'","tusing":"'.$tid.'"}';
   $devices = '['.$dataa.']';
 }
 $loadUser->updateSystems($user_id,$devices);
@@ -269,18 +269,18 @@ array('email'=>$email_phone))[0]['password'])){
 $user_id =DB::query("SELECT id FROM users WHERE email=:email",array('email'=>$email_phone))[0]['id'];
 $tstrong=true;
 $token =bin2hex(openssl_random_pseudo_bytes(64,$tstrong));
-$loadUser->create('token',array('token'=>sha1($token),'user_id'=>$user_id));
+$tid=$loadUser->create('token',array('token'=>sha1($token),'user_id'=>$user_id));
 $infos=$loadUser->getUserInfo($user_id);
 $data = $infos->systems;
 $devices = "";
 $tmpp=$infos->systems;
 if(substr($tmpp,0,1)=='['){
-  $dataa = ',{"os":"'.$os.'","time":"'.Date('Y-m-d H:i:s').'","location":"'.$location['city'].','.$location['country'].'","browser":"'.$browser.'"}';
+  $dataa = ',{"os":"'.$os.'","time":"'.Date('Y-m-d H:i:s').'","location":"'.$location['city'].','.$location['country'].'","browser":"'.$browser.'","tusing":"'.$tid.'"}';
   $devices = '['.substr($data,1,strlen($data)-2).''.$dataa.']';
 
  
 }else{
-  $dataa = ''.$data.',{"os":"'.$os.'","time":"'.Date('Y-m-d H:i:s').'","location":"'.$location['city'].','.$location['country'].'","browser":"'.$browser.'"}';
+  $dataa = ''.$data.',{"os":"'.$os.'","time":"'.Date('Y-m-d H:i:s').'","location":"'.$location['city'].','.$location['country'].'","browser":"'.$browser.'","tusing":"'.$tid.'"}';
   $devices = '['.$dataa.']';
 }
 

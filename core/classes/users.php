@@ -1002,6 +1002,14 @@ public function updateSystems($userid,$systems){
  
 
 }
+public function deleteToken($tusing){
+    $statement=$this->pdo->prepare("DELETE FROM token WHERE id=:tusing");
+    $statement->bindValue(':tusing',$tusing,PDO::PARAM_INT);
+    $statement->execute();
+
+ 
+
+}
 
 
                         

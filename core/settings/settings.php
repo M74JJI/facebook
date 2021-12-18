@@ -36,7 +36,7 @@ if(isset($_POST['show_more_os'])){
     $systems=json_decode($infos->systems);
     foreach($systems as $system){
         ?>
-<div class="headed_menu_item" style="border-bottom:1px solid #dddfe2">
+<div class="headed_menu_item" style="border-bottom:1px solid #dddfe2" data-tusing="<?php echo $system->tusing ?>">
     <?php 
                     if (stripos($system->os, "Windows") !== false) {
                         echo '<img src="../assets/images/settings/device-windows.png" style="width:40px">';
@@ -48,7 +48,14 @@ if(isset($_POST['show_more_os'])){
             <div class="headed_col_2"><?php echo $system->browser ?> .
                 <?php echo $loadUser->timeAgo($system->time) ?></div>
         </div>
-        <div class="headed_link">View</div>
+        <div class="headed_link" style="background:transparent;border:none" id="open_os_menu"><i
+                class="fas fa-ellipsis-v" style="color:#90949c;font-size:15px"></i>
+            <div class="logout_os_menu">
+                <div class="motal_men_ous"></div>
+                <a>Not You ?</a>
+                <a id="log_other_os">Log out</a>
+            </div>
+        </div>
     </div>
 </div>
 <?php
@@ -67,7 +74,7 @@ if(isset($_POST['show_less_os'])){
     $i=0;
     for($i;$i<2;$i++){
         ?>
-<div class="headed_menu_item" style="border-bottom:1px solid #dddfe2">
+<div class="headed_menu_item" style="border-bottom:1px solid #dddfe2" data-tusing="<?php echo $systems[$i]->tusing ?>">
     <?php 
     if (stripos($systems[$i]->os, "Windows") !== false) {
         echo '<img src="../assets/images/settings/device-windows.png" style="width:40px">';
@@ -79,7 +86,14 @@ if(isset($_POST['show_less_os'])){
             <div class="headed_col_2"><?php echo $systems[$i]->browser ?> .
                 <?php echo $loadUser->timeAgo($systems[$i]->time) ?></div>
         </div>
-        <div class="headed_link">View</div>
+        <div class="headed_link" style="background:transparent;border:none" id="open_os_menu"><i
+                class="fas fa-ellipsis-v" style="color:#90949c;font-size:15px"></i>
+            <div class="logout_os_menu">
+                <div class="motal_men_ous"></div>
+                <a>Not You ?</a>
+                <a id="log_other_os">Log out</a>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -90,4 +104,9 @@ if(isset($_POST['show_less_os'])){
     <i class="motalat_grey"></i> See More
 </div>
 <?php
+}
+
+if(isset($_POST['logout_other'])){
+    $tusing=$_POST['logout_other'];
+    $loadUser->deleteToken($tusing);
 }
