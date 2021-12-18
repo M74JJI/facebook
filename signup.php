@@ -141,169 +141,246 @@ function getOS($user_agent = null)
 
     return 'Unknown';
 }
+function getBrowser() { 
+    $u_agent = $_SERVER['HTTP_USER_AGENT'];
+    $bname = 'Unknown';
+    $platform = 'Unknown';
+    $version= "";
+  
+    //First get the platform?
+    if (preg_match('/linux/i', $u_agent)) {
+      $platform = 'linux';
+    }elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
+      $platform = 'mac';
+    }elseif (preg_match('/windows|win32/i', $u_agent)) {
+      $platform = 'windows';
+    }
+  
+    // Next get the name of the useragent yes seperately and for good reason
+    if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)){
+      $bname = 'Internet Explorer';
+      $ub = "MSIE";
+    }elseif(preg_match('/Firefox/i',$u_agent)){
+      $bname = 'Mozilla Firefox';
+      $ub = "Firefox";
+    }elseif(preg_match('/OPR/i',$u_agent)){
+      $bname = 'Opera';
+      $ub = "Opera";
+    }elseif(preg_match('/Chrome/i',$u_agent) && !preg_match('/Edge/i',$u_agent)){
+      $bname = 'Google Chrome';
+      $ub = "Chrome";
+    }elseif(preg_match('/Safari/i',$u_agent) && !preg_match('/Edge/i',$u_agent)){
+      $bname = 'Apple Safari';
+      $ub = "Safari";
+    }elseif(preg_match('/Netscape/i',$u_agent)){
+      $bname = 'Netscape';
+      $ub = "Netscape";
+    }elseif(preg_match('/Edge/i',$u_agent)){
+      $bname = 'Edge';
+      $ub = "Edge";
+    }elseif(preg_match('/Trident/i',$u_agent)){
+      $bname = 'Internet Explorer';
+      $ub = "MSIE";
+    }
+  
+    // finally get the correct version number
+    $known = array('Version', $ub, 'other');
+    $pattern = '#(?<browser>' . join('|', $known) .
+  ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+    if (!preg_match_all($pattern, $u_agent, $matches)) {
+      // we have no matching number just continue
+    }
+    // see how many we have
+    $i = count($matches['browser']);
+    if ($i != 1) {
+      //we will have two since we are not using 'other' argument yet
+      //see if version is before or after the name
+      if (strripos($u_agent,"Version") < strripos($u_agent,$ub)){
+          $version= $matches['version'][0];
+      }else {
+          $version= $matches['version'][1];
+      }
+    }else {
+      $version= $matches['version'][0];
+    }
+  
+    // check if we have a number
+    if ($version==null || $version=="") {$version="?";}
+  
+    return array(
+      'userAgent' => $u_agent,
+      'name'      => $bname,
+      'version'   => $version,
+      'platform'  => $platform,
+      'pattern'    => $pattern
+    );
+  } 
+
+$ua=getBrowser();
+$browser= $ua['name'];
+
 $os =getOS();
-$data = "";
-$devices = "";
-$data .= '{os:'.$os.'},';
-$devices = '['.$data.']';
+$data='';
+$query = @unserialize (file_get_contents('http://ip-api.com/php/'));
+if ($query && $query['status'] == 'success') {
+$location =$query;
+}else{
+$location ='';
+}
+$data= '{"os":"'.$os.'","time":"'.Date('Y-m-d H:i:s').'","location":"'.$location['city'].','.$location['country'].'","browser":"'.$browser.'"}';
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-  $first_name = $_POST['first_name'];
-  $last_name = $_POST['last_name'];
-  $email_phone = $_POST['email_phone'];
-  $password = $_POST['password'];
-  $birth_day = $_POST['birth_day']; 
-  $birth_month = $_POST['birth_month'];
-  $birth_year = $_POST['birth_year'];
-  if(!empty($_POST['gender'])){
-      $gender = $_POST['gender'];
-  }
-  $birthday=''.$birth_year.'-'.$birth_month.'-'.$birth_day.'';
+$first_name = $_POST['first_name'];
+$last_name = $_POST['last_name'];
+$email_phone = $_POST['email_phone'];
+$password = $_POST['password'];
+$birth_day = $_POST['birth_day'];
+$birth_month = $_POST['birth_month'];
+$birth_year = $_POST['birth_year'];
+if(!empty($_POST['gender'])){
+$gender = $_POST['gender'];
+}
+$birthday=''.$birth_year.'-'.$birth_month.'-'.$birth_day.'';
 
- if(empty($first_name)){
-     $errors[]="Please provide your first name";
-    }else if(strlen($first_name)<2 || strlen($first_name)>30){
-        $errors[]="First name must be between 2 and 30 characters";
+if(empty($first_name)){
+$errors[]="Please provide your first name";
+}else if(strlen($first_name)<2 || strlen($first_name)>30){
+    $errors[]="First name must be between 2 and 30 characters";
     }
-   else if(empty($last_name)){
+    else if(empty($last_name)){
     $errors[]="Please provide your last name";
-   }else if(strlen($last_name)<2 || strlen($last_name)>30){
-       $errors[]="Last name must be between 2 and 30 characters";
+    }else if(strlen($last_name)<2 || strlen($last_name)>30){
+        $errors[]="Last name must be between 2 and 30 characters";
 
-   }
-   else{
-    $username =''.$first_name.''.$last_name.'';
-    if(DB::query('SELECT username FROM users WHERE username=:username',
-    array(':username' => $username)
-    )){
+        }
+        else{
+        $username =''.$first_name.''.$last_name.'';
+        if(DB::query('SELECT username FROM users WHERE username=:username',
+        array(':username' => $username)
+        )){
         $usernameRand = rand();
         $link =''.$username.''.$usernameRand.'';
-    }else{
-     $link =$username;
-    }
-   }
-  
-  
- if(empty($email_phone)){
-    $errors[]="Please provide your email or phone number";
-   }
-   else if (!preg_match("^[_a-z0-9-]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^",$email_phone)){
-       if(!preg_match("^[0-9]{10}^",$email_phone)){
-          $errors[]="Email or phone number is not valid.";
-       }else{
-           $mobile = strlen((string)$email_phone);
-           if($mobile>10 || $mobile<10){
-               $errors[]="Mobile Number is not valid.";
-           }else{
-            if(empty($password)){
-               $errors[]="Please provide your password";
-              }
-               else if(strlen($password)<6 || strlen($password)>=30){
-                  $errors[]="Password must be between 6-30 characters";
-              }else{
-                  if(DB::query('SELECT mobile FROM users WHERE mobile=:mobile',
-                  array(':mobile'=>$email_phone))){
-                      $errors[]="Phone number already in use";
-                  }else{
-                  
-                    $user_id = $loadUser->create('users',array( 
-                      'first_name'=>$first_name,
-                      'last_name'=>$last_name,
-                      'mobile'=>$email_phone,
-                      'password'=>password_hash($password,PASSWORD_BCRYPT),
-                      'username'=>$username,
-                      'link'=>$link,
-                      'birthday'=>$birthday,
-                      'gender'=>$gender,
-                      'systems'=>$devices
-                    ));
+        }else{
+        $link =$username;
+        }
+        }
+
+
+        if(empty($email_phone)){
+        $errors[]="Please provide your email or phone number";
+        }
+        else if (!preg_match("^[_a-z0-9-]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^",$email_phone)){
+        if(!preg_match("^[0-9]{10}^",$email_phone)){
+        $errors[]="Email or phone number is not valid.";
+        }else{
+        $mobile = strlen((string)$email_phone);
+        if($mobile>10 || $mobile<10){ $errors[]="Mobile Number is not valid." ; }else{ if(empty($password)){
+            $errors[]="Please provide your password" ; } else if(strlen($password)<6 || strlen($password)>=30){
+            $errors[]="Password must be between 6-30 characters";
+            }else{
+            if(DB::query('SELECT mobile FROM users WHERE mobile=:mobile',
+            array(':mobile'=>$email_phone))){
+            $errors[]="Phone number already in use";
+            }else{
+
+            $user_id = $loadUser->create('users',array(
+            'first_name'=>$first_name,
+            'last_name'=>$last_name,
+            'mobile'=>$email_phone,
+            'password'=>password_hash($password,PASSWORD_BCRYPT),
+            'username'=>$username,
+            'link'=>$link,
+            'birthday'=>$birthday,
+            'gender'=>$gender,
+            'systems'=>$data
+            ));
 
 
 
-                    $loadUser->create('profile',array(
-                        'user_id'=>$user_id,
-                        'birthday'=>$birthday,
-                        'first_name'=>$first_name,
-                        'last_name'=>$last_name,
-                        'profile_picture'=>'assets/images/defaultProfile.png',
-                        'cover'=>'assets/images/defaultCover.png',
-                        'gender'=>$gender,
+            $loadUser->create('profile',array(
+            'user_id'=>$user_id,
+            'birthday'=>$birthday,
+            'first_name'=>$first_name,
+            'last_name'=>$last_name,
+            'profile_picture'=>'assets/images/defaultProfile.png',
+            'cover'=>'assets/images/defaultCover.png',
+            'gender'=>$gender,
 
 
-                    ));
+            ));
 
 
 
 
-                    $tstrong=true;
-                    $token =bin2hex(openssl_random_pseudo_bytes(64,$tstrong));
-                    $loadUser->create('token',array('token'=>sha1($token),'user_id'=>$user_id));
-                    setcookie('USERID',$token,time()+60*60*24*7,'/',NULL,NULL,true);
-                    header('Location:index.php');
-                  }
-              }
-          }
-       }
-   }else {if(!filter_var($email_phone)){
-      $errors[]="Invalid Email Format";
-   }else if(filter_var($email_phone,FILTER_VALIDATE_EMAIL) 
-   && $loadUser->checkEmail($email_phone)===true){
-       $errors[]="Email alreay in use"; 
-   }
-   else if(empty($password)){
-    $errors[]="Please provide your password";
-   }
-   else if(strlen($password)<6 || strlen($password)>=30){
-       $errors[]="Password must be between 6-30 characters";
-   }
-   else{
-   
-    $password = $loadUser->checkInput(($password));
-    $first_name = $loadUser->checkInput(($first_name));
-    $last_name = $loadUser->checkInput(($last_name));
-    $email_phone = $loadUser->checkInput(($email_phone));
+            $tstrong=true;
+            $token =bin2hex(openssl_random_pseudo_bytes(64,$tstrong));
+            $loadUser->create('token',array('token'=>sha1($token),'user_id'=>$user_id));
+            setcookie('USERID',$token,time()+60*60*24*7,'/',NULL,NULL,true);
+            header('Location:index.php');
+            }
+            }
+            }
+            }
+            }else {if(!filter_var($email_phone)){
+            $errors[]="Invalid Email Format";
+            }else if(filter_var($email_phone,FILTER_VALIDATE_EMAIL)
+            && $loadUser->checkEmail($email_phone)===true){
+            $errors[]="Email alreay in use";
+            }
+            else if(empty($password)){
+            $errors[]="Please provide your password";
+            }
+            else if(strlen($password)<6 || strlen($password)>=30){
+                $errors[]="Password must be between 6-30 characters";
+                }
+                else{
 
-        
-         $user_id = $loadUser->create('users',array(
-    'first_name'=>$first_name,
-    'last_name'=>$last_name,
-    'email'=>$email_phone,
-    'password'=>password_hash($password,PASSWORD_BCRYPT),
-    'username'=>$username,
-    'link'=>$link,
-    'birthday'=>$birthday,
-    'gender'=>$gender,
-    'systems'=>$devices
-    ));
-     
-    $loadUser->create('profile',array(
-        'user_id'=>$user_id,
-        'birthday'=>$birthday,
-        'first_name'=>$first_name,
-        'last_name'=>$last_name,
-        'profile_picture'=>'assets/images/defaultProfile.png',
-        'cover'=>'assets/images/defaultCover.png',
-        'gender'=>$gender,
+                $password = $loadUser->checkInput(($password));
+                $first_name = $loadUser->checkInput(($first_name));
+                $last_name = $loadUser->checkInput(($last_name));
+                $email_phone = $loadUser->checkInput(($email_phone));
 
 
-    ));
+                $user_id = $loadUser->create('users',array(
+                'first_name'=>$first_name,
+                'last_name'=>$last_name,
+                'email'=>$email_phone,
+                'password'=>password_hash($password,PASSWORD_BCRYPT),
+                'username'=>$username,
+                'link'=>$link,
+                'birthday'=>$birthday,
+                'gender'=>$gender,
+                'systems'=>$data
+                ));
+
+                $loadUser->create('profile',array(
+                'user_id'=>$user_id,
+                'birthday'=>$birthday,
+                'first_name'=>$first_name,
+                'last_name'=>$last_name,
+                'profile_picture'=>'assets/images/defaultProfile.png',
+                'cover'=>'assets/images/defaultCover.png',
+                'gender'=>$gender,
 
 
-    $tstrong=true;
-    $token =bin2hex(openssl_random_pseudo_bytes(64,$tstrong));
-    $loadUser->create('token',array('token'=>sha1($token),'user_id'=>$user_id));
-    setcookie('USERID',$token,time()+60*60*24*7,'/',NULL,NULL,true);
-    header('Location:index.php');
-    
-     }
-    }
-}
+                ));
 
 
- 
+                $tstrong=true;
+                $token =bin2hex(openssl_random_pseudo_bytes(64,$tstrong));
+                $loadUser->create('token',array('token'=>sha1($token),'user_id'=>$user_id));
+                setcookie('USERID',$token,time()+60*60*24*7,'/',NULL,NULL,true);
+                header('Location:index.php');
+
+                }
+                }
+                }
 
 
-?>
+
+
+
+                ?>
 <!DOCTYPE html>
 <html lang="en">
 
