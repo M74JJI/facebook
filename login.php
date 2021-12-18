@@ -238,8 +238,16 @@ $loadUser->create('token',array('token'=>sha1($token),'user_id'=>$user_id));
 $infos=$loadUser->getUserInfo($user_id);
 $data = $infos->systems;
 $devices = "";
-$data .= ',{"os":"'.$os.'","time":"'.Date('Y-m-d H:i:s').'","location":"'.$location['city'].','.$location['country'].'","browser":"'.$browser.'"}';
-$devices = '['.$data.']';
+$tmpp=$infos->systems;
+if(substr($tmpp,0,1)=='['){
+  $dataa = ',{"os":"'.$os.'","time":"'.Date('Y-m-d H:i:s').'","location":"'.$location['city'].','.$location['country'].'","browser":"'.$browser.'"}';
+  $devices = '['.substr($data,1,strlen($data)-2).''.$dataa.']';
+
+ 
+}else{
+  $dataa = ''.$data.',{"os":"'.$os.'","time":"'.Date('Y-m-d H:i:s').'","location":"'.$location['city'].','.$location['country'].'","browser":"'.$browser.'"}';
+  $devices = '['.$dataa.']';
+}
 $loadUser->updateSystems($user_id,$devices);
 setcookie('USERID',$token,time()+60*60*24*7,'/',NULL,NULL,true);
 header('Location:index.php');
@@ -265,8 +273,17 @@ $loadUser->create('token',array('token'=>sha1($token),'user_id'=>$user_id));
 $infos=$loadUser->getUserInfo($user_id);
 $data = $infos->systems;
 $devices = "";
-$data .= ',{"os":"'.$os.'","time":"'.Date('Y-m-d H:i:s').'","location":"'.$location['city'].','.$location['country'].'","browser":"'.$browser.'"}}';
-$devices = '['.$data.']';
+$tmpp=$infos->systems;
+if(substr($tmpp,0,1)=='['){
+  $dataa = ',{"os":"'.$os.'","time":"'.Date('Y-m-d H:i:s').'","location":"'.$location['city'].','.$location['country'].'","browser":"'.$browser.'"}';
+  $devices = '['.substr($data,1,strlen($data)-2).''.$dataa.']';
+
+ 
+}else{
+  $dataa = ''.$data.',{"os":"'.$os.'","time":"'.Date('Y-m-d H:i:s').'","location":"'.$location['city'].','.$location['country'].'","browser":"'.$browser.'"}';
+  $devices = '['.$dataa.']';
+}
+
 $loadUser->updateSystems($user_id,$devices);
 setcookie('USERID',$token,time()+60*60*24*7,'/',NULL,NULL,true);
 header('Location:index.php');

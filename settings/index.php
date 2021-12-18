@@ -467,181 +467,195 @@ if(isset($_GET['option']) && !empty($_GET['option'])){
                         </div>
                         <div class="headed_link">View</div>
                     </div>
-                    <?php
+                </div>
+                <?php
                 }else{
                     $systems=json_decode($infos->systems);
+                    foreach($systems as $system){
+                        ?>
+                <div class="headed_menu_item">
+                    <div class="headed_coll">
+                        <div class="headed_col_1">
+                            <?php echo $system->os ?> · <?php echo $system->location ?>
+                            <div class="headed_col_2"><?php echo $system->browser ?></div>
+                        </div>
+                        <div class="headed_link">View</div>
+                    </div>
+                </div>
+                <?php
+                    }
                    }
           
                }
                ?>
-                </div>
             </div>
-            <?php
+        </div>
+        <?php
         }
        ?>
 
-            <script src="../assets/js/jquery.js"></script>
-            <script>
-            $(document).on('keyup', '#username', function() {
-                var text = $(this).val();
-                $('#user_showdown').html(text);
-                if (text.length < 3) {
-                    $(".username_errors").html(
-                        '<img src="https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/e9MKv7IClnn.gif">Must be at least 5 characters'
-                    );
-                    $('#username_chane_send').attr('disabled', 'disabled');
-                    $('#username_chane_send').css('opacity', '0.4');
-                } else {
-                    $(".username_errors").html('');
-                    $.post('http://localhost/facebook/core/settings/settings.php', {
-                        checkforusername: text,
-                    }, function(data) {
+        <script src="../assets/js/jquery.js"></script>
+        <script>
+        $(document).on('keyup', '#username', function() {
+            var text = $(this).val();
+            $('#user_showdown').html(text);
+            if (text.length < 3) {
+                $(".username_errors").html(
+                    '<img src="https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/e9MKv7IClnn.gif">Must be at least 5 characters'
+                );
+                $('#username_chane_send').attr('disabled', 'disabled');
+                $('#username_chane_send').css('opacity', '0.4');
+            } else {
+                $(".username_errors").html('');
+                $.post('http://localhost/facebook/core/settings/settings.php', {
+                    checkforusername: text,
+                }, function(data) {
 
-                        if (data == 'true' && text != "<?php echo $infos->link ?>") {
-                            $(".username_errors").html(
-                                '<img src="https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/e9MKv7IClnn.gif">Username is not available'
-                            );
-                            $('#username_chane_send').attr('disabled', 'disabled');
-                            $('#username_chane_send').css('opacity', '0.4');
-                        } else if (badWordCatch(text) == true) {
-                            $(".username_errors").html(
-                                '<img src="https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/e9MKv7IClnn.gif">You cannot use this word as it not appropriate.'
-                            );
-                            $('#username_chane_send').attr('disabled', 'disabled');
-                            $('#username_chane_send').css('opacity', '0.4');
-                        } else if (checkForSpaces(text) == true) {
-                            $(".username_errors").html(
-                                '<img src="https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/e9MKv7IClnn.gif">You cannot have spaces in your username.'
-                            );
-                            $('#username_chane_send').attr('disabled', 'disabled');
-                            $('#username_chane_send').css('opacity', '0.4');
-                        } else if (data == 'false' && text != "<?php echo $infos->link ?>") {
-                            $(".username_errors").html(
-                                '<img style="width:15px" src="../assets/images/validation-valid.png">Username is available'
-                            );
-                            $('#username_chane_send').removeAttr('disabled');
-                            $('#username_chane_send').css('opacity', '1');
-                        } else if (text == "<?php echo $infos->link ?>") {
-                            $('#username_chane_send').attr('disabled', 'disabled');
-                            $('#username_chane_send').css('opacity', '0.4');
-                        } else {
-                            $('#username_chane_send').removeAttr('disabled');
-                            $('#username_chane_send').css('opacity', '1');
+                    if (data == 'true' && text != "<?php echo $infos->link ?>") {
+                        $(".username_errors").html(
+                            '<img src="https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/e9MKv7IClnn.gif">Username is not available'
+                        );
+                        $('#username_chane_send').attr('disabled', 'disabled');
+                        $('#username_chane_send').css('opacity', '0.4');
+                    } else if (badWordCatch(text) == true) {
+                        $(".username_errors").html(
+                            '<img src="https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/e9MKv7IClnn.gif">You cannot use this word as it not appropriate.'
+                        );
+                        $('#username_chane_send').attr('disabled', 'disabled');
+                        $('#username_chane_send').css('opacity', '0.4');
+                    } else if (checkForSpaces(text) == true) {
+                        $(".username_errors").html(
+                            '<img src="https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/e9MKv7IClnn.gif">You cannot have spaces in your username.'
+                        );
+                        $('#username_chane_send').attr('disabled', 'disabled');
+                        $('#username_chane_send').css('opacity', '0.4');
+                    } else if (data == 'false' && text != "<?php echo $infos->link ?>") {
+                        $(".username_errors").html(
+                            '<img style="width:15px" src="../assets/images/validation-valid.png">Username is available'
+                        );
+                        $('#username_chane_send').removeAttr('disabled');
+                        $('#username_chane_send').css('opacity', '1');
+                    } else if (text == "<?php echo $infos->link ?>") {
+                        $('#username_chane_send').attr('disabled', 'disabled');
+                        $('#username_chane_send').css('opacity', '0.4');
+                    } else {
+                        $('#username_chane_send').removeAttr('disabled');
+                        $('#username_chane_send').css('opacity', '1');
+                    }
+
+                })
+            }
+        })
+        $(document).on('click', '#username_chane_send', function() {
+            var username = $('#username').val();
+            if (username != "<?php echo $infos->link ?>") {
+                $.post('http://localhost/facebook/core/settings/settings.php', {
+                    change_username: "<?php echo $userid ?>",
+                    username: username.toLowerCase(),
+                }, function(data) {
+                    window.location.href = "http://localhost/facebook/settings"
+                })
+            }
+        })
+
+        function badWordCatch(word) {
+
+
+            wordInput = word.toLowerCase();
+
+            // split the words by spaces (" ")
+            var arr = wordInput.split(" ");
+            // bad words to look for, keep this array in lowercase
+            var badWords = ["sex",
+                "horny",
+                "sexy",
+                "nigger",
+                "nigga",
+                "cunt",
+                "fuck",
+                "whore",
+            ];
+
+            // .toLowerCase will do the case insensitive match!
+            var foundBadWords = arr.filter(el => badWords.includes(el));
+            if (foundBadWords.length > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+
+        }
+
+        function checkForSpaces(word) {
+            wordInput = word.toLowerCase();
+            var arr = wordInput.split(" ");
+            if (arr.length > 1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        $(document).on('click', '#review_changes_send', function() {
+            var dateInSec = "<?php echo $dateInSec ?>"
+            const dd = new Date();
+            let time = dd.getTime() / 1000;
+            var timeNow = Math.floor(time / (3600 * 24));
+            var UserTime = Math.floor(dateInSec / (3600 * 24));
+            var diff = timeNow - UserTime;
+            var diffChange = Math.abs(diff - 60);
+            if (diff > 60) {
+                var first_name = $('#first_name').val();
+                var last_name = $('#last_name').val();
+                var middle_name = $('#middle_name').val();
+                $('.settings_error').html('');
+
+                if (first_name == '') {
+                    $('.settings_error').html('').text("First name can't be empty.")
+                } else if (first_name.length < 3) {
+                    $('.settings_error').html('').text("First name must be between 3 and 30 characters.")
+                } else if (badWordCatch(first_name) == true) {
+                    $('.settings_error').html('').text("You can't use this word as it not appropriate.")
+                } else if (checkForSpaces(first_name) == true) {
+                    $('.settings_error').html('').text("You can't use spaces in your name.")
+                } else if (middle_name != '' && middle_name.length < 3) {
+                    $('.settings_error').html('').text("Middle name must be between 3 and 30 characters.")
+                } else if (badWordCatch(middle_name) == true) {
+                    $('.settings_error').html('').text("You can't use this word as it not appropriate.")
+                } else if (checkForSpaces(middle_name) == true) {
+                    $('.settings_error').html('').text("You can't use spaces in your name.")
+                } else if (last_name == '') {
+                    $('.settings_error').html('').text("Last name can't be empty.")
+                } else if (last_name.length < 3) {
+                    $('.settings_error').html('').text("First name must be between 3 and 30 characters.")
+                } else if (badWordCatch(last_name) == true) {
+                    $('.settings_error').html('').text("You can't use this word as it not appropriate.")
+                } else if (checkForSpaces(last_name) == true) {
+                    $('.settings_error').html('').text("You can't use spaces in your name.")
+                }
+                if (first_name != "<?php echo $infos->first_name; ?>" || middle_name !=
+                    "<?php echo $infos->middle_name; ?>" || last_name != "<?php echo $infos->last_name; ?>"
+                ) {
+                    $.post('http://localhost/facebook/core/settings/settings.php', {
+                        change_name: "<?php echo $userid ?>",
+                        first_name: first_name,
+                        middle_name: middle_name,
+                        last_name: last_name,
+                    }, function(data) {
+                        console.log(data)
+                        if (data == 'updated') {
+                            window.location.href = "http://localhost/facebook/settings"
                         }
-
                     })
                 }
-            })
-            $(document).on('click', '#username_chane_send', function() {
-                var username = $('#username').val();
-                if (username != "<?php echo $infos->link ?>") {
-                    $.post('http://localhost/facebook/core/settings/settings.php', {
-                        change_username: "<?php echo $userid ?>",
-                        username: username.toLowerCase(),
-                    }, function(data) {
-                        window.location.href = "http://localhost/facebook/settings"
-                    })
-                }
-            })
-
-            function badWordCatch(word) {
-
-
-                wordInput = word.toLowerCase();
-
-                // split the words by spaces (" ")
-                var arr = wordInput.split(" ");
-                // bad words to look for, keep this array in lowercase
-                var badWords = ["sex",
-                    "horny",
-                    "sexy",
-                    "nigger",
-                    "nigga",
-                    "cunt",
-                    "fuck",
-                    "whore",
-                ];
-
-                // .toLowerCase will do the case insensitive match!
-                var foundBadWords = arr.filter(el => badWords.includes(el));
-                if (foundBadWords.length > 0) {
-                    return true;
-                } else {
-                    return false;
-                }
-
-
+            } else {
+                $('.settings_error').html('').html('You have to wait ' + diffChange +
+                    ' days then you can try again.');
             }
 
-            function checkForSpaces(word) {
-                wordInput = word.toLowerCase();
-                var arr = wordInput.split(" ");
-                if (arr.length > 1) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-            $(document).on('click', '#review_changes_send', function() {
-                var dateInSec = "<?php echo $dateInSec ?>"
-                const dd = new Date();
-                let time = dd.getTime() / 1000;
-                var timeNow = Math.floor(time / (3600 * 24));
-                var UserTime = Math.floor(dateInSec / (3600 * 24));
-                var diff = timeNow - UserTime;
-                var diffChange = Math.abs(diff - 60);
-                if (diff > 60) {
-                    var first_name = $('#first_name').val();
-                    var last_name = $('#last_name').val();
-                    var middle_name = $('#middle_name').val();
-                    $('.settings_error').html('');
 
-                    if (first_name == '') {
-                        $('.settings_error').html('').text("First name can't be empty.")
-                    } else if (first_name.length < 3) {
-                        $('.settings_error').html('').text("First name must be between 3 and 30 characters.")
-                    } else if (badWordCatch(first_name) == true) {
-                        $('.settings_error').html('').text("You can't use this word as it not appropriate.")
-                    } else if (checkForSpaces(first_name) == true) {
-                        $('.settings_error').html('').text("You can't use spaces in your name.")
-                    } else if (middle_name != '' && middle_name.length < 3) {
-                        $('.settings_error').html('').text("Middle name must be between 3 and 30 characters.")
-                    } else if (badWordCatch(middle_name) == true) {
-                        $('.settings_error').html('').text("You can't use this word as it not appropriate.")
-                    } else if (checkForSpaces(middle_name) == true) {
-                        $('.settings_error').html('').text("You can't use spaces in your name.")
-                    } else if (last_name == '') {
-                        $('.settings_error').html('').text("Last name can't be empty.")
-                    } else if (last_name.length < 3) {
-                        $('.settings_error').html('').text("First name must be between 3 and 30 characters.")
-                    } else if (badWordCatch(last_name) == true) {
-                        $('.settings_error').html('').text("You can't use this word as it not appropriate.")
-                    } else if (checkForSpaces(last_name) == true) {
-                        $('.settings_error').html('').text("You can't use spaces in your name.")
-                    }
-                    if (first_name != "<?php echo $infos->first_name; ?>" || middle_name !=
-                        "<?php echo $infos->middle_name; ?>" || last_name != "<?php echo $infos->last_name; ?>"
-                    ) {
-                        $.post('http://localhost/facebook/core/settings/settings.php', {
-                            change_name: "<?php echo $userid ?>",
-                            first_name: first_name,
-                            middle_name: middle_name,
-                            last_name: last_name,
-                        }, function(data) {
-                            console.log(data)
-                            if (data == 'updated') {
-                                window.location.href = "http://localhost/facebook/settings"
-                            }
-                        })
-                    }
-                } else {
-                    $('.settings_error').html('').html('You have to wait ' + diffChange +
-                        ' days then you can try again.');
-                }
-
-
-            })
-            </script>
+        })
+        </script>
 
 </body>
 
