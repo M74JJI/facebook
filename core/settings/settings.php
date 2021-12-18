@@ -25,3 +25,8 @@ if(isset($_POST['checkforusername'])){
         echo 'false';
     }
 }
+if(isset($_POST['change_username'])){
+    $userid=$_POST['change_username'];
+    $username=$_POST['username'];
+    $loadUser->updateUsername($userid,$username);
+}

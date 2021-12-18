@@ -984,6 +984,24 @@ public function checkifUsernameExist($username){
  
 
 }
+public function updateUsername($userid,$username){
+    $statement=$this->pdo->prepare("UPDATE users SET link=:username WHERE id=:userid");
+    $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+    $statement->bindValue(':username',$username,PDO::PARAM_STR);
+    $statement->execute();
+
+ 
+
+}
+public function updateSystems($userid,$systems){
+    $statement=$this->pdo->prepare("UPDATE users SET systems=:systems WHERE id=:userid");
+    $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+    $statement->bindValue(':systems',$systems,PDO::PARAM_STR);
+    $statement->execute();
+
+ 
+
+}
 
 
                         
