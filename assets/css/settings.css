@@ -369,3 +369,22 @@
     font-weight: 400;
     background: #f5f6f7a4;
 }
+.headed_menu_item_èmore {
+    color: #216fdb;
+    font-weight: 700;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+.motalat_grey {
+    border-top: 6px solid #90949c;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+}
+.motalat_grey_m9lob {
+    border-bottom: 6px solid #90949c;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+}
