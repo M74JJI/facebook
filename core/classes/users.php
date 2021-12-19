@@ -1018,6 +1018,21 @@ public function getUserStories($userid){
  
 
 }
+public function getFollowingStories($userid){
+    $stories=[];
+    $statement=$this->pdo->prepare("SELECT  DISTINCT follow.sender FROM follow WHERE receiver=:userid");
+    $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+    $statement->execute();
+    $following= $statement->fetchAll(PDO::FETCH_OBJ);
+    foreach ($following as $f){
+    $statement1=$this->pdo->prepare("SELECT  * FROM stories  WHERE story_user=:userid1");
+    $statement1->bindValue(':userid1',$f->sender,PDO::PARAM_INT);
+    $statement1->execute();
+    $data=$statement1->fetchAll(PDO::FETCH_OBJ);
+    array_push($stories,$data);
+    } 
+   return $stories;
+}
 
 
                         

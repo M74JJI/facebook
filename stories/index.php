@@ -5,6 +5,8 @@ include '../core/load.php';
 if(login::isLoggedIn()){
    $userid = login::isLoggedIn();
    $userInfo= $loadUser->getUserInfo($userid);
+   $followingStories= $loadUser->getFollowingStories($userid);
+   var_dump($followingStories);
   
 }else{
     header('Location:login.php');
@@ -47,13 +49,20 @@ if(!empty($_GET["uid"])){
                 <?php
                for($i=0;$i<count($userStories);$i++){
                    ?>
-                <div class="story_bar"></div>
+                <div class="story_bar" style="width:<?php echo 480/count($userStories).'px' ?>"></div>
                 <?php
                }
                ?>
             </div>
             <img class="story_bg_img"
                 src="<?php echo 'http://localhost/facebook/'.$userStories[$num_story]->story_bg ?>" alt="">
+            <?php
+                if($userStories[$num_story]->story_text !=''){
+                    ?>
+            <div class="start_typing"><?php echo $userStories[$num_story]->story_text ?></div>
+            <?php
+                }
+                ?>
         </div>
     </div>
 </body>
