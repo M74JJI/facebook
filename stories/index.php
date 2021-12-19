@@ -48,7 +48,7 @@ if(!empty($_GET["uid"])){
 
 
         </div>
-        <div class="story_player">
+        <div class="story_player" data-uuid="<?php echo $userStories[0]->user_id ?>">
             <div class="story_bar_container"
                 style="grid-template-columns: repeat(<?php echo count($userStories)  ?>,1fr);">
                 <?php
@@ -59,6 +59,8 @@ if(!empty($_GET["uid"])){
                }
                ?>
             </div>
+            <img src="<?php echo 'http://localhost/facebook/'.$userStories[$num_story]->profile_picture ?>" alt=""
+                class="story_rounded_blue">
             <img class="story_bg_img"
                 src="<?php echo 'http://localhost/facebook/'.$userStories[$num_story]->story_bg ?>" alt="">
             <?php
@@ -115,12 +117,24 @@ if(!empty($_GET["uid"])){
 <script src="../assets/js/jquery.js"></script>
 <script>
 $(document).on('click', '.full_height', function() {
+    //get from middle and send left*---->
+    var bg = $('.story_bg_img').attr('src');
+    var text = $('.story_text_play').val();
+    var pdp = $('.story_rounded_blue').attr('src');
+    $('.left_stories').prepend(
+        '<a class="full_height_left"> <div class="left_story_card"> <img src=' +
+        bg + ' class="right_story_card_img"><div class="start_typing_small">' +
+        text +
+        '</div> <img src=' + pdp + ' alt="" class="story_peak_img"> </div></a>'
+    )
     var story_bg = $(this).find('.right_story_card_img').attr('src');
     var story_img = $(this).find('.right_story_card_img_img').attr('src');
     var story_text = $(this).find('.start_typing_small').text();
     var mol_story = $(this).data('molstory');
     var count = $(this).data('count');
     var story_profile_pic = $(this).find('.story_peak_img').attr('src');
+
+    //-----------------//
 
     //-----------------//
 
@@ -133,30 +147,14 @@ $(document).on('click', '.full_height', function() {
         $('.story_player').find('.story_text_play').html(story_text);
 
     }
+    $(this).hide();
 
     var s_b = 460 / count;
-
-
     $('.story_bar_container').css('grid-template-columns', 'repeat(' + count + ',1fr)');
     $('.story_bar').css('width', '' + s_b + '');
-    $(this).hide();
-    if (story_bg != '') {
-        $('.left_stories').prepend(
-            '<a class="full_height_left"> <div class="left_story_card"> <img src=' +
-            story_bg + ' class="right_story_card_img"><div class="start_typing_small">' +
-            story_text +
-            '</div> <img src=' + story_profile_pic + ' alt="" class="story_peak_img"> </div></a>'
-        )
 
-    } else {
 
-        $('.left_stories').prepend(
-            '<a class="full_height_left"> <div class="left_story_card"><img src="' +
-            story_img + '" class="right_story_card_img_img"> <div class="start_typing_small">' +
-            story_text +
-            '</div> <img src=' + story_profile_pic + ' alt="" class="story_peak_img"> </div></a>'
-        )
-    }
+
 })
 $(document).on('click', '.full_height_left', function() {
     var story_bg = $(this).find('.right_story_card_img').attr('src');
