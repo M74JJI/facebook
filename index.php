@@ -17,6 +17,9 @@ if(login::isLoggedIn()){
  $notificationsTotal=$loadUser->notificationsTotal($userid);
  $lastMsgReceived=$loadPost->lastPersonMsg($userid);
  $search_history=$loadUser->getSearchHistory($userid);
+ $stories=$loadUser->getFollowingStories($userid);
+ $totalStories=count($stories);
+ $userStories = $loadUser->getUserStories($userid);
 
  if(!empty($lastMsgReceived)){
      $lastMsgUserid = $lastMsgReceived->user_id;
@@ -214,6 +217,34 @@ if(login::isLoggedIn()){
             <!-------llah yster--------->
             <!--------STORIES----------->
             <div class="stories_wrapper">
+                <?php 
+                if(count($userStories)>0){
+                    ?>
+                <a href="http://localhost/facebook/stories?uuid=<?php echo $userStories[0]->story_user ?>"
+                    class="story_peak">
+                    <img class="story_peak_img" src="<?php echo $userStories[0]->profile_picture ?>" alt="">
+                    <?php
+                      if($userStories[0]->story_bg != ''){
+                         
+                          ?>
+                    <img class="img" src="<?php echo $userStories[0]->story_bg ?>" alt="">
+                    <?php
+                      }else if($userStories[0]->story_img !=''){
+                        ?>
+                    <img class="img" src="<?php echo $userStories[0]->story_img ?>" alt="">
+                    <?php
+                      }
+                      if($userStories[0]->story_text != ''){
+                        ?>
+                    <span class="preview_st_text"><?php echo $userStories[0]->story_text ?></span>
+                    <?php
+                    }
+                      ?>
+                </a>
+                <?php
+                }else{
+                    
+                ?>
                 <div class="create_story">
                     <img src="<?php echo $userInfo->profile_picture ?>" alt="">
                     <div class="add_round_story">
@@ -234,7 +265,67 @@ if(login::isLoggedIn()){
                     <div class="create_story_text">Create Story</div>
                     <div class="greyesh"></div>
                 </div>
-                <div class="list_of_stories"></div>
+                <?php 
+                } ?>
+                <div class="list_of_stories">
+                    <?php 
+                      if(count($stories)>4){
+                        for($i=0;$i<4;$i++){
+               
+                            ?>
+                    <a href="#" class="story_peak">
+                        <img class="story_peak_img" src="<?php echo $stories[$i][0]->profile_picture ?>" alt="">
+                        <?php
+                       if($stories[$i][0]->story_bg != ''){
+                          
+                           ?>
+                        <img class="img" src="<?php echo $stories[$i][0]->story_bg ?>" alt="">
+                        <?php
+                       }else if($stories[$i][0]->story_img !=''){
+                         ?>
+                        <img class="img" src="<?php echo $stories[$i][0]->story_img ?>" alt="">
+                        <?php
+                       }
+                       if($stories[$i][0]->story_text != ''){
+                         ?>
+                        <span class="preview_st_text"><?php echo $stories[$i][0]->story_text ?></span>
+                        <?php
+                     }
+                       ?>
+                    </a>
+                    <?php
+                        } 
+                      } else{
+
+                     
+                       foreach ($stories as $story){
+               
+                           ?>
+                    <a href="http://localhost/facebook/stories?uuid=<?php echo $story[0]->story_user ?>"
+                        class="story_peak">
+                        <img class="story_peak_img" src="<?php echo $story[0]->profile_picture ?>" alt="">
+                        <?php
+                      if($story[0]->story_bg != ''){
+                         
+                          ?>
+                        <img class="img" src="<?php echo $story[0]->story_bg ?>" alt="">
+                        <?php
+                      }else if($story[0]->story_img !=''){
+                        ?>
+                        <img class="img" src="<?php echo $story[0]->story_img ?>" alt="">
+                        <?php
+                      }
+                      if($story[0]->story_text != ''){
+                        ?>
+                        <span class="preview_st_text"><?php echo $story[0]->story_text ?></span>
+                        <?php
+                    }
+                      ?>
+                    </a>
+                    <?php
+                       } }
+                 ?>
+                </div>
             </div>
             <!--------STORIES----------->
             <!--------create post----------->

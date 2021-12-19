@@ -1011,7 +1011,7 @@ public function deleteToken($tusing){
 
 }
 public function getUserStories($userid){
-    $statement=$this->pdo->prepare("SELECT * FROM stories WHERE story_user=:userid");
+    $statement=$this->pdo->prepare("SELECT * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user WHERE story_user=:userid");
     $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
     $statement->execute();
     return $statement->fetchAll(PDO::FETCH_OBJ);
@@ -1025,7 +1025,7 @@ public function getFollowingStories($userid){
     $statement->execute();
     $following= $statement->fetchAll(PDO::FETCH_OBJ);
     foreach ($following as $f){
-    $statement1=$this->pdo->prepare("SELECT  * FROM stories  WHERE story_user=:userid1");
+    $statement1=$this->pdo->prepare("SELECT  * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user  WHERE story_user=:userid1");
     $statement1->bindValue(':userid1',$f->sender,PDO::PARAM_INT);
     $statement1->execute();
     $data=$statement1->fetchAll(PDO::FETCH_OBJ);
