@@ -439,6 +439,12 @@ body {
     align-items: center;
     cursor: pointer;
 }
+.full_height_left {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
 .go_right_mate {
     background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yN/r/Q-v3yz50138.png');
     background-position: -83px -13px;
@@ -492,4 +498,24 @@ body {
     max-width: 200px;
     word-break: break-all;
     z-index: 2;
+}
+.left_stories {
+    height: 95%;
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+    margin-left: 15px;
+    position: absolute;
+    right: 65%;
+    overflow: hidden;
+}
+.left_story_card {
+    height: 350px;
+    width: 200px;
+    position: relative;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-block;
 }

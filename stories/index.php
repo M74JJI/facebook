@@ -44,7 +44,8 @@ if(!empty($_GET["uid"])){
 
 <body>
     <div class="watch_story">
-        <div class="left_stories">
+        <div class="left_stories" dir="RTL">
+
 
         </div>
         <div class="story_player">
@@ -76,9 +77,11 @@ if(!empty($_GET["uid"])){
         <div class="right_stories">
             <?php
             foreach($followingStories as $story){
+                $count=count($loadUser->getUserStories($story[0]->user_id));
            
                     ?>
-            <a class="full_height" data-molstory="<?php echo $story[0]->first_name.' '.$story[0]->last_name ?>">
+            <a class="full_height" data-molstory="<?php echo $story[0]->first_name.' '.$story[0]->last_name ?>"
+                data-count="<?php echo $count ?>">
                 <div class="right_story_card">
                     <?php
                   if($story[0]->story_bg !=''){
@@ -116,7 +119,11 @@ $(document).on('click', '.full_height', function() {
     var story_img = $(this).find('.right_story_card_img_img').attr('src');
     var story_text = $(this).find('.start_typing_small').text();
     var mol_story = $(this).data('molstory');
+    var count = $(this).data('count');
+    var story_profile_pic = $(this).find('.story_peak_img').attr('src');
+
     //-----------------//
+
     if (story_bg != '') {
         $('.story_player').find('.story_bg_img').attr('src', story_bg);
     } else if (story_img != '') {
@@ -126,6 +133,57 @@ $(document).on('click', '.full_height', function() {
         $('.story_player').find('.story_text_play').html(story_text);
 
     }
+
+    var s_b = 460 / count;
+
+
+    $('.story_bar_container').css('grid-template-columns', 'repeat(' + count + ',1fr)');
+    $('.story_bar').css('width', '' + s_b + '');
+    $(this).hide();
+    if (story_bg != '') {
+        $('.left_stories').prepend(
+            '<a class="full_height_left"> <div class="left_story_card"> <img src=' +
+            story_bg + ' class="right_story_card_img"><div class="start_typing_small">' +
+            story_text +
+            '</div> <img src=' + story_profile_pic + ' alt="" class="story_peak_img"> </div></a>'
+        )
+
+    } else {
+
+        $('.left_stories').prepend(
+            '<a class="full_height_left"> <div class="left_story_card"><img src="' +
+            story_img + '" class="right_story_card_img_img"> <div class="start_typing_small">' +
+            story_text +
+            '</div> <img src=' + story_profile_pic + ' alt="" class="story_peak_img"> </div></a>'
+        )
+    }
+})
+$(document).on('click', '.full_height_left', function() {
+    var story_bg = $(this).find('.right_story_card_img').attr('src');
+    var story_img = $(this).find('.right_story_card_img_img').attr('src');
+    var story_text = $(this).find('.start_typing_small').text();
+    var mol_story = $(this).data('molstory');
+    var count = $(this).data('count');
+    var story_profile_pic = $(this).find('.story_peak_img').attr('src');
+
+    //-----------------//
+
+    if (story_bg != '') {
+        $('.story_player').find('.story_bg_img').attr('src', story_bg);
+    } else if (story_img != '') {
+        $('.story_player').find('.story_bg_img').attr('src', story_img);
+    }
+    if (story_text != '') {
+        $('.story_player').find('.story_text_play').html(story_text);
+
+    }
+
+    var s_b = 460 / count;
+
+
+    $('.story_bar_container').css('grid-template-columns', 'repeat(' + count + ',1fr)');
+    $('.story_bar').css('width', '' + s_b + '');
+    $(this).hide();
 })
 </script>
 
