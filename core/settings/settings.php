@@ -2,9 +2,10 @@
 
 include '../load.php';
 include '../../connect/login.php';
+if(login::isLoggedIn()){
+    $userid=login::isLoggedIn();
+}
 
-
-$userid=login::isLoggedIn();
 
 
 if(isset($_POST['change_name'])){
@@ -109,4 +110,12 @@ if(isset($_POST['show_less_os'])){
 if(isset($_POST['logout_other'])){
     $tusing=$_POST['logout_other'];
     $loadUser->deleteToken($tusing);
+}
+
+if(isset($_POST['check_if_loged'])){
+    if(login::isLoggedIn()){
+       exit;
+    }else{
+       echo 'logout';
+    }
 }

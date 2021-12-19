@@ -1043,6 +1043,22 @@ $(document).on('click', '#accept_call', function() {
 
 //-----Check For calls-->
 
+//---->check if logedOut----->
+
+setInterval(() => {
+    $.post('http://localhost/facebook/core/settings/settings.php', {
+        check_if_loged: "<?php echo $userid ?>"
+    }, function(data) {
+        if (data == logout) {
+            window.location.reload();
+        }
+    })
+}, 2000);
+
+//---->check if logedOut----->
+
+
+
 $(document).ready(function() {
 
 

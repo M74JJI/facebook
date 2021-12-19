@@ -1010,6 +1010,14 @@ public function deleteToken($tusing){
  
 
 }
+public function getUserStories($userid){
+    $statement=$this->pdo->prepare("SELECT * FROM stories WHERE story_user=:userid");
+    $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->fetchAll(PDO::FETCH_OBJ);
+ 
+
+}
 
 
                         

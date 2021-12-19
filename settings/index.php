@@ -11,6 +11,7 @@ if(login::isLoggedIn()){
  }
  
 $tab='';
+$option='';
 if(isset($_GET['tab']) && !empty($_GET['tab'])){
     $tab=$_GET['tab'];
 }
@@ -432,7 +433,7 @@ if(isset($_GET['option']) && !empty($_GET['option'])){
         </div>
         <?php
         }
-        if($tab=='' || $tab =='security'){
+        if( $tab =='security'){
             ?>
         <div class="settings_right">
             <div class="s_r_header" style="margin-bottom:25px">
@@ -533,6 +534,45 @@ if(isset($_GET['option']) && !empty($_GET['option'])){
                }
                ?>
             </div>
+            <?php
+             if(($tab=='' || $tab =='security') && $option=="password"){
+            ?>
+            <div class="header_gray_menu">
+                <div class="headed_gray_header">Login
+                </div>
+                <a href="#" class="headed_menu_item">
+                    <i class="pass_icjznbfd"></i>
+                    <div class="headed_coll">
+                        <div class="headed_col_1">
+                            Change password</div>
+                        <div class="headed_col_2">It's a good idea to use a strong password that you're not using
+                            elsewhere
+                        </div>
+                    </div>
+                    <div class="headed_link">Close</div>
+                </a>
+            </div>
+            <?php
+            }else if(($tab=='' || $tab =='security') ){
+                ?>
+            <div class="header_gray_menu">
+                <div class="headed_gray_header">Login
+                </div>
+                <a href="#" class="headed_menu_item">
+                    <i class="pass_icjznbfd"></i>
+                    <div class="headed_coll">
+                        <div class="headed_col_1">
+                            Change password</div>
+                        <div class="headed_col_2">It's a good idea to use a strong password that you're not using
+                            elsewhere
+                        </div>
+                    </div>
+                    <div class="headed_link">Edit</div>
+                </a>
+            </div>
+            <?php
+            }
+            ?>
         </div>
         <?php
         }
