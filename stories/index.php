@@ -106,12 +106,11 @@ $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
         </div>
         <div class="right_stories">
             <?php
+            $k=0;
             foreach($followingStories as $story){
-                $count=count($loadUser->getUserStories($story[0]->user_id));
-           
+                $count=count($loadUser->getUserStories($story[0]->user_id));          
                     ?>
-            <a class="full_height" data-molstory="<?php echo $story[0]->first_name.' '.$story[0]->last_name ?>"
-                data-count="<?php echo $count ?>" data-story_user="<?php echo $story[0]->story_user ?>">
+            <a class="full_height" data-s_id="<?php echo $k ?>" data-count="<?php echo $count ?>">
                 <div class="right_story_card">
                     <?php
                   if($story[0]->story_bg !=''){
@@ -122,7 +121,7 @@ $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
                   }else if($story[0]->story_img !=''){
                     ?>
                     <img src="<?php echo 'http://localhost/facebook/'.$story[0]->story_bg ?>"
-                        class="right_story_card_img_img">
+                        class="right_story_card_img">
                     <?php
                   }if($story[0]->story_text !=''){
                       ?>
@@ -135,7 +134,7 @@ $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
                 </div>
             </a>
             <?php
-                
+                $k++;
             }
             ?>
 
@@ -157,100 +156,43 @@ $(document).ready(function() {
 })
 
 $(document).on('click', '.full_height', function() {
-
-    //---->dir story flwst
-    var story_user = $(this).data('story_user');
-    var index;
-    var story_bg = $('.story_player').find('.story_bg_img').attr('src');
-    var story_text = $('.story_player').find('.story_text_play').text();
-    var story_profile_pic = $('.story_player').find('.story_rounded_blue').attr('src');
-    for (let i = 0; i < stories.length; i++) {
-
-        for (let j = 0; j < stories[i].length; j++) {
-            if (stories[i][j].story_user == story_user) {
-                index = i;
-            }
-        }
-
-    }
-
-    if (stories[index][0].story_bg != '') {
-        $('.story_player').find('.story_bg_img').attr('src', 'http://localhost/facebook/' + stories[index][0]
-            .story_bg + '');
-    } else if (story_img != '') {
-        $('.story_player').find('.story_bg_img').attr('src', 'http://localhost/facebook/' + stories[index][0]
-            .story_img + '');
-    }
-    if (stories[index].story_text != '') {
-        $('.story_player').find('.story_text_play').html(stories[index][0].story_text);
-    }
-    $('.story_rounded_blue').attr('src', 'http://localhost/facebook/' + stories[index][0]
-        .profile_picture + '');
-    $(this).hide();
-
-
-    //---->dir stories li 9bl f chmal
-
-    $('.left_stories').html('');
-
-    for (let i = 0; i < index; i++) {
-        if (stories[i][0].story_bg != '') {
-            $('.left_stories').prepend(
-                '<a class="full_height_left"> <div class="left_story_card"> <img src="http://localhost/facebook/' +
-                stories[i][0].story_bg +
-                '" class="right_story_card_img"><div class="start_typing_small">' +
-                stories[i][0].story_text +
-                '</div> <img src="http://localhost/facebook/' + stories[i][0].profile_picture +
-                '" alt="" class="story_peak_img"> </div></a>'
-            )
-        } else if (stories[index][0].story_img != '') {
-            $('.left_stories').prepend(
-                '<a class="full_height_left"> <div class="left_story_card"> <img src="http://localhost/facebook/' +
-                stories[i][0].story_img +
-                ' class="right_story_card_img"><div class="start_typing_small">' +
-                stories[i][0].story_text +
-                '</div> <img src="http://localhost/facebook/' + stories[i][0].profile_picture +
-                '" alt="" class="story_peak_img"> </div></a>'
-            )
-        }
-
-    }
-
+    //lkhdma dyal lwst
+    var wst_bg = $('.story_player').find('.story_bg_img').attr('src');
+    var wst_text = $('.story_player').find('.story_text_play').text();
+    var wst_profile_pic = $('.story_player').find('.story_rounded_blue').attr('src');
     $('.left_stories').prepend(
-        '<a class="full_height_left"> <div class="left_story_card"> <img src=' + story_bg +
-        ' class="right_story_card_img"><div class="start_typing_small">' + story_text +
-        '</div> <img src=' + story_profile_pic +
+        '<a class="full_height_left"> <div class="left_story_card"> <img src=' + wst_bg +
+        ' class="right_story_card_img"><div class="start_typing_small">' + wst_text +
+        '</div> <img src=' + wst_profile_pic +
         ' alt="" class="story_peak_img"> </div></a>'
     )
+    //lkhdma dyal lwst
 
-    /*
-    $('.left_stories').prepend(
-        '<a class="full_height_left"> <div class="left_story_card"> <img src=' +
-        bg + ' class="right_story_card_img"><div class="start_typing_small">' +
-        text +
-        '</div> <img src=' + pdp + ' alt="" class="story_peak_img"> </div></a>'
-    )
-    
- 
+    //lkhdma dyal limin
+    var story_bg = $(this).find('.right_story_card_img').attr('src');
+    var story_text = $(this).find('.start_typing_small').text();
+    var story_peak_img = $(this).find('.story_peak_img').attr('src');
+    //---7tha lwst--->
+    $('.story_player').find('.story_bg_img').attr('src', story_bg);
+    $('.story_player').find('.story_text_play').html(story_text);
+    $('.story_rounded_blue').attr('src', story_peak_img);
+    //---7tha lwst--->
+    var k = $(this).data('s_id');
 
-    //-----------------//
 
-    //-----------------//
-   */
-
-    /*
-
-    var s_b = 460 / count;
-    console.log(s_b)
-    $('.story_bar_container').css('grid-template-columns', 'repeat(' + count + ',1fr)');
-    $('.story_bar_container').html('')
-    for (let i = 0; i < count; i++) {
-        $('.story_bar_container').append('<div class="story_bar"></div>');
+    for (let i = 0; i < k; i++) {
+        var story_bg = $('.full_height[data-s_id=' + i + ']').find('.right_story_card_img').attr('src');
+        var story_text = $('.full_height[data-s_id=' + i + ']').find('.start_typing_small').text();
+        var story_peak_img = $('.full_height[data-s_id=' + i + ']').find('.story_rounded_blue').attr('src');
+        $('.left_stories').prepend(
+            '<a class="full_height_left"> <div class="left_story_card"> <img src=' + story_bg +
+            ' class="right_story_card_img"><div class="start_typing_small">' + story_text +
+            '</div> <img src=' + story_peak_img +
+            ' alt="" class="story_peak_img"> </div></a>'
+        )
     }
-    $('.story_bar').css('width', '' + s_b + '');
-
-
-*/
+    //lkhdma dyal limin
+    $(this).hide();
 })
 $(document).on('click', '.full_height_left', function() {
     var story_bg = $(this).find('.right_story_card_img').attr('src');
