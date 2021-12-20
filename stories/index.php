@@ -178,21 +178,25 @@ $(document).on('click', '.full_height', function() {
     $('.story_rounded_blue').attr('src', story_peak_img);
     //---7tha lwst--->
     var k = $(this).data('s_id');
-
-
+    $('.story_player').attr('added', k);
     for (let i = 0; i < k; i++) {
-        var story_bg = $('.full_height[data-s_id=' + i + ']').find('.right_story_card_img').attr('src');
-        var story_text = $('.full_height[data-s_id=' + i + ']').find('.start_typing_small').text();
-        var story_peak_img = $('.full_height[data-s_id=' + i + ']').find('.story_rounded_blue').attr('src');
-        $('.left_stories').prepend(
-            '<a class="full_height_left"> <div class="left_story_card"> <img src=' + story_bg +
-            ' class="right_story_card_img"><div class="start_typing_small">' + story_text +
-            '</div> <img src=' + story_peak_img +
-            ' alt="" class="story_peak_img"> </div></a>'
-        )
+        if (!$('.story_player[added==' + i + ']')) {
+            var story_bg = $('.full_height[data-s_id=' + i + ']').find('.right_story_card_img').attr('src');
+            var story_text = $('.full_height[data-s_id=' + i + ']').find('.start_typing_small').text();
+            var story_peak_img = $('.full_height[data-s_id=' + i + ']').find('.story_rounded_blue').attr('src');
+            $('.left_stories').prepend(
+                '<a class="full_height_left"> <div class="left_story_card"> <img src=' + story_bg +
+                ' class="right_story_card_img"><div class="start_typing_small">' + story_text +
+                '</div> <img src=' + story_peak_img +
+                ' alt="" class="story_peak_img"> </div></a>'
+            )
+        }
+        $('.full_height[data-s_id=' + i + ']').hide();
+
     }
     //lkhdma dyal limin
     $(this).hide();
+
 })
 $(document).on('click', '.full_height_left', function() {
     var story_bg = $(this).find('.right_story_card_img').attr('src');
