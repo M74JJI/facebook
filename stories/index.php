@@ -19,7 +19,6 @@ if(!empty($_GET["uuid"])){
     $mol_story=$userid;
  
 }
-
 $userStories = $loadUser->getUserStories($mol_story);
 if(!empty($_GET["uid"])){
     if($_GET["uid"]>0 && $_GET["uid"]<count($userStories)){
@@ -30,6 +29,7 @@ if(!empty($_GET["uid"])){
 }else{
     $num_story=0;
 }
+
 
 
 $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
@@ -107,8 +107,8 @@ $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
         <div class="right_stories">
             <?php
             $k=0;
-            foreach($followingStories as $story){
-                $count=count($loadUser->getUserStories($story[0]->user_id));          
+            foreach($followingStories as $story){           
+                $count=count($loadUser->getUserStories($story[0]->story_user));          
                     ?>
             <a class="full_height" data-s_id="<?php echo $k ?>" data-count="<?php echo $count ?>">
                 <div class="right_story_card">
@@ -186,7 +186,7 @@ $(document).on('click', '.full_height', function() {
         if ($('.full_height[data-s_id=' + i + ']').length > 0) {
             var story_bg = $('.full_height[data-s_id=' + i + ']').find('.right_story_card_img').attr('src');
             var story_text = $('.full_height[data-s_id=' + i + ']').find('.start_typing_small').text();
-            var story_peak_img = $('.full_height[data-s_id=' + i + ']').find('.story_rounded_blue').attr('src');
+            var story_peak_img = $('.full_height[data-s_id=' + i + ']').find('.story_peak_img').attr('src');
             $('.left_stories').prepend(
                 '<a class="full_height_left"> <div class="left_story_card"> <img src=' + story_bg +
                 ' class="right_story_card_img"><div class="start_typing_small">' + story_text +

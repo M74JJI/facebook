@@ -1026,11 +1026,16 @@ public function getFollowingStories($userid,$mol_story){
     $statement->execute();
     $following= $statement->fetchAll(PDO::FETCH_OBJ);
     foreach ($following as $f){
-    $statement1=$this->pdo->prepare("SELECT  * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user  WHERE story_user=:userid1");
-    $statement1->bindValue(':userid1',$f->receiver,PDO::PARAM_INT);
-    $statement1->execute();
-    $data=$statement1->fetchAll(PDO::FETCH_OBJ);
-    array_push($stories,$data);
+    if($this->checkIfStory($f->receiver)->total==0){
+     continue;           
+    }else{
+        $statement1=$this->pdo->prepare("SELECT  * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user  WHERE story_user=:userid1");
+        $statement1->bindValue(':userid1',$f->receiver,PDO::PARAM_INT);
+        $statement1->execute();
+        $data=$statement1->fetchAll(PDO::FETCH_OBJ);
+        array_push($stories,$data);
+    }
+     
     } 
    return $stories;
 }
