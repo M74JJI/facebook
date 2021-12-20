@@ -330,7 +330,7 @@ body {
 }
 .story_player {
     width: 480px;
-    height: 95%;
+    height: 90%;
     background: #eee;
     border-radius: 10px;
     position: relative;
@@ -338,9 +338,9 @@ body {
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 50%;
+    top: 10px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%);
 }
 .story_bar_container {
     display: grid;
@@ -529,4 +529,69 @@ body {
     cursor: pointer;
     transition: all 0.2s;
     display: inline-block;
+}
+.story_react_reply {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translate(-50%);
+}
+.story_react_reply input {
+    width: 300px;
+    height: 46px;
+    border-radius: 50px;
+    outline: none;
+    border: 2px solid #fff;
+    background: transparent;
+    padding: 10px;
+    color: #fff;
+}
+.story_react_icons {
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.story_react_icon {
+    width: 39px;
+    height: 39px;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+.story_react_icon:hover {
+    transform: scale(1.2);
+}
+.story_btn_sticker {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/TxbQrz8wcPK.png');
+    background-position: 0px -21px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    position: absolute;
+    -webkit-filter: invert(100%);
+    cursor: pointer;
+    right: 1rem;
+}
+.story_btn_send {
+    background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yx/r/jb4CwPYd6eX.png');
+    background-position: -86px -105px;
+    background-size: auto;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    position: absolute;
+    -webkit-filter: invert(100%);
+    cursor: pointer;
+    right: 1rem;
+    display: none;
+}
+.story_input_wrap {
+    display: flex;
+    align-items: center;
+    position: relative;
 }

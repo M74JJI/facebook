@@ -17,7 +17,7 @@ if(login::isLoggedIn()){
  $notificationsTotal=$loadUser->notificationsTotal($userid);
  $lastMsgReceived=$loadPost->lastPersonMsg($userid);
  $search_history=$loadUser->getSearchHistory($userid);
- $stories=$loadUser->getFollowingStories($userid);
+ $stories=$loadUser->getFollowingStories($userid,$userid);
  $totalStories=count($stories);
  $userStories = $loadUser->getUserStories($userid);
 

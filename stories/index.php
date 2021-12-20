@@ -76,13 +76,16 @@ $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
          ?>
 
         </div>
-        <div class="story_player" data-uuid="<?php echo $userStories[0]->user_id ?>">
+
+        <div class="story_player"
+            data-mol_story="<?php echo $userStories[0]->first_name.' '.$userStories[0]->last_name ?>"
+            data-uuid="<?php echo $userStories[0]->user_id ?>">
             <div class="story_bar_container"
                 style="grid-template-columns: repeat(<?php echo count($userStories)  ?>,1fr);">
                 <?php
                for($i=0;$i<count($userStories);$i++){
                    ?>
-                <div class="story_bar" style="width:<?php echo 460/count($userStories).'px' ?>"></div>
+                <div class="story_bar" style="width:<?php echo 450/count($userStories).'px' ?>"></div>
                 <?php
                }
                ?>
@@ -99,6 +102,35 @@ $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
                 }
                 ?>
         </div>
+        <?php
+     if($userid != $uuid){
+         ?>
+        <div class="story_react_reply">
+            <div class="story_input_wrap">
+                <input data-mol_story="<?php echo $user ?>" id="story_reply_input" type="text" placeholder="Reply...">
+                <i class="story_btn_sticker"></i>
+                <i class="story_btn_send" id="story_reply_input_send"></i>
+            </div>
+            <div class="story_react_icons">
+                <img class="story_react_icon" id="like-react-story"
+                    src="<?php echo BASE_URL?>assets/images/stories/like.png" alt="">
+                <img class="story_react_icon" id="like-react-story"
+                    src="<?php echo BASE_URL?>assets/images/stories/love.png" alt="">
+                <img class="story_react_icon" id="like-react-story"
+                    src="<?php echo BASE_URL?>assets/images/stories/heart.png" alt="">
+                <img class="story_react_icon" id="like-react-story"
+                    src="<?php echo BASE_URL?>assets/images/stories/haha.png" alt="">
+                <img class="story_react_icon" id="like-react-story"
+                    src="<?php echo BASE_URL?>assets/images/stories/wow.png" alt="">
+                <img class="story_react_icon" id="like-react-story"
+                    src="<?php echo BASE_URL?>assets/images/stories/sad.png" alt="">
+                <img class="story_react_icon" id="like-react-story"
+                    src="<?php echo BASE_URL?>assets/images/stories/angry.png" alt="">
+            </div>
+        </div>
+        <?php
+     }
+     ?>
         <div class="full_height_right">
             <div class="go_right_wrap">
                 <i class="go_right_mate"></i>
@@ -110,7 +142,9 @@ $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
             foreach($followingStories as $story){           
                 $count=count($loadUser->getUserStories($story[0]->story_user));          
                     ?>
-            <a class="full_height" data-s_id="<?php echo $k ?>" data-count="<?php echo $count ?>">
+            <a class="full_height" data-mol_story="<?php echo $story[0]->first_name.' '.$story[0]->last_name ?>"
+                data-s_id="<?php echo $k ?>" data-count="<?php echo $count ?>"
+                data-uuid="<?php echo $story[0]->user_id ?>">
                 <div class="right_story_card">
                     <?php
                   if($story[0]->story_bg !=''){
@@ -175,10 +209,23 @@ $(document).on('click', '.full_height', function() {
     var story_bg = $(this).find('.right_story_card_img').attr('src');
     var story_text = $(this).find('.start_typing_small').text();
     var story_peak_img = $(this).find('.story_peak_img').attr('src');
+    var count = $(this).data('count');
+    var mol_story = $(this).data('mol_story');
+    var uuid = $(this).data('uuid');
+    var s_b = 450 / count;
+    $('.story_bar_container').html('');
+    $('.story_bar_container').css('grid-template-columns', 'repeat(' + count + ',1fr)');
+    for (let i = 0; i < count; i++) {
+        $('.story_bar_container').append('<div class="story_bar"></div>');
+    }
+    $('.story_bar').css('width', '' + s_b + '');
     //---7tha lwst--->
     $('.story_player').find('.story_bg_img').attr('src', story_bg);
+    $('.story_player').attr('data-mol_story', mol_story);
+    $('.story_player').attr('data-uuid', uuid);
     $('.story_player').find('.story_text_play').html(story_text);
     $('.story_rounded_blue').attr('src', story_peak_img);
+    $('.story_rounded_blue').attr('mol_story', mol_story);
     //---7tha lwst--->
 
 
@@ -239,6 +286,48 @@ $(document).on('click', '.full_height_left', function() {
     $('.story_bar_container').css('grid-template-columns', 'repeat(' + count + ',1fr)');
     $('.story_bar').css('width', '' + s_b + '');
     $(this).hide();
+})
+$(document).on('focus', '#story_reply_input', function() {
+    var mol_storyy = $('.story_player').data('mol_story');
+    $('.story_react_icons').hide();
+    $(this).css('width', '700px');
+    $(this).attr('placeholder', 'Reply to ' + mol_storyy + ' ...');
+    $('.story_btn_send').show()
+    $('.story_btn_sticker').css('right', '3rem')
+})
+
+$(document).on('click', '#story_reply_input_send', function() {
+    var reply_text = $('#story_reply_input').val();
+    var chatid = $('.story_player').data('uuid');
+    var imagee = $('.story_player').find('.story_bg_img').attr('src');
+    var story_text = $('.story_player').find('.story_text_play').text();
+    var userid = "<?php echo $userid ?>";
+    var image = '[{"name":"' + imagee + '"}]';
+    $.post('http://localhost/facebook/core/chat/storyReply.php', {
+        storyReply: userid,
+        chatid: chatid,
+        image: image,
+        story_text: story_text,
+        reply_text: reply_text
+    }, function(data) {
+        console.log(data)
+    })
+
+})
+$(document).mouseup(function(e) {
+    var container = new Array();
+    container.push('.story_input_wrap');
+    $.each(container, function(key, value) {
+        if (!$(value).is(e.target) && $(value).has(e.target)
+            .length === 0) {
+            $('.story_react_icons').show();
+            $(value).css('width', '300px');
+            $(value).attr('placeholder', 'Reply...');
+            $('.story_btn_send').hide()
+            $('.story_btn_sticker').css('right', '1rem')
+
+        }
+    })
 })
 </script>
 
