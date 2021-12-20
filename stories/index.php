@@ -1,19 +1,20 @@
 <?php
 include '../connect/login.php';
 include '../core/load.php';
-
+$uuid='';
 if(login::isLoggedIn()){
    $userid = login::isLoggedIn();
    $userInfo= $loadUser->getUserInfo($userid);
-   $followingStories= $loadUser->getFollowingStories($userid);
-  
-  
+   $myStory= $loadUser->myStory($userid);
 }else{
     header('Location:login.php');
 }
 if(!empty($_GET["uuid"])){
-    $mol_story=$_GET["uuid"];
-   
+       if($loadUser->checkIfStory($_GET['uuid'])->total == 0){
+           $mol_story=$userid;
+       }else{
+        $mol_story=$_GET["uuid"];
+       }
 }else{
     $mol_story=$userid;
  
@@ -30,6 +31,9 @@ if(!empty($_GET["uid"])){
     $num_story=0;
 }
 
+
+$followingStories= $loadUser->getFollowingStories($userid,$mol_story);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +49,31 @@ if(!empty($_GET["uid"])){
 <body>
     <div class="watch_story">
         <div class="left_stories" dir="RTL">
-
+            <?php 
+         if($myStory != [] && $mol_story !='' && $mol_story !=$userid){
+             ?>
+            <a class="full_height_left">
+                <div class="left_story_card">
+                    <?php
+                    if($myStory[0]->story_bg !='' ){
+                        ?>
+                    <img src="<?php echo 'http://localhost/facebook/'.$myStory[0]->story_bg ?>"
+                        class="right_story_card_img">
+                    <?php
+                    }else if($myStory[0]->story_img !=''){
+                        ?>
+                    <img src="<?php echo 'http://localhost/facebook/'.$myStory[0]->story_img ?>"
+                        class="right_story_card_img">
+                    <?php
+                    }
+                    ?>
+                    <div class="start_typing_small"><?php echo $myStory[0]->story_text ?></div> <img src=<?php echo 'http://localhost/facebook/'.$myStory[0]->profile_picture
+                     ?> alt="" class="story_peak_img">
+                </div>
+            </a>
+            <?php
+         }
+         ?>
 
         </div>
         <div class="story_player" data-uuid="<?php echo $userStories[0]->user_id ?>">
@@ -116,7 +144,19 @@ if(!empty($_GET["uid"])){
 </body>
 <script src="../assets/js/jquery.js"></script>
 <script>
+var stories = [];
+
+$(document).ready(function() {
+    $.post('http://localhost/facebook/core/ajax/story.php', {
+        get_all_stories: "<?php echo $userid ?>"
+    }, function(data) {
+        stories = JSON.parse(data);
+
+    })
+})
+
 $(document).on('click', '.full_height', function() {
+    /*
     //get from middle and send left*---->
     var bg = $('.story_bg_img').attr('src');
     var text = $('.story_text_play').val();
@@ -147,13 +187,19 @@ $(document).on('click', '.full_height', function() {
         $('.story_player').find('.story_text_play').html(story_text);
 
     }
+    $('.story_rounded_blue').attr('src', story_profile_pic);
     $(this).hide();
 
     var s_b = 460 / count;
+    console.log(s_b)
     $('.story_bar_container').css('grid-template-columns', 'repeat(' + count + ',1fr)');
+    $('.story_bar_container').html('')
+    for (let i = 0; i < count; i++) {
+        $('.story_bar_container').append('<div class="story_bar"></div>');
+    }
     $('.story_bar').css('width', '' + s_b + '');
 
-
+*/
 
 })
 $(document).on('click', '.full_height_left', function() {

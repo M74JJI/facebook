@@ -10,3 +10,8 @@ if(isset($_POST['add_story'])){
     $text = $_POST['text'];
     $loadUser->create('stories',array('story_bg'=>$background,'story_user'=>$userid,'story_text'=>$text,'createdAt'=>date('Y-m-d H:i:s')));
 }
+if(isset($_POST['get_all_stories'])){
+    $userid = $_POST['get_all_stories'];
+    $stories= $loadUser->getAllStories($userid);
+    echo json_encode($stories);
+}
