@@ -1036,23 +1036,22 @@ public function getFollowingStories($userid,$mol_story){
 }
 public function getAllStories($userid){
     $stories=[];
-    $statement=$this->pdo->prepare("SELECT  DISTINCT follow.sender FROM follow WHERE receiver=:userid");
+    $statement=$this->pdo->prepare("SELECT DISTINCT follow.receiver FROM follow WHERE follow.sender=:userid");
     $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
     $statement->execute();
     $following= $statement->fetchAll(PDO::FETCH_OBJ);
-    $statement1=$this->pdo->prepare("SELECT  * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user  WHERE story_user=:userid");
-    $statement1->bindValue(':userid',$userid,PDO::PARAM_INT);
-    $statement1->execute();
-    $dataa=$statement1->fetchAll(PDO::FETCH_OBJ);
-    array_push($stories,$dataa);
+    $statement2=$this->pdo->prepare("SELECT  * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user  WHERE story_user=:userid1");
+    $statement2->bindValue(':userid1',$userid,PDO::PARAM_INT);
+    $statement2->execute();
+    $data=$statement2->fetchAll(PDO::FETCH_OBJ);
+    array_push($stories,$data);
     foreach ($following as $f){
     $statement1=$this->pdo->prepare("SELECT  * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user  WHERE story_user=:userid1");
-    $statement1->bindValue(':userid1',$f->sender,PDO::PARAM_INT);
+    $statement1->bindValue(':userid1',$f->receiver,PDO::PARAM_INT);
     $statement1->execute();
     $data=$statement1->fetchAll(PDO::FETCH_OBJ);
     array_push($stories,$data);
     } 
-    
    return $stories;
 }
 public function myStory($userid){

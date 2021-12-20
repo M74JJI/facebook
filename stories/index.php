@@ -111,7 +111,7 @@ $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
            
                     ?>
             <a class="full_height" data-molstory="<?php echo $story[0]->first_name.' '.$story[0]->last_name ?>"
-                data-count="<?php echo $count ?>">
+                data-count="<?php echo $count ?>" data-story_user="<?php echo $story[0]->story_user ?>">
                 <div class="right_story_card">
                     <?php
                   if($story[0]->story_bg !=''){
@@ -151,44 +151,94 @@ $(document).ready(function() {
         get_all_stories: "<?php echo $userid ?>"
     }, function(data) {
         stories = JSON.parse(data);
+        console.log(stories)
 
     })
 })
 
 $(document).on('click', '.full_height', function() {
+
+    //---->dir story flwst
+    var story_user = $(this).data('story_user');
+    var index;
+    var story_bg = $('.story_player').find('.story_bg_img').attr('src');
+    var story_text = $('.story_player').find('.story_text_play').text();
+    var story_profile_pic = $('.story_player').find('.story_rounded_blue').attr('src');
+    for (let i = 0; i < stories.length; i++) {
+
+        for (let j = 0; j < stories[i].length; j++) {
+            if (stories[i][j].story_user == story_user) {
+                index = i;
+            }
+        }
+
+    }
+
+    if (stories[index][0].story_bg != '') {
+        $('.story_player').find('.story_bg_img').attr('src', 'http://localhost/facebook/' + stories[index][0]
+            .story_bg + '');
+    } else if (story_img != '') {
+        $('.story_player').find('.story_bg_img').attr('src', 'http://localhost/facebook/' + stories[index][0]
+            .story_img + '');
+    }
+    if (stories[index].story_text != '') {
+        $('.story_player').find('.story_text_play').html(stories[index][0].story_text);
+    }
+    $('.story_rounded_blue').attr('src', 'http://localhost/facebook/' + stories[index][0]
+        .profile_picture + '');
+    $(this).hide();
+
+
+    //---->dir stories li 9bl f chmal
+
+    $('.left_stories').html('');
+
+    for (let i = 0; i < index; i++) {
+        if (stories[i][0].story_bg != '') {
+            $('.left_stories').prepend(
+                '<a class="full_height_left"> <div class="left_story_card"> <img src="http://localhost/facebook/' +
+                stories[i][0].story_bg +
+                '" class="right_story_card_img"><div class="start_typing_small">' +
+                stories[i][0].story_text +
+                '</div> <img src="http://localhost/facebook/' + stories[i][0].profile_picture +
+                '" alt="" class="story_peak_img"> </div></a>'
+            )
+        } else if (stories[index][0].story_img != '') {
+            $('.left_stories').prepend(
+                '<a class="full_height_left"> <div class="left_story_card"> <img src="http://localhost/facebook/' +
+                stories[i][0].story_img +
+                ' class="right_story_card_img"><div class="start_typing_small">' +
+                stories[i][0].story_text +
+                '</div> <img src="http://localhost/facebook/' + stories[i][0].profile_picture +
+                '" alt="" class="story_peak_img"> </div></a>'
+            )
+        }
+
+    }
+
+    $('.left_stories').prepend(
+        '<a class="full_height_left"> <div class="left_story_card"> <img src=' + story_bg +
+        ' class="right_story_card_img"><div class="start_typing_small">' + story_text +
+        '</div> <img src=' + story_profile_pic +
+        ' alt="" class="story_peak_img"> </div></a>'
+    )
+
     /*
-    //get from middle and send left*---->
-    var bg = $('.story_bg_img').attr('src');
-    var text = $('.story_text_play').val();
-    var pdp = $('.story_rounded_blue').attr('src');
     $('.left_stories').prepend(
         '<a class="full_height_left"> <div class="left_story_card"> <img src=' +
         bg + ' class="right_story_card_img"><div class="start_typing_small">' +
         text +
         '</div> <img src=' + pdp + ' alt="" class="story_peak_img"> </div></a>'
     )
-    var story_bg = $(this).find('.right_story_card_img').attr('src');
-    var story_img = $(this).find('.right_story_card_img_img').attr('src');
-    var story_text = $(this).find('.start_typing_small').text();
-    var mol_story = $(this).data('molstory');
-    var count = $(this).data('count');
-    var story_profile_pic = $(this).find('.story_peak_img').attr('src');
+    
+ 
 
     //-----------------//
 
     //-----------------//
+   */
 
-    if (story_bg != '') {
-        $('.story_player').find('.story_bg_img').attr('src', story_bg);
-    } else if (story_img != '') {
-        $('.story_player').find('.story_bg_img').attr('src', story_img);
-    }
-    if (story_text != '') {
-        $('.story_player').find('.story_text_play').html(story_text);
-
-    }
-    $('.story_rounded_blue').attr('src', story_profile_pic);
-    $(this).hide();
+    /*
 
     var s_b = 460 / count;
     console.log(s_b)
@@ -199,8 +249,8 @@ $(document).on('click', '.full_height', function() {
     }
     $('.story_bar').css('width', '' + s_b + '');
 
-*/
 
+*/
 })
 $(document).on('click', '.full_height_left', function() {
     var story_bg = $(this).find('.right_story_card_img').attr('src');
