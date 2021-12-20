@@ -156,6 +156,9 @@ $(document).ready(function() {
 })
 
 $(document).on('click', '.full_height', function() {
+    var k = $(this).data('s_id');
+    $('.story_player').attr('added', k);
+
     //lkhdma dyal lwst
     var wst_bg = $('.story_player').find('.story_bg_img').attr('src');
     var wst_text = $('.story_player').find('.story_text_play').text();
@@ -177,10 +180,10 @@ $(document).on('click', '.full_height', function() {
     $('.story_player').find('.story_text_play').html(story_text);
     $('.story_rounded_blue').attr('src', story_peak_img);
     //---7tha lwst--->
-    var k = $(this).data('s_id');
-    $('.story_player').attr('added', k);
+
+
     for (let i = 0; i < k; i++) {
-        if (!$('.story_player[added==' + i + ']')) {
+        if ($('.full_height[data-s_id=' + i + ']').length > 0) {
             var story_bg = $('.full_height[data-s_id=' + i + ']').find('.right_story_card_img').attr('src');
             var story_text = $('.full_height[data-s_id=' + i + ']').find('.start_typing_small').text();
             var story_peak_img = $('.full_height[data-s_id=' + i + ']').find('.story_rounded_blue').attr('src');
@@ -191,11 +194,23 @@ $(document).on('click', '.full_height', function() {
                 ' alt="" class="story_peak_img"> </div></a>'
             )
         }
-        $('.full_height[data-s_id=' + i + ']').hide();
+    }
+
+
+    //lkhdma dyal limin
+    for (let i = 0; i < k; i++) {
+
+        $('.full_height[data-s_id=' + i + ']').remove();
 
     }
-    //lkhdma dyal limin
-    $(this).hide();
+    $(this).remove();
+    /*
+      var a7a = 0;
+     for (let i = k; i > 10; i--) {
+         $('.full_height[data-s_id=' + i + ']').removeAttr('data-s_id').attr('data-s_id', a7a);
+         a7a++;
+     }
+     */
 
 })
 $(document).on('click', '.full_height_left', function() {
