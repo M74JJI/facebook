@@ -47,3 +47,17 @@ if(isset($_POST['viewStory'])){
     
   
 }
+
+if(isset($_POST['getNextStory'])){
+    $user_id = $_POST['getNextStory'];
+    $occurence=$_POST['occurence'];
+    $userStories=$loadUser->getUserStories($user_id);
+  
+    if(count($userStories)>$occurence){
+        echo json_encode($userStories[$occurence+1]);
+    }else{
+         
+         echo 'no-exist';
+    }
+     
+}

@@ -87,7 +87,8 @@ $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
 
         <div class="story_player"
             data-mol_story="<?php echo $userStories[0]->first_name.' '.$userStories[0]->last_name ?>"
-            data-id="<?php echo $userStories[0]->story_id ?>" data-uuid="<?php echo $userStories[0]->user_id ?>">
+            data-id="<?php echo $userStories[0]->story_id ?>" data-occ="0"
+            data-uuid="<?php echo $userStories[0]->user_id ?>">
             <div class="story_bar_container"
                 style="grid-template-columns: repeat(<?php echo count($userStories)  ?>,1fr);">
                 <?php
@@ -420,8 +421,36 @@ $(document).ready(function() {
 //---->view story---->
 
 $(document).on('click', '.go_right_wrap', function() {
-    var storiess = "<?php echo $userStories ?>";
-    console.log(storiess)
+
+    var user_id = $('.story_player').data('uuid');
+    var occurence = $('.story_player').data('occ');
+    $.post('http://localhost/facebook/core/chat/storyReply.php', {
+        getNextStory: user_id,
+        occurence: occurence
+    }, function(data) {
+        if (data == 'no-exist') {
+
+        } else {
+            story = JSON.parse(data);
+
+            if (story.story_bg != '') {
+                $('.story_player').find('.story_bg_img').attr('src',
+                    'http://localhost/facebook/'.story.story_bg);
+            } else if (story.story_img != '') {
+                $('.story_player').find('.story_bg_img').attr('src',
+                    'http://localhost/facebook/'.story.story_img);
+            }
+            $('.story_player').attr('data-mol_story', '' + story.first_name + '.' + story
+                .last_name +
+                '');
+            $('.story_player').attr('data-uuid', story.user_id);
+            $('.story_player').attr('data-id', story.story_id);
+            $('.story_player').find('.story_text_play').html(story.story_text);
+            $('.story_rounded_blue').attr('src', 'http://localhost/facebook/'.story.profile_picture);
+            $('.story_rounded_blue').attr('mol_story', story.user_id);
+        }
+    })
+
 })
 </script>
 
