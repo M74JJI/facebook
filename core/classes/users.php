@@ -1073,6 +1073,30 @@ public function checkIfStory($userid){
     $statement->execute();
    return $statement->fetch(PDO::FETCH_OBJ);
 }
+public function getStoryViewers($storyid){
+    $statement=$this->pdo->prepare("SELECT stories.viewers FROM stories WHERE story_id=:storyid");
+    $statement->bindValue(':storyid',$storyid,PDO::PARAM_INT);
+    $statement->execute();
+   return $statement->fetch(PDO::FETCH_OBJ);
+}
+public function updateStoryViewers($story_id,$viewers){
+    $statement=$this->pdo->prepare("UPDATE stories SET viewers=:viewers WHERE story_id=:storyid");
+    $statement->bindValue(':storyid',$story_id,PDO::PARAM_INT);
+    $statement->bindValue(':viewers',$viewers,PDO::PARAM_STR);
+    $statement->execute();
+   
+}
+public function getStoryViewersInfosAndReacts($viewers){
+    $infos=[];
+    foreach($viewers as $viewer){
+        $statement=$this->pdo->prepare("SELECT * FROM profile WHERE user_id=:viewer");
+        $statement->bindValue(':viewer',$viewer,PDO::PARAM_INT);
+        $statement->execute();
+        $data =$statement->fetchAll(PDO::FETCH_OBJ);
+        array_push($infos,$data);
+    }
+   return $infos;
+}
 
 
                         

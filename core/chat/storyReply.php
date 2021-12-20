@@ -24,3 +24,26 @@ if(isset($_POST['storyReply'])){
     
   
 }
+
+if(isset($_POST['viewStory'])){
+    $viewer = $_POST['viewStory'];
+    $story_id=$_POST['story_id'];
+    $viewers=$loadUser->getStoryViewers($story_id)->viewers;
+    var_dump($viewers);
+    if($viewers ==''){
+        $viewerss=''.$viewer.'';
+        $loadUser->updateStoryViewers($story_id,$viewerss);
+
+    }else{
+    if(str_contains($viewers, $viewer)) {
+      
+    }else{
+        $viewerss=$viewers.''.$viewer;
+        $loadUser->updateStoryViewers($story_id,$viewerss);
+        
+    }
+    }
+
+    
+  
+}

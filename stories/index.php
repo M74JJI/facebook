@@ -2,6 +2,8 @@
 include '../connect/login.php';
 include '../core/load.php';
 $uuid='';
+$userStory='';
+$numStory=0;
 if(login::isLoggedIn()){
    $userid = login::isLoggedIn();
    $userInfo= $loadUser->getUserInfo($userid);
@@ -9,7 +11,11 @@ if(login::isLoggedIn()){
 }else{
     header('Location:login.php');
 }
+if(!empty($_GET["uid"])){
+  $numStory=$_GET["uid"];
+}
 if(!empty($_GET["uuid"])){
+        $userStory=$_GET["uuid"];
        if($loadUser->checkIfStory($_GET['uuid'])->total == 0){
            $mol_story=$userid;
        }else{
@@ -20,6 +26,8 @@ if(!empty($_GET["uuid"])){
  
 }
 $userStories = $loadUser->getUserStories($mol_story);
+$current_story=$userStories[0]->story_id;
+
 if(!empty($_GET["uid"])){
     if($_GET["uid"]>0 && $_GET["uid"]<count($userStories)){
         $num_story=$_GET["uid"];
@@ -79,7 +87,7 @@ $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
 
         <div class="story_player"
             data-mol_story="<?php echo $userStories[0]->first_name.' '.$userStories[0]->last_name ?>"
-            data-uuid="<?php echo $userStories[0]->user_id ?>">
+            data-id="<?php echo $userStories[0]->story_id ?>" data-uuid="<?php echo $userStories[0]->user_id ?>">
             <div class="story_bar_container"
                 style="grid-template-columns: repeat(<?php echo count($userStories)  ?>,1fr);">
                 <?php
@@ -101,6 +109,59 @@ $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
             <?php
                 }
                 ?>
+            <div class="story_viewer_btn">
+                <i class="up_s_view"></i>
+                <div class="total_um_viewers_story">
+                    <?php 
+                    
+                    if($userStories[$num_story]->viewers != ''){
+                        $tmp=explode(',',$userStories[$num_story]->viewers);
+                     array_pop($tmp);
+                      $viewers=$loadUser->getStoryViewersInfosAndReacts($tmp); 
+                    }
+                    
+                    ?>
+                    <?php if(count($tmp) ==0 || $userStories[$num_story]->viewers == ''){
+                        echo'No viewers';
+
+                    }else if(count($tmp) ==1){
+                        echo count($tmp).' viewer';
+                    }else if(count($tmp) >1){
+                        echo count($tmp).' viewers';
+                    }
+                     ?>
+
+                </div>
+            </div>
+            <div class="viewers_infos_whity">
+                <div class="close_story_viewers">
+                    <i class="close_story_viewers_icon"></i>
+                </div>
+                <div class="close_story_viewers_header">Story Details
+                </div>
+                <div class="stories_infos_previews">
+                    <div class="story_3215">
+                        <img src="http://localhost/facebook/assets/images/stories/14.jpg" alt="" class="story_3215_bg">
+                    </div>
+                </div>
+                <div class="view_total_with_icon">
+                    <i class="view_icon_41545"></i>
+                    <span>2 Viewers</span>
+                </div>
+                <ul class="list_infos_story_ul_infos">
+                    <li>
+                        <div style="display: flex;align-items:center;gap:10px">
+                            <img class="img_preinf14" src="http://localhost/facebook/assets/images/stories/14.jpg"
+                                alt="">
+                            <div class="flex_col_preinf14">
+                                <span>Abdel Dalo</span>
+                                <span>Replied in mesenger</span>
+                            </div>
+                        </div>
+                        <div></div>
+                    </li>
+                </ul>
+            </div>
         </div>
         <?php
      if($userid != $uuid){
@@ -144,7 +205,7 @@ $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
                     ?>
             <a class="full_height" data-mol_story="<?php echo $story[0]->first_name.' '.$story[0]->last_name ?>"
                 data-s_id="<?php echo $k ?>" data-count="<?php echo $count ?>"
-                data-uuid="<?php echo $story[0]->user_id ?>">
+                data-uuid="<?php echo $story[0]->user_id ?>" data-id="<?php echo $story[0]->story_id ?>">
                 <div class="right_story_card">
                     <?php
                   if($story[0]->story_bg !=''){
@@ -190,6 +251,18 @@ $(document).ready(function() {
 })
 
 $(document).on('click', '.full_height', function() {
+
+    //----view story-->
+    var story_id = $(this).data('id');
+    var user = "<?php echo $userid ?>";
+    var viewer = '' + user + ',';
+    $.post('http://localhost/facebook/core/chat/storyReply.php', {
+        viewStory: viewer,
+        story_id: story_id
+    }, function(data) {
+
+    })
+    //----view story-->
     var k = $(this).data('s_id');
     $('.story_player').attr('added', k);
 
@@ -212,6 +285,7 @@ $(document).on('click', '.full_height', function() {
     var count = $(this).data('count');
     var mol_story = $(this).data('mol_story');
     var uuid = $(this).data('uuid');
+    var story_id = $(this).data('id');
     var s_b = 450 / count;
     $('.story_bar_container').html('');
     $('.story_bar_container').css('grid-template-columns', 'repeat(' + count + ',1fr)');
@@ -223,6 +297,7 @@ $(document).on('click', '.full_height', function() {
     $('.story_player').find('.story_bg_img').attr('src', story_bg);
     $('.story_player').attr('data-mol_story', mol_story);
     $('.story_player').attr('data-uuid', uuid);
+    $('.story_player').attr('data-id', story_id);
     $('.story_player').find('.story_text_play').html(story_text);
     $('.story_rounded_blue').attr('src', story_peak_img);
     $('.story_rounded_blue').attr('mol_story', mol_story);
@@ -328,6 +403,25 @@ $(document).mouseup(function(e) {
 
         }
     })
+})
+//---->view story---->
+$(document).ready(function() {
+    var story_id = $('.story_player').data('id');
+    var user = "<?php echo $userid ?>";
+    var viewer = '' + user + ',';
+    $.post('http://localhost/facebook/core/chat/storyReply.php', {
+        viewStory: viewer,
+        story_id: story_id
+    }, function(data) {
+
+    })
+
+})
+//---->view story---->
+
+$(document).on('click', '.go_right_wrap', function() {
+    var storiess = "<?php echo $userStories ?>";
+    console.log(storiess)
 })
 </script>
 
