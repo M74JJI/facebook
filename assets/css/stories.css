@@ -745,3 +745,9 @@ body {
 .flex_col_preinf14 span:last-of-type {
     color: #65676b;
 }
+.bar_progress {
+    height: 5px;
+    background: #fff;
+    border-radius: 5px;
+    z-index: 2;
+}

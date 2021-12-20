@@ -94,12 +94,13 @@ $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
                 <?php
                for($i=0;$i<count($userStories);$i++){
                    ?>
-                <div class="story_bar" style="width:<?php echo 450/count($userStories).'px' ?>"></div>
+                <div class="story_bar" style="width:<?php echo 450/count($userStories).'px' ?>"
+                    data-occ="<?php echo $i ?>"></div>
                 <?php
                }
                ?>
             </div>
-            <img src="<?php echo 'http://localhost/facebook/'.$userStories[$num_story]->profile_picture ?>" alt=""
+            <img src=" <?php echo 'http://localhost/facebook/'.$userStories[$num_story]->profile_picture ?>" alt=""
                 class="story_rounded_blue">
             <img class="story_bg_img"
                 src="<?php echo 'http://localhost/facebook/'.$userStories[$num_story]->story_bg ?>" alt="">
@@ -291,7 +292,7 @@ $(document).on('click', '.full_height', function() {
     $('.story_bar_container').html('');
     $('.story_bar_container').css('grid-template-columns', 'repeat(' + count + ',1fr)');
     for (let i = 0; i < count; i++) {
-        $('.story_bar_container').append('<div class="story_bar"></div>');
+        $('.story_bar_container').append('<div class="story_bar" data-occ=' + i + '></div>');
     }
     $('.story_bar').css('width', '' + s_b + '');
     //---7tha lwst--->
@@ -421,9 +422,19 @@ $(document).ready(function() {
 //---->view story---->
 
 $(document).on('click', '.go_right_wrap', function() {
-
     var user_id = $('.story_player').data('uuid');
     var occurence = $('.story_player').data('occ');
+    clearInterval(resss);
+    setInterval(function() {
+        if (kkk == 100) {
+            kkk = 0;
+        } else {
+            var bar = $('.story_bar[data-occ=' + occurence + ']');
+            $(bar).html('<div class="bar_progress" style="width:' + kkk + '%"></div>');
+            kkk += 3;
+        }
+    }, 500)
+
     $.post('http://localhost/facebook/core/chat/storyReply.php', {
         getNextStory: user_id,
         occurence: occurence
@@ -432,13 +443,13 @@ $(document).on('click', '.go_right_wrap', function() {
 
         } else {
             story = JSON.parse(data);
-
+            console.log(story.story_bg);
             if (story.story_bg != '') {
-                $('.story_player').find('.story_bg_img').attr('src',
-                    'http://localhost/facebook/'.story.story_bg);
+                $('.story_player').find('.story_bg_img').attr('src', 'http://localhost/facebook/' +
+                    story.story_bg + '');
             } else if (story.story_img != '') {
-                $('.story_player').find('.story_bg_img').attr('src',
-                    'http://localhost/facebook/'.story.story_img);
+                $('.story_player').find('.story_bg_img').attr('src', 'http://localhost/facebook/' +
+                    story.story_img + '');
             }
             $('.story_player').attr('data-mol_story', '' + story.first_name + '.' + story
                 .last_name +
@@ -446,12 +457,59 @@ $(document).on('click', '.go_right_wrap', function() {
             $('.story_player').attr('data-uuid', story.user_id);
             $('.story_player').attr('data-id', story.story_id);
             $('.story_player').find('.story_text_play').html(story.story_text);
-            $('.story_rounded_blue').attr('src', 'http://localhost/facebook/'.story.profile_picture);
+            $('.story_rounded_blue').attr('src', 'http://localhost/facebook/' +
+                story.profile_picture + '');
             $('.story_rounded_blue').attr('mol_story', story.user_id);
+            $('.story_player').data(occurence++);
         }
     })
 
 })
+var occurence = 0;
+setInterval(function() {
+    var user_id = $('.story_player').data('uuid');
+    occurence = $('.story_player').data('occ');
+
+    $.post('http://localhost/facebook/core/chat/storyReply.php', {
+        getNextStory: user_id,
+        occurence: occurence
+    }, function(data) {
+        if (data == 'no-exist') {
+            console.log('laaaaaaaaaaaa');
+        } else {
+            story = JSON.parse(data);
+
+            if (story.story_bg != '') {
+                $('.story_player').find('.story_bg_img').attr('src', 'http://localhost/facebook/' +
+                    story.story_bg + '');
+            } else if (story.story_img != '') {
+                $('.story_player').find('.story_bg_img').attr('src', 'http://localhost/facebook/' +
+                    story.story_img + '');
+            }
+            $('.story_player').attr('data-mol_story', '' + story.first_name + '.' + story
+                .last_name +
+                '');
+            $('.story_player').attr('data-uuid', story.user_id);
+            $('.story_player').attr('data-id', story.story_id);
+            $('.story_player').find('.story_text_play').html(story.story_text);
+            $('.story_rounded_blue').attr('src', 'http://localhost/facebook/' +
+                story.profile_picture + '');
+            $('.story_rounded_blue').attr('mol_story', story.user_id);
+            $('.story_player').data(occurence++);
+        }
+    })
+}, 15000)
+var kkk = 0;
+var resss = setInterval(function() {
+    if (kkk == 100) {
+        kkk = 0;
+        $('.story_bar[data-occ=' + occurence + 1 + ']').attr('data-occ', occurence++);
+    } else {
+        var bar = $('.story_bar[data-occ=' + occurence + ']');
+        $(bar).html('<div class="bar_progress" style="width:' + kkk + '%"></div>');
+        kkk += 5;
+    }
+}, 500)
 </script>
 
 </html>
