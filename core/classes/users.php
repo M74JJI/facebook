@@ -1119,6 +1119,54 @@ public function getCurrentStory($story_id){
         return $statement->fetch(PDO::FETCH_OBJ);
 }
 
+public function getNextUserStory_userid($userid){
+        $statement=$this->pdo->prepare("SELECT DISTINCT follow.receiver FROM follow WHERE follow.sender=:userid");
+        $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_OBJ);
+}
+public function getFollowingStories2($userid,$story_id){
+        $statement=$this->pdo->prepare("SELECT DISTINCT follow.receiver FROM follow WHERE follow.sender=:userid");
+        $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_OBJ);
+}
+public function getAllStoriesRanked($userid){
+        $tmp="";
+        $occ=0;
+        $stories=[];
+        $statement=$this->pdo->prepare("SELECT DISTINCT follow.receiver FROM follow WHERE follow.sender=:userid");
+        $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+        $statement->execute();
+        $following = $statement->fetchAll(PDO::FETCH_OBJ);
+        $statementme=$this->pdo->prepare("SELECT * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user WHERE story_user=:userid");
+        $statementme->bindValue(':userid',$userid,PDO::PARAM_INT);
+        $statementme->execute();
+        $myStories=$statementme->fetchAll(PDO::FETCH_OBJ);
+        if($myStories !=''){
+        for($i=0;$i<count($myStories);$i++){
+            $myStories[$i]->order=$occ;
+            $occ++;
+            array_push($stories,$myStories[$i]);
+        }    
+        }
+      
+        
+        foreach($following as $f){
+            $statement=$this->pdo->prepare("SELECT * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user WHERE story_user=:mol_story ORDER BY createdAt");
+            $statement->bindValue(':mol_story',$f->receiver,PDO::PARAM_INT);
+            $statement->execute();
+            $data=$statement->fetchAll(PDO::FETCH_OBJ);
+            for($i=0;$i<count($data);$i++){
+                $data[$i]->order=$occ;
+                $occ++;
+                array_push($stories,$data[$i]);
+            }
+        }
+        return $stories;
+        
+}
+
 
                         
                     }
