@@ -467,6 +467,7 @@ $(document).on('click', '.go_right_wrap', function() {
 })
 var occurence = 0;
 setInterval(function() {
+
     var user_id = $('.story_player').data('uuid');
     occurence = $('.story_player').data('occ');
 
@@ -475,7 +476,7 @@ setInterval(function() {
         occurence: occurence
     }, function(data) {
         if (data == 'no-exist') {
-            console.log('laaaaaaaaaaaa');
+
         } else {
             story = JSON.parse(data);
 
@@ -495,21 +496,24 @@ setInterval(function() {
             $('.story_rounded_blue').attr('src', 'http://localhost/facebook/' +
                 story.profile_picture + '');
             $('.story_rounded_blue').attr('mol_story', story.user_id);
-            $('.story_player').data(occurence++);
+            $('.story_player').attr('data-occ', occurence + 1);
+
         }
     })
 }, 15000)
+/*
 var kkk = 0;
 var resss = setInterval(function() {
-    if (kkk == 100) {
+    if (kkk == 105) {
         kkk = 0;
-        $('.story_bar[data-occ=' + occurence + 1 + ']').attr('data-occ', occurence++);
+        occurence++;
     } else {
         var bar = $('.story_bar[data-occ=' + occurence + ']');
         $(bar).html('<div class="bar_progress" style="width:' + kkk + '%"></div>');
         kkk += 5;
     }
-}, 500)
+}, 700)
+*/
 </script>
 
 </html>
