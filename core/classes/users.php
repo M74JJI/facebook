@@ -1027,25 +1027,39 @@ public function getUserStoriesTotal($userid){
 
 }
 public function getFollowingStories($userid,$mol_story){
+    $tmp="";
+    $occ=0;
     $stories=[];
-    $statement=$this->pdo->prepare("SELECT DISTINCT follow.receiver FROM follow WHERE follow.sender=:userid AND follow.receiver !=:mol_story");
+    $statement=$this->pdo->prepare("SELECT DISTINCT follow.receiver FROM follow WHERE follow.sender=:userid AND follow.receiver!=:mol_story");
     $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
     $statement->bindValue(':mol_story',$mol_story,PDO::PARAM_INT);
     $statement->execute();
-    $following= $statement->fetchAll(PDO::FETCH_OBJ);
-    foreach ($following as $f){
-    if($this->checkIfStoryByUser($f->receiver)->total==0){
-     continue;           
-    }else{
-        $statement1=$this->pdo->prepare("SELECT  * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user  WHERE story_user=:userid1");
-        $statement1->bindValue(':userid1',$f->receiver,PDO::PARAM_INT);
-        $statement1->execute();
-        $data=$statement1->fetchAll(PDO::FETCH_OBJ);
-        array_push($stories,$data);
+    $following = $statement->fetchAll(PDO::FETCH_OBJ);
+    $statementme=$this->pdo->prepare("SELECT * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user WHERE story_user=:userid");
+    $statementme->bindValue(':userid',$userid,PDO::PARAM_INT);
+    $statementme->execute();
+    $myStories=$statementme->fetchAll(PDO::FETCH_OBJ);
+    if($myStories !=''){
+    for($i=0;$i<count($myStories);$i++){
+        $myStories[$i]->order=$occ;
+        $occ++;
+        array_push($stories,$myStories[$i]);
+    }    
     }
-     
-    } 
-   return $stories;
+  
+    
+    foreach($following as $f){
+        $statement=$this->pdo->prepare("SELECT * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user WHERE story_user=:mol_story ORDER BY createdAt ASC");
+        $statement->bindValue(':mol_story',$f->receiver,PDO::PARAM_INT);
+        $statement->execute();
+        $data=$statement->fetchAll(PDO::FETCH_OBJ);
+        for($i=0;$i<count($data);$i++){
+            $data[$i]->order=$occ;
+            $occ++;
+            array_push($stories,$data[$i]);
+        }
+    }
+    return $stories;
 }
 public function getAllStories($userid){
     $stories=[];
@@ -1153,7 +1167,7 @@ public function getAllStoriesRanked($userid){
       
         
         foreach($following as $f){
-            $statement=$this->pdo->prepare("SELECT * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user WHERE story_user=:mol_story ORDER BY createdAt");
+            $statement=$this->pdo->prepare("SELECT * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user WHERE story_user=:mol_story ORDER BY createdAt ASC");
             $statement->bindValue(':mol_story',$f->receiver,PDO::PARAM_INT);
             $statement->execute();
             $data=$statement->fetchAll(PDO::FETCH_OBJ);

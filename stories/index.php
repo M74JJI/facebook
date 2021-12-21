@@ -37,7 +37,7 @@ if(!empty($_GET["uuid"])){
  
 }
 
-$followingStories= $loadUser->getFollowingStories($userid,$mol_story);
+$followingStories= $loadUser->getFollowingStories($userid,$mainStory->user_id);
 */
 $total= count($loadUser->getUserStories($mainStory->story_user));
 ?>
@@ -198,41 +198,68 @@ $total= count($loadUser->getUserStories($mainStory->story_user));
             </div>
         </div>
         <div class="right_stories">
-            <?php
-            $k=0;
-            foreach($followingStories as $story){           
-                $count=count($loadUser->getUserStories($story[0]->user_id));          
-                    ?>
-            <a class="full_height" data-mol_story="<?php echo $story[0]->first_name.' '.$story[0]->last_name ?>"
-                data-s_id="<?php echo $k ?>" data-count="<?php echo $count ?>"
-                data-uuid="<?php echo $story[0]->user_id ?>" data-id="<?php echo $story[0]->story_id ?>">
+            <?php 
+        foreach ($stories as $i=> $story){
+            if($story->order > $mainStory->order && $story->story_user != $mainStory->story_user && $story->story_user != $userid){
+                ?>
+            <a class="full_height" data-mol_story="<?php echo $story->first_name.' '.$story->last_name ?>"
+                data-count="<?php echo $count ?>" data-uuid="<?php echo $story->user_id ?>"
+                data-id="<?php echo $story->story_id ?>">
                 <div class="right_story_card">
                     <?php
-                  if($story[0]->story_bg !=''){
-                      ?>
-                    <img src="<?php echo 'http://localhost/facebook/'.$story[0]->story_bg ?>"
-                        class="right_story_card_img">
+                          if($story->story_bg !=''){
+                              ?>
+                    <img src="<?php echo 'http://localhost/facebook/'.$story->story_bg ?>" class="right_story_card_img">
                     <?php
-                  }else if($story[0]->story_img !=''){
-                    ?>
-                    <img src="<?php echo 'http://localhost/facebook/'.$story[0]->story_bg ?>"
-                        class="right_story_card_img">
+                          }else if($story->story_img !=''){
+                              ?>
+                    <img src="<?php echo 'http://localhost/facebook/'.$story->story_bg ?>" class="right_story_card_img">
                     <?php
-                  }if($story[0]->story_text !=''){
-                      ?>
-                    <div class="start_typing_small"><?php echo $story[0]->story_text ?></div>
+                          }if($story->story_text !=''){
+                              ?>
+                    <div class="start_typing_small"><?php echo $story->story_text ?></div>
                     <?php
-                  }
-                  ?>
-                    <img src="<?php echo 'http://localhost/facebook/'.$story[0]->profile_picture ?>" alt=""
+                          }
+                          ?>
+                    <img src="<?php echo 'http://localhost/facebook/'.$story->profile_picture ?>" alt=""
                         class="story_peak_img">
                 </div>
             </a>
             <?php
-                $k++;
             }
-            ?>
-
+            
+        }
+        foreach ($stories as $i=> $story){
+            if($story->order < $mainStory->order && $story->story_user != $mainStory->story_user && $story->story_user != $userid){
+                ?>
+            <a class="full_height" data-mol_story="<?php echo $story->first_name.' '.$story->last_name ?>"
+                data-count="<?php echo $count ?>" data-uuid="<?php echo $story->user_id ?>"
+                data-id="<?php echo $story->story_id ?>">
+                <div class="right_story_card">
+                    <?php
+                          if($story->story_bg !=''){
+                              ?>
+                    <img src="<?php echo 'http://localhost/facebook/'.$story->story_bg ?>" class="right_story_card_img">
+                    <?php
+                          }else if($story->story_img !=''){
+                              ?>
+                    <img src="<?php echo 'http://localhost/facebook/'.$story->story_bg ?>" class="right_story_card_img">
+                    <?php
+                          }if($story->story_text !=''){
+                              ?>
+                    <div class="start_typing_small"><?php echo $story->story_text ?></div>
+                    <?php
+                          }
+                          ?>
+                    <img src="<?php echo 'http://localhost/facebook/'.$story->profile_picture ?>" alt=""
+                        class="story_peak_img">
+                </div>
+            </a>
+            <?php
+            }
+            
+        }
+        ?>
         </div>
     </div>
 </body>
@@ -424,9 +451,7 @@ $(document).ready(function() {
 $(document).on('click', '.go_right_wrap', function() {
     var orderr = $('.story_player').data('order');
     var total = $('.story_player').data('total');
-    if (orderr == total - 2) {
-        $(this).hide();
-    }
+
 
     $.post('http://localhost/facebook/core/chat/storyReply.php', {
         getNextStory: "<?php echo $userid ?>",
