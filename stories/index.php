@@ -2,8 +2,8 @@
 include '../connect/login.php';
 include '../core/load.php';
 $uuid='';
-$userStory='';
-$numStory=0;
+$story_id='';
+
 if(login::isLoggedIn()){
    $userid = login::isLoggedIn();
    $userInfo= $loadUser->getUserInfo($userid);
@@ -11,35 +11,21 @@ if(login::isLoggedIn()){
 }else{
     header('Location:login.php');
 }
-if(!empty($_GET["uid"])){
-  $numStory=$_GET["uid"];
-}
+
 if(!empty($_GET["uuid"])){
-        $userStory=$_GET["uuid"];
+        $story_id=$_GET["uuid"];
        if($loadUser->checkIfStory($_GET['uuid'])->total == 0){
            $mol_story=$userid;
        }else{
-        $mol_story=$_GET["uuid"];
+        $story=$loadUser->getCurrentStory($story_id);
+        $mol_story=$story->story_user;
        }
 }else{
     $mol_story=$userid;
  
 }
-$userStories = $loadUser->getUserStories($mol_story);
-$current_story=$userStories[0]->story_id;
 
-if(!empty($_GET["uid"])){
-    if($_GET["uid"]>0 && $_GET["uid"]<count($userStories)){
-        $num_story=$_GET["uid"];
-    }else{ 
-        $num_story=0; 
-    }
-}else{
-    $num_story=0;
-}
-
-
-
+$total= count($loadUser->getUserStories($mol_story));
 $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
 
 ?>
@@ -84,46 +70,44 @@ $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
          ?>
 
         </div>
+        <div class="da3wa_lah">
 
-        <div class="story_player"
-            data-mol_story="<?php echo $userStories[0]->first_name.' '.$userStories[0]->last_name ?>"
-            data-id="<?php echo $userStories[0]->story_id ?>" data-occ="0"
-            data-uuid="<?php echo $userStories[0]->user_id ?>">
-            <div class="story_bar_container"
-                style="grid-template-columns: repeat(<?php echo count($userStories)  ?>,1fr);">
-                <?php
-               for($i=0;$i<count($userStories);$i++){
+
+            <div class="story_player" data-mol_story="<?php echo $story->first_name.' '.$story->last_name ?>"
+                data-id="<?php echo $story->story_id ?>" data-uuid="<?php echo $story->user_id ?>">
+                <div class="story_bar_container" style="grid-template-columns: repeat(<?php echo $total  ?>,1fr);">
+                    <?php
+               for($i=0;$i<$total;$i++){
                    ?>
-                <div class="story_bar" style="width:<?php echo 450/count($userStories).'px' ?>"
-                    data-occ="<?php echo $i ?>"></div>
-                <?php
+                    <div class="story_bar" style="width:<?php echo 450/$total.'px' ?>" data-occ="<?php echo $i ?>">
+                    </div>
+                    <?php
                }
                ?>
-            </div>
-            <img src=" <?php echo 'http://localhost/facebook/'.$userStories[$num_story]->profile_picture ?>" alt=""
-                class="story_rounded_blue">
-            <img class="story_bg_img"
-                src="<?php echo 'http://localhost/facebook/'.$userStories[$num_story]->story_bg ?>" alt="">
-            <?php
-                if($userStories[$num_story]->story_text !=''){
+                </div>
+                <img src=" <?php echo 'http://localhost/facebook/'.$story->profile_picture ?>" alt=""
+                    class="story_rounded_blue">
+                <img class="story_bg_img" src="<?php echo 'http://localhost/facebook/'.$story->story_bg ?>" alt="">
+                <?php
+                if($story->story_text !=''){
                     ?>
-            <div class="story_text_play"><?php echo $userStories[$num_story]->story_text ?></div>
-            <?php
+                <div class="story_text_play"><?php echo $story->story_text ?></div>
+                <?php
                 }
                 ?>
-            <div class="story_viewer_btn">
-                <i class="up_s_view"></i>
-                <div class="total_um_viewers_story">
-                    <?php 
+                <div class="story_viewer_btn">
+                    <i class="up_s_view"></i>
+                    <div class="total_um_viewers_story">
+                        <?php 
                     
-                    if($userStories[$num_story]->viewers != ''){
-                        $tmp=explode(',',$userStories[$num_story]->viewers);
+                    if($story->viewers != ''){
+                        $tmp=explode(',',$story->viewers);
                      array_pop($tmp);
                       $viewers=$loadUser->getStoryViewersInfosAndReacts($tmp); 
                     }
                     
                     ?>
-                    <?php if(count($tmp) ==0 || $userStories[$num_story]->viewers == ''){
+                        <?php if($story->viewers == ''){
                         echo'No viewers';
 
                     }else if(count($tmp) ==1){
@@ -133,36 +117,38 @@ $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
                     }
                      ?>
 
-                </div>
-            </div>
-            <div class="viewers_infos_whity">
-                <div class="close_story_viewers">
-                    <i class="close_story_viewers_icon"></i>
-                </div>
-                <div class="close_story_viewers_header">Story Details
-                </div>
-                <div class="stories_infos_previews">
-                    <div class="story_3215">
-                        <img src="http://localhost/facebook/assets/images/stories/14.jpg" alt="" class="story_3215_bg">
                     </div>
                 </div>
-                <div class="view_total_with_icon">
-                    <i class="view_icon_41545"></i>
-                    <span>2 Viewers</span>
-                </div>
-                <ul class="list_infos_story_ul_infos">
-                    <li>
-                        <div style="display: flex;align-items:center;gap:10px">
-                            <img class="img_preinf14" src="http://localhost/facebook/assets/images/stories/14.jpg"
-                                alt="">
-                            <div class="flex_col_preinf14">
-                                <span>Abdel Dalo</span>
-                                <span>Replied in mesenger</span>
-                            </div>
+                <div class="viewers_infos_whity">
+                    <div class="close_story_viewers">
+                        <i class="close_story_viewers_icon"></i>
+                    </div>
+                    <div class="close_story_viewers_header">Story Details
+                    </div>
+                    <div class="stories_infos_previews">
+                        <div class="story_3215">
+                            <img src="http://localhost/facebook/assets/images/stories/14.jpg" alt=""
+                                class="story_3215_bg">
                         </div>
-                        <div></div>
-                    </li>
-                </ul>
+                    </div>
+                    <div class="view_total_with_icon">
+                        <i class="view_icon_41545"></i>
+                        <span>2 Viewers</span>
+                    </div>
+                    <ul class="list_infos_story_ul_infos">
+                        <li>
+                            <div style="display: flex;align-items:center;gap:10px">
+                                <img class="img_preinf14" src="http://localhost/facebook/assets/images/stories/14.jpg"
+                                    alt="">
+                                <div class="flex_col_preinf14">
+                                    <span>Abdel Dalo</span>
+                                    <span>Replied in mesenger</span>
+                                </div>
+                            </div>
+                            <div></div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
         <?php
@@ -203,7 +189,7 @@ $followingStories= $loadUser->getFollowingStories($userid,$mol_story);
             <?php
             $k=0;
             foreach($followingStories as $story){           
-                $count=count($loadUser->getUserStories($story[0]->story_user));          
+                $count=count($loadUser->getUserStories($story[0]->user_id));          
                     ?>
             <a class="full_height" data-mol_story="<?php echo $story[0]->first_name.' '.$story[0]->last_name ?>"
                 data-s_id="<?php echo $k ?>" data-count="<?php echo $count ?>"
@@ -465,6 +451,41 @@ $(document).on('click', '.go_right_wrap', function() {
     })
 
 })
+
+setInterval(function() {
+    var story_id = $('.story_player').data('id');
+    var story_user = $('.story_player').data('uuid');
+    $.post('http://localhost/facebook/core/chat/storyReply.php', {
+        autoPlay: "<?php echo $userid ?>",
+        story_id: story_id,
+        story_user: story_user,
+    }, function(data) {
+        $('.da3wa_lah').html(data);
+        /*
+                story = JSON.parse(data);
+                if (story.story_bg != '') {
+                    $('.story_player').find('.story_bg_img').attr('src', 'http://localhost/facebook/' +
+                        story.story_bg + '');
+                } else if (story.story_img != '') {
+                    $('.story_player').find('.story_bg_img').attr('src', 'http://localhost/facebook/' +
+                        story.story_img + '');
+                }
+                $('.story_player').attr('data-mol_story', '' + story.first_name + '.' + story
+                    .last_name +
+                    '');
+                $('.story_player').attr('data-uuid', story.user_id);
+                $('.story_player').attr('data-id', story.story_id);
+                $('.story_player').find('.story_text_play').html(story.story_text);
+                $('.story_rounded_blue').attr('src', 'http://localhost/facebook/' +
+                    story.profile_picture + '');
+                $('.story_rounded_blue').attr('mol_story', story.user_id);
+        */
+
+    })
+}, 5000)
+
+
+/*
 var occurence = 0;
 setInterval(function() {
 
@@ -501,7 +522,7 @@ setInterval(function() {
         }
     })
 }, 15000)
-/*
+
 var kkk = 0;
 var resss = setInterval(function() {
     if (kkk == 105) {

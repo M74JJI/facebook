@@ -1011,10 +1011,18 @@ public function deleteToken($tusing){
 
 }
 public function getUserStories($userid){
-    $statement=$this->pdo->prepare("SELECT * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user WHERE story_user=:userid");
+    $statement=$this->pdo->prepare("SELECT * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user WHERE story_user=:userid ORDER BY createdAt");
     $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
     $statement->execute();
     return $statement->fetchAll(PDO::FETCH_OBJ);
+ 
+
+}
+public function getUserStoriesTotal($userid){
+    $statement=$this->pdo->prepare("SELECT count(*) as total FROM stories WHERE story_user=:userid ORDER BY createdAt");
+    $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->fetch(PDO::FETCH_OBJ);
  
 
 }
@@ -1026,7 +1034,7 @@ public function getFollowingStories($userid,$mol_story){
     $statement->execute();
     $following= $statement->fetchAll(PDO::FETCH_OBJ);
     foreach ($following as $f){
-    if($this->checkIfStory($f->receiver)->total==0){
+    if($this->checkIfStoryByUser($f->receiver)->total==0){
      continue;           
     }else{
         $statement1=$this->pdo->prepare("SELECT  * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user  WHERE story_user=:userid1");
@@ -1068,6 +1076,13 @@ public function myStory($userid){
 }
 
 public function checkIfStory($userid){
+    $statement=$this->pdo->prepare("SELECT count(*) as total FROM stories WHERE story_id=:userid");
+    $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
+    $statement->execute();
+   return $statement->fetch(PDO::FETCH_OBJ);
+}
+
+public function checkIfStoryByUser($userid){
     $statement=$this->pdo->prepare("SELECT count(*) as total FROM stories WHERE story_user=:userid");
     $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
     $statement->execute();
@@ -1096,6 +1111,12 @@ public function getStoryViewersInfosAndReacts($viewers){
         array_push($infos,$data);
     }
    return $infos;
+}
+public function getCurrentStory($story_id){
+        $statement=$this->pdo->prepare("SELECT * FROM stories LEFT JOIN profile ON profile.user_id=stories.story_user WHERE story_id=:story_id LIMIT 1");
+        $statement->bindValue(':story_id',$story_id,PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_OBJ);
 }
 
 
