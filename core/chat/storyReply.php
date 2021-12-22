@@ -91,6 +91,9 @@ if(isset($_POST['getNextStory'])){
     <div class="story_text_play"><?php echo $mainStory->story_text ?></div>
     <?php
                 }
+                if($mainStory->story_user ==$userid){
+
+               
                 ?>
     <div class="story_viewer_btn">
         <i class="up_s_view"></i>
@@ -99,23 +102,24 @@ if(isset($_POST['getNextStory'])){
                     
                     if($mainStory->viewers != ''){
                         $tmp=explode(',',$mainStory->viewers);
-                        array_pop($tmp);
-                        $viewers=$loadUser->getStoryViewersInfosAndReacts($tmp); 
+                     array_pop($tmp);
+                      $viewers=$loadUser->getStoryViewersInfosAndReacts($tmp); 
                     }
                     
                     ?>
             <?php if($mainStory->viewers == ''){
                         echo'No viewers';
-                        
+
                     }else if(count($tmp) ==1){
                         echo count($tmp).' viewer';
                     }else if(count($tmp) >1){
                         echo count($tmp).' viewers';
                     }
-                    ?>
+                     ?>
 
         </div>
     </div>
+
     <div class="viewers_infos_whity">
         <div class="close_story_viewers">
             <i class="close_story_viewers_icon"></i>
@@ -129,21 +133,41 @@ if(isset($_POST['getNextStory'])){
         </div>
         <div class="view_total_with_icon">
             <i class="view_icon_41545"></i>
-            <span>2 Viewers</span>
+            <span> <?php if($mainStory->viewers == ''){
+                        echo'No viewers';
+
+                    }else if(count($tmp) ==1){
+                        echo count($tmp).' viewer';
+                    }else if(count($tmp) >1){
+                        echo count($tmp).' viewers';
+                    }
+                     ?></span>
         </div>
         <ul class="list_infos_story_ul_infos">
+            <?php 
+                        if($viewers !=''){
+
+                            foreach($viewers as $viewer){
+                             
+
+                                ?>
             <li>
                 <div style="display: flex;align-items:center;gap:10px">
-                    <img class="img_preinf14" src="http://localhost/facebook/assets/images/stories/14.jpg" alt="">
+                    <img class="img_preinf14" src="<?php echo BASE_URL.$viewer->profile_picture ?>" alt="">
                     <div class="flex_col_preinf14">
-                        <span>Abdel Dalo</span>
-                        <span>Replied in mesenger</span>
+                        <span><?php echo $viewer->first_name.' '.$viewer->last_name ?></span>
+                        <!-- <span>Replied in mesenger</span> -->
                     </div>
                 </div>
                 <div></div>
             </li>
+            <?php
+                        }
+                    }
+                        ?>
         </ul>
     </div>
+    <?php  } ?>
 </div>
 <?php
    

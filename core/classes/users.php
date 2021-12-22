@@ -1122,7 +1122,7 @@ public function getStoryViewersInfosAndReacts($viewers){
         $statement=$this->pdo->prepare("SELECT * FROM profile WHERE user_id=:viewer");
         $statement->bindValue(':viewer',$viewer,PDO::PARAM_INT);
         $statement->execute();
-        $data =$statement->fetchAll(PDO::FETCH_OBJ);
+        $data =$statement->fetch(PDO::FETCH_OBJ);
         array_push($infos,$data);
     }
    return $infos;

@@ -15,7 +15,7 @@ if(login::isLoggedIn()){
    $myStory= $loadUser->myStory($userid);
    $mainStory;
    $stories= $loadUser->getAllStoriesRanked($userid);
-   $followingStories= $loadUser->getAllFollowingStories($userid);
+ /*  $followingStories= $loadUser->getAllFollowingStories($userid);*/
     foreach($stories as $story){
         if($story->story_id == $story_id){
           $mainStory= $story;
@@ -24,6 +24,7 @@ if(login::isLoggedIn()){
 }else{
     header('Location:login.php');
 }
+
 /*
 if(!empty($_GET["uuid"])){
         $story_id=$_GET["uuid"];
@@ -41,6 +42,7 @@ if(!empty($_GET["uuid"])){
 $followingStories= $loadUser->getFollowingStories($userid,$mainStory->user_id);
 */
 $total= count($loadUser->getUserStories($mainStory->story_user));
+$max= count($stories);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -107,6 +109,9 @@ $total= count($loadUser->getUserStories($mainStory->story_user));
                 <div class="story_text_play"><?php echo $mainStory->story_text ?></div>
                 <?php
                 }
+                if($mainStory->story_user ==$userid){
+
+               
                 ?>
                 <div class="story_viewer_btn">
                     <i class="up_s_view"></i>
@@ -132,6 +137,7 @@ $total= count($loadUser->getUserStories($mainStory->story_user));
 
                     </div>
                 </div>
+
                 <div class="viewers_infos_whity">
                     <div class="close_story_viewers">
                         <i class="close_story_viewers_icon"></i>
@@ -146,22 +152,41 @@ $total= count($loadUser->getUserStories($mainStory->story_user));
                     </div>
                     <div class="view_total_with_icon">
                         <i class="view_icon_41545"></i>
-                        <span>2 Viewers</span>
+                        <span> <?php if($mainStory->viewers == ''){
+                        echo'No viewers';
+
+                    }else if(count($tmp) ==1){
+                        echo count($tmp).' viewer';
+                    }else if(count($tmp) >1){
+                        echo count($tmp).' viewers';
+                    }
+                     ?></span>
                     </div>
                     <ul class="list_infos_story_ul_infos">
+                        <?php 
+                        if($viewers !=''){
+
+                            foreach($viewers as $viewer){
+                             
+
+                                ?>
                         <li>
                             <div style="display: flex;align-items:center;gap:10px">
-                                <img class="img_preinf14" src="http://localhost/facebook/assets/images/stories/14.jpg"
-                                    alt="">
+                                <img class="img_preinf14" src="<?php echo BASE_URL.$viewer->profile_picture ?>" alt="">
                                 <div class="flex_col_preinf14">
-                                    <span>Abdel Dalo</span>
-                                    <span>Replied in mesenger</span>
+                                    <span><?php echo $viewer->first_name.' '.$viewer->last_name ?></span>
+                                    <!-- <span>Replied in mesenger</span> -->
                                 </div>
                             </div>
                             <div></div>
                         </li>
+                        <?php
+                        }
+                    }
+                        ?>
                     </ul>
                 </div>
+                <?php  } ?>
             </div>
         </div>
         <?php
@@ -200,12 +225,13 @@ $total= count($loadUser->getUserStories($mainStory->story_user));
         </div>
         <div class="right_stories">
             <?php 
-        foreach ($followingStories as $i=> $story){
-            if($story->order > $mainStory->order && $story->story_user != $mainStory->story_user ){
+        foreach ($stories as $i=> $story){
+            if($story->order > $mainStory->order && $story->story_user != $mainStory->story_user && $story->story_user != $stories[$i+1]->story_user){
                 ?>
             <a class="full_height" data-mol_story="<?php echo $story->first_name.' '.$story->last_name ?>"
-                data-count="<?php echo $count ?>" data-uuid="<?php echo $story->user_id ?>"
-                data-id="<?php echo $story->story_id ?>">
+                data-count="<?php echo count($loadUser->getUserStories($story->story_user)) ?>"
+                data-uuid="<?php echo $story->user_id ?>" data-id="<?php echo $story->story_id ?>"
+                data-order="<?php echo $story->order ?>">
                 <div class="right_story_card">
                     <?php
                           if($story->story_bg !=''){
@@ -230,12 +256,13 @@ $total= count($loadUser->getUserStories($mainStory->story_user));
             }
             
         }
-        foreach ($followingStories as $i=> $story){
-            if($story->order < $mainStory->order && $story->story_user != $mainStory->story_user ){
+        foreach ($stories as $i=> $story){
+            if($story->order < $mainStory->order && $story->story_user != $mainStory->story_user  && $story->story_user != $stories[$i+1]->story_user){
                 ?>
             <a class="full_height" data-mol_story="<?php echo $story->first_name.' '.$story->last_name ?>"
-                data-count="<?php echo $count ?>" data-uuid="<?php echo $story->user_id ?>"
-                data-id="<?php echo $story->story_id ?>">
+                data-count="<?php echo count($loadUser->getUserStories($story->story_user)) ?>"
+                data-uuid="<?php echo $story->user_id ?>" data-id="<?php echo $story->story_id ?>"
+                data-order="<?php echo $story->order ?>">
                 <div class="right_story_card">
                     <?php
                           if($story->story_bg !=''){
@@ -282,6 +309,7 @@ $(document).on('click', '.full_height', function() {
 
     //----view story-->
     var story_id = $(this).data('id');
+
     var user = "<?php echo $userid ?>";
     var viewer = '' + user + ',';
     $.post('http://localhost/facebook/core/chat/storyReply.php', {
@@ -314,6 +342,7 @@ $(document).on('click', '.full_height', function() {
     var mol_story = $(this).data('mol_story');
     var uuid = $(this).data('uuid');
     var story_id = $(this).data('id');
+    var order = $(this).data('order');
     var s_b = 450 / count;
     $('.story_bar_container').html('');
     $('.story_bar_container').css('grid-template-columns', 'repeat(' + count + ',1fr)');
@@ -324,6 +353,7 @@ $(document).on('click', '.full_height', function() {
     //---7tha lwst--->
     $('.story_player').find('.story_bg_img').attr('src', story_bg);
     $('.story_player').attr('data-mol_story', mol_story);
+    $('.story_player').attr('data-order', order);
     $('.story_player').attr('data-uuid', uuid);
     $('.story_player').attr('data-id', story_id);
     $('.story_player').find('.story_text_play').html(story_text);
@@ -465,6 +495,28 @@ $(document).on('click', '.go_right_wrap', function() {
     })
 
 })
+/*
+setInterval(function() {
+    var orderr = $('.story_player').data('order');
+    var total = $('.story_player').data('total');
+    var max = "<?php echo $max ?>";
+    console.log(max)
+    console.log(orderr)
+
+
+
+    $.post('http://localhost/facebook/core/chat/storyReply.php', {
+        getNextStory: "<?php echo $userid ?>",
+        order: orderr,
+    }, function(data) {
+        $('.da3wa_lah').html(data);
+
+
+
+    })
+
+}, 5000)
+*/
 </script>
 
 </html>
