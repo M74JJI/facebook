@@ -15,6 +15,7 @@ if(login::isLoggedIn()){
    $myStory= $loadUser->myStory($userid);
    $mainStory;
    $stories= $loadUser->getAllStoriesRanked($userid);
+   $followingStories= $loadUser->getAllFollowingStories($userid);
     foreach($stories as $story){
         if($story->story_id == $story_id){
           $mainStory= $story;
@@ -199,8 +200,8 @@ $total= count($loadUser->getUserStories($mainStory->story_user));
         </div>
         <div class="right_stories">
             <?php 
-        foreach ($stories as $i=> $story){
-            if($story->order > $mainStory->order && $story->story_user != $mainStory->story_user && $story->story_user != $userid){
+        foreach ($followingStories as $i=> $story){
+            if($story->order > $mainStory->order && $story->story_user != $mainStory->story_user ){
                 ?>
             <a class="full_height" data-mol_story="<?php echo $story->first_name.' '.$story->last_name ?>"
                 data-count="<?php echo $count ?>" data-uuid="<?php echo $story->user_id ?>"
@@ -229,8 +230,8 @@ $total= count($loadUser->getUserStories($mainStory->story_user));
             }
             
         }
-        foreach ($stories as $i=> $story){
-            if($story->order < $mainStory->order && $story->story_user != $mainStory->story_user && $story->story_user != $userid){
+        foreach ($followingStories as $i=> $story){
+            if($story->order < $mainStory->order && $story->story_user != $mainStory->story_user ){
                 ?>
             <a class="full_height" data-mol_story="<?php echo $story->first_name.' '.$story->last_name ?>"
                 data-count="<?php echo $count ?>" data-uuid="<?php echo $story->user_id ?>"
