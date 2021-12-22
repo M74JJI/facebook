@@ -758,6 +758,7 @@ foreach ($allusers as $last){
             </div>
 
         </div>
+
         <div style="position: relative">
             <a class="ri_scx" id="open_thatmenu"> <svg style="font-size: larger" viewBox="0 0 20 20" width="1em"
                     height="1em">
@@ -850,7 +851,7 @@ foreach ($allusers as $last){
                         <span>Off</span>
                         <input type="radio" name="dark" id="off_dark" checked>
                     </label>
-                    <label class="change_someshitos" for="on_dark">
+                    <label class="change_someshitos" id="dark_mode" for="on_dark">
                         <span>On</span>
                         <input type="radio" name="dark" id="on_dark">
                     </label>
@@ -997,8 +998,57 @@ foreach ($allusers as $last){
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.js"></script>
+<script defer type="module">
+var theme = localStorage.getItem('theme');
 
+function onHoverIn() {
+    $(this).css('background-color', '#3a3b3c');
+}
+
+function onHoverOut() {
+    $(this).css('background-color', '#242526');
+}
+
+function onHoverIn1() {
+    $(this).css('background-color', '#474849');
+}
+
+function onHoverOut1() {
+    $(this).css('background-color', '#3a3b3c');
+}
+if (theme == 'dark') {
+    $('body').css('background-color', '#242526');
+    $('header').css('background-color', '#242526');
+    $('.ri_scx svg').css('fill', '#fff');
+    $('.a_middle svg').css('fill', '#b0b3b8');
+    $('.search,.search1,.find_friends_btn,.ri_scx ').css('background-color', '#3a3b3c');
+    $('.search,.search1,.find_friends_btn,.ri_scx,.pic_img_prf').css('color', '#fff');
+    $('.search_results').css('background-color', '#242526');
+    $('.search_results').css('color', '#fff');
+    $('.search_results svg').css('fill', '#6e7073');
+    $('.search_results span').css('color', '#fff');
+    $('.search input').css('color', '#fff');
+    $('.history_item').hover(onHoverIn, onHoverOut);
+    $('.pic_img_prf,.a_middle').hover(onHoverIn, onHoverOut);
+    $('.ri_scx').hover(onHoverIn1, onHoverOut1);
+    $('.find_friends_btn').hover(onHoverIn1, onHoverOut1);
+    $('.search_icon1').css('color', '#b0b3b8');
+    $('.all_menu').css('background-color', '#323436');
+    $('.all_menu').css('color', '#e4e6eb');
+    $('.all_left,.all_right,.messages_popup').css('background-color', '#242526');
+}
+</script>
 <script>
+var theme = localStorage.getItem('theme');
+$(document).on('click', '#dark_mode', function() {
+    localStorage.setItem('theme', 'dark');
+
+})
+$(document).on('click', '#light_mode', function() {
+    theme = null;
+
+})
+
 var sound = new Howl({
     src: ['call_ringtone.mp3'],
     loop: true,
@@ -2462,14 +2512,14 @@ $(document).on('click', '.popup_chat_area', function() {
 
 
     $(document).mouseup(function(e) {
-        if (!$(e.target).closest('.notifications, #open_notif').length) {
+        if (!$(e.target).closest('.notifications, #open_notif').length && theme != 'dark') {
             $(".notifications").hide();
             $('#open_notif').css('background', '#e4e6eb')
             $('#open_notif').find('svg').css('fill', '#000')
         }
     })
 $(document).mouseup(function(e) {
-    if (!$(e.target).closest('.messages_popup, #open_messages').length) {
+    if (!$(e.target).closest('.messages_popup, #open_messages').length && theme != 'dark') {
         $(".messages_popup").hide();
         $('#open_messages').css('background', '#e4e6eb')
         $('#open_messages').find('.svgmsg').css('fill', '#000')
@@ -2477,7 +2527,7 @@ $(document).mouseup(function(e) {
 })
 
 $(document).mouseup(function(e) {
-    if (!$(e.target).closest('.all_menu, #open_all').length) {
+    if (!$(e.target).closest('.all_menu, #open_all').length && theme != 'dark') {
         $(".all_menu").hide();
         $('#open_all').css('background', '#e4e6eb')
         $('#open_all').find('svg').css('fill', '#000')
