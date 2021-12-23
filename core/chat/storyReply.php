@@ -54,18 +54,30 @@ if(isset($_POST['autoPlay'])){
     $story_user = $_POST['story_user'];
     $story_id = $_POST['story_id'];
     $stories= $loadUser->getAllStoriesRanked($user_id);
-    var_dump($stories);  
+  
 }
 if(isset($_POST['getNextStory'])){
     $user_id = $_POST['getNextStory'];
     $order = $_POST['order'];
+    $next_right = $_POST['next_right'];
+    $next;
     $stories= $loadUser->getAllStoriesRanked($user_id);
+
+    if($stories[$order]->story_user != $stories[$order+1]->story_user){
+        $next=true;
+    }
+
     if($order==count($stories)-1){
         $mainStory=$stories[0];
         $total=count($loadUser->getUserStories($mainStory->user_id));
     }else{
-        $mainStory=$stories[$order+1];
+        if($next == true){
+        $mainStory=$stories[$next_right];
         $total=count($loadUser->getUserStories($mainStory->user_id));
+        }else{
+            $mainStory=$stories[$order+1];
+            $total=count($loadUser->getUserStories($mainStory->user_id));
+        }
     }
 
         ?>
@@ -172,4 +184,12 @@ if(isset($_POST['getNextStory'])){
 <?php
    
 
+}
+if(isset($_POST['checkIfNextHasSameUser'])){
+    $user_id = $_POST['checkIfNextHasSameUser'];
+    $order = $_POST['order'];
+    $stories= $loadUser->getAllStoriesRanked($user_id);
+    if($stories[$order]->story_user != $stories[$order+1]->story_user){
+        echo 'false';
+    }
 }

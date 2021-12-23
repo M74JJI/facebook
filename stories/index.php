@@ -484,42 +484,58 @@ $(document).ready(function() {
 
 $(document).on('click', '.go_right_wrap', function() {
     var orderr = $('.story_player').data('order');
-    var total = $('.story_player').data('total');
-
-
+    var total = $('.right_stories *');
+    var next_right = $('.right_stories').children(':first').data('order');
     $.post('http://localhost/facebook/core/chat/storyReply.php', {
-        getNextStory: "<?php echo $userid ?>",
+        checkIfNextHasSameUser: "<?php echo $userid ?>",
         order: orderr,
     }, function(data) {
-        $('.da3wa_lah').html(data);
+        console.log(data)
+        if (data == 'false') {
+            $('.right_stories').children(':first').remove();
+        } else {
 
-
-
+        }
     })
+
+
+    if (total.length == 0) {
+        $('.go_right_wrap').hide();
+
+    } else {
+        $.post('http://localhost/facebook/core/chat/storyReply.php', {
+            getNextStory: "<?php echo $userid ?>",
+            order: orderr,
+            next_right: next_right,
+        }, function(data) {
+            $('.da3wa_lah').html(data);
+        })
+    }
 
 })
-/*
+
 setInterval(function() {
     var orderr = $('.story_player').data('order');
-    var total = $('.story_player').data('total');
-    var max = "<?php echo $max ?>";
-    console.log(max)
-    console.log(orderr)
+    var total = $('.right_stories *');
+    var next_right = $('.right_stories').children(':first').data('order');
+
+    $('.right_stories').children(':first').remove();
+
+    if (total.length == 0) {
+        $('.go_right_wrap').hide();
+
+    } else {
+        $.post('http://localhost/facebook/core/chat/storyReply.php', {
+            getNextStory: "<?php echo $userid ?>",
+            order: orderr,
+            next_right: next_right,
+        }, function(data) {
+            $('.da3wa_lah').html(data);
+        })
+    }
 
 
-
-    $.post('http://localhost/facebook/core/chat/storyReply.php', {
-        getNextStory: "<?php echo $userid ?>",
-        order: orderr,
-    }, function(data) {
-        $('.da3wa_lah').html(data);
-
-
-
-    })
-
-}, 5000)
-*/
+}, 10000000)
 </script>
 
 </html>
