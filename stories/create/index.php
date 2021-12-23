@@ -134,6 +134,33 @@ if(login::isLoggedIn()){
                     <button class="discard_story">Discard</button>
                     <button class="share_story_text">Share to Story</button>
                 </div>
+
+            </div>
+            <div class="story_options_img">
+                <button>Add music</button>
+                <audio class="player"
+                    src="http://localhost/facebook/assets/songs/Biggie Smalls - You're Nobody (Til Somebody Kills You).mp3"
+                    controls></audio>
+
+                <div class="music_menu">
+                    <div class="search_in_music">
+                        <input type="text" placeholder="Search music or artists">
+                    </div>
+                    <div class="songs_list">
+                        <div class="song_item">
+                            <img src="http://localhost/facebook/assets/images/songs_images/You're Nobody (Til Somebody Kills You).jpg"
+                                alt="">
+                            <div class="music_col">
+                                <span>You're Nobody (Til Somebody Kills You)</span>
+                                <span>Biggie Smalls</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="submit_story_menu">
+                    <button class="discard_story">Discard</button>
+                    <button class="share_story_img">Share to Story</button>
+                </div>
             </div>
         </div>
         <div class="create_stories_right">
@@ -161,15 +188,55 @@ if(login::isLoggedIn()){
                 </div>
             </div>
         </div>
+
         <div class="create_stories_right2">
             <input type="file" style="display: none" id="story_img">
             <div class="story_preview_editor">
                 <span>Preview</span>
                 <div class="bg_black_rad">
                     <div class="story_img_preview">
+                        <div class="lyrics" style="display: none">
+                            7 | Yeah though I walk through the valley of the shadow of death
+                            11 | I will fear no evil
+                            13 | for you are with me
+                            15 | Your rod and your staff, they comfort me
+                            18 | You prepare a table for me, in the presence of my enemies
+                            22 | You anoint my head with oil, my cup overflows
+                            26 | Surely goodness and love will follow me all the days of my life
+                            31 | And I will dwell in the house of the Lord forever
+                            33.6 | Niggas in my faction don't like askin' questions
+                            37.5 | Strictly gun-testin', coke-measurin'
+                            40 | Givin' pleasure in the Benz-ito
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <script>
+            const player = document.querySelector('.player')
+            const lyrics = document.querySelector('.lyrics')
+            const lines = lyrics.textContent.trim().split('\n')
+
+            lyrics.removeAttribute('style')
+            lyrics.innerText = ''
+
+            let syncData = []
+
+            lines.map((line, index) => {
+                const [time, text] = line.trim().split('|')
+                syncData.push({
+                    'start': time.trim(),
+                    'text': text.trim()
+                })
+            })
+
+            player.addEventListener('timeupdate', () => {
+                syncData.forEach((item) => {
+
+                    if (player.currentTime >= item.start) lyrics.innerText = item.text
+                })
+            })
+            </script>
         </div>
     </div>
     <script src="../../assets/js/jquery.js"></script>
@@ -211,8 +278,29 @@ if(login::isLoggedIn()){
             $('.story_img_preview').fillColor();
         }
         $('.create_stories_right').hide()
-
+        $('.story_options_img').show()
         $('.create_stories_right2').css('display', 'flex');
+    })
+    $(document).on('click', '.share_story_img', function() {
+        var image = img;
+        var formData = new FormData();
+        formData.append('file', image)
+
+        $.ajax({
+            url: 'http://localhost/facebook/core/ajax/storyImage.php',
+            cache: false,
+            method: "post",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                console.log(data);
+                /*
+                window.location.href = 'http://localhost/facebook/';
+                */
+            }
+
+        })
     })
     $(document).on('keyup', '#story_text', () => {
         var text = $('#story_text').val();
