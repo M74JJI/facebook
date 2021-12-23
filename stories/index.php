@@ -485,16 +485,47 @@ $(document).ready(function() {
 $(document).on('click', '.go_right_wrap', function() {
     var orderr = $('.story_player').data('order');
     var totall = $('.story_player').data('total');
-    if (orderr == totall - 1) {
-        orderr = 0;
-    }
+
     var total = $('.right_stories *');
     var next_right = $('.right_stories').children(':first').data('order');
     $.post('http://localhost/facebook/core/chat/storyReply.php', {
         checkIfNextHasSameUser: "<?php echo $userid ?>",
         order: orderr,
     }, function(data) {
-        console.log(data)
+        if (data == 'false') {
+            $('.right_stories').children(':first').remove();
+        }
+    })
+
+
+    if (total.length == 0) {
+
+
+    } else {
+        $.post('http://localhost/facebook/core/chat/storyReply.php', {
+            getNextStory: "<?php echo $userid ?>",
+            order: orderr,
+            next_right: next_right,
+        }, function(data) {
+
+            console.log(data)
+
+            $('.da3wa_lah').html(data);
+        })
+    }
+
+})
+
+setInterval(function() {
+    var orderr = $('.story_player').data('order');
+
+
+    var total = $('.right_stories *');
+    var next_right = $('.right_stories').children(':first').data('order');
+    $.post('http://localhost/facebook/core/chat/storyReply.php', {
+        checkIfNextHasSameUser: "<?php echo $userid ?>",
+        order: orderr,
+    }, function(data) {
         if (data == 'false') {
             $('.right_stories').children(':first').remove();
         }
@@ -511,34 +542,13 @@ $(document).on('click', '.go_right_wrap', function() {
             order: orderr,
             next_right: next_right,
         }, function(data) {
-            $('.da3wa_lah').html(data);
-        })
-    }
-
-})
-
-setInterval(function() {
-    var orderr = $('.story_player').data('order');
-    var total = $('.right_stories *');
-    var next_right = $('.right_stories').children(':first').data('order');
-
-    $('.right_stories').children(':first').remove();
-
-    if (total.length == 0) {
-
-
-    } else {
-        $.post('http://localhost/facebook/core/chat/storyReply.php', {
-            getNextStory: "<?php echo $userid ?>",
-            order: orderr,
-            next_right: next_right,
-        }, function(data) {
+            console.log(data)
             $('.da3wa_lah').html(data);
         })
     }
 
 
-}, 10000000)
+}, 222000)
 $(document).on('keyup', '.go_right_wrap', function() {
     var total = $('.right_stories *');
     if (total.length == 5) {
