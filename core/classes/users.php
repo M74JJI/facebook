@@ -1164,12 +1164,14 @@ public function getAllStoriesRanked($userid){
                 if($i==0){
                     $myStories[0]->main='yes';
                     $myStories[0]->order=$occ;
+                    $myStories[0]->count=$i+1;
                     $occ++;
                     array_push($stories,$myStories[0]);
                 }else{
-
+                    
                     $myStories[$i]->order=$occ;
                     $myStories[$i]->main='no';
+                    $myStories[$i]->count=$i+1;
                     $occ++;
                     array_push($stories,$myStories[$i]);
                 }
@@ -1189,12 +1191,14 @@ public function getAllStoriesRanked($userid){
                     if($i==0){
                         $data[0]->main='yes';
                         $data[0]->order=$occ;
+                        $data[$i]->count=$i+1;
                         $occ++;
                         array_push($stories,$data[0]);
                     }else{
 
                         $data[$i]->order=$occ;
                         $data[$i]->main='no';
+                        $data[$i]->count=$i+1;
                         $occ++;
                         array_push($stories,$data[$i]);
                     }

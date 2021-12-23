@@ -90,12 +90,14 @@ $max= count($stories);
             <div class="story_player" data-order="<?php echo $mainStory->order ?>"
                 data-total="<?php echo count($stories) ?>"
                 data-mol_story="<?php echo $mainStory->first_name.' '.$mainStory->last_name ?>"
-                data-id="<?php echo $mainStory->story_id ?>" data-uuid="<?php echo $mainStory->user_id ?>">
+                data-count="<?php echo$mainStory->count ?>" data-id="<?php echo $mainStory->story_id ?>"
+                data-uuid="<?php echo $mainStory->user_id ?>">
                 <div class="story_bar_container" style="grid-template-columns: repeat(<?php echo $total  ?>,1fr);">
                     <?php
                for($i=0;$i<$total;$i++){
                    ?>
-                    <div class="story_bar" style="width:<?php echo 450/$total.'px' ?>" data-occ="<?php echo $i ?>">
+                    <div class="story_bar" style="width:<?php echo 450/$total.'px' ?>">
+                        <div class="bar_progress" data-occ="<?php echo $i ?>"></div>
                     </div>
                     <?php
                }
@@ -231,9 +233,8 @@ $max= count($stories);
             if($story->order < $mainStory->order && $story->story_user != $mainStory->story_user && $story->story_user != $userid&& $story->main=='yes'){
                 ?>
             <a class="full_height" data-mol_story="<?php echo $story->first_name.' '.$story->last_name ?>"
-                data-count="<?php echo count($loadUser->getUserStories($story->story_user)) ?>"
-                data-uuid="<?php echo $story->user_id ?>" data-id="<?php echo $story->story_id ?>"
-                data-order="<?php echo $story->order ?>">
+                data-count="<?php echo $mainStory->count ?>" data-uuid="<?php echo $story->user_id ?>"
+                data-id="<?php echo $story->story_id ?>" data-order="<?php echo $story->order ?>">
                 <div class="right_story_card">
                     <?php
                           if($story->story_bg !=''){
@@ -263,9 +264,8 @@ $max= count($stories);
             if($story->order > $mainStory->order && $story->story_user != $mainStory->story_user && $story->story_user != $userid && $story->main=='yes'){
                 ?>
             <a class="full_height" data-mol_story="<?php echo $story->first_name.' '.$story->last_name ?>"
-                data-count="<?php echo count($loadUser->getUserStories($story->story_user)) ?>"
-                data-uuid="<?php echo $story->user_id ?>" data-id="<?php echo $story->story_id ?>"
-                data-order="<?php echo $story->order ?>">
+                data-count="<?php echo $mainStory->count ?>" data-uuid="<?php echo $story->user_id ?>"
+                data-id="<?php echo $story->story_id ?>" data-order="<?php echo $story->order ?>">
                 <div class="right_story_card">
                     <?php
                           if($story->story_bg !=''){
@@ -309,7 +309,7 @@ $(document).ready(function() {
 })
 
 $(document).on('click', '.full_height', function() {
-
+    percentage = 0;
     //----view story-->
     var story_id = $(this).data('id');
 
@@ -324,7 +324,6 @@ $(document).on('click', '.full_height', function() {
     //----view story-->
     var k = $(this).data('order');
     $('.story_player').attr('added', k);
-
     //lkhdma dyal lwst
     var wst_bg = $('.story_player').find('.story_bg_img').attr('src');
     var wst_text = $('.story_player').find('.story_text_play').text();
@@ -350,7 +349,8 @@ $(document).on('click', '.full_height', function() {
     $('.story_bar_container').html('');
     $('.story_bar_container').css('grid-template-columns', 'repeat(' + count + ',1fr)');
     for (let i = 0; i < count; i++) {
-        $('.story_bar_container').append('<div class="story_bar" data-occ=' + i + '></div>');
+        $('.story_bar_container').append('<div class="story_bar" data-occ=' + i +
+            '><div class="bar_progress" data-occ="' + i + '"></div></div>');
     }
     $('.story_bar').css('width', '' + s_b + '');
     //---7tha lwst--->
@@ -358,6 +358,7 @@ $(document).on('click', '.full_height', function() {
     $('.story_player').attr('data-mol_story', mol_story);
     $('.story_player').attr('data-order', order);
     $('.story_player').attr('data-uuid', uuid);
+    $('.story_player').attr('data-count', count);
     $('.story_player').attr('data-id', story_id);
     $('.story_player').find('.story_text_play').html(story_text);
     $('.story_rounded_blue').attr('src', story_peak_img);
@@ -371,7 +372,8 @@ $(document).on('click', '.full_height', function() {
             var story_text = $('.full_height[data-order=' + i + ']').find('.start_typing_small').text();
             var story_peak_img = $('.full_height[data-order=' + i + ']').find('.story_peak_img').attr('src');
             $('.left_stories').prepend(
-                '<a class="full_height_left"> <div class="left_story_card"> <img src=' + story_bg +
+                '<a class="full_height_left" data-order="' + order +
+                '"> <div class="left_story_card"> <img src=' + story_bg +
                 ' class="right_story_card_img"><div class="start_typing_small">' + story_text +
                 '</div> <img src=' + story_peak_img +
                 ' alt="" class="story_peak_img"> </div></a>'
@@ -401,9 +403,8 @@ $(document).on('click', '.full_height_left', function() {
     var story_img = $(this).find('.right_story_card_img_img').attr('src');
     var story_text = $(this).find('.start_typing_small').text();
     var mol_story = $(this).data('molstory');
-    var count = $(this).data('count');
+    var order = $(this).data('order');
     var story_profile_pic = $(this).find('.story_peak_img').attr('src');
-
     //-----------------//
 
     if (story_bg != '') {
@@ -483,6 +484,9 @@ $(document).ready(function() {
 //---->view story---->
 
 $(document).on('click', '.go_right_wrap', function() {
+    clearInterval(tim);
+    percentage = 0;
+
     var orderr = $('.story_player').data('order');
     var totall = $('.story_player').data('total');
 
@@ -512,11 +516,11 @@ $(document).on('click', '.go_right_wrap', function() {
     }
 
 })
-
-setInterval(function() {
+var timer = 15000;
+tim = setInterval(function() {
+    percentage = 0;
     var orderr = $('.story_player').data('order');
     var totall = $('.story_player').data('total');
-
     var total = $('.right_stories *');
     var next_right = $('.right_stories').children(':first').data('order');
     $.post('http://localhost/facebook/core/chat/storyReply.php', {
@@ -527,12 +531,7 @@ setInterval(function() {
             $('.right_stories').children(':first').remove();
         }
     })
-
-
-    if (total.length == 0) {
-
-
-    } else {
+    if (total.length == 0) {} else {
         $.post('http://localhost/facebook/core/chat/storyReply.php', {
             getNextStory: "<?php echo $userid ?>",
             order: orderr,
@@ -542,13 +541,23 @@ setInterval(function() {
         })
     }
 
-}, 3000)
+}, timer)
 $(document).on('keyup', '.go_right_wrap', function() {
     var total = $('.right_stories *');
     if (total.length == 5) {
         $('.go_right_wrap').hide();
     }
 })
+var countd = 750;
+var percentage = 5;
+bar = setInterval(function() {
+    if (percentage == 100) {
+        percentage = 0;
+    }
+    var count = $('.story_player').data('count') - 1;
+    $('.bar_progress[data-occ=' + count + ']').css('width', '' + percentage + '%');
+    percentage += 5;
+}, countd)
 </script>
 
 </html>

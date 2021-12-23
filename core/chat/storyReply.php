@@ -86,12 +86,14 @@ if(isset($_POST['getNextStory'])){
         ?>
 <div class="story_player" data-order="<?php echo $mainStory->order ?>" data-total="<?php echo count($stories) ?>"
     data-mol_story="<?php echo $mainStory->first_name.' '.$mainStory->last_name ?>"
-    data-id="<?php echo $mainStory->story_id ?>" data-uuid="<?php echo $mainStory->user_id ?>">
+    data-count="<?php echo $mainStory->count ?>" data-id="<?php echo $mainStory->story_id ?>"
+    data-uuid="<?php echo $mainStory->user_id ?>">
     <div class="story_bar_container" style="grid-template-columns: repeat(<?php echo $total  ?>,1fr);">
         <?php
                for($i=0;$i<$total;$i++){
                    ?>
-        <div class="story_bar" style="width:<?php echo 450/$total.'px' ?>" data-occ="<?php echo $i ?>">
+        <div class="story_bar" style="width:<?php echo 450/$total.'px' ?>">
+            <div class="bar_progress" data-occ="<?php echo $i ?>"></div>
         </div>
         <?php
                }
