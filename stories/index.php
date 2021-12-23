@@ -228,7 +228,7 @@ $max= count($stories);
             <?php 
        
         foreach ($stories as $i=> $story){
-            if($story->order < $mainStory->order && $story->story_user != $mainStory->story_user  && $story->main=='yes'){
+            if($story->order < $mainStory->order && $story->story_user != $mainStory->story_user && $story->story_user != $userid&& $story->main=='yes'){
                 ?>
             <a class="full_height" data-mol_story="<?php echo $story->first_name.' '.$story->last_name ?>"
                 data-count="<?php echo count($loadUser->getUserStories($story->story_user)) ?>"
@@ -260,7 +260,7 @@ $max= count($stories);
         }
         foreach ($stories as $i=> $story){
             
-            if($story->order > $mainStory->order && $story->story_user != $mainStory->story_user && $story->main=='yes'){
+            if($story->order > $mainStory->order && $story->story_user != $mainStory->story_user && $story->story_user != $userid && $story->main=='yes'){
                 ?>
             <a class="full_height" data-mol_story="<?php echo $story->first_name.' '.$story->last_name ?>"
                 data-count="<?php echo count($loadUser->getUserStories($story->story_user)) ?>"
@@ -484,6 +484,10 @@ $(document).ready(function() {
 
 $(document).on('click', '.go_right_wrap', function() {
     var orderr = $('.story_player').data('order');
+    var totall = $('.story_player').data('total');
+    if (orderr == totall - 1) {
+        orderr = 0;
+    }
     var total = $('.right_stories *');
     var next_right = $('.right_stories').children(':first').data('order');
     $.post('http://localhost/facebook/core/chat/storyReply.php', {
@@ -501,9 +505,7 @@ $(document).on('click', '.go_right_wrap', function() {
 
 
     } else {
-        if (total.length == 5) {
-            $('.go_right_wrap').hide();
-        }
+
         $.post('http://localhost/facebook/core/chat/storyReply.php', {
             getNextStory: "<?php echo $userid ?>",
             order: orderr,
@@ -523,7 +525,7 @@ setInterval(function() {
     $('.right_stories').children(':first').remove();
 
     if (total.length == 0) {
-        $('.go_right_wrap').hide();
+
 
     } else {
         $.post('http://localhost/facebook/core/chat/storyReply.php', {
@@ -537,6 +539,12 @@ setInterval(function() {
 
 
 }, 10000000)
+$(document).on('keyup', '.go_right_wrap', function() {
+    var total = $('.right_stories *');
+    if (total.length == 5) {
+        $('.go_right_wrap').hide();
+    }
+})
 </script>
 
 </html>

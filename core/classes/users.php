@@ -1154,19 +1154,28 @@ public function getAllStoriesRanked($userid){
         $statement->bindValue(':userid',$userid,PDO::PARAM_INT);
         $statement->execute();
         $following = $statement->fetchAll(PDO::FETCH_OBJ);
-        /*
+        
         $statementme=$this->pdo->prepare("SELECT * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user WHERE story_user=:userid");
         $statementme->bindValue(':userid',$userid,PDO::PARAM_INT);
         $statementme->execute();
         $myStories=$statementme->fetchAll(PDO::FETCH_OBJ);
         if($myStories !=''){
-        for($i=0;$i<count($myStories);$i++){
-            $myStories[$i]->order=$occ;
-            $occ++;
-            array_push($stories,$myStories[$i]);
-        }    
+            for($i=0;$i<count($myStories);$i++){
+                if($i==0){
+                    $myStories[0]->main='yes';
+                    $myStories[0]->order=$occ;
+                    $occ++;
+                    array_push($stories,$myStories[0]);
+                }else{
+
+                    $myStories[$i]->order=$occ;
+                    $myStories[$i]->main='no';
+                    $occ++;
+                    array_push($stories,$myStories[$i]);
+                }
+            } 
         }
-        */
+        
       
         
         foreach($following as $f){
