@@ -246,6 +246,15 @@ body {
     gap: 15px;
     display: none;
 }
+.create_stories_right2 {
+    height: calc(100vh - 4rem);
+    background: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    display: none;
+}
 .story_preview_editor {
     width: 1000px;
     background: #fff;
@@ -751,4 +760,18 @@ body {
     border-radius: 5px;
     z-index: 2;
     width: 0px;
+}
+.story_img_preview {
+    width: 400px;
+    height: 97%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 10px;
+}
+.story_img_preview_img {
+    width: 400px;
+    height: 100%;
+    object-fit: contain;
 }

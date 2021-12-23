@@ -555,12 +555,23 @@ bar = setInterval(function() {
         percentage = 0;
     }
     var count = $('.story_player').data('count') - 1;
-    for (var i = 0; i < count; i++) {
-        $('.bar_progress[data-occ=' + i + ']').css('width', '100%');
-    }
+
     $('.bar_progress[data-occ=' + count + ']').css('width', '' + percentage + '%');
     percentage += 5;
 }, countd)
+setInterval(function() {
+    var total = $('.right_stories *');
+    if (total.length == 0) {
+        $('.go_right_wrap').hide();
+
+    } else {
+        var count = $('.story_player').data('count') - 1;
+        for (var i = 0; i < count; i++) {
+            $('.bar_progress[data-occ=' + i + ']').css('width', '100%');
+        }
+
+    }
+}, 100)
 </script>
 
 </html>

@@ -161,14 +161,24 @@ if(login::isLoggedIn()){
                 </div>
             </div>
         </div>
+        <div class="create_stories_right2">
+            <input type="file" style="display: none" id="story_img">
+            <div class="story_preview_editor">
+                <span>Preview</span>
+                <div class="bg_black_rad">
+                    <div class="story_img_preview">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="../../assets/js/jquery.js"></script>
+    <script src="../../assets/js/jquery.fillcolor.js"></script>
     <script>
     var bg = "../../assets/images/stories/1.jpg";
     $(document).on('click', '#show_more_bgs', () => {
         $('.stoy_bg_wrapper1').css('display', 'flex');
         $('.motala_k7al').css('transform', 'rotate(180deg)');
-
         $('.show_more_bgs').attr('id', 'show_less_bgs');
     })
     $(document).on('click', '#show_less_bgs', () => {
@@ -181,6 +191,28 @@ if(login::isLoggedIn()){
         $('.create_stories_right1').css('display', 'flex');
         $('.story_options').show()
 
+    })
+    $(document).on('click', '.story_img_create', function() {
+        $('#story_img').click();
+    })
+    var img;
+    $(document).on('change', '#story_img', function(e) {
+        img = e.target.files[0];
+        $(this).removeData();
+
+        var reader = new FileReader();
+        reader.readAsDataURL(img);
+
+        reader.onload = function(e) {
+            var name = document.getElementById("story_img").files[0].name;
+            var template = ' <img class="story_img_preview_img" id = "' + name +
+                '" src="' + e.target.result + '" / >';
+            $('.story_img_preview').append(template);
+            $('.story_img_preview').fillColor();
+        }
+        $('.create_stories_right').hide()
+
+        $('.create_stories_right2').css('display', 'flex');
     })
     $(document).on('keyup', '#story_text', () => {
         var text = $('#story_text').val();
