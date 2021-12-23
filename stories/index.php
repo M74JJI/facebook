@@ -493,16 +493,17 @@ $(document).on('click', '.go_right_wrap', function() {
         console.log(data)
         if (data == 'false') {
             $('.right_stories').children(':first').remove();
-        } else {
-
         }
     })
 
 
     if (total.length == 0) {
-        $('.go_right_wrap').hide();
+
 
     } else {
+        if (total.length == 5) {
+            $('.go_right_wrap').hide();
+        }
         $.post('http://localhost/facebook/core/chat/storyReply.php', {
             getNextStory: "<?php echo $userid ?>",
             order: orderr,

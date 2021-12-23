@@ -189,7 +189,11 @@ if(isset($_POST['checkIfNextHasSameUser'])){
     $user_id = $_POST['checkIfNextHasSameUser'];
     $order = $_POST['order'];
     $stories= $loadUser->getAllStoriesRanked($user_id);
-    if($stories[$order]->story_user != $stories[$order+1]->story_user){
+    if($order == count($stories)-1){
         echo 'false';
-    }
+
+    }else if( $stories[$order]->story_user != $stories[$order+1]->story_user){
+            echo 'false';
+        }
+    
 }
