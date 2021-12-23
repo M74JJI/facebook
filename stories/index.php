@@ -507,9 +507,6 @@ $(document).on('click', '.go_right_wrap', function() {
             order: orderr,
             next_right: next_right,
         }, function(data) {
-
-            console.log(data)
-
             $('.da3wa_lah').html(data);
         })
     }
@@ -518,7 +515,7 @@ $(document).on('click', '.go_right_wrap', function() {
 
 setInterval(function() {
     var orderr = $('.story_player').data('order');
-
+    var totall = $('.story_player').data('total');
 
     var total = $('.right_stories *');
     var next_right = $('.right_stories').children(':first').data('order');
@@ -536,19 +533,16 @@ setInterval(function() {
 
 
     } else {
-
         $.post('http://localhost/facebook/core/chat/storyReply.php', {
             getNextStory: "<?php echo $userid ?>",
             order: orderr,
             next_right: next_right,
         }, function(data) {
-            console.log(data)
             $('.da3wa_lah').html(data);
         })
     }
 
-
-}, 222000)
+}, 3000)
 $(document).on('keyup', '.go_right_wrap', function() {
     var total = $('.right_stories *');
     if (total.length == 5) {
