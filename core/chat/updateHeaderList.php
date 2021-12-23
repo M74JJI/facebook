@@ -27,8 +27,7 @@ foreach ($allusers as $last){
         <img src="<?php echo $infos->profile_picture ?>" alt="">
     </div>
     <div class="tx45">
-        <span
-            style="font-size:14px;font-weight:400;color:#000"><?php echo $infos->first_name.' '.$infos->last_name ?></span>
+        <span class="name_145454545"><?php echo $infos->first_name.' '.$infos->last_name ?></span>
         <span
             style="font-size:12px;color:#65676b;display:flex;align-items:center"><?php echo $loadUser->timeAgoAlt($last->messageAt) ?>
             <div style="color:#000;padding:2px;font-weight:600"> . </div><?php echo $last->message ?>

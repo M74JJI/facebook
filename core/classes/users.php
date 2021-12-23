@@ -1174,8 +1174,13 @@ public function getAllStoriesRanked($userid){
             $statement->bindValue(':mol_story',$f->receiver,PDO::PARAM_INT);
             $statement->execute();
             $data=$statement->fetchAll(PDO::FETCH_OBJ);
-            for($i=0;$i<count($data);$i++){
+            $data[0]->main='yes';
+            $data[0]->order=$occ;
+            $occ++;
+            array_push($stories,$data[0]);
+            for($i=1;$i<count($data);$i++){
                 $data[$i]->order=$occ;
+                $data[$i]->main='no';
                 $occ++;
                 array_push($stories,$data[$i]);
             }

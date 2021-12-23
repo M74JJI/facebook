@@ -25,6 +25,7 @@ if(login::isLoggedIn()){
     header('Location:login.php');
 }
 
+
 /*
 if(!empty($_GET["uuid"])){
         $story_id=$_GET["uuid"];
@@ -225,8 +226,9 @@ $max= count($stories);
         </div>
         <div class="right_stories">
             <?php 
+       
         foreach ($stories as $i=> $story){
-            if($story->order > $mainStory->order && $story->story_user != $mainStory->story_user && $story->story_user != $stories[$i+1]->story_user){
+            if($story->order < $mainStory->order && $story->story_user != $mainStory->story_user  && $story->main=='yes'){
                 ?>
             <a class="full_height" data-mol_story="<?php echo $story->first_name.' '.$story->last_name ?>"
                 data-count="<?php echo count($loadUser->getUserStories($story->story_user)) ?>"
@@ -257,7 +259,8 @@ $max= count($stories);
             
         }
         foreach ($stories as $i=> $story){
-            if($story->order < $mainStory->order && $story->story_user != $mainStory->story_user  && $story->story_user != $stories[$i+1]->story_user){
+            
+            if($story->order > $mainStory->order && $story->story_user != $mainStory->story_user && $story->main=='yes'){
                 ?>
             <a class="full_height" data-mol_story="<?php echo $story->first_name.' '.$story->last_name ?>"
                 data-count="<?php echo count($loadUser->getUserStories($story->story_user)) ?>"
@@ -319,7 +322,7 @@ $(document).on('click', '.full_height', function() {
 
     })
     //----view story-->
-    var k = $(this).data('s_id');
+    var k = $(this).data('order');
     $('.story_player').attr('added', k);
 
     //lkhdma dyal lwst
@@ -363,10 +366,10 @@ $(document).on('click', '.full_height', function() {
 
 
     for (let i = 0; i < k; i++) {
-        if ($('.full_height[data-s_id=' + i + ']').length > 0) {
-            var story_bg = $('.full_height[data-s_id=' + i + ']').find('.right_story_card_img').attr('src');
-            var story_text = $('.full_height[data-s_id=' + i + ']').find('.start_typing_small').text();
-            var story_peak_img = $('.full_height[data-s_id=' + i + ']').find('.story_peak_img').attr('src');
+        if ($('.full_height[data-order=' + i + ']').length > 0) {
+            var story_bg = $('.full_height[data-order=' + i + ']').find('.right_story_card_img').attr('src');
+            var story_text = $('.full_height[data-order=' + i + ']').find('.start_typing_small').text();
+            var story_peak_img = $('.full_height[data-order=' + i + ']').find('.story_peak_img').attr('src');
             $('.left_stories').prepend(
                 '<a class="full_height_left"> <div class="left_story_card"> <img src=' + story_bg +
                 ' class="right_story_card_img"><div class="start_typing_small">' + story_text +
@@ -380,7 +383,7 @@ $(document).on('click', '.full_height', function() {
     //lkhdma dyal limin
     for (let i = 0; i < k; i++) {
 
-        $('.full_height[data-s_id=' + i + ']').remove();
+        $('.full_height[data-order=' + i + ']').remove();
 
     }
     $(this).remove();

@@ -495,8 +495,7 @@ foreach ($allusers as $last){
                         <div class="tx45">
                             <span
                                 style="font-size:14px;font-weight:400;color:#000"><?php echo $infos->first_name.' '.$infos->last_name ?></span>
-                            <span
-                                style="font-size:12px;color:#65676b;display:flex;align-items:center"><?php echo $loadUser->timeAgoAlt($last->messageAt) ?>
+                            <span class="name_145454545"><?php echo $loadUser->timeAgoAlt($last->messageAt) ?>
                                 <div style="color:#000;padding:2px;font-weight:600"> . </div>
                                 <?php echo $last->message ?>
                             </span>
@@ -1018,6 +1017,7 @@ function onHoverOut1() {
 }
 if (theme == 'dark') {
     $('body').css('background-color', '#242526');
+    $('.facebook_left span').css('color', '#fff');
     $('header').css('background-color', '#242526');
     $('.ri_scx svg').css('fill', '#fff');
     $('.a_middle svg').css('fill', '#b0b3b8');
@@ -1035,6 +1035,7 @@ if (theme == 'dark') {
     $('.search_icon1').css('color', '#b0b3b8');
     $('.all_menu').css('background-color', '#323436');
     $('.all_menu').css('color', '#e4e6eb');
+    $('.name_145454545').css('color', '#fff');
     $('.all_left,.all_right,.messages_popup').css('background-color', '#242526');
 }
 </script>
