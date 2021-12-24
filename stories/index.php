@@ -24,7 +24,28 @@ if(login::isLoggedIn()){
 }else{
     header('Location:login.php');
 }
-
+$songs = array(
+    array(
+        'name' => 'Suicidal toughts',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/You're Nobody (Til Somebody Kills You).jpg",
+        'artist' => 'Biggie Smalls',
+        'src' => 'http://localhost/facebook/assets/songs/song1.mp3',
+        'lyrics' =>
+        "0 | When I die, fuck it, I wanna go to hell
+        2 | 'Cause I'm a piece of shit, it ain't hard to fuckin' tell
+      5.5 | It don't make sense, goin' to heaven with the goodie-goodies
+        8 | Dressed in white, I like black Timbs and black hoodies
+       11 | God'll prob'ly have me on some real strict shit
+        14 | No sleepin' all day, no gettin' my dick licked"
+    ),
+ 
+);
+$lyrics ="0 | When I die, fuck it, I wanna go to hell
+2 | 'Cause I'm a piece of shit, it ain't hard to fuckin' tell
+5.5 | It don't make sense, goin' to heaven with the goodie-goodies
+8 | Dressed in white, I like black Timbs and black hoodies
+11 | God'll prob'ly have me on some real strict shit
+14 | No sleepin' all day, no gettin' my dick licked";
 
 /*
 if(!empty($_GET["uuid"])){
@@ -57,7 +78,9 @@ $max= count($stories);
 </head>
 
 <body>
+
     <div class="watch_story">
+        <audio class="player" id="audio_player"></audio>
         <div class="left_stories" dir="RTL">
             <?php 
          if($myStory != [] && $mol_story !='' && $mol_story !=$userid){
@@ -69,13 +92,7 @@ $max= count($stories);
                         ?>
                     <img src="<?php echo 'http://localhost/facebook/'.$myStory[0]->story_bg ?>"
                         class="right_story_card_img">
-                    <?php
-                    }else if($myStory[0]->story_img !=''){
-                        ?>
-                    <img src="<?php echo 'http://localhost/facebook/'.$myStory[0]->story_img ?>"
-                        class="right_story_card_img">
-                    <?php
-                    }
+
                     ?>
                     <div class="start_typing_small"><?php echo $myStory[0]->story_text ?></div> <img src=<?php echo 'http://localhost/facebook/'.$myStory[0]->profile_picture
                      ?> alt="" class="story_peak_img">
@@ -88,7 +105,8 @@ $max= count($stories);
         </div>
         <div class="da3wa_lah">
             <div class="story_player" data-order="<?php echo $mainStory->order ?>"
-                data-total="<?php echo count($stories) ?>"
+                data-total="<?php echo count($stories) ?>" data-src="<?php echo $mainStory->song ?>"
+                data-lyrics="<?php echo $lyrics ?>"
                 data-mol_story="<?php echo $mainStory->first_name.' '.$mainStory->last_name ?>"
                 data-count="<?php echo$mainStory->count ?>" data-id="<?php echo $mainStory->story_id ?>"
                 data-uuid="<?php echo $mainStory->user_id ?>">
@@ -106,6 +124,9 @@ $max= count($stories);
                 <img src=" <?php echo 'http://localhost/facebook/'.$mainStory->profile_picture ?>" alt=""
                     class="story_rounded_blue">
                 <img class="story_bg_img" src="<?php echo 'http://localhost/facebook/'.$mainStory->story_bg ?>" alt="">
+                <div class="lyricso" style="display: none">
+
+                </div>
                 <?php
                 if($mainStory->story_text !=''){
                     ?>
@@ -296,6 +317,46 @@ $max= count($stories);
 </body>
 <script src="../assets/js/jquery.js"></script>
 <script>
+$(document).ready(function() {
+
+    $('.story_player').click()
+})
+$(document).on('click', '.story_player', function() {
+    var src = $(this).data('src');
+    var lyricss = $(this).data('lyrics');
+    $('.lyricso').html(lyricss);
+    console.log(lyricss)
+    $('.player').attr('src', src)
+    $('#audio_player')[0].play();
+    $('.lyrics').html(lyricss);
+    $('.player').show()
+
+    const player = document.querySelector('.player')
+    const lyrics = document.querySelector('.lyricso')
+    const lines = lyrics.textContent.trim().split('\n')
+
+    lyrics.removeAttribute('style')
+    lyrics.innerText = ''
+
+    let syncData = []
+
+    lines.map((line, index) => {
+        const [time, text] = line.trim().split('|')
+        syncData.push({
+            'start': time.trim(),
+            'text': text.trim()
+        })
+    })
+
+    player.addEventListener('timeupdate', () => {
+        syncData.forEach((item) => {
+
+            if (player.currentTime >= item.start) lyrics.innerText = item.text
+        })
+    })
+
+
+})
 var stories = [];
 
 $(document).ready(function() {
@@ -309,6 +370,7 @@ $(document).ready(function() {
 })
 
 $(document).on('click', '.full_height', function() {
+    $('#audio_player')[0].pause();
     percentage = 0;
     //----view story-->
     var story_id = $(this).data('id');
@@ -345,6 +407,7 @@ $(document).on('click', '.full_height', function() {
     var uuid = $(this).data('uuid');
     var story_id = $(this).data('id');
     var order = $(this).data('order');
+    var src = $(this).data('src');
     var s_b = 450 / count;
     $('.story_bar_container').html('');
     $('.story_bar_container').css('grid-template-columns', 'repeat(' + count + ',1fr)');
@@ -484,6 +547,8 @@ $(document).ready(function() {
 //---->view story---->
 
 $(document).on('click', '.go_right_wrap', function() {
+    $('#audio_player')[0].pause();
+
     clearInterval(tim);
     percentage = 0;
 
@@ -512,12 +577,16 @@ $(document).on('click', '.go_right_wrap', function() {
             next_right: next_right,
         }, function(data) {
             $('.da3wa_lah').html(data);
+            var src = $('.story_player').data('src');
+            $('.player').attr('src', src);
+            $('#audio_player')[0].play();
         })
     }
 
 })
 var timer = 15000;
 tim = setInterval(function() {
+    $('#audio_player')[0].pause();
     percentage = 0;
     var orderr = $('.story_player').data('order');
     var totall = $('.story_player').data('total');
@@ -538,6 +607,9 @@ tim = setInterval(function() {
             next_right: next_right,
         }, function(data) {
             $('.da3wa_lah').html(data);
+            var src = $('.story_player').data('src');
+            $('.player').attr('src', src);
+            $('#audio_player')[0].play();
         })
     }
 

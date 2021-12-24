@@ -8,6 +8,57 @@ if(login::isLoggedIn()){
 }else{
     header('Location:login.php');
 }
+$songs = array(
+    array(
+        'name' => 'Suicidal toughts',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/You're Nobody (Til Somebody Kills You).jpg",
+        'artist' => 'Biggie Smalls',
+        'src' => 'http://localhost/facebook/assets/songs/song1.mp3',
+        'lyrics' =>
+        "
+        0 | When I die, fuck it, I wanna go to hell
+        2 | 'Cause I'm a piece of shit, it ain't hard to fuckin' tell
+      5.5 | It don't make sense, goin' to heaven with the goodie-goodies
+        8 | Dressed in white, I like black Timbs and black hoodies
+       11 | God'll prob'ly have me on some real strict shit
+        14 | No sleepin' all day, no gettin' my dick licked
+
+        "
+    ),
+    array(
+        'name' => 'Nymphetamine Fix',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/cradle.jpg",
+        'artist' => 'Cradle Of Filth ',
+        'src' => 'http://localhost/facebook/assets/songs/song2.mp3',
+        'lyrics' =>
+        "
+        0 | Six feet deep is the incision
+        3.7 | In my heart, that barless prison
+        6.1 | Discolors all with tunnel vision
+        9.9  | (Sunsetter) Nymphetamine
+        12.2  | Sick and weak from my condition
+        "
+    ),
+    array(
+        'name' => 'bamboleo x narcos - (Nalo remix)',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/narcos.jpg",
+        'artist' => 'bamboleo x narcos ',
+        'src' => 'http://localhost/facebook/assets/songs/song3.mp3',
+        'lyrics' =>
+        "
+        0 | Bem bem bem, bem bem bem be bem
+        5 | Trappin like the Narco (Narco) 
+        6.4 | Got dope like Pablo (Pablo) 
+        9 | Cut throat like Pablo (Cut Throat)
+        11 | Chop trees with the Draco (Draco)
+        13 | On the nawf, got Diego (Diego) (Bamboleo, Bambolea)
+
+
+
+        "
+    ),
+ 
+);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -140,28 +191,31 @@ if(login::isLoggedIn()){
 
             </div>
             <div class="story_options_img">
-                <audio class="player" id="audio_player"
-                    src="http://localhost/facebook/assets/songs/Biggie Smalls - You're Nobody (Til Somebody Kills You).mp3"
-                    controls></audio>
+                <audio class="player" id="audio_player" controls loop></audio>
 
                 <div class="music_menu">
                     <div class="search_in_music">
                         <input type="text" placeholder="Search music or artists">
                     </div>
                     <div class="songs_list">
-                        <div class="song_item">
-                            <img src="http://localhost/facebook/assets/images/songs_images/You're Nobody (Til Somebody Kills You).jpg"
-                                alt="">
+                        <?php
+                    foreach ($songs as $song){
+                        ?>
+                        <div class="song_item" data-src="<?php echo $song['src'] ?>"
+                            data-lyrics="<?php echo $song['lyrics'] ?>">
+                            <img src="<?php echo $song['cover']?>" alt="">
                             <div class="music_col">
-                                <span> <?php echo substr("You re Nobody (Til Somebody Kills You)",0,30).'...' ?></span>
-                                <span>Biggie Smalls</span>
+                                <span> <?php echo substr($song['name'],0,30).'...' ?></span>
+                                <span><?php echo $song['artist'] ?></span>
                             </div>
                             <div class="play_song_wrap">
                                 <i class="fas fa-play-circle"></i>
-
-
                             </div>
                         </div>
+                        <?php
+                    }
+                    ?>
+
                     </div>
                 </div>
                 <div class="submit_story_menu">
@@ -203,52 +257,19 @@ if(login::isLoggedIn()){
                 <div class="bg_black_rad">
                     <div class="story_img_preview">
                         <div class="lyrics" style="display: none">
-                            7 | Yeah though I walk through the valley of the shadow of death
-                            11 | I will fear no evil
-                            13 | for you are with me
-                            15 | Your rod and your staff, they comfort me
-                            18 | You prepare a table for me, in the presence of my enemies
-                            22 | You anoint my head with oil, my cup overflows
-                            26 | Surely goodness and love will follow me all the days of my life
-                            31 | And I will dwell in the house of the Lord forever
-                            33.6 | Niggas in my faction don't like askin' questions
-                            37.5 | Strictly gun-testin', coke-measurin'
-                            40 | Givin' pleasure in the Benz-ito
+
                         </div>
                     </div>
                 </div>
             </div>
 
-            <script>
-            const player = document.querySelector('.player')
-            const lyrics = document.querySelector('.lyrics')
-            const lines = lyrics.textContent.trim().split('\n')
 
-            lyrics.removeAttribute('style')
-            lyrics.innerText = ''
-
-            let syncData = []
-
-            lines.map((line, index) => {
-                const [time, text] = line.trim().split('|')
-                syncData.push({
-                    'start': time.trim(),
-                    'text': text.trim()
-                })
-            })
-
-            player.addEventListener('timeupdate', () => {
-                syncData.forEach((item) => {
-
-                    if (player.currentTime >= item.start) lyrics.innerText = item.text
-                })
-            })
-            </script>
         </div>
     </div>
     <script src="../../assets/js/jquery.js"></script>
     <script src="../../assets/js/jquery.fillcolor.js"></script>
     <script>
+    var song = "";
     var bg = "../../assets/images/stories/1.jpg";
     $(document).on('click', '#show_more_bgs', () => {
         $('.stoy_bg_wrapper1').css('display', 'flex');
@@ -301,7 +322,12 @@ if(login::isLoggedIn()){
             contentType: false,
             processData: false,
             success: function(data) {
-                console.log(data);
+                $.post('http://localhost/facebook/core/ajax/storyImage.php', {
+                    song: song,
+                    image: data,
+                }, function(data) {
+                    console.log(data)
+                })
                 /*
                 window.location.href = 'http://localhost/facebook/';
                 */
@@ -325,12 +351,16 @@ if(login::isLoggedIn()){
     $(document).on('click', '.share_story_text', function() {
         var background = bg.substring(6, bg.length);
         var text = $('#story_text').val();
+
         $.post('http://localhost/facebook/core/ajax/story.php', {
             add_story: "<?php echo $userid ?>",
             background: background,
             text: text
         }, function(data) {
+            console.log(data)
+            /*
             window.location.href = 'http://localhost/facebook/';
+            */
         })
     })
     $(document).on('click', '.play_song_wrap', function() {
@@ -357,6 +387,40 @@ if(login::isLoggedIn()){
             $dragging = null;
         });
     });
+    $(document).on("click", '.song_item', function() {
+        var src = $(this).data('src');
+        var lyricss = $(this).data('lyrics');
+
+        song = src;
+        $('.lyrics').html(lyricss)
+        $('.player').show()
+        $('.player').attr('src', src)
+
+        const player = document.querySelector('.player')
+        const lyrics = document.querySelector('.lyrics')
+        const lines = lyrics.textContent.trim().split('\n')
+
+        lyrics.removeAttribute('style')
+        lyrics.innerText = ''
+
+        let syncData = []
+
+        lines.map((line, index) => {
+            const [time, text] = line.trim().split('|')
+            syncData.push({
+                'start': time.trim(),
+                'text': text.trim()
+            })
+        })
+
+        player.addEventListener('timeupdate', () => {
+            syncData.forEach((item) => {
+
+                if (player.currentTime >= item.start) lyrics.innerText = item.text
+            })
+        })
+        $('#audio_player')[0].play();
+    })
     </script>
 </body>
 

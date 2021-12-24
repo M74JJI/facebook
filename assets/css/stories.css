@@ -157,7 +157,6 @@ body {
 }
 .story_options_img {
     padding: 15px;
-
     height: 200px;
     width: calc(330px);
 }
@@ -205,6 +204,9 @@ body {
     font-weight: 800;
     color: #fff;
     cursor: grab;
+    max-width: 300px;
+    word-break: break-all;
+    text-align: center;
 }
 .songs_list {
     margin-top: 15px;
@@ -839,4 +841,20 @@ body {
     width: 400px;
     height: 100%;
     object-fit: contain;
+}
+.player {
+    display: none;
+}
+.lyricso {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    word-break: break-all;
+    width: 400px;
+    text-align: center;
+    font-weight: 800;
+    color: #fff;
+    font-style: italic;
+    font-size: 21px;
 }

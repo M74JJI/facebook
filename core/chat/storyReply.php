@@ -82,12 +82,18 @@ if(isset($_POST['getNextStory'])){
             $total=count($loadUser->getUserStories($mainStory->user_id));
         }
     }
-
+    $lyrics ="0 | When I die, fuck it, I wanna go to hell
+    2 | 'Cause I'm a piece of shit, it ain't hard to fuckin' tell
+    5.5 | It don't make sense, goin' to heaven with the goodie-goodies
+    8 | Dressed in white, I like black Timbs and black hoodies
+    11 | God'll prob'ly have me on some real strict shit
+    14 | No sleepin' all day, no gettin' my dick licked";
         ?>
 <div class="story_player" data-order="<?php echo $mainStory->order ?>" data-total="<?php echo count($stories) ?>"
     data-mol_story="<?php echo $mainStory->first_name.' '.$mainStory->last_name ?>"
     data-count="<?php echo $mainStory->count ?>" data-id="<?php echo $mainStory->story_id ?>"
-    data-uuid="<?php echo $mainStory->user_id ?>">
+    data-uuid="<?php echo $mainStory->user_id ?>" data-src="<?php echo $mainStory->song ?>"
+    data-lyrics="<?php echo $lyrics ?>">
     <div class="story_bar_container" style="grid-template-columns: repeat(<?php echo $total  ?>,1fr);">
         <?php
                for($i=0;$i<$total;$i++){
@@ -101,7 +107,10 @@ if(isset($_POST['getNextStory'])){
     </div>
     <img src=" <?php echo 'http://localhost/facebook/'.$mainStory->profile_picture ?>" alt=""
         class="story_rounded_blue">
-    <img class="story_bg_img" src="<?php echo 'http://localhost/facebook/'.$mainStory->story_bg ?>" alt="">
+    <img class="story_bg_img" src="<?php echo 'http://localhost/facebook/'.$mainStory->story_bg ?>" alt="">*
+    <div class="lyricso" style="display: none">
+
+    </div>
     <?php
                 if($mainStory->story_text !=''){
                     ?>
