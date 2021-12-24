@@ -112,11 +112,7 @@ if(isset($_POST['getNextStory'])){
 
     </div>
     <?php
-                if($mainStory->story_text !=''){
-                    ?>
-    <div class="story_text_play"><?php echo $mainStory->story_text ?></div>
-    <?php
-                }
+               
                 if($mainStory->story_user ==$userid){
 
                

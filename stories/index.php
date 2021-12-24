@@ -92,9 +92,15 @@ $max= count($stories);
                         ?>
                     <img src="<?php echo 'http://localhost/facebook/'.$myStory[0]->story_bg ?>"
                         class="right_story_card_img">
-
+                    <?php
+                    }else if($myStory[0]->story_img !=''){
+                        ?>
+                    <img src="<?php echo 'http://localhost/facebook/'.$myStory[0]->story_img ?>"
+                        class="right_story_card_img">
+                    <?php
+                    }
                     ?>
-                    <div class="start_typing_small"><?php echo $myStory[0]->story_text ?></div> <img src=<?php echo 'http://localhost/facebook/'.$myStory[0]->profile_picture
+                    <img src=<?php echo 'http://localhost/facebook/'.$myStory[0]->profile_picture
                      ?> alt="" class="story_peak_img">
                 </div>
             </a>
@@ -128,11 +134,7 @@ $max= count($stories);
 
                 </div>
                 <?php
-                if($mainStory->story_text !=''){
-                    ?>
-                <div class="story_text_play"><?php echo $mainStory->story_text ?></div>
-                <?php
-                }
+             
                 if($mainStory->story_user ==$userid){
 
                
@@ -266,10 +268,6 @@ $max= count($stories);
                               ?>
                     <img src="<?php echo 'http://localhost/facebook/'.$story->story_bg ?>" class="right_story_card_img">
                     <?php
-                          }if($story->story_text !=''){
-                              ?>
-                    <div class="start_typing_small"><?php echo $story->story_text ?></div>
-                    <?php
                           }
                           ?>
                     <img src="<?php echo 'http://localhost/facebook/'.$story->profile_picture ?>" alt=""
@@ -296,10 +294,6 @@ $max= count($stories);
                           }else if($story->story_img !=''){
                               ?>
                     <img src="<?php echo 'http://localhost/facebook/'.$story->story_bg ?>" class="right_story_card_img">
-                    <?php
-                          }if($story->story_text !=''){
-                              ?>
-                    <div class="start_typing_small"><?php echo $story->story_text ?></div>
                     <?php
                           }
                           ?>
@@ -388,19 +382,16 @@ $(document).on('click', '.full_height', function() {
     $('.story_player').attr('added', k);
     //lkhdma dyal lwst
     var wst_bg = $('.story_player').find('.story_bg_img').attr('src');
-    var wst_text = $('.story_player').find('.story_text_play').text();
     var wst_profile_pic = $('.story_player').find('.story_rounded_blue').attr('src');
     $('.left_stories').prepend(
         '<a class="full_height_left"> <div class="left_story_card"> <img src=' + wst_bg +
-        ' class="right_story_card_img"><div class="start_typing_small">' + wst_text +
-        '</div> <img src=' + wst_profile_pic +
+        ' class="right_story_card_img"><img src=' + wst_profile_pic +
         ' alt="" class="story_peak_img"> </div></a>'
     )
     //lkhdma dyal lwst
 
     //lkhdma dyal limin
     var story_bg = $(this).find('.right_story_card_img').attr('src');
-    var story_text = $(this).find('.start_typing_small').text();
     var story_peak_img = $(this).find('.story_peak_img').attr('src');
     var count = $(this).data('count');
     var mol_story = $(this).data('mol_story');
@@ -423,7 +414,6 @@ $(document).on('click', '.full_height', function() {
     $('.story_player').attr('data-uuid', uuid);
     $('.story_player').attr('data-count', count);
     $('.story_player').attr('data-id', story_id);
-    $('.story_player').find('.story_text_play').html(story_text);
     $('.story_rounded_blue').attr('src', story_peak_img);
     $('.story_rounded_blue').attr('mol_story', mol_story);
     //---7tha lwst--->
@@ -432,13 +422,11 @@ $(document).on('click', '.full_height', function() {
     for (let i = 0; i < k; i++) {
         if ($('.full_height[data-order=' + i + ']').length > 0) {
             var story_bg = $('.full_height[data-order=' + i + ']').find('.right_story_card_img').attr('src');
-            var story_text = $('.full_height[data-order=' + i + ']').find('.start_typing_small').text();
             var story_peak_img = $('.full_height[data-order=' + i + ']').find('.story_peak_img').attr('src');
             $('.left_stories').prepend(
                 '<a class="full_height_left" data-order="' + order +
                 '"> <div class="left_story_card"> <img src=' + story_bg +
-                ' class="right_story_card_img"><div class="start_typing_small">' + story_text +
-                '</div> <img src=' + story_peak_img +
+                ' class="right_story_card_img"> <img src=' + story_peak_img +
                 ' alt="" class="story_peak_img"> </div></a>'
             )
         }
@@ -464,7 +452,6 @@ $(document).on('click', '.full_height', function() {
 $(document).on('click', '.full_height_left', function() {
     var story_bg = $(this).find('.right_story_card_img').attr('src');
     var story_img = $(this).find('.right_story_card_img_img').attr('src');
-    var story_text = $(this).find('.start_typing_small').text();
     var mol_story = $(this).data('molstory');
     var order = $(this).data('order');
     var story_profile_pic = $(this).find('.story_peak_img').attr('src');
@@ -475,10 +462,7 @@ $(document).on('click', '.full_height_left', function() {
     } else if (story_img != '') {
         $('.story_player').find('.story_bg_img').attr('src', story_img);
     }
-    if (story_text != '') {
-        $('.story_player').find('.story_text_play').html(story_text);
 
-    }
 
     var s_b = 460 / count;
 
@@ -500,14 +484,12 @@ $(document).on('click', '#story_reply_input_send', function() {
     var reply_text = $('#story_reply_input').val();
     var chatid = $('.story_player').data('uuid');
     var imagee = $('.story_player').find('.story_bg_img').attr('src');
-    var story_text = $('.story_player').find('.story_text_play').text();
     var userid = "<?php echo $userid ?>";
     var image = '[{"name":"' + imagee + '"}]';
     $.post('http://localhost/facebook/core/chat/storyReply.php', {
         storyReply: userid,
         chatid: chatid,
         image: image,
-        story_text: story_text,
         reply_text: reply_text
     }, function(data) {
         console.log(data)
