@@ -17,6 +17,9 @@ if(login::isLoggedIn()){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Stories | Facebook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../assets/css/stories.css">
 </head>
 
@@ -137,8 +140,7 @@ if(login::isLoggedIn()){
 
             </div>
             <div class="story_options_img">
-                <button>Add music</button>
-                <audio class="player"
+                <audio class="player" id="audio_player"
                     src="http://localhost/facebook/assets/songs/Biggie Smalls - You're Nobody (Til Somebody Kills You).mp3"
                     controls></audio>
 
@@ -151,8 +153,13 @@ if(login::isLoggedIn()){
                             <img src="http://localhost/facebook/assets/images/songs_images/You're Nobody (Til Somebody Kills You).jpg"
                                 alt="">
                             <div class="music_col">
-                                <span>You're Nobody (Til Somebody Kills You)</span>
+                                <span> <?php echo substr("You re Nobody (Til Somebody Kills You)",0,30).'...' ?></span>
                                 <span>Biggie Smalls</span>
+                            </div>
+                            <div class="play_song_wrap">
+                                <i class="fas fa-play-circle"></i>
+
+
                             </div>
                         </div>
                     </div>
@@ -326,6 +333,30 @@ if(login::isLoggedIn()){
             window.location.href = 'http://localhost/facebook/';
         })
     })
+    $(document).on('click', '.play_song_wrap', function() {
+        $('#audio_player')[0].play();
+    })
+    $(document).ready(function() {
+        var $dragging = null;
+
+        $(document.body).on("mousemove", function(e) {
+            if ($dragging) {
+                $dragging.offset({
+                    top: e.pageY,
+                    left: e.pageX
+                });
+            }
+        });
+
+
+        $(document.body).on("mousedown", ".lyrics", function(e) {
+            $dragging = $(e.target);
+        });
+
+        $(document.body).on("mouseup", function(e) {
+            $dragging = null;
+        });
+    });
     </script>
 </body>
 
