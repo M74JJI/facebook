@@ -24,28 +24,7 @@ if(login::isLoggedIn()){
 }else{
     header('Location:login.php');
 }
-$songs = array(
-    array(
-        'name' => 'Suicidal toughts',
-        'cover' => "http://localhost/facebook/assets/images/songs_images/You're Nobody (Til Somebody Kills You).jpg",
-        'artist' => 'Biggie Smalls',
-        'src' => 'http://localhost/facebook/assets/songs/song1.mp3',
-        'lyrics' =>
-        "0 | When I die, fuck it, I wanna go to hell
-        2 | 'Cause I'm a piece of shit, it ain't hard to fuckin' tell
-      5.5 | It don't make sense, goin' to heaven with the goodie-goodies
-        8 | Dressed in white, I like black Timbs and black hoodies
-       11 | God'll prob'ly have me on some real strict shit
-        14 | No sleepin' all day, no gettin' my dick licked"
-    ),
- 
-);
-$lyrics ="0 | When I die, fuck it, I wanna go to hell
-2 | 'Cause I'm a piece of shit, it ain't hard to fuckin' tell
-5.5 | It don't make sense, goin' to heaven with the goodie-goodies
-8 | Dressed in white, I like black Timbs and black hoodies
-11 | God'll prob'ly have me on some real strict shit
-14 | No sleepin' all day, no gettin' my dick licked";
+
 
 /*
 if(!empty($_GET["uuid"])){
@@ -93,11 +72,6 @@ $max= count($stories);
                     <img src="<?php echo 'http://localhost/facebook/'.$myStory[0]->story_bg ?>"
                         class="right_story_card_img">
                     <?php
-                    }else if($myStory[0]->story_img !=''){
-                        ?>
-                    <img src="<?php echo 'http://localhost/facebook/'.$myStory[0]->story_img ?>"
-                        class="right_story_card_img">
-                    <?php
                     }
                     ?>
                     <img src=<?php echo 'http://localhost/facebook/'.$myStory[0]->profile_picture
@@ -112,7 +86,7 @@ $max= count($stories);
         <div class="da3wa_lah">
             <div class="story_player" data-order="<?php echo $mainStory->order ?>"
                 data-total="<?php echo count($stories) ?>" data-src="<?php echo $mainStory->song ?>"
-                data-lyrics="<?php echo $lyrics ?>"
+                data-lyrics="<?php echo $mainStory->lyrics ?>"
                 data-mol_story="<?php echo $mainStory->first_name.' '.$mainStory->last_name ?>"
                 data-count="<?php echo$mainStory->count ?>" data-id="<?php echo $mainStory->story_id ?>"
                 data-uuid="<?php echo $mainStory->user_id ?>">
@@ -129,7 +103,11 @@ $max= count($stories);
                 </div>
                 <img src=" <?php echo 'http://localhost/facebook/'.$mainStory->profile_picture ?>" alt=""
                     class="story_rounded_blue">
-                <img class="story_bg_img" src="<?php echo 'http://localhost/facebook/'.$mainStory->story_bg ?>" alt="">
+                <div class="fill_color_story">
+                    <img class="story_bg_img" src="<?php echo 'http://localhost/facebook/'.$mainStory->story_bg ?>"
+                        alt="">
+
+                </div>
                 <div class="lyricso" style="display: none">
 
                 </div>
@@ -264,10 +242,6 @@ $max= count($stories);
                               ?>
                     <img src="<?php echo 'http://localhost/facebook/'.$story->story_bg ?>" class="right_story_card_img">
                     <?php
-                          }else if($story->story_img !=''){
-                              ?>
-                    <img src="<?php echo 'http://localhost/facebook/'.$story->story_bg ?>" class="right_story_card_img">
-                    <?php
                           }
                           ?>
                     <img src="<?php echo 'http://localhost/facebook/'.$story->profile_picture ?>" alt=""
@@ -291,10 +265,6 @@ $max= count($stories);
                               ?>
                     <img src="<?php echo 'http://localhost/facebook/'.$story->story_bg ?>" class="right_story_card_img">
                     <?php
-                          }else if($story->story_img !=''){
-                              ?>
-                    <img src="<?php echo 'http://localhost/facebook/'.$story->story_bg ?>" class="right_story_card_img">
-                    <?php
                           }
                           ?>
                     <img src="<?php echo 'http://localhost/facebook/'.$story->profile_picture ?>" alt=""
@@ -310,44 +280,46 @@ $max= count($stories);
     </div>
 </body>
 <script src="../assets/js/jquery.js"></script>
+<script src="../assets/js/jquery.fillcolor.js"></script>
+
 <script>
 $(document).ready(function() {
-
+    $('.fill_color_story').fillColor();
     $('.story_player').click()
 })
 $(document).on('click', '.story_player', function() {
     var src = $(this).data('src');
-    var lyricss = $(this).data('lyrics');
-    $('.lyricso').html(lyricss);
-    console.log(lyricss)
     $('.player').attr('src', src)
     $('#audio_player')[0].play();
-    $('.lyrics').html(lyricss);
-    $('.player').show()
+    if (src != '') {
+        var lyricss = $(this).data('lyrics');
+        $('.lyricso').html(lyricss);
+        $('.lyrics').html(lyricss);
+        $('.player').show()
+        const player = document.querySelector('.player')
+        const lyrics = document.querySelector('.lyricso')
+        const lines = lyrics.textContent.trim().split('\n')
 
-    const player = document.querySelector('.player')
-    const lyrics = document.querySelector('.lyricso')
-    const lines = lyrics.textContent.trim().split('\n')
+        lyrics.removeAttribute('style')
+        lyrics.innerText = ''
 
-    lyrics.removeAttribute('style')
-    lyrics.innerText = ''
+        let syncData = []
 
-    let syncData = []
-
-    lines.map((line, index) => {
-        const [time, text] = line.trim().split('|')
-        syncData.push({
-            'start': time.trim(),
-            'text': text.trim()
+        lines.map((line, index) => {
+            const [time, text] = line.trim().split('|')
+            syncData.push({
+                'start': time.trim(),
+                'text': text.trim()
+            })
         })
-    })
 
-    player.addEventListener('timeupdate', () => {
-        syncData.forEach((item) => {
+        player.addEventListener('timeupdate', () => {
+            syncData.forEach((item) => {
 
-            if (player.currentTime >= item.start) lyrics.innerText = item.text
+                if (player.currentTime >= item.start) lyrics.innerText = item.text
+            })
         })
-    })
+    }
 
 
 })
@@ -364,6 +336,7 @@ $(document).ready(function() {
 })
 
 $(document).on('click', '.full_height', function() {
+
     $('#audio_player')[0].pause();
     percentage = 0;
     //----view story-->
@@ -447,11 +420,10 @@ $(document).on('click', '.full_height', function() {
          a7a++;
      }
      */
-
+    $('.fill_color_story').fillColor();
 })
 $(document).on('click', '.full_height_left', function() {
     var story_bg = $(this).find('.right_story_card_img').attr('src');
-    var story_img = $(this).find('.right_story_card_img_img').attr('src');
     var mol_story = $(this).data('molstory');
     var order = $(this).data('order');
     var story_profile_pic = $(this).find('.story_peak_img').attr('src');
@@ -459,10 +431,7 @@ $(document).on('click', '.full_height_left', function() {
 
     if (story_bg != '') {
         $('.story_player').find('.story_bg_img').attr('src', story_bg);
-    } else if (story_img != '') {
-        $('.story_player').find('.story_bg_img').attr('src', story_img);
     }
-
 
     var s_b = 460 / count;
 
@@ -559,9 +528,40 @@ $(document).on('click', '.go_right_wrap', function() {
             next_right: next_right,
         }, function(data) {
             $('.da3wa_lah').html(data);
+            $('.fill_color_story').fillColor();
             var src = $('.story_player').data('src');
             $('.player').attr('src', src);
             $('#audio_player')[0].play();
+            if (src != '') {
+                var lyricss = $('.story_player').data('lyrics');
+                $('.lyricso').html(lyricss);
+                $('.lyrics').html(lyricss);
+                $('.player').show()
+                const player = document.querySelector('.player')
+                const lyrics = document.querySelector('.lyricso')
+                const lines = lyrics.textContent.trim().split('\n')
+
+                lyrics.removeAttribute('style')
+                lyrics.innerText = ''
+
+                let syncData = []
+
+                lines.map((line, index) => {
+                    const [time, text] = line.trim().split('|')
+                    syncData.push({
+                        'start': time.trim(),
+                        'text': text.trim()
+                    })
+                })
+
+                player.addEventListener('timeupdate', () => {
+                    syncData.forEach((item) => {
+
+                        if (player.currentTime >= item.start) lyrics.innerText = item
+                            .text
+                    })
+                })
+            }
         })
     }
 
@@ -589,9 +589,40 @@ tim = setInterval(function() {
             next_right: next_right,
         }, function(data) {
             $('.da3wa_lah').html(data);
+            $('.fill_color_story').fillColor();
             var src = $('.story_player').data('src');
             $('.player').attr('src', src);
             $('#audio_player')[0].play();
+            if (src != '') {
+                var lyricss = $('.story_player').data('lyrics');
+                $('.lyricso').html(lyricss);
+                $('.lyrics').html(lyricss);
+                $('.player').show()
+                const player = document.querySelector('.player')
+                const lyrics = document.querySelector('.lyricso')
+                const lines = lyrics.textContent.trim().split('\n')
+
+                lyrics.removeAttribute('style')
+                lyrics.innerText = ''
+
+                let syncData = []
+
+                lines.map((line, index) => {
+                    const [time, text] = line.trim().split('|')
+                    syncData.push({
+                        'start': time.trim(),
+                        'text': text.trim()
+                    })
+                })
+
+                player.addEventListener('timeupdate', () => {
+                    syncData.forEach((item) => {
+
+                        if (player.currentTime >= item.start) lyrics.innerText = item
+                            .text
+                    })
+                })
+            }
         })
     }
 

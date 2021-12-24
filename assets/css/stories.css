@@ -439,10 +439,14 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    object-fit: cover;
+    object-fit: contain;
     width: 100%;
     height: 100%;
     border-radius: 10px;
+}
+.fill_color_story {
+    width: 100%;
+    height: 100%;
 }
 .left_stories {
     height: 95%;

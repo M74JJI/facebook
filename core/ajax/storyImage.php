@@ -8,10 +8,10 @@ $userid = login::isLoggedIn();
 if(isset($_POST['song'])){
     $song=$_POST['song'];
     $image=$_POST['image'];
-    $video_name="";
+    $lyrics=$_POST['lyrics'];
+
     $path_directory =$_SERVER['DOCUMENT_ROOT']."/facebook/user/".$userid."/stories/";
-  echo shell_exec("ffmpeg -loop 1 -f image2 -i $image -i $song -vf crop=in_w:in_w*9/16,scale=1920:1080,fps=fps=30 -pix_fmt yuv420p -vcodec libx264 -shortest train_whistle_airplane.mp4");
-    $loadUser->create('stories',array('story_bg'=>$image,'song'=>$song,'story_user'=>$userid,'createdAt'=>date('Y-m-d H:i:s')));
+    $loadUser->create('stories',array('story_bg'=>$image,'song'=>$song,'lyrics'=>$lyrics,'story_user'=>$userid,'createdAt'=>date('Y-m-d H:i:s')));
 
 }
 

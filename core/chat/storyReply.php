@@ -93,7 +93,7 @@ if(isset($_POST['getNextStory'])){
     data-mol_story="<?php echo $mainStory->first_name.' '.$mainStory->last_name ?>"
     data-count="<?php echo $mainStory->count ?>" data-id="<?php echo $mainStory->story_id ?>"
     data-uuid="<?php echo $mainStory->user_id ?>" data-src="<?php echo $mainStory->song ?>"
-    data-lyrics="<?php echo $lyrics ?>">
+    data-lyrics="<?php echo $mainStory->lyrics ?>">
     <div class="story_bar_container" style="grid-template-columns: repeat(<?php echo $total  ?>,1fr);">
         <?php
                for($i=0;$i<$total;$i++){
@@ -107,7 +107,10 @@ if(isset($_POST['getNextStory'])){
     </div>
     <img src=" <?php echo 'http://localhost/facebook/'.$mainStory->profile_picture ?>" alt=""
         class="story_rounded_blue">
-    <img class="story_bg_img" src="<?php echo 'http://localhost/facebook/'.$mainStory->story_bg ?>" alt="">*
+    <div class="fill_color_story">
+
+        <img class="story_bg_img" src="<?php echo 'http://localhost/facebook/'.$mainStory->story_bg ?>" alt="">*
+    </div>
     <div class="lyricso" style="display: none">
 
     </div>

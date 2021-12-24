@@ -270,6 +270,7 @@ $songs = array(
     <script src="../../assets/js/jquery.fillcolor.js"></script>
     <script>
     var song = "";
+    var song_lyrics = "";
     var bg = "../../assets/images/stories/1.jpg";
     $(document).on('click', '#show_more_bgs', () => {
         $('.stoy_bg_wrapper1').css('display', 'flex');
@@ -312,7 +313,8 @@ $songs = array(
     $(document).on('click', '.share_story_img', function() {
         var image = img;
         var formData = new FormData();
-        formData.append('file', image)
+        formData.append('file', image);
+
 
         $.ajax({
             url: 'http://localhost/facebook/core/ajax/storyImage.php',
@@ -325,6 +327,7 @@ $songs = array(
                 $.post('http://localhost/facebook/core/ajax/storyImage.php', {
                     song: song,
                     image: data,
+                    lyrics: song_lyrics
                 }, function(data) {
                     console.log(data)
                 })
@@ -352,10 +355,12 @@ $songs = array(
         var background = bg.substring(6, bg.length);
         var text = $('#story_text').val();
 
+
         $.post('http://localhost/facebook/core/ajax/story.php', {
             add_story: "<?php echo $userid ?>",
             background: background,
-            text: text
+            text: text,
+
         }, function(data) {
             console.log(data)
             /*
@@ -390,7 +395,7 @@ $songs = array(
     $(document).on("click", '.song_item', function() {
         var src = $(this).data('src');
         var lyricss = $(this).data('lyrics');
-
+        song_lyrics = lyricss;
         song = src;
         $('.lyrics').html(lyricss)
         $('.player').show()
