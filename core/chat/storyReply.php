@@ -111,9 +111,27 @@ if(isset($_POST['getNextStory'])){
 
         <img class="story_bg_img" src="<?php echo 'http://localhost/facebook/'.$mainStory->story_bg ?>" alt="">*
     </div>
+    <?php
+                if($mainStory->lyrics_type==1 && $mainStory->song_infos !=""){
+                    $infos=json_decode($mainStory->song_infos);
+                    ?>
+    <div class="song_cover_type2_story">
+        <img src="<?php echo $infos->cover ?>" alt="">
+        <div class="song_covert2_col">
+            <span><?php echo $infos->name ?></span>
+            <span><?php echo $infos->artist ?></span>
+        </div>
+    </div>
+    <?php
+                    
+                }else{
+                    ?>
     <div class="lyricso" style="display: none">
 
     </div>
+    <?php
+                }
+                ?>
     <?php
                
                 if($mainStory->story_user ==$userid){

@@ -191,6 +191,8 @@ $songs = array(
 
             </div>
             <div class="story_options_img">
+
+
                 <audio class="player" id="audio_player" controls loop></audio>
 
                 <div class="music_menu">
@@ -202,7 +204,8 @@ $songs = array(
                     foreach ($songs as $song){
                         ?>
                         <div class="song_item" data-src="<?php echo $song['src'] ?>"
-                            data-lyrics="<?php echo $song['lyrics'] ?>">
+                            data-lyrics="<?php echo $song['lyrics'] ?>" data-cover="<?php echo $song['cover'] ?>"
+                            data-name="<?php echo $song['name'] ?>" data-artist="<?php echo $song['artist'] ?>">
                             <img src="<?php echo $song['cover']?>" alt="">
                             <div class="music_col">
                                 <span> <?php echo substr($song['name'],0,30).'...' ?></span>
@@ -256,21 +259,108 @@ $songs = array(
                 <span>Preview</span>
                 <div class="bg_black_rad">
                     <div class="story_img_preview">
-                        <div class="lyrics" style="display: none">
 
+                        <div class="song_player_cover">
+                            <div class="lyrics_add_header">
+                                <button class="lyrics_add_cancel">Cancel</button>
+                                <div class="palet_colors_changer">
+                                    <img class="img_zkhzhduzi" src="../../assets/images/palet.png"
+                                        class="lyrics_add_colors">
+                                </div>
+                                <button class="lyrics_add_done">Done</button>
+                            </div>
+                            <div class="lyrics" style="display: none">
+
+                            </div>
+                            <div class="song_cover_type2">
+                                <img src="" alt="">
+                                <div class="song_covert2_col">
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="song_lyrics_infos_wrap">
+                                <div class="lyrics_type_picker">
+                                    <div class="round_ik21 selected_l_type" id="change_to_text">
+                                        <i class="khnjadf5af4afaf" style="-webkit-filter:invert(100%)"></i>
+                                    </div>
+                                    <div class="round_ik21 selected_l_type" id="change_to_cover">
+                                        Cover
+                                    </div>
+                                </div>
+                                <canvas id="analyser"></canvas>
+                                <script>
+                                var canvas, ctx, source, context, analyser, fbc_array, bars, bar_x, bar_width,
+                                    bar_height;
+                                var audio = document.getElementById('audio_player');
+
+                                context = new AudioContext();
+                                analyser = context.createAnalyser();
+                                canvas = document.getElementById("analyser");
+                                ctx = canvas.getContext('2d');
+                                source = context.createMediaElementSource(audio);
+                                source.connect(analyser);
+                                analyser.connect(context.destination);
+                                frameLooper();
+
+                                function frameLooper() {
+                                    window.webkitRequestAnimationFrame(frameLooper);
+                                    fbc_array = new Uint8Array(analyser.frequencyBinCount);
+                                    analyser.getByteFrequencyData(fbc_array);
+                                    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+                                    ctx.fillStyle = '#1b74e4'; // Color of the bars
+                                    bars = 100;
+                                    for (var i = 0; i < bars; i++) {
+                                        bar_x = i * 3;
+                                        bar_width = 2;
+                                        bar_height = -(fbc_array[i] / 2);
+                                        //  fillRect( x, y, width, height ) // Explanation of the parameters below
+                                        ctx.fillRect(bar_x, canvas.height, bar_width, bar_height);
+                                    }
+                                }
+                                </script>
+                                <div class="music_equalizer">
+                                    <div class="white_shadow">
+                                        <div class="white_shadow_player"></div>
+                                    </div>
+                                    <img src="../../assets/images/equalizer.png" alt="">
+                                </div>
+
+                                <div class="song_lyrics_infos">
+                                    <img class="img_726HJHDFHD" src="" alt="">
+                                    <div class="lyr_inf_col">
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+
+                                    <img src="../../assets/images/pause.png" alt="" class="pause_icon">
+
+                                    <div class="play_song_lyrics"></div>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
-
-
         </div>
+
+
+    </div>
     </div>
     <script src="../../assets/js/jquery.js"></script>
     <script src="../../assets/js/jquery.fillcolor.js"></script>
     <script>
+    var x = 10;
+
     var song = "";
+    var song_cover = "";
+    var song_name = "";
+    var song_artist = "";
     var song_lyrics = "";
+    var lyrics_type = "";
+    var lyrics_position = "";
+    var lyrics_color = "";
     var bg = "../../assets/images/stories/1.jpg";
     $(document).on('click', '#show_more_bgs', () => {
         $('.stoy_bg_wrapper1').css('display', 'flex');
@@ -312,6 +402,8 @@ $songs = array(
     })
     $(document).on('click', '.share_story_img', function() {
         var image = img;
+        var song_infos = '{"name":"' + song_name + '","cover":"' + song_cover + '","artist":"' + song_artist +
+            '",}';
         var formData = new FormData();
         formData.append('file', image);
 
@@ -327,10 +419,10 @@ $songs = array(
                 $.post('http://localhost/facebook/core/ajax/storyImage.php', {
                     song: song,
                     image: data,
-                    lyrics: song_lyrics
-                }, function(data) {
-                    console.log(data)
-                })
+                    lyrics: song_lyrics,
+                    lyrics_type: lyrics_type,
+                    song_infos: song_infos
+                }, function(data) {})
                 /*
                 window.location.href = 'http://localhost/facebook/';
                 */
@@ -392,9 +484,44 @@ $songs = array(
             $dragging = null;
         });
     });
+
+    function playAudiAnimation() {
+        clearInterval(xxx);
+        var xxx = setInterval(function() {
+            if (x == 190) {
+                x = 0;
+            } else {
+
+                $('.white_shadow_player').css('width', '' + x + 'px');
+                x += 10;
+            }
+        }, 750)
+    }
     $(document).on("click", '.song_item', function() {
         var src = $(this).data('src');
+        var cover = $(this).data('cover');
+        var artist = $(this).data('artist');
+        var name = $(this).data('name');
+        song_name = name;
+        song_artist = artist;
+        song_cover = cover;
+        $('.img_726HJHDFHD').attr('src', cover);
+        $('.lyrics_add_header').css('display', 'flex');
+        $('.song_lyrics_infos_wrap').show()
+
+        playAudiAnimation();
+
+        $('.lyr_inf_col span:first-of-type').html(name);
+        $('.lyr_inf_col span:last-of-type').html(artist);
         var lyricss = $(this).data('lyrics');
+        if (lyricss == "") {
+            lyrics_type = 1;
+            $('lyrics').hide();
+        } else {
+            lyrics_type = 0;
+        }
+        console.log(lyrics_type)
+
         song_lyrics = lyricss;
         song = src;
         $('.lyrics').html(lyricss)
@@ -424,7 +551,27 @@ $songs = array(
                 if (player.currentTime >= item.start) lyrics.innerText = item.text
             })
         })
+
         $('#audio_player')[0].play();
+    })
+    $(document).on('click', '#change_to_cover', function() {
+        $('.lyrics').hide();
+        var cover = $('.img_726HJHDFHD').attr('src');
+        var name = $('.lyr_inf_col span:first-of-type').text();
+        var artist = $('.lyr_inf_col span:last-of-type').text();
+        console.log(name)
+        $('.song_cover_type2 img').attr('src', cover);
+        $('.song_covert2_col span:first-of-type').html(name);
+        $('.song_covert2_col span:last-of-type').html(artist);
+        $('.song_cover_type2').css("display", 'flex');
+        lyrics_type = 1;
+        console.log(lyrics_type)
+    })
+    $(document).on('click', '#change_to_text', function() {
+        $('.lyrics').show();
+        $('.song_cover_type2').hide();
+        lyrics_type = 0;
+        console.log(lyrics_type)
     })
     </script>
 </body>
