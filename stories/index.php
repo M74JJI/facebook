@@ -86,7 +86,7 @@ $max= count($stories);
         <div class="da3wa_lah">
             <div class="story_player" data-order="<?php echo $mainStory->order ?>"
                 data-total="<?php echo count($stories) ?>" data-src="<?php echo $mainStory->song ?>"
-                data-lyrics="<?php echo $mainStory->lyrics ?>"
+                data-lyrics="<?php echo $mainStory->lyrics ?>" data-start="<?php echo $mainStory->song_starts ?>"
                 data-mol_story="<?php echo $mainStory->first_name.' '.$mainStory->last_name ?>"
                 data-count="<?php echo$mainStory->count ?>" data-id="<?php echo $mainStory->story_id ?>"
                 data-uuid="<?php echo $mainStory->user_id ?>">
@@ -309,7 +309,9 @@ $(document).ready(function() {
 })
 $(document).on('click', '.story_player', function() {
     var src = $(this).data('src');
+    var start = $(this).data('start');
     $('.player').attr('src', src)
+    $('#audio_player')[0].currentTime = start;
     $('#audio_player')[0].play();
     if (src != '') {
         var lyricss = $(this).data('lyrics');
@@ -550,7 +552,9 @@ $(document).on('click', '.go_right_wrap', function() {
             $('.da3wa_lah').html(data);
             $('.fill_color_story').fillColor();
             var src = $('.story_player').data('src');
-            $('.player').attr('src', src);
+            var start = $(this).data('start');
+            $('.player').attr('src', src)
+            $('#audio_player')[0].currentTime = start;
             $('#audio_player')[0].play();
             if (src != '') {
                 var lyricss = $('.story_player').data('lyrics');
@@ -611,7 +615,9 @@ tim = setInterval(function() {
             $('.da3wa_lah').html(data);
             $('.fill_color_story').fillColor();
             var src = $('.story_player').data('src');
-            $('.player').attr('src', src);
+            var start = $(this).data('start');
+            $('.player').attr('src', src)
+            $('#audio_player')[0].currentTime = start;
             $('#audio_player')[0].play();
             if (src != '') {
                 var lyricss = $('.story_player').data('lyrics');

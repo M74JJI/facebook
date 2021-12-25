@@ -10,6 +10,15 @@ if(login::isLoggedIn()){
 }
 $songs = array(
     array(
+        'name' => 'Bohemian Rhapsody',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/You're Nobody (Til Somebody Kills You).jpg",
+        'artist' => 'Biggie Smalls',
+        'src' => 'http://localhost/facebook/assets/songs/song6.mp3',
+        'lyrics' =>
+""
+        
+    ),
+    array(
         'name' => 'Suicidal toughts',
         'cover' => "http://localhost/facebook/assets/images/songs_images/You're Nobody (Til Somebody Kills You).jpg",
         'artist' => 'Biggie Smalls',
@@ -267,6 +276,7 @@ $songs = array(
                 </div>
             </div>
         </div>
+        <audio class="player" id="audio_player" controls loop></audio>
 
         <div class="create_stories_right2">
             <input type="file" style="display: none" id="story_img">
@@ -304,12 +314,8 @@ $songs = array(
                                     </div>
                                 </div>
                                 <canvas id="analyser"></canvas>
-                                <audio class="player" id="audio_player" controls loop></audio>
 
-                                <div class="audio_progress_wrap">
-                                    <div class="audio_progress"></div>
 
-                                </div>
 
 
                                 <script>
@@ -348,9 +354,13 @@ $songs = array(
                                 <div class="music_equalizer">
                                     <div class="white_shadow">
                                         <div class="white_shadow_player"></div>
+                                        <canvas id='progress-bar' width="250" height="50"
+                                            style="border:1px solid green;z-index:999999999999999999">
+                                        </canvas>
                                     </div>
                                     <img src="../../assets/images/equalizer.png" alt="">
                                 </div>
+
 
                                 <div class="song_lyrics_infos">
                                     <img class="img_726HJHDFHD" src="" alt="">
@@ -377,6 +387,37 @@ $songs = array(
     <script src="../../assets/js/jquery.js"></script>
     <script src="../../assets/js/jquery.fillcolor.js"></script>
     <script>
+    var picked_time = 0;
+    var mediaPlayer = document.getElementById('audio_player');
+
+    var canvass = document.getElementById('progress-bar');
+
+    canvass.addEventListener("click", function(e) {
+        clearTimeout(playTimeout)
+
+        var canvass = document.getElementById('progress-bar');
+
+        if (!e) {
+            e = window.event;
+        } //get the latest windows event if it isn't set
+        try {
+            //calculate the current time based on position of mouse cursor in canvas box
+            mediaPlayer.currentTime = mediaPlayer.duration * (e.offsetX / canvass.clientWidth);
+            picked_time = mediaPlayer.currentTime = mediaPlayer.duration * (e.offsetX / canvass.clientWidth);
+            console.log(picked_time)
+        } catch (err) {
+            // Fail silently but show in F12 developer tools console
+            if (window.console && console.error("Error:" + err));
+        }
+    }, true);
+
+
+
+
+
+
+
+
     var x = 10;
 
     var song = "";
@@ -447,7 +488,8 @@ $songs = array(
                     image: data,
                     lyrics: song_lyrics,
                     lyrics_type: lyrics_type,
-                    song_infos: song_infos
+                    song_infos: song_infos,
+                    picked_time: picked_time
                 }, function(data) {})
                 /*
                 window.location.href = 'http://localhost/facebook/';
@@ -515,9 +557,13 @@ $songs = array(
     var playTimeout;
 
     $("#audio_player").on("play", function(e) {
+        var audiooo = document.getElementsByTagName('audio')[0];
+        clearTimeout(playTimeout)
         playTimeout = setTimeout(function() {
-            $("audio_player").pause();
-            $("audio_player").setCurrentTime(0); // Restarts video
+            audiooo.pause();
+            audiooo.currentTime = picked_time;
+            audiooo.play()
+
         }, 15000); // 30 seconds in ms
     });
 
@@ -530,7 +576,7 @@ $songs = array(
     var audio = document.getElementsByTagName('audio')[0];
 
 
-    var bar_size = 180;
+    var bar_size = 250;
     var updateTrack = setInterval(function() {
         var size = parseInt(audio.currentTime * bar_size / audio.duration);
 

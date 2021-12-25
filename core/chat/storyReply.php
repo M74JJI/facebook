@@ -93,7 +93,7 @@ if(isset($_POST['getNextStory'])){
     data-mol_story="<?php echo $mainStory->first_name.' '.$mainStory->last_name ?>"
     data-count="<?php echo $mainStory->count ?>" data-id="<?php echo $mainStory->story_id ?>"
     data-uuid="<?php echo $mainStory->user_id ?>" data-src="<?php echo $mainStory->song ?>"
-    data-lyrics="<?php echo $mainStory->lyrics ?>">
+    data-start="<?php echo $mainStory->song_starts ?>" data-lyrics="<?php echo $mainStory->lyrics ?>">
     <div class="story_bar_container" style="grid-template-columns: repeat(<?php echo $total  ?>,1fr);">
         <?php
                for($i=0;$i<$total;$i++){
