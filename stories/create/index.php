@@ -57,6 +57,22 @@ $songs = array(
 
         "
     ),
+    array(
+        'name' => 'bamboleo x narcos - (Nalo remix)',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/narcos.jpg",
+        'artist' => 'bamboleo x narcos ',
+        'src' => 'http://localhost/facebook/assets/songs/song4.mp3',
+        'lyrics' =>""
+     
+    ),
+    array(
+        'name' => 'bamboleo x narcos - (Nalo remix)',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/narcos.jpg",
+        'artist' => 'bamboleo x narcos ',
+        'src' => 'http://localhost/facebook/assets/songs/song5.mp3',
+        'lyrics' =>""
+     
+    ),
  
 );
 ?>
@@ -193,7 +209,6 @@ $songs = array(
             <div class="story_options_img">
 
 
-                <audio class="player" id="audio_player" controls loop></audio>
 
                 <div class="music_menu">
                     <div class="search_in_music">
@@ -289,14 +304,24 @@ $songs = array(
                                     </div>
                                 </div>
                                 <canvas id="analyser"></canvas>
+                                <audio class="player" id="audio_player" controls loop></audio>
+
+                                <div class="audio_progress_wrap">
+                                    <div class="audio_progress"></div>
+
+                                </div>
+
+
                                 <script>
                                 var canvas, ctx, source, context, analyser, fbc_array, bars, bar_x, bar_width,
                                     bar_height;
                                 var audio = document.getElementById('audio_player');
 
+
                                 context = new AudioContext();
                                 analyser = context.createAnalyser();
                                 canvas = document.getElementById("analyser");
+                                /*canvas.style.height = "100px";*/
                                 ctx = canvas.getContext('2d');
                                 source = context.createMediaElementSource(audio);
                                 source.connect(analyser);
@@ -319,6 +344,7 @@ $songs = array(
                                     }
                                 }
                                 </script>
+
                                 <div class="music_equalizer">
                                     <div class="white_shadow">
                                         <div class="white_shadow_player"></div>
@@ -485,18 +511,32 @@ $songs = array(
         });
     });
 
-    function playAudiAnimation() {
-        clearInterval(xxx);
-        var xxx = setInterval(function() {
-            if (x == 190) {
-                x = 0;
-            } else {
 
-                $('.white_shadow_player').css('width', '' + x + 'px');
-                x += 10;
-            }
-        }, 750)
-    }
+    var playTimeout;
+
+    $("#audio_player").on("play", function(e) {
+        playTimeout = setTimeout(function() {
+            $("audio_player").pause();
+            $("audio_player").setCurrentTime(0); // Restarts video
+        }, 15000); // 30 seconds in ms
+    });
+
+
+    $("#audio_player").on("pause", function(e) {
+        clearTimeout(playTimeout);
+    });
+
+
+    var audio = document.getElementsByTagName('audio')[0];
+
+
+    var bar_size = 180;
+    var updateTrack = setInterval(function() {
+        var size = parseInt(audio.currentTime * bar_size / audio.duration);
+
+        $('.white_shadow_player').css('width', '' + size + 'px');
+    }, 500);
+
     $(document).on("click", '.song_item', function() {
         var src = $(this).data('src');
         var cover = $(this).data('cover');
@@ -509,8 +549,6 @@ $songs = array(
         $('.lyrics_add_header').css('display', 'flex');
         $('.song_lyrics_infos_wrap').show()
 
-        playAudiAnimation();
-
         $('.lyr_inf_col span:first-of-type').html(name);
         $('.lyr_inf_col span:last-of-type').html(artist);
         var lyricss = $(this).data('lyrics');
@@ -520,39 +558,48 @@ $songs = array(
         } else {
             lyrics_type = 0;
         }
-        console.log(lyrics_type)
-
         song_lyrics = lyricss;
         song = src;
-        $('.lyrics').html(lyricss)
-        $('.player').show()
+
+
+
         $('.player').attr('src', src)
+        if (lyricss != "") {
 
-        const player = document.querySelector('.player')
-        const lyrics = document.querySelector('.lyrics')
-        const lines = lyrics.textContent.trim().split('\n')
 
-        lyrics.removeAttribute('style')
-        lyrics.innerText = ''
+            $('.lyrics').html(lyricss)
+            const player = document.querySelector('.player')
+            const lyrics = document.querySelector('.lyrics')
+            const lines = lyrics.textContent.trim().split('\n')
 
-        let syncData = []
+            lyrics.removeAttribute('style')
+            lyrics.innerText = ''
 
-        lines.map((line, index) => {
-            const [time, text] = line.trim().split('|')
-            syncData.push({
-                'start': time.trim(),
-                'text': text.trim()
+            let syncData = []
+
+            lines.map((line, index) => {
+                const [time, text] = line.trim().split('|')
+                syncData.push({
+                    'start': time.trim(),
+                    'text': text.trim()
+                })
             })
-        })
 
-        player.addEventListener('timeupdate', () => {
-            syncData.forEach((item) => {
+            player.addEventListener('timeupdate', () => {
+                syncData.forEach((item) => {
 
-                if (player.currentTime >= item.start) lyrics.innerText = item.text
+                    if (player.currentTime >= item.start) lyrics.innerText = item.text
+                })
             })
-        })
-
+        } else {
+            $('.song_cover_type2 img').attr('src', song_cover);
+            $('.song_covert2_col span:first-of-type').html(song_name);
+            $('.song_covert2_col span:last-of-type').html(song_artist);
+            $('.song_cover_type2').css("display", 'flex');
+            $('.song_cover_type2').show();
+        }
         $('#audio_player')[0].play();
+
     })
     $(document).on('click', '#change_to_cover', function() {
         $('.lyrics').hide();

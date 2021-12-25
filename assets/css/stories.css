@@ -1025,3 +1025,13 @@ body {
 .song_covert2_col span:first-of-type {
     font-weight: 600;
 }
+.audio_progress_wrap {
+    width: 280px;
+    background: rgba(238, 238, 238, 0.289);
+    height: 5px;
+}
+.audio_progress {
+    height: 5px;
+    background: blue;
+    width: 0;
+}
