@@ -311,7 +311,9 @@ $(document).on('click', '.story_player', function() {
     var src = $(this).data('src');
     var start = $(this).data('start');
     $('.player').attr('src', src)
-    $('#audio_player')[0].currentTime = start;
+    if (start != "") {
+        $('#audio_player')[0].currentTime = start
+    }
     $('#audio_player')[0].play();
     if (src != '') {
         var lyricss = $(this).data('lyrics');
@@ -552,9 +554,12 @@ $(document).on('click', '.go_right_wrap', function() {
             $('.da3wa_lah').html(data);
             $('.fill_color_story').fillColor();
             var src = $('.story_player').data('src');
-            var start = $(this).data('start');
+            var start = $('.story_player').data('start');
             $('.player').attr('src', src)
-            $('#audio_player')[0].currentTime = start;
+            console.log(start)
+            if (start != "") {
+                $('#audio_player')[0].currentTime = start
+            }
             $('#audio_player')[0].play();
             if (src != '') {
                 var lyricss = $('.story_player').data('lyrics');
@@ -615,9 +620,11 @@ tim = setInterval(function() {
             $('.da3wa_lah').html(data);
             $('.fill_color_story').fillColor();
             var src = $('.story_player').data('src');
-            var start = $(this).data('start');
+            var start = $('.story_player').data('start');
             $('.player').attr('src', src)
-            $('#audio_player')[0].currentTime = start;
+            if (start != "") {
+                $('#audio_player')[0].currentTime = start
+            }
             $('#audio_player')[0].play();
             if (src != '') {
                 var lyricss = $('.story_player').data('lyrics');
