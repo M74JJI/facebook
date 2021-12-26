@@ -10,13 +10,358 @@ if(login::isLoggedIn()){
 }
 $songs = array(
     array(
+        'name' => 'النشيد الوطني',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/madrid.png",
+        'artist' => 'Hala Madrid...y nada más',
+        'src' => 'http://localhost/facebook/assets/songs/song19.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => 'We love you Benzema',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/benz.jpg",
+        'artist' => 'Hala Madrid...y nada más',
+        'src' => 'http://localhost/facebook/assets/songs/song20.mp3',
+        'lyrics' =>
+        "
+        "
+    ),  array(
+        'name' => "Glory Glory Man Utd",
+        'cover' => "http://localhost/facebook/assets/images/songs_images/utd.jpg",
+        'artist' => 'Man Utd',
+        'src' => 'http://localhost/facebook/assets/songs/song35.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+      array(
+        'name' => "Fuck Liverpool",
+        'cover' => "http://localhost/facebook/assets/images/songs_images/fuck.jfif",
+        'artist' => 'Manchester United Rule',
+        'src' => 'http://localhost/facebook/assets/songs/song36.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
         'name' => 'Bohemian Rhapsody',
-        'cover' => "http://localhost/facebook/assets/images/songs_images/You're Nobody (Til Somebody Kills You).jpg",
-        'artist' => 'Biggie Smalls',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/freddie.jpg",
+        'artist' => 'Freddie Mercury',
         'src' => 'http://localhost/facebook/assets/songs/song6.mp3',
         'lyrics' =>
-""
+       "
+       6 | Mamaaa
+       9 | Just killed a man,
+       13 | Put a gun against his head, pulled my trigger
+       17 | Now he's dead
+      19.5 | Mamaaa, life had just begun,
+     26.4 | But now I've gone and thrown it all away
+     33 | Mama, oooh,
+    39.5 | Didn't mean to make you cry,
+   43 | If I'm not back again this time tomorrow,
+  47.8 | Carry on, carry on as if nothing really matters
+  64 | Too late, my time has come,
+ 71 | Sends shivers down my spine
+ 74 |  body's aching all The time
+ 78 |  Goodbye, everybody
+ 81 |  I've got to go
+ 84.7 |  Gotta leave you all behind and face the truth
+ 91.7 |  Mama, oooh
+ 98 | I don't want to die
+ 101 | I sometimes wish I'd never been born at all
+ 
+       "
         
+    ),
+    array(
+        'name' => 'The Phantom Of The Opera ',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/nightwish.jpg",
+        'artist' => 'Nightwish',
+        'src' => 'http://localhost/facebook/assets/songs/song7.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => 'To the Helfire',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/lorna.jpg",
+        'artist' => 'Lorna Shore',
+        'src' => 'http://localhost/facebook/assets/songs/song21.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => 'Waaaaaaaaaaaaaaa Hmed',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/chaabi.jpg",
+        'artist' => 'Chaabi mix',
+        'src' => 'http://localhost/facebook/assets/songs/song22.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => 'Wa 7a7a',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/chaabi1.webp",
+        'artist' => 'Chaabi mix',
+        'src' => 'http://localhost/facebook/assets/songs/song23.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => 'Hangar 18',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/megadeth.jpg",
+        'artist' => 'Megadeth',
+        'src' => 'http://localhost/facebook/assets/songs/song8.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => 'Wasted Years',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/maiden.jpg",
+        'artist' => 'Iron Maiden',
+        'src' => 'http://localhost/facebook/assets/songs/song9.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => 'NVINCIBLE',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/popsmoke.jpg",
+        'artist' => 'Pop smoke',
+        'src' => 'http://localhost/facebook/assets/songs/song24.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => 'Cross my heart and hope to die',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/sentenced.jpg",
+        'artist' => 'Sentenced',
+        'src' => 'http://localhost/facebook/assets/songs/song25.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => 'Oudenophobia ',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/intent.jpg",
+        'artist' => 'Shadow of intent',
+        'src' => 'http://localhost/facebook/assets/songs/song26.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => 'Kill The pain',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/accept.jpg",
+        'artist' => 'Accept',
+        'src' => 'http://localhost/facebook/assets/songs/song27.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => "I'm Not A Vampire",
+        'cover' => "http://localhost/facebook/assets/images/songs_images/reverse.jpg",
+        'artist' => 'Falling In Reverse',
+        'src' => 'http://localhost/facebook/assets/songs/song28.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => "The Drug In Me Is Reimagined",
+        'cover' => "http://localhost/facebook/assets/images/songs_images/reverse1.png",
+        'artist' => 'Falling In Reverse',
+        'src' => 'http://localhost/facebook/assets/songs/song29.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => "The Forgotten(Part 2)",
+        'cover' => "http://localhost/facebook/assets/images/songs_images/joe.jpg",
+        'artist' => 'Joe Satriani',
+        'src' => 'http://localhost/facebook/assets/songs/song30.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => "Losing My Religion",
+        'cover' => "http://localhost/facebook/assets/images/songs_images/rem.jpg",
+        'artist' => 'R.E.M',
+        'src' => 'http://localhost/facebook/assets/songs/song31.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => "Praise God",
+        'cover' => "http://localhost/facebook/assets/images/songs_images/kanye.jpg",
+        'artist' => 'Kanye West',
+        'src' => 'http://localhost/facebook/assets/songs/song32.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => "Another love",
+        'cover' => "http://localhost/facebook/assets/images/songs_images/tom.jpg",
+        'artist' => 'Tom Odell',
+        'src' => 'http://localhost/facebook/assets/songs/song33.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => "Where is My Mind",
+        'cover' => "http://localhost/facebook/assets/images/songs_images/pixies.jpg",
+        'artist' => 'Pixies',
+        'src' => 'http://localhost/facebook/assets/songs/song37.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => "512",
+        'cover' => "http://localhost/facebook/assets/images/songs_images/lambofgod.jpg",
+        'artist' => 'Lamb of God',
+        'src' => 'http://localhost/facebook/assets/songs/song38.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => "You're Nobody",
+        'cover' => "http://localhost/facebook/assets/images/songs_images/biggieSmalls.jpg",
+        'artist' => 'Biggie Smalls',
+        'src' => 'http://localhost/facebook/assets/songs/song39.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => "Psychopath Killer",
+        'cover' => "http://localhost/facebook/assets/images/songs_images/killer.jpg",
+        'artist' => 'Eminem ft Slaughterhouse & Yelawolf',
+        'src' => 'http://localhost/facebook/assets/songs/song40.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => "False Advertisement",
+        'cover' => "http://localhost/facebook/assets/images/songs_images/hopsin.jpg",
+        'artist' => 'Hopsin',
+        'src' => 'http://localhost/facebook/assets/songs/song41.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => "Ill Mind of Hopsin 7",
+        'cover' => "http://localhost/facebook/assets/images/songs_images/hopsin1.jpg",
+        'artist' => 'Hopsin',
+        'src' => 'http://localhost/facebook/assets/songs/song42.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => "Lowkey",
+        'cover' => "http://localhost/facebook/assets/images/songs_images/hopsin2.jpg",
+        'artist' => 'Hopsin',
+        'src' => 'http://localhost/facebook/assets/songs/song43.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+  
+    array(
+        'name' => 'Earth Song',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/michaekjackson.jpg",
+        'artist' => 'Michael Jackson',
+        'src' => 'http://localhost/facebook/assets/songs/song10.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => 'Hellhounds',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/king810.jpg",
+        'artist' => 'King 810',
+        'src' => 'http://localhost/facebook/assets/songs/song11.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => ' Love, Hate, Love',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/alice.jpg",
+        'artist' => 'Alice in chains',
+        'src' => 'http://localhost/facebook/assets/songs/song12.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => 'Blind',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/korn.jpg",
+        'artist' => 'Korn',
+        'src' => 'http://localhost/facebook/assets/songs/song13.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => 'Falling Away from Me ',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/korn1.jpg",
+        'artist' => 'Korn',
+        'src' => 'http://localhost/facebook/assets/songs/song14.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => 'Return Of The Tres',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/djog.jpg",
+        'artist' => 'Delinquent Habits',
+        'src' => 'http://localhost/facebook/assets/songs/song15.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => 'Somewhere Only We Know',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/keane.jpg",
+        'artist' => 'Keane',
+        'src' => 'http://localhost/facebook/assets/songs/song18.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => 'Music Sounds Better With You',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/stardust.jpg",
+        'artist' => 'Stardust ',
+        'src' => 'http://localhost/facebook/assets/songs/song16.mp3',
+        'lyrics' =>
+        "
+        "
+    ),
+    array(
+        'name' => 'Habatl El Sagayer',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/shaaban.jpg",
+        'artist' => 'Shaban Abd El Rehim ',
+        'src' => 'http://localhost/facebook/assets/songs/song17.mp3',
+        'lyrics' =>
+        "
+        "
     ),
     array(
         'name' => 'Suicidal toughts',
@@ -75,9 +420,9 @@ $songs = array(
      
     ),
     array(
-        'name' => 'bamboleo x narcos - (Nalo remix)',
-        'cover' => "http://localhost/facebook/assets/images/songs_images/narcos.jpg",
-        'artist' => 'bamboleo x narcos ',
+        'name' => 'Moonlight Sonata',
+        'cover' => "http://localhost/facebook/assets/images/songs_images/bethoven.jpg",
+        'artist' => 'Ludwig van Beethoven',
         'src' => 'http://localhost/facebook/assets/songs/song5.mp3',
         'lyrics' =>""
      
@@ -241,6 +586,24 @@ $songs = array(
 
                 <div class="music_menu">
                     <div class="search_in_music">
+                        <svg viewBox="0 0 16 16" width="1em" height="1em" fill="#65676b">
+                            <g fill-rule="evenodd" transform="translate(-448 -544)">
+                                <g fill-rule="nonzero">
+                                    <path
+                                        d="M10.743 2.257a6 6 0 1 1-8.485 8.486 6 6 0 0 1 8.485-8.486zm-1.06 1.06a4.5 4.5 0 1 0-6.365 6.364 4.5 4.5 0 0 0 6.364-6.363z"
+                                        transform="translate(448 544)"></path>
+                                    <path
+                                        d="M10.39 8.75a2.94 2.94 0 0 0-.199.432c-.155.417-.23.849-.172 1.284.055.415.232.794.54 1.103a.75.75 0 0 0 1.112-1.004l-.051-.057a.39.39 0 0 1-.114-.24c-.021-.155.014-.356.09-.563.031-.081.06-.145.08-.182l.012-.022a.75.75 0 1 0-1.299-.752z"
+                                        transform="translate(448 544)"></path>
+                                    <path
+                                        d="M9.557 11.659c.038-.018.09-.04.15-.064.207-.077.408-.112.562-.092.08.01.143.034.198.077l.041.036a.75.75 0 0 0 1.06-1.06 1.881 1.881 0 0 0-1.103-.54c-.435-.058-.867.018-1.284.175-.189.07-.336.143-.433.2a.75.75 0 0 0 .624 1.356l.066-.027.12-.061z"
+                                        transform="translate(448 544)"></path>
+                                    <path
+                                        d="m13.463 15.142-.04-.044-3.574-4.192c-.599-.703.355-1.656 1.058-1.057l4.191 3.574.044.04c.058.059.122.137.182.24.249.425.249.96-.154 1.41l-.057.057c-.45.403-.986.403-1.411.154a1.182 1.182 0 0 1-.24-.182zm.617-.616.444-.444a.31.31 0 0 0-.063-.052c-.093-.055-.263-.055-.35.024l.208.232.207-.206.006.007-.22.257-.026-.024.033-.034.025.027-.257.22-.007-.007zm-.027-.415c-.078.088-.078.257-.023.35a.31.31 0 0 0 .051.063l.205-.204-.233-.209z"
+                                        transform="translate(448 544)"></path>
+                                </g>
+                            </g>
+                        </svg>
                         <input type="text" placeholder="Search music or artists">
                     </div>
                     <div class="songs_list">
@@ -252,12 +615,10 @@ $songs = array(
                             data-name="<?php echo $song['name'] ?>" data-artist="<?php echo $song['artist'] ?>">
                             <img src="<?php echo $song['cover']?>" alt="">
                             <div class="music_col">
-                                <span> <?php echo substr($song['name'],0,30).'...' ?></span>
+                                <span> <?php echo substr($song['name'],0,30) ?></span>
                                 <span><?php echo $song['artist'] ?></span>
                             </div>
-                            <div class="play_song_wrap">
-                                <i class="fas fa-play-circle"></i>
-                            </div>
+
                         </div>
                         <?php
                     }
@@ -577,7 +938,7 @@ $songs = array(
 
 
     var playTimeout;
-
+    /*
     $("#audio_player").on("play", function(e) {
         var audiooo = document.getElementsByTagName('audio')[0];
         clearTimeout(playTimeout)
@@ -588,6 +949,7 @@ $songs = array(
 
         }, 15000); // 30 seconds in ms
     });
+    */
 
 
     $("#audio_player").on("pause", function(e) {
@@ -619,6 +981,8 @@ $songs = array(
 
         $('.lyr_inf_col span:first-of-type').html(name);
         $('.lyr_inf_col span:last-of-type').html(artist);
+        $('.player').attr('src', src);
+        $('#audio_player')[0].play();
         var lyricss = $(this).data('lyrics');
         if (lyricss == "") {
             lyrics_type = 1;
@@ -631,7 +995,7 @@ $songs = array(
 
 
 
-        $('.player').attr('src', src)
+
         if (lyricss != "") {
 
 
@@ -666,7 +1030,7 @@ $songs = array(
             $('.song_cover_type2').css("display", 'flex');
             $('.song_cover_type2').show();
         }
-        $('#audio_player')[0].play();
+
 
     })
     $(document).on('click', '#change_to_cover', function() {
