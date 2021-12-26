@@ -604,7 +604,7 @@ $songs = array(
                                 </g>
                             </g>
                         </svg>
-                        <input type="text" placeholder="Search music or artists">
+                        <input type="text" placeholder="Search music or artists" id="music_search">
                     </div>
                     <div class="songs_list">
                         <?php
@@ -852,7 +852,7 @@ $songs = array(
     $(document).on('click', '.share_story_img', function() {
         var image = img;
         var song_infos = '{"name":"' + song_name + '","cover":"' + song_cover + '","artist":"' + song_artist +
-            '",}';
+            '"}';
         var formData = new FormData();
         formData.append('file', image);
 
@@ -1082,6 +1082,16 @@ $songs = array(
     $(document).on('click', '.pick_font_btnn', function() {
         $('.font_list').toggle();
 
+    })
+    $(document).on('keyup', '#music_search', function() {
+
+        var searchTerm = $(this).val();
+
+        $.post('http://localhost/facebook/core/ajax/story.php', {
+            music_search: searchTerm
+        }, function(data) {
+            $('.songs_list').html(data);
+        })
     })
     </script>
 </body>

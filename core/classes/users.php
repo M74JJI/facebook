@@ -1181,7 +1181,7 @@ public function getAllStoriesRanked($userid){
       
         
         foreach($following as $f){
-            $statement=$this->pdo->prepare("SELECT * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user WHERE story_user=:mol_story ORDER BY createdAt DESC");
+            $statement=$this->pdo->prepare("SELECT * FROM stories LEFT JOIN profile on profile.user_id=stories.story_user WHERE story_user=:mol_story ORDER BY createdAt ASC");
             $statement->bindValue(':mol_story',$f->receiver,PDO::PARAM_INT);
             $statement->execute();
             $data=$statement->fetchAll(PDO::FETCH_OBJ);

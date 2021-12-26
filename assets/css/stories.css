@@ -211,8 +211,18 @@ body {
 }
 .songs_list {
     margin-top: 15px;
-    max-height: 600px;
+    max-height: 550px;
+    overflow-x: hidden;
     overflow-y: auto;
+    width: 325px;
+}
+.songs_list::-webkit-scrollbar {
+    width: 6px;
+    background-color: #f7f8fa;
+}
+.songs_list::-webkit-scrollbar-thumb {
+    background: #aeaeafa1;
+    border-radius: 5px;
 }
 .story_options textarea {
     height: 200px;
@@ -1105,9 +1115,10 @@ body {
     align-items: center;
     margin-left: 10px;
     background: #f0f2f5;
-    height: 30px;
+    height: 36px;
     border-radius: 50px;
     padding-left: 10px;
+    width: 315px;
 }
 .search_in_music input {
     border: none;
@@ -1118,6 +1129,6 @@ body {
     font-size: 15px;
     font-weight: 400;
     font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
-    width: 200px;
+    width: 100%;
     height: 37px;
 }
