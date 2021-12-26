@@ -4,20 +4,35 @@ include '../../connect/login.php';
 require_once '../../assets/addons/lineBreaker.php';
 
 $userid = login::isLoggedIn();
-
+function generateRandomString($length = 10) {
+  $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  $charactersLength = strlen($characters);
+  $randomString = '';
+  for ($i = 0; $i < $length; $i++) {
+      $randomString .= $characters[rand(0, $charactersLength - 1)];
+  }
+  return $randomString;
+}
 if(isset($_POST['add_story'])){
     $userid = $_POST['add_story'];
     $background = $_POST['background'];
-    $text = wordwrap($_POST['text'],16, "\n",true);
-   
-    $countLines=strlen($text)/16;
- 
+    $font_name = $_POST['font'];
+    $text = wordwrap($_POST['text'],26, "\n",true);
+    $countLines=strlen($text)/26;
     $img = imagecreatefromjpeg('http://localhost/facebook/'.$background.'');
 
     $color=imagecolorallocate($img,255,255,255);
-    $font=$_SERVER['DOCUMENT_ROOT']."/facebook/assets/fonts/ayar.ttf";
+     if($font_name =="Bold"){
+      $font=$_SERVER['DOCUMENT_ROOT']."/facebook/assets/fonts/bold.ttf";
+     }else  if($font_name =="Italic"){
+      $font=$_SERVER['DOCUMENT_ROOT']."/facebook/assets/fonts/italic.ttf";
+     }else  if($font_name =="Neon"){
+      $font=$_SERVER['DOCUMENT_ROOT']."/facebook/assets/fonts/neon.ttf";
+     }else{ 
+       $font=$_SERVER['DOCUMENT_ROOT']."/facebook/assets/fonts/clean.ttf";
+     }
     $angle = 0;
-    $font_size=24;
+    $font_size=18;
   
     $width = imagesx($img);
     $height = imagesy($img);
@@ -43,9 +58,12 @@ if(isset($_POST['add_story'])){
     }
   
 
-    imagejpeg($img,$path_directory.'a.jpg',100);
-    exit;
-    $loadUser->create('stories',array('story_bg'=>$background,'story_user'=>$userid,'story_text'=>$text,'createdAt'=>date('Y-m-d H:i:s')));
+    $path =$_SERVER['DOCUMENT_ROOT']."/facebook/user/".$userid."/stories/";
+    $nm =generateRandomString().".jpg";
+    imagejpeg($img,$path.$nm,100);
+    $img_path="user/".$userid."/stories/".$nm;
+ 
+    $loadUser->create('stories',array('story_bg'=>$img_path,'story_user'=>$userid,'createdAt'=>date('Y-m-d H:i:s')));
 }
 if(isset($_POST['get_all_stories'])){
     $userid = $_POST['get_all_stories'];

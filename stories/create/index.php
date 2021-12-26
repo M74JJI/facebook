@@ -97,6 +97,12 @@ $songs = array(
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../assets/css/stories.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -111,8 +117,22 @@ $songs = array(
                 <span><?php echo $userInfo->first_name.' '.$userInfo->last_name ?></span>
             </div>
             <div class="h_c_l_line"></div>
+
             <div class="story_options">
                 <textarea id="story_text" placeholder="Start typing"></textarea>
+                <div class="pick_font">
+                    <div class="pick_font_btnn">
+                        <i class="chose_fnt_icc"></i>
+                        <span class="font_name">Clean</span>
+                        <i class="open_726782GHG"></i>
+                    </div>
+                    <div class="font_list">
+                        <a id="clean_font">Clean</a>
+                        <a id="bold_font">Bold</a>
+                        <a id="neon_font">Neon</a>
+                        <a id="italic_font">Italic</a>
+                    </div>
+                </div>
                 <div class="story_backgrounds">
                     <span>Backgrounds</span>
                     <div class="stoy_bg_wrapper">
@@ -428,6 +448,7 @@ $songs = array(
     var lyrics_type = "";
     var lyrics_position = "";
     var lyrics_color = "";
+    var font = "clean";
     var bg = "../../assets/images/stories/1.jpg";
     $(document).on('click', '#show_more_bgs', () => {
         $('.stoy_bg_wrapper1').css('display', 'flex');
@@ -490,6 +511,7 @@ $songs = array(
                     lyrics_type: lyrics_type,
                     song_infos: song_infos,
                     picked_time: picked_time
+
                 }, function(data) {})
                 /*
                 window.location.href = 'http://localhost/facebook/';
@@ -520,12 +542,12 @@ $songs = array(
             add_story: "<?php echo $userid ?>",
             background: background,
             text: text,
+            font: font
 
         }, function(data) {
-            console.log(data)
-            /*
+
             window.location.href = 'http://localhost/facebook/';
-            */
+
         })
     })
     $(document).on('click', '.play_song_wrap', function() {
@@ -665,6 +687,37 @@ $songs = array(
         $('.song_cover_type2').hide();
         lyrics_type = 0;
         console.log(lyrics_type)
+    })
+    $(document).on('click', '#clean_font', function() {
+        $('.start_typing').css('font-family', 'Kanit');
+        font = "Clean";
+        $('.font_name').html(font);
+        $('.font_list').hide();
+
+    })
+    $(document).on('click', '#bold_font', function() {
+        $('.start_typing').css('font-family', 'Bebas Neue');
+        font = "Bold"
+        $('.font_name').html(font);
+        $('.font_list').hide();
+
+    })
+    $(document).on('click', '#neon_font', function() {
+        $('.start_typing').css('font-family', 'Indie Flower');
+        font = "Neon"
+        $('.font_name').html(font);
+        $('.font_list').hide();
+
+    })
+    $(document).on('click', '#italic_font', function() {
+        $('.start_typing').css('font-family', 'Roboto');
+        font = "Italic"
+        $('.font_name').html(font);
+        $('.font_list').hide();
+    })
+    $(document).on('click', '.pick_font_btnn', function() {
+        $('.font_list').toggle();
+
     })
     </script>
 </body>
