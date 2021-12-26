@@ -935,7 +935,8 @@ body {
 }
 .lyr_inf_col span:last-of-type {
 }
-.pause_icon {
+.pause_icon,
+.play_icon {
     color: rgb(209, 209, 209);
     width: 30px;
     cursor: pointer;

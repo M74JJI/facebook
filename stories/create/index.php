@@ -1093,6 +1093,19 @@ $songs = array(
             $('.songs_list').html(data);
         })
     })
+    $(document).on('click', '.pause_icon', function() {
+        var audiooo = document.getElementsByTagName('audio')[0];
+        $(this).attr('src', '../../assets/images/play.png');
+        $(this).removeClass().addClass('play_icon')
+        audiooo.pause();
+    })
+    $(document).on('click', '.play_icon', function() {
+        var audiooo = document.getElementsByTagName('audio')[0];
+        $(this).attr('src', '../../assets/images/pause.png');
+        $(this).removeClass().addClass('pause_icon')
+
+        audiooo.play();
+    })
     </script>
 </body>
 
