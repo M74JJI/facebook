@@ -1004,6 +1004,8 @@ body {
     transform: translate(-50%, -50%);
     display: none;
     font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    cursor: pointer;
+    user-select: none;
 }
 .song_cover_type2_story {
     display: flex;

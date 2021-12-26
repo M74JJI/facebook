@@ -600,12 +600,12 @@ $songs = array(
 
                         <div class="song_player_cover">
                             <div class="lyrics_add_header">
-                                <button class="lyrics_add_cancel">Cancel</button>
+                                <button class="lyrics_add_cancel" id="cancel_changes">Cancel</button>
                                 <div class="palet_colors_changer">
                                     <img class="img_zkhzhduzi" src="../../assets/images/palet.png"
                                         class="lyrics_add_colors">
                                 </div>
-                                <button class="lyrics_add_done">Done</button>
+                                <button class="lyrics_add_done" id="save_changes">Done</button>
                             </div>
                             <div class="lyrics" style="display: none">
 
@@ -742,6 +742,7 @@ $songs = array(
     var lyrics_type = 1;
     var lyrics_position = "";
     var lyrics_color = "";
+    var first_time = false;
     var font = "clean";
     var bg = "../../assets/images/stories/1.jpg";
     $(document).on('click', '#show_more_bgs', () => {
@@ -908,6 +909,8 @@ $songs = array(
         song_name = name;
         song_artist = artist;
         song_cover = cover;
+        $('.play_icon').attr('src', '../../assets/images/pause.png');
+        $('.play_icon').removeClass().addClass('pause_icon')
         $('.lyrics_add_header').css('display', 'flex');
         $('.song_lyrics_infos_wrap').show();
 
@@ -935,7 +938,7 @@ $songs = array(
         } else {
             lyrics_type = 0;
             $('#change_to_text').show();
-            $('.song_cover_type2').hide()
+            $('.song_cover_type2').hide();
             $('.lyrics').html(lyricss)
             const player = document.querySelector('.player')
             const lyrics = document.querySelector('.lyrics')
@@ -963,7 +966,7 @@ $songs = array(
         }
 
         song_lyrics = lyricss;
-        song = src;
+
 
 
 
@@ -1045,6 +1048,102 @@ $songs = array(
         $(this).removeClass().addClass('pause_icon')
 
         audiooo.play();
+    })
+    $(document).on('click', '#cancel_changes', function() {
+        if (first_time == false) {
+            $('.lyrics_add_header').hide();
+            $('.song_lyrics_infos_wrap').hide();
+            $('.song_cover_type2').hide();
+            $('.lyrics').html('').hide();
+            document.getElementsByTagName('audio')[0].pause();
+            song = "";
+            song_cover = "";
+            song_name = "";
+            song_artist = "";
+            song_lyrics = "";
+            lyrics_type = 1;
+            lyrics_position = "";
+            lyrics_color = "";
+
+        } else {
+
+            $('.song_cover_type2 img').attr('src', song_cover);
+            $('.song_covert2_col span:first-of-type').html(song_name);
+            $('.song_covert2_col span:last-of-type').html(song_artist);
+            $('.player').attr('src', song);
+            document.getElementsByTagName('audio')[0].play();
+            $('.lyrics_add_header').hide();
+            $('.song_lyrics_infos_wrap').hide();
+            /*
+            $('.lyrics_add_header').hide();
+            $('.song_lyrics_infos_wrap').hide();
+            $('.song_cover_type2').hide();
+            $('.lyrics').html('').hide();
+            document.getElementsByTagName('audio')[0].pause();
+            */
+        }
+
+
+    })
+    $(document).on('click', '#save_changes', function() {
+        song = $('.player').attr('src');
+        song_cover = $('.img_726HJHDFHD').attr('src');
+        song_name = $('.lyr_inf_col span:first-of-type').text();
+        song_artist = $('.lyr_inf_col span:last-of-type').text();
+        console.log(song_cover)
+        console.log(song_name)
+
+        $('.lyrics_add_header').hide();
+        $('.song_lyrics_infos_wrap').hide();
+        first_time = true;
+    })
+    var color_order = 0;
+    $(document).on('click', '.song_cover_type2', function() {
+        if (color_order == 0) {
+            $(this).css('background-color', '#111');
+            $('.song_covert2_col').css('color', '#fff');
+            color_order++;
+        } else if (color_order == 1) {
+            $(this).css('background-color', '#86cdfd');
+            $('.song_covert2_col').css('color', '#fff');
+            color_order++;
+
+        } else if (color_order == 2) {
+            $(this).css('background-color', '#90EE90');
+            $('.song_covert2_col').css('color', '#fff');
+            color_order++;
+        } else if (color_order == 3) {
+            $(this).css('background-color', '#F0E68C');
+            $('.song_covert2_col').css('color', '#fff');
+            color_order++;
+
+        } else if (color_order == 4) {
+            $(this).css('background-color', '#FFA07A');
+            $('.song_covert2_col').css('color', '#fff');
+            color_order++;
+        } else if (color_order == 5) {
+            $(this).css('background-color', '#FF69B4');
+            $('.song_covert2_col').css('color', '#fff');
+            color_order++;
+        } else if (color_order == 6) {
+            $(this).css('background-color', '#C71585');
+            $('.song_covert2_col').css('color', '#fff');
+            color_order++;
+        } else if (color_order == 7) {
+            $(this).css('background-color', '#663399');
+            $('.song_covert2_col').css('color', '#fff');
+            color_order++;
+        } else if (color_order == 8) {
+            $(this).css('background-color', '#FFFAFA');
+            $('.song_covert2_col').css('color', '#111');
+            color_order++;
+
+        } else if (color_order == 9) {
+            $(this).css('background-color', '#708090');
+            $('.song_covert2_col').css('color', '#fff');
+            color_order = 0;
+        }
+
     })
     </script>
 </body>
