@@ -378,6 +378,7 @@ $songs = array(
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://static.xx.fbcdn.net/rsrc.php/yD/r/d4ZIVX-5C-b.ico">
 
 
 </head>
@@ -742,6 +743,7 @@ $songs = array(
     var lyrics_type = 1;
     var lyrics_position = "";
     var lyrics_color = "";
+    var cover_color = "";
     var first_time = false;
     var font = "clean";
     var bg = "../../assets/images/stories/1.jpg";
@@ -848,6 +850,7 @@ $songs = array(
     $(document).on('click', '.play_song_wrap', function() {
         $('#audio_player')[0].play();
     })
+    /*
     $(document).ready(function() {
         var $dragging = null;
 
@@ -869,6 +872,7 @@ $songs = array(
             $dragging = null;
         });
     });
+    */
 
 
     var playTimeout;
@@ -906,9 +910,7 @@ $songs = array(
         var cover = $(this).data('cover');
         var artist = $(this).data('artist');
         var name = $(this).data('name');
-        song_name = name;
-        song_artist = artist;
-        song_cover = cover;
+
         $('.play_icon').attr('src', '../../assets/images/pause.png');
         $('.play_icon').removeClass().addClass('pause_icon')
         $('.lyrics_add_header').css('display', 'flex');
@@ -927,9 +929,9 @@ $songs = array(
         if (lyricss == "") {
             lyrics_type = 1;
             $('.lyrics').hide();
-            $('.song_cover_type2 img').attr('src', song_cover);
-            $('.song_covert2_col span:first-of-type').html(song_name);
-            $('.song_covert2_col span:last-of-type').html(song_artist);
+            $('.song_cover_type2 img').attr('src', cover);
+            $('.song_covert2_col span:first-of-type').html(name);
+            $('.song_covert2_col span:last-of-type').html(artist);
             $('.song_cover_type2').css("display", 'flex');
             $('.song_cover_type2').show();
             $('#change_to_text').hide();
@@ -1087,11 +1089,11 @@ $songs = array(
     })
     $(document).on('click', '#save_changes', function() {
         song = $('.player').attr('src');
+
+        document.getElementsByTagName('audio')[0].play();
         song_cover = $('.img_726HJHDFHD').attr('src');
         song_name = $('.lyr_inf_col span:first-of-type').text();
         song_artist = $('.lyr_inf_col span:last-of-type').text();
-        console.log(song_cover)
-        console.log(song_name)
 
         $('.lyrics_add_header').hide();
         $('.song_lyrics_infos_wrap').hide();
@@ -1102,45 +1104,152 @@ $songs = array(
         if (color_order == 0) {
             $(this).css('background-color', '#111');
             $('.song_covert2_col').css('color', '#fff');
+            $('.lyrics').css('color', '#111');
+            cover_color = "#111,#fff";
             color_order++;
         } else if (color_order == 1) {
             $(this).css('background-color', '#86cdfd');
             $('.song_covert2_col').css('color', '#fff');
+            $('.lyrics').css('color', '#86cdfd');
+
+            cover_color = "#86cdfd,#fff";
             color_order++;
 
         } else if (color_order == 2) {
             $(this).css('background-color', '#90EE90');
             $('.song_covert2_col').css('color', '#fff');
+            $('.lyrics').css('color', '#90EE90');
+
+            cover_color = "#90EE90,#fff";
             color_order++;
         } else if (color_order == 3) {
             $(this).css('background-color', '#F0E68C');
             $('.song_covert2_col').css('color', '#fff');
+            $('.lyrics').css('color', '#F0E68C');
+
+            cover_color = "#F0E68C,#fff";
             color_order++;
 
         } else if (color_order == 4) {
             $(this).css('background-color', '#FFA07A');
             $('.song_covert2_col').css('color', '#fff');
+            $('.lyrics').css('color', '#FFA07A');
+
+            cover_color = "#FFA07A,#fff";
             color_order++;
         } else if (color_order == 5) {
             $(this).css('background-color', '#FF69B4');
             $('.song_covert2_col').css('color', '#fff');
+            $('.lyrics').css('color', '#FF69B4');
+
+            cover_color = "#FF69B4,#fff";
             color_order++;
         } else if (color_order == 6) {
             $(this).css('background-color', '#C71585');
             $('.song_covert2_col').css('color', '#fff');
+            $('.lyrics').css('color', '#C71585');
+
+            cover_color = "#C71585,#fff";
             color_order++;
         } else if (color_order == 7) {
             $(this).css('background-color', '#663399');
             $('.song_covert2_col').css('color', '#fff');
+            $('.lyrics').css('color', '#663399');
+
+            cover_color = "#663399,#fff";
             color_order++;
         } else if (color_order == 8) {
             $(this).css('background-color', '#FFFAFA');
             $('.song_covert2_col').css('color', '#111');
+            $('.lyrics').css('color', '#FFFAFA');
+
+            cover_color = "#FFFAFA,#111";
             color_order++;
 
         } else if (color_order == 9) {
             $(this).css('background-color', '#708090');
             $('.song_covert2_col').css('color', '#fff');
+            $('.lyrics').css('color', '#708090');
+
+            cover_color = "#708090,#fff";
+            color_order = 0;
+        }
+
+    })
+
+    $(document).on('click', '.lyrics', function() {
+        if (color_order == 0) {
+            $(this).css('color', '#111');
+            $('.song_cover_type2').css('background-color', '#111');
+            $('.song_covert2_col').css('color', '#fff');
+            cover_color = "#111";
+            color_order++;
+        } else if (color_order == 1) {
+            $(this).css('color', '#86cdfd');
+            $('.song_cover_type2').css('background-color', '#86cdfd');
+            $('.song_covert2_col').css('color', '#fff');
+
+            cover_color = "#86cdfd";
+            color_order++;
+
+        } else if (color_order == 2) {
+            $(this).css('color', '#90EE90');
+            $('.song_cover_type2').css('background-color', '#90EE90');
+            $('.song_covert2_col').css('color', '#fff');
+
+            cover_color = "#90EE90";
+            color_order++;
+        } else if (color_order == 3) {
+            $(this).css('color', '#F0E68C');
+            $('.song_cover_type2').css('background-color', '#F0E68C');
+            $('.song_covert2_col').css('color', '#fff');
+
+            cover_color = "#F0E68C";
+            color_order++;
+
+        } else if (color_order == 4) {
+            $(this).css('color', '#FFA07A');
+            $('.song_cover_type2').css('background-color', '#FFA07A');
+            $('.song_covert2_col').css('color', '#fff');
+
+
+            cover_color = "#FFA07A";
+            color_order++;
+        } else if (color_order == 5) {
+            $(this).css('color', '#FF69B4');
+            $('.song_cover_type2').css('background-color', '#FF69B4');
+            $('.song_covert2_col').css('color', '#fff');
+
+            cover_color = "#FF69B4";
+            color_order++;
+        } else if (color_order == 6) {
+            $(this).css('color', '#C71585');
+            $('.song_cover_type2').css('background-color', '#C71585');
+            $('.song_covert2_col').css('color', '#fff');
+
+            cover_color = "#C71585,#fff";
+            color_order++;
+        } else if (color_order == 7) {
+            $(this).css('color', '#663399');
+            $('.song_cover_type2').css('background-color', '#663399');
+
+            $('.song_covert2_col').css('color', '#fff');
+            cover_color = "#663399";
+            color_order++;
+        } else if (color_order == 8) {
+            $(this).css('color', '#FFFAFA');
+            $('.song_cover_type2').css('background-color', '#FFFAFA');
+            $('.song_covert2_col').css('color', '#111');
+
+            cover_color = "#FFFAFA";
+            color_order++;
+
+        } else if (color_order == 9) {
+            $(this).css('color', '#708090');
+            $('.song_cover_type2').css('background-color', '#708090');
+            $('.song_covert2_col').css('color', '#fff');
+
+            cover_color = "#708090";
             color_order = 0;
         }
 

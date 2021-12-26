@@ -208,6 +208,7 @@ body {
     max-width: 300px;
     word-break: break-word;
     text-align: center;
+    user-select: none;
 }
 .songs_list {
     margin-top: 15px;
