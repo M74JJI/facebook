@@ -976,6 +976,16 @@ body {
     width: 0;
     border-radius: 10px;
 }
+.fifteen_shadow {
+    position: absolute;
+    left: 0;
+    background: rgba(0, 153, 255, 0.248);
+    z-index: 999;
+    height: 50px;
+    width: 40px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
 .lyrics_type_picker {
     display: flex;
     align-items: center;

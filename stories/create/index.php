@@ -669,6 +669,7 @@ $songs = array(
                                 <div class="music_equalizer">
                                     <div class="white_shadow">
                                         <div class="white_shadow_player"></div>
+                                        <div class="fifteen_shadow"></div>
                                         <canvas id='progress-bar' width="250" height="50"
                                             style="border:1px solid green;z-index:999999999999999999">
                                         </canvas>
@@ -748,7 +749,7 @@ $songs = array(
     var lyrics_color = "";
     var cover_color = "";
     var first_time = false;
-    var first_choice = false;
+    var first_choice = '';
     var font = "clean";
     var bg = "../../assets/images/stories/1.jpg";
     $(document).on('click', '#show_more_bgs', () => {
@@ -1082,8 +1083,8 @@ $songs = array(
             $('.song_covert2_col span:first-of-type').html(song_name);
             $('.song_covert2_col span:last-of-type').html(song_artist);
             $('.player').attr('src', song);
-            if (first_choice == true) {
-                $('#audio_player')[0].currentTime = picked_time;
+            if (first_choice != "") {
+                $('#audio_player')[0].currentTime = first_choice;
             }
             document.getElementsByTagName('audio')[0].play();
             $('.lyrics_add_header').hide();
@@ -1108,7 +1109,7 @@ $songs = array(
         $('.lyrics_add_header').hide();
         $('.song_lyrics_infos_wrap').hide();
         first_time = true;
-        first_choice = true;
+        first_choice = picked_time;
     })
     var color_order = 0;
     $(document).on('click', '.song_cover_type2', function() {
@@ -1272,20 +1273,45 @@ $songs = array(
     var fifteen = setInterval(function() {
         var player = document.getElementById('audio_player');
 
-        if (picked_time == 0) {
-            if (player.currentTime > 15) {
-                player.pause();
-                player.currentTime = 0;
-                player.play();
+
+        if (first_choice == '') {
+            if (picked_time == 0) {
+                if (player.currentTime > 15) {
+                    player.pause();
+                    player.currentTime = 0;
+                    player.play();
+                }
+            } else {
+                if (player.currentTime > picked_time + 15) {
+                    player.pause();
+                    player.currentTime = picked_time;
+                    player.play();
+                }
             }
         } else {
-            if (player.currentTime > picked_time + 15) {
+
+            if (player.currentTime > first_choice + 15) {
                 player.pause();
-                player.currentTime = picked_time;
+                player.currentTime = first_choice;
                 player.play();
             }
+
         }
+
+
     }, 200)
+
+
+    var audio = document.getElementsByTagName('audio')[0];
+
+
+    var bar_sizee = 250;
+    var fiv = setInterval(function() {
+        var pos = parseInt(picked_time * bar_sizee / audio.duration);
+        var size = parseInt(15 * 250 / audio.duration);
+        $('.fifteen_shadow').css('left', '' + pos + 'px');
+        $('.fifteen_shadow').css('width', '' + size + 'px');
+    }, 500);
     </script>
 </body>
 
