@@ -12,9 +12,10 @@ if(isset($_POST['song'])){
     $lyrics=$_POST['lyrics'];
     $song_infos=$_POST['song_infos'];
     $picked_time=$_POST['picked_time'];
+    $lyrics_position=$_POST['lyrics_position'];
 
     $path_directory =$_SERVER['DOCUMENT_ROOT']."/facebook/user/".$userid."/stories/";
-    $loadUser->create('stories',array('story_bg'=>$image,'song'=>$song,'song_starts'=>$picked_time,'lyrics'=>$lyrics,'song_infos'=>$song_infos,'lyrics_type'=>$lyrics_type,'story_user'=>$userid,'createdAt'=>date('Y-m-d H:i:s')));
+    $loadUser->create('stories',array('story_bg'=>$image,'song'=>$song,'song_starts'=>$picked_time,'lyrics_position'=>$lyrics_position,'lyrics'=>$lyrics,'song_infos'=>$song_infos,'lyrics_type'=>$lyrics_type,'story_user'=>$userid,'createdAt'=>date('Y-m-d H:i:s')));
 
 }
 

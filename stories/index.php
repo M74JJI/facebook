@@ -102,10 +102,14 @@ $max= count($stories);
                ?>
                 </div>
                 <?php
+                if($mainStory->lyrics_position !=""){
+                    $position=explode(",",$mainStory->lyrics_position);
+                }
                 if($mainStory->lyrics_type==1 && $mainStory->song_infos !=""){
                     $infos=json_decode($mainStory->song_infos);
                     ?>
-                <div class="song_cover_type2_story">
+                <div class="song_cover_type2_story"
+                    style="<?php if($mainStory->lyrics_position != '') echo "transform:translate(0,0);top:$position[0]px;left:$position[1]px" ?>">
                     <img src="<?php echo $infos->cover ?>" alt="">
                     <div class="song_covert2_col">
                         <span><?php echo $infos->name ?></span>

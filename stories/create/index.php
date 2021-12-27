@@ -754,6 +754,7 @@ $songs = array(
     var first_choice = 0;
     var start_t = 0;
     var temp_time = 0;
+
     var font = "clean";
     var bg = "../../assets/images/stories/1.jpg";
     $(document).on('click', '#show_more_bgs', () => {
@@ -816,7 +817,8 @@ $songs = array(
                     lyrics: song_lyrics,
                     lyrics_type: lyrics_type,
                     song_infos: song_infos,
-                    picked_time: picked_time
+                    picked_time: picked_time,
+                    lyrics_position: lyrics_position
 
                 }, function(data) {})
                 /*
@@ -1279,14 +1281,42 @@ $songs = array(
 
     })
 
-
+    var left;
     $(function() {
         $("#lyrics").draggable({
             containment: $('.story_img_preview')
         });
         $(".song_cover_type2").draggable({
             containment: $('.story_img_preview')
+
         });
+
+
+    });
+    $(document).on('mousedown', '.song_cover_type2', function() {
+
+    })
+    $(".song_cover_type2").draggable({
+
+        drag: function() {
+            var elem = $(".song_cover_type2");
+            var left = elem.offset().left - elem.parent().offset().left;
+            var top = elem.offset().top - elem.parent().offset().top;
+            lyrics_position = '' + top + ',' + left + '';
+
+        },
+
+    });
+    $("#lyrics").draggable({
+
+        drag: function() {
+            var elem = $("#lyrics");
+            var left = elem.offset().left - elem.parent().offset().left;
+            var top = elem.offset().top - elem.parent().offset().top;
+            lyrics_position = '' + top + ',' + left + '';
+
+        },
+
     });
     var fifteen = setInterval(function() {
         var player = document.getElementById('audio_player');
