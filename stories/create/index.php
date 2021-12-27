@@ -714,6 +714,7 @@ $songs = array(
     canvass.addEventListener("click", function(e) {
         clearTimeout(playTimeout)
 
+
         var canvass = document.getElementById('progress-bar');
 
         if (!e) {
@@ -722,8 +723,9 @@ $songs = array(
         try {
             //calculate the current time based on position of mouse cursor in canvas box
             mediaPlayer.currentTime = mediaPlayer.duration * (e.offsetX / canvass.clientWidth);
+            temp_time = mediaPlayer.currentTime = mediaPlayer.duration * (e.offsetX / canvass.clientWidth);
             picked_time = mediaPlayer.currentTime = mediaPlayer.duration * (e.offsetX / canvass.clientWidth);
-            console.log(picked_time)
+
         } catch (err) {
             // Fail silently but show in F12 developer tools console
             if (window.console && console.error("Error:" + err));
@@ -749,7 +751,9 @@ $songs = array(
     var lyrics_color = "";
     var cover_color = "";
     var first_time = false;
-    var first_choice = '';
+    var first_choice = 0;
+    var start_t = 0;
+    var temp_time = 0;
     var font = "clean";
     var bg = "../../assets/images/stories/1.jpg";
     $(document).on('click', '#show_more_bgs', () => {
@@ -905,12 +909,14 @@ $songs = array(
 
     var bar_size = 250;
     var updateTrack = setInterval(function() {
-        var size = parseInt(audio.currentTime * bar_size / audio.duration);
+        var sizee = parseInt(audio.currentTime * bar_size / audio.duration);
 
-        $('.white_shadow_player').css('width', '' + size + 'px');
+        $('.white_shadow_player').css('width', '' + sizee + 'px');
     }, 500);
 
     $(document).on("click", '.song_item', function() {
+        temp_time = 0;
+
         var src = $(this).data('src');
         var cover = $(this).data('cover');
         var artist = $(this).data('artist');
@@ -1083,7 +1089,7 @@ $songs = array(
             $('.song_covert2_col span:first-of-type').html(song_name);
             $('.song_covert2_col span:last-of-type').html(song_artist);
             $('.player').attr('src', song);
-            if (first_choice != "") {
+            if (first_choice != 0) {
                 $('#audio_player')[0].currentTime = first_choice;
             }
             document.getElementsByTagName('audio')[0].play();
@@ -1110,9 +1116,15 @@ $songs = array(
         $('.song_lyrics_infos_wrap').hide();
         first_time = true;
         first_choice = picked_time;
+
     })
     var color_order = 0;
     $(document).on('click', '.song_cover_type2', function() {
+        if ($('.song_lyrics_infos_wrap').is(":hidden")) {
+
+        } else {
+
+        }
         if (color_order == 0) {
             $(this).css('background-color', '#111');
             $('.song_covert2_col').css('color', '#fff');
@@ -1267,14 +1279,34 @@ $songs = array(
 
     })
 
-    $("#lyrics").draggable({
-        containment: [500, 500, 500, 500]
+
+    $(function() {
+        $("#lyrics").draggable({
+            containment: $('.story_img_preview')
+        });
+        $(".song_cover_type2").draggable({
+            containment: $('.story_img_preview')
+        });
     });
     var fifteen = setInterval(function() {
         var player = document.getElementById('audio_player');
 
 
-        if (first_choice == '') {
+        if (first_choice == 0) {
+            if (temp_time == 0) {
+                if (player.currentTime > 15) {
+                    player.pause();
+                    player.currentTime = 0;
+                    player.play();
+                }
+            } else {
+                if (player.currentTime > temp_time + 15) {
+                    player.pause();
+                    player.currentTime = temp_time;
+                    player.play();
+                }
+            }
+        } else {
             if (picked_time == 0) {
                 if (player.currentTime > 15) {
                     player.pause();
@@ -1282,18 +1314,11 @@ $songs = array(
                     player.play();
                 }
             } else {
-                if (player.currentTime > picked_time + 15) {
+                if (player.currentTime > temp_time + 15) {
                     player.pause();
-                    player.currentTime = picked_time;
+                    player.currentTime = temp_time;
                     player.play();
                 }
-            }
-        } else {
-
-            if (player.currentTime > first_choice + 15) {
-                player.pause();
-                player.currentTime = first_choice;
-                player.play();
             }
 
         }
@@ -1307,7 +1332,12 @@ $songs = array(
 
     var bar_sizee = 250;
     var fiv = setInterval(function() {
-        var pos = parseInt(picked_time * bar_sizee / audio.duration);
+        if (temp_time == 0) {
+
+        } else {
+
+        }
+        var pos = parseInt(temp_time * bar_sizee / audio.duration);
         var size = parseInt(15 * 250 / audio.duration);
         $('.fifteen_shadow').css('left', '' + pos + 'px');
         $('.fifteen_shadow').css('width', '' + size + 'px');
