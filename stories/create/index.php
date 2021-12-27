@@ -597,7 +597,7 @@ $songs = array(
             <div class="story_preview_editor">
                 <span>Preview</span>
                 <div class="bg_black_rad">
-                    <div class="story_img_preview">
+                    <div class="story_img_preview" id="story_img_preview">
 
                         <div class="song_player_cover">
                             <div class="lyrics_add_header">
@@ -608,7 +608,7 @@ $songs = array(
                                 </div>
                                 <button class="lyrics_add_done" id="save_changes">Done</button>
                             </div>
-                            <div class="lyrics" style="display: none">
+                            <div class="lyrics" id="lyrics" style=" display: none">
 
                             </div>
                             <div class="song_cover_type2">
@@ -701,6 +701,9 @@ $songs = array(
     </div>
     <script src="../../assets/js/jquery.js"></script>
     <script src="../../assets/js/jquery.fillcolor.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript">
+    </script>
+
     <script>
     var picked_time = 0;
     var mediaPlayer = document.getElementById('audio_player');
@@ -745,6 +748,7 @@ $songs = array(
     var lyrics_color = "";
     var cover_color = "";
     var first_time = false;
+    var first_choice = false;
     var font = "clean";
     var bg = "../../assets/images/stories/1.jpg";
     $(document).on('click', '#show_more_bgs', () => {
@@ -923,6 +927,8 @@ $songs = array(
         $('.song_covert2_col span:first-of-type').html(name);
         $('.song_covert2_col span:last-of-type').html(artist);
         $('.player').attr('src', src);
+
+
         $('#audio_player')[0].play();
         var lyricss = $(this).data('lyrics');
 
@@ -938,6 +944,7 @@ $songs = array(
             $('.song_cover_type2').css('display', 'flex');
 
         } else {
+            song_lyrics = lyricss;
             lyrics_type = 0;
             $('#change_to_text').show();
             $('.song_cover_type2').hide();
@@ -946,7 +953,7 @@ $songs = array(
             const lyrics = document.querySelector('.lyrics')
             const lines = lyrics.textContent.trim().split('\n')
 
-            lyrics.removeAttribute('style')
+            lyrics.style.display = 'block';
             lyrics.innerText = ''
 
             let syncData = []
@@ -967,7 +974,7 @@ $songs = array(
             })
         }
 
-        song_lyrics = lyricss;
+
 
 
 
@@ -1052,6 +1059,7 @@ $songs = array(
         audiooo.play();
     })
     $(document).on('click', '#cancel_changes', function() {
+
         if (first_time == false) {
             $('.lyrics_add_header').hide();
             $('.song_lyrics_infos_wrap').hide();
@@ -1067,12 +1075,16 @@ $songs = array(
             lyrics_position = "";
             lyrics_color = "";
 
+
         } else {
 
             $('.song_cover_type2 img').attr('src', song_cover);
             $('.song_covert2_col span:first-of-type').html(song_name);
             $('.song_covert2_col span:last-of-type').html(song_artist);
             $('.player').attr('src', song);
+            if (first_choice == true) {
+                $('#audio_player')[0].currentTime = picked_time;
+            }
             document.getElementsByTagName('audio')[0].play();
             $('.lyrics_add_header').hide();
             $('.song_lyrics_infos_wrap').hide();
@@ -1089,15 +1101,14 @@ $songs = array(
     })
     $(document).on('click', '#save_changes', function() {
         song = $('.player').attr('src');
-
         document.getElementsByTagName('audio')[0].play();
         song_cover = $('.img_726HJHDFHD').attr('src');
         song_name = $('.lyr_inf_col span:first-of-type').text();
         song_artist = $('.lyr_inf_col span:last-of-type').text();
-
         $('.lyrics_add_header').hide();
         $('.song_lyrics_infos_wrap').hide();
         first_time = true;
+        first_choice = true;
     })
     var color_order = 0;
     $(document).on('click', '.song_cover_type2', function() {
@@ -1254,6 +1265,27 @@ $songs = array(
         }
 
     })
+
+    $("#lyrics").draggable({
+        containment: [500, 500, 500, 500]
+    });
+    var fifteen = setInterval(function() {
+        var player = document.getElementById('audio_player');
+
+        if (picked_time == 0) {
+            if (player.currentTime > 15) {
+                player.pause();
+                player.currentTime = 0;
+                player.play();
+            }
+        } else {
+            if (player.currentTime > picked_time + 15) {
+                player.pause();
+                player.currentTime = picked_time;
+                player.play();
+            }
+        }
+    }, 200)
     </script>
 </body>
 
