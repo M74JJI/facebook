@@ -209,6 +209,7 @@ body {
     word-break: break-word;
     text-align: center;
     user-select: none;
+    z-index: 999999999999999999999;
 }
 .songs_list {
     margin-top: 15px;

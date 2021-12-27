@@ -818,6 +818,7 @@ $songs = array(
                     lyrics_type: lyrics_type,
                     song_infos: song_infos,
                     picked_time: picked_time,
+                    cover_color: cover_color,
                     lyrics_position: lyrics_position
 
                 }, function(data) {})
@@ -1302,7 +1303,8 @@ $songs = array(
             var elem = $(".song_cover_type2");
             var left = elem.offset().left - elem.parent().offset().left;
             var top = elem.offset().top - elem.parent().offset().top;
-            lyrics_position = '' + top + ',' + left + '';
+            lyrics_position = '' + top * 100 / 731 + ',' + left * 100 / 400 + '';
+
 
         },
 
@@ -1313,7 +1315,7 @@ $songs = array(
             var elem = $("#lyrics");
             var left = elem.offset().left - elem.parent().offset().left;
             var top = elem.offset().top - elem.parent().offset().top;
-            lyrics_position = '' + top + ',' + left + '';
+            lyrics_position = '' + top * 100 / 731 + ',' + left * 100 / 400 + '';
 
         },
 

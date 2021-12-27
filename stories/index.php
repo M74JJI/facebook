@@ -104,12 +104,15 @@ $max= count($stories);
                 <?php
                 if($mainStory->lyrics_position !=""){
                     $position=explode(",",$mainStory->lyrics_position);
+                   
                 }
-                if($mainStory->lyrics_type==1 && $mainStory->song_infos !=""){
+                if($mainStory->song_infos !=""){
                     $infos=json_decode($mainStory->song_infos);
+                }
+                if($mainStory->lyrics_type==1 ){
                     ?>
                 <div class="song_cover_type2_story"
-                    style="<?php if($mainStory->lyrics_position != '') echo "transform:translate(0,0);top:$position[0]px;left:$position[1]px" ?>">
+                    style="<?php if($mainStory->lyrics_position != '') echo "transform:translate(0,0);top:$position[0]%;left:$position[1]%" ?><?php if($mainStory->cover_color != '') echo ";background-color:$mainStory->cover_color" ?>">
                     <img src="<?php echo $infos->cover ?>" alt="">
                     <div class="song_covert2_col">
                         <span><?php echo $infos->name ?></span>
@@ -120,7 +123,8 @@ $max= count($stories);
                     
                 }else{
                     ?>
-                <div class="lyricso" style="display: none">
+                <div class="lyrics"
+                    style="display: none;<?php if($mainStory->lyrics_position != '') echo "transform:translate(0,0);top:$position[0]%;left:$position[1]%" ?><?php if($mainStory->cover_color != '') echo ";color:$mainStory->cover_color" ?>">
 
                 </div>
                 <?php
@@ -321,14 +325,15 @@ $(document).on('click', '.story_player', function() {
     $('#audio_player')[0].play();
     if (src != '') {
         var lyricss = $(this).data('lyrics');
-        $('.lyricso').html(lyricss);
-        $('.lyrics').html(lyricss);
-        $('.player').show()
+
+        $('.lyrics').html(lyricss)
+
         const player = document.querySelector('.player')
-        const lyrics = document.querySelector('.lyricso')
+        const lyrics = document.querySelector('.lyrics')
         const lines = lyrics.textContent.trim().split('\n')
 
-        lyrics.removeAttribute('style')
+
+        lyrics.style.display = 'block';
         lyrics.innerText = ''
 
         let syncData = []
