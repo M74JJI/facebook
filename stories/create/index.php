@@ -379,6 +379,7 @@ $songs = array(
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
     <link rel="icon" href="https://static.xx.fbcdn.net/rsrc.php/yD/r/d4ZIVX-5C-b.ico">
+    <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 
 
 </head>
@@ -514,9 +515,12 @@ $songs = array(
 
             </div>
             <div class="story_options_img">
-
-
-
+                <div class="add_text_to_image">
+                    <div class="another_fucking_holde">
+                        <i class="rrtrtyighdk1111"></i>
+                    </div>
+                    Add Text
+                </div>
                 <div class="music_menu">
                     <div class="search_in_music">
                         <svg viewBox="0 0 16 16" width="1em" height="1em" fill="#65676b">
@@ -618,7 +622,11 @@ $songs = array(
                                     <span></span>
                                 </div>
                             </div>
-                            <div class="song_lyrics_infos_wrap">
+                            <div class="text_for_image_input">
+                                <textarea type="text" placeholder="Start Typing" id="text_for_image" id="text"
+                                    maxlength="300" onkeyup="textAreaAdjust(this)"> </textarea>
+                            </div>
+                            <div class=" song_lyrics_infos_wrap">
                                 <div class="lyrics_type_picker">
                                     <div class="round_ik21 selected_l_type" id="change_to_text">
                                         <i class="khnjadf5af4afaf" style="-webkit-filter:invert(100%)"></i>
@@ -1291,6 +1299,9 @@ $songs = array(
             containment: $('.story_img_preview')
 
         });
+        $("#text_for_image").draggable({
+
+        });
 
 
     });
@@ -1374,6 +1385,18 @@ $songs = array(
         $('.fifteen_shadow').css('left', '' + pos + 'px');
         $('.fifteen_shadow').css('width', '' + size + 'px');
     }, 500);
+
+    var fontsize;
+
+    function textAreaAdjust(element) {
+
+        element.style.height = "1px";
+        element.style.minHeight = (1 + element.scrollHeight) + "px";
+        if ($('#text_for_image').val().length > 20) {
+            $('#text_for_image').css('font-size', '22px')
+        }
+
+    }
     </script>
 </body>
 
