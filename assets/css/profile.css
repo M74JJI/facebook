@@ -6,9 +6,6 @@
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 a {
@@ -179,6 +176,9 @@ a {
 }
 .friends_peak {
     margin-top: 7px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
 }
 .friends_peak img {
     width: 30px;
@@ -309,7 +309,7 @@ a {
 .header_icon {
     position: absolute;
     right: 1rem;
-    top: 12px;
+    top: 5px;
     width: 37px;
     height: 37px;
     border-radius: 50%;
@@ -436,12 +436,14 @@ a {
     max-width: 950px;
     margin: 0 auto;
     padding: 10px 2rem;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
 
     gap: 15px;
 }
 @media (max-width: 920px) {
     .profile_middle_container {
+        display: flex;
         flex-direction: column;
         align-items: center;
     }
@@ -511,6 +513,7 @@ a {
 }
 .post {
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    width: 100%;
 }
 .post_wrapper {
     padding: 10px 16px;
@@ -623,6 +626,7 @@ a {
     justify-content: center;
     margin-top: -10px;
     border-bottom: 1px solid #e5e5e5;
+    padding: 10px;
 }
 .post_user_infos {
     display: flex;
@@ -662,7 +666,7 @@ a {
     font-size: 13px;
 }
 .privacy_box_box h6 {
-    font-size: 12px;
+    font-size: 14px;
 }
 .box_area {
     position: relative;
@@ -2713,4 +2717,22 @@ li {
         align-items: center;
         flex-wrap: wrap;
     }
+}
+.message_friend {
+    background: #1b74e4;
+    padding: 8px 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.message_friend img {
+    -webkit-filter: invert(100%);
+}
+.more_friends_count {
+    font-weight: 600;
 }

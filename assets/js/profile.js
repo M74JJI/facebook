@@ -10,7 +10,6 @@ const header_icon = document.getElementById('header_icon');
 const pdf_container = document.getElementById('pdf_container');
 const post_textarea = document.getElementById('post_textarea');
 const post_btn_submit = document.getElementById('post_btn_submit');
-const add_photos = document.getElementById('add_photos');
 const post_photo = document.getElementById('post_photo');
 const com = document.getElementById('com-option-details-container');
 const friends_btn = document.getElementById('friends_btn');
@@ -29,11 +28,6 @@ pdf_container.addEventListener('click', () => {
 header_icon.addEventListener('click', () => {
     pdp_box.style.display = 'none';
 });
-
-add_photos.addEventListener('click', function () {
-    post_photo.click();
-});
-
 document.addEventListener('click', function (e) {
     if (e.target.closest('.upload_container')) {
         upload_menu.style.display = 'block';

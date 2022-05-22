@@ -1,86 +1,86 @@
-     <!-------CREATE POST POPUP----->
-     <div class="post_box" id="post_box">
-         <div class="post_box_header">
-             <h3>Create Post</h3>
-             <div class="header_icon" id="close_post"><i class="fa-solid fa-xmark"></i></div>
-         </div>
-         <div class="post_user_infos">
-             <img class="box_post_img" src=<?php echo $userInfo->profile_picture ?> alt="">
-             <div class="privacy_box_box">
-                 <h6><?php echo $userInfo->first_name.' '. $userInfo->last_name; ?></h6>
-                 <span><i class="fa-solid fa-user-group"></i>Friends<i class="fa-solid fa-sort-down"></i></span>
-             </div>
-         </div>
-         <div class="errors_post" id="errors_post"></div>
+<!-------CREATE POST POPUP----->
+<div class="post_box" id="post_box">
+    <div class="post_box_header">
+        <h3>Create Post</h3>
+        <div class="header_icon" id="close_post"><i class="fa-solid fa-xmark"></i></div>
+    </div>
+    <div class="post_user_infos">
+        <img class="box_post_img" src=<?php echo $userInfo->profile_picture ?> alt="">
+        <div class="privacy_box_box">
+            <h6><?php echo $userInfo->first_name.' '. $userInfo->last_name; ?></h6>
+            <span><i class="fa-solid fa-user-group"></i>Friends<i class="fa-solid fa-sort-down"></i></span>
+        </div>
+    </div>
+    <div class="errors_post" id="errors_post"></div>
 
-         <div class="box_area">
-             <textarea placeholder="What's on your mind, <?php echo $userInfo->first_name ?>?" class="textarea_post"
-                 id="post_textarea"></textarea>
-             <ul class="mention_someone">
+    <div class="box_area">
+        <textarea placeholder="What's on your mind, <?php echo $userInfo->first_name ?>?" class="textarea_post"
+            id="post_textarea"></textarea>
+        <ul class="mention_someone">
 
-             </ul>
-         </div>
-         <div class="preview_container">
+        </ul>
+    </div>
+    <div class="preview_container">
 
-             <div class="added_ikhe">
-                 <input type="file" class="input_tamara" id="post_photo" name="post_photo"
-                     data-multiple-caption='{count} files selected' multiple="">
-                 <div class="plussit_dvc">
-                     <i class="plucit_icon"></i>
-                 </div>
-                 Add Photos/Videos
-                 <span>or drag and drop</span>
-             </div>
-             <div class="post_imgs_preview" id="post_imgs_preview"></div>
-         </div>
-         <div class="emoji_wrapper" id="emoji_wrapper">
-             <img style="width:40px;cursor:pointer" src="https://www.facebook.com/images/composer/SATP_Aa_square-2x.png"
-                 alt="">
+        <div class="added_ikhe">
+            <input type="file" class="input_tamara" id="post_photo" name="post_photo"
+                data-multiple-caption='{count} files selected' multiple="">
+            <div class="plussit_dvc">
+                <i class="plucit_icon"></i>
+            </div>
+            Add Photos/Videos
+            <span>or drag and drop</span>
+        </div>
+        <div class="post_imgs_preview" id="post_imgs_preview"></div>
+    </div>
+    <div class="emoji_wrapper" id="emoji_wrapper">
+        <img style="width:40px;cursor:pointer" src="https://www.facebook.com/images/composer/SATP_Aa_square-2x.png"
+            alt="">
 
-         </div>
-
-
-         <div class="post_box_actions">
-             <div class="actions_name">
-                 Add to your post
-             </div>
-             <div class="actions_list">
-                 <div class="post_action post_icon11" id="add_photos">
-                     <div class="post_icon1"></div>
-                     <input type="file" class="hidden" id="post_photo" name="post_photo"
-                         data-multiple-caption='{count} files selected' multiple="">
-                 </div>
-                 <div class="post_action">
-                     <div class="post_icon2"></div>
-                 </div>
-                 <div class="post_action">
-                     <div class="post_icon3"></div>
-                 </div>
-                 <div class="post_action">
-                     <div class="post_icon4"></div>
-                 </div>
-                 <div class="post_action">
-                     <div class="post_icon5"></div>
-                 </div>
-                 <div class="post_action">
-                     <div class="post_icon6"></div>
-                 </div>
-             </div>
-         </div>
-
-         <button class="post_button" id="post_btn_submit">Post</button>
-
-     </div>
-     <!-------CREATE POST POPUP----->
-     <!-------EDIT POST POPUP----->
-     <div class="post_box1" id="post_box1">
+    </div>
 
 
-     </div>
+    <div class="post_box_actions">
+        <div class="actions_name">
+            Add to your post
+        </div>
+        <div class="actions_list">
+            <div class="post_action post_icon11" id="add_photos">
+                <div class="post_icon1"></div>
+                <input type="file" class="hidden" id="post_photo" name="post_photo"
+                    data-multiple-caption='{count} files selected' multiple="">
+            </div>
+            <div class="post_action">
+                <div class="post_icon2"></div>
+            </div>
+            <div class="post_action">
+                <div class="post_icon3"></div>
+            </div>
+            <div class="post_action">
+                <div class="post_icon4"></div>
+            </div>
+            <div class="post_action">
+                <div class="post_icon5"></div>
+            </div>
+            <div class="post_action">
+                <div class="post_icon6"></div>
+            </div>
+        </div>
+    </div>
+
+    <button class="post_button" id="post_btn_submit">Post</button>
+
+</div>
+<!-------CREATE POST POPUP----->
+<!-------EDIT POST POPUP----->
+<div class="post_box1" id="post_box1">
+
+
+</div>
 
 
 
-     <script>
+<script>
 //--------Open Chat--------------------->
 
 
@@ -366,4 +366,4 @@ $('#post_btn_submit').on('click', function() {
 
 })
 //----Submit Post--->
-     </script>
+</script>

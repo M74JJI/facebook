@@ -3,7 +3,10 @@
 $loadUser->resetOnline($userid);
 $loadUser->rdOnline0kamlin($userid);
 $loadUser->resetCalls($userid);
-
+$search_history=$loadUser->getSearchHistory($userid);
+$notifications=$loadUser->notifications($userid);
+$notificationsTotal=$loadUser->notificationsTotal($userid);
+$lastMsgReceived=$loadPost->lastPersonMsg($userid);
 ?>
 <header>
     <div class="h_left">

@@ -41,6 +41,20 @@ $songs = array(
         'lyrics' =>''
     ),
     array(
+        'name' => "Up",
+        'cover' => "http://localhost/facebook/assets/images/songs_images/up.jpg",
+        'artist' => 'Olly Murs & Demi Lovato',
+        'src' => 'http://localhost/facebook/assets/songs/song46.mp3',
+        'lyrics' =>''
+    ),
+    array(
+        'name' => "Young Shahrukh ",
+        'cover' => "http://localhost/facebook/assets/images/songs_images/tush.jpg",
+        'artist' => 'Tesher ',
+        'src' => 'http://localhost/facebook/assets/songs/song47.mp3',
+        'lyrics' =>''
+    ),
+    array(
         'name' => 'Bohemian Rhapsody',
         'cover' => "http://localhost/facebook/assets/images/songs_images/freddie.jpg",
         'artist' => 'Freddie Mercury',
@@ -521,6 +535,13 @@ $songs = array(
                     </div>
                     Add Text
                 </div>
+                <!-- 
+
+                    
+                    <button id="btnSave">btnSave</button>
+                    
+                -->
+                <div id="img-out"></div>
                 <div class="music_menu">
                     <div class="search_in_music">
                         <svg viewBox="0 0 16 16" width="1em" height="1em" fill="#65676b">
@@ -563,7 +584,8 @@ $songs = array(
 
                     </div>
                 </div>
-                <div class="submit_story_menu">
+
+                <div class=" submit_story_menu">
                     <button class="discard_story">Discard</button>
                     <button class="share_story_img">Share to Story</button>
                 </div>
@@ -601,6 +623,12 @@ $songs = array(
             <div class="story_preview_editor">
                 <span>Preview</span>
                 <div class="bg_black_rad">
+                    <!-- 
+                        <div class="change_view">
+                            <button id="change_to_cover">Cover</button>
+                            <button id="change_to_contain">Contain</button>
+                        </div>
+                    -->
                     <div class="story_img_preview" id="story_img_preview">
 
                         <div class="song_player_cover">
@@ -622,10 +650,12 @@ $songs = array(
                                     <span></span>
                                 </div>
                             </div>
-                            <div class="text_for_image_input">
-                                <textarea type="text" placeholder="Start Typing" id="text_for_image" id="text"
-                                    maxlength="300" onkeyup="textAreaAdjust(this)"> </textarea>
-                            </div>
+                            <!-- 
+
+                                
+                                <textarea type="text" placeholder="Start Typing" id="text_for_image" maxlength="300"
+                                onkeyup="textAreaAdjust(this)"> </textarea>
+                            -->
                             <div class=" song_lyrics_infos_wrap">
                                 <div class="lyrics_type_picker">
                                     <div class="round_ik21 selected_l_type" id="change_to_text">
@@ -712,6 +742,12 @@ $songs = array(
     <script src="../../assets/js/jquery.fillcolor.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript">
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"
+        integrity="sha512-OqcrADJLG261FZjar4Z6c4CfLqd861A3yPNMb+vRQ2JwzFT49WT4lozrh3bcKxHxtDTgNiqgYbEUStzvZQRfgQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>
+
 
     <script>
     var picked_time = 0;
@@ -758,6 +794,8 @@ $songs = array(
     var lyrics_position = "";
     var lyrics_color = "";
     var cover_color = "";
+    var text_position = ""
+
     var first_time = false;
     var first_choice = 0;
     var start_t = 0;
@@ -807,6 +845,7 @@ $songs = array(
         var image = img;
         var song_infos = '{"name":"' + song_name + '","cover":"' + song_cover + '","artist":"' + song_artist +
             '"}';
+        var text = $('#text_for_image').val()
         var formData = new FormData();
         formData.append('file', image);
 
@@ -822,6 +861,8 @@ $songs = array(
                 $.post('http://localhost/facebook/core/ajax/storyImage.php', {
                     song: song,
                     image: data,
+                    text: text,
+                    text_position: text_position,
                     lyrics: song_lyrics,
                     lyrics_type: lyrics_type,
                     song_infos: song_infos,
@@ -829,7 +870,9 @@ $songs = array(
                     cover_color: cover_color,
                     lyrics_position: lyrics_position
 
-                }, function(data) {})
+                }, function(data) {
+                    console.log(data)
+                })
                 /*
                 window.location.href = 'http://localhost/facebook/';
                 */
@@ -1291,6 +1334,8 @@ $songs = array(
     })
 
     var left;
+    var containmentTop = $(".story_img_preview").position().top;
+
     $(function() {
         $("#lyrics").draggable({
             containment: $('.story_img_preview')
@@ -1299,7 +1344,17 @@ $songs = array(
             containment: $('.story_img_preview')
 
         });
-        $("#text_for_image").draggable({
+        $("#text_for_image").appendTo('.story_img_preview').draggable({
+            cancel: '',
+            drag: function() {
+                var elem = $("#text_for_image");
+                var left = elem.offset().left - elem.parent().offset().left;
+                var top = elem.offset().top - elem.parent().offset().top;
+                text_position = '' + top * 100 / 731 + ',' + left * 100 / 400 + '';
+
+
+
+            },
 
         });
 
@@ -1397,6 +1452,29 @@ $songs = array(
         }
 
     }
+    $(function() {
+        $("#btnSave").click(function() {
+            html2canvas($(".story_img_preview"), {
+                onrendered: function(canvas) {
+                    theCanvas = canvas;
+                    console.log(canvas)
+
+                    document.body.appendChild(canvas);
+                    /*
+                    canvas.toBlob(function(blob) {
+                        saveAs(blob, "Dashboard.jpg");
+                    });
+                    */
+                }
+            });
+        });
+    });
+    $(document).on('click', '#change_to_cover', function() {
+        $('.story_img_preview_img').css('object-fit', 'cover')
+    })
+    $(document).on('click', '#change_to_contain', function() {
+        $('.story_img_preview_img').css('object-fit', 'contain')
+    })
     </script>
 </body>
 

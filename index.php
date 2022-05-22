@@ -13,12 +13,12 @@ if(login::isLoggedIn()){
  $posts=$loadPost->Homeposts($userid,100);
  $friends = $loadUser->getAllFriends($userid);
  $allusers = $loadPost->lastmessages($userid);
+ $search_history=$loadUser->getSearchHistory($userid);
  $notifications=$loadUser->notifications($userid);
  $notificationsTotal=$loadUser->notificationsTotal($userid);
  $lastMsgReceived=$loadPost->lastPersonMsg($userid);
- $search_history=$loadUser->getSearchHistory($userid);
-
-
+ $userStories=$loadUser->getUserStories($userid);
+ $stories=$loadUser->getAllFollowingStories($userid);
  if(!empty($lastMsgReceived)){
      $lastMsgUserid = $lastMsgReceived->user_id;
  }
@@ -213,6 +213,90 @@ if(login::isLoggedIn()){
             <!-------Hidden Elements--------->
 
             <!-------llah yster--------->
+            <!--------STORIES----------->
+
+
+            <div class="stories_wrapper">
+                <a href="http://localhost/facebook/stories/create" class="create_story">
+                    <img src="<?php echo $userInfo->profile_picture ?>" alt="">
+                    <div class="add_round_story">
+                        <div class="add_round_story_inside">
+                            <svg viewBox="0 0 20 20" width="1em" height="1em" fill="#fff"
+                                class="a8c37x1j ms05siws hwsy1cff b7h9ocf4 p361ku9c jnigpg78 odw8uiq3">
+                                <g fill-rule="evenodd" transform="translate(-446 -350)">
+                                    <g fill-rule="nonzero">
+                                        <path d="M95 201.5h13a1 1 0 1 0 0-2H95a1 1 0 1 0 0 2z"
+                                            transform="translate(354.5 159.5)"></path>
+                                        <path d="M102.5 207v-13a1 1 0 1 0-2 0v13a1 1 0 1 0 2 0z"
+                                            transform="translate(354.5 159.5)"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="create_story_text">Create Story</div>
+                    <div class="greyesh"></div>
+                </a>
+                <?php 
+                if(count($userStories)>0){
+                    ?>
+                <a href="http://localhost/facebook/stories?uuid=<?php echo $userStories[0]->story_id ?>"
+                    class="story_peak">
+                    <img class="story_peak_img" src="<?php echo $userStories[0]->profile_picture ?>" alt="">
+                    <?php
+                      if($userStories[0]->story_bg != ''){
+                         
+                          ?>
+                    <img class="img" src="<?php echo $userStories[0]->story_bg ?>" alt="">
+                    <?php
+                      }else if($userStories[0]->story_img !=''){
+                        ?>
+                    <img class="img" src="<?php echo $userStories[0]->story_img ?>" alt="">
+                    <?php
+                      }
+                      if($userStories[0]->story_text != ''){
+                        ?>
+                    <span class="preview_st_text"><?php echo $userStories[0]->story_text ?></span>
+                    <?php
+                    }
+                      ?>
+                </a>
+                <?php
+                }
+                    
+                ?>
+
+
+                <div class="list_of_stories">
+                    <?php 
+                    if($stories !=''){
+                        foreach ($stories as $story){
+                            $count=count($loadUser->getUserStories($story->story_user));
+                            if( $story->main=='yes'){
+                                ?>
+                    <a href="http://localhost/facebook/stories?uuid=<?php echo $story->story_id ?>" class="story_peak">
+                        <img class="story_peak_img" src="<?php echo $story->profile_picture ?>" alt="">
+                        <?php
+      
+                          
+                           ?>
+                        <img class="img" src="<?php echo $story->story_bg ?>" alt="">
+                        <?php
+                       
+                       
+                       ?>
+                    </a>
+                    <?php
+                            }
+                            }
+                            
+                        
+            
+                      } 
+                 ?>
+                </div>
+            </div>
+            <!--------STORIES----------->
 
             <!--------create post----------->
             <div class="home_post_wrapper">

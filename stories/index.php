@@ -19,10 +19,15 @@ if(login::isLoggedIn()){
     foreach($stories as $story){
         if($story->story_id == $story_id){
           $mainStory= $story;
+        }else{
+           
         }
     }
 }else{
     header('Location:login.php');
+}
+if($mainStory ==""){
+    header('Location:/facebook/index.php');
 }
 
 
@@ -102,6 +107,7 @@ $max= count($stories);
                ?>
                 </div>
                 <?php
+                if($mainStory->lyrics !=''){
                 if($mainStory->lyrics_position !=""){
                     $position=explode(",",$mainStory->lyrics_position);
                    
@@ -109,7 +115,7 @@ $max= count($stories);
                 if($mainStory->song_infos !=""){
                     $infos=json_decode($mainStory->song_infos);
                 }
-                if($mainStory->lyrics_type==1 ){
+                if($mainStory->lyrics_type==1 && $mainStory->song_infos !=""){
                     ?>
                 <div class="song_cover_type2_story"
                     style="<?php if($mainStory->lyrics_position != '') echo "transform:translate(0,0);top:$position[0]%;left:$position[1]%" ?><?php if($mainStory->cover_color != '') echo ";background-color:$mainStory->cover_color" ?>">
@@ -121,13 +127,14 @@ $max= count($stories);
                 </div>
                 <?php
                     
-                }else{
+                }else if($mainStory->lyrics_type==0 && $mainStory->song_infos !=""){
                     ?>
                 <div class="lyrics"
                     style="display: none;<?php if($mainStory->lyrics_position != '') echo "transform:translate(0,0);top:$position[0]%;left:$position[1]%" ?><?php if($mainStory->cover_color != '') echo ";color:$mainStory->cover_color" ?>">
 
                 </div>
                 <?php
+                }
                 }
                 ?>
 
@@ -620,7 +627,7 @@ tim = setInterval(function() {
             $('.right_stories').children(':first').remove();
         }
     })
-    if (total.length == 0) {} else {
+    if (total.length == 5) {} else {
         $.post('http://localhost/facebook/core/chat/storyReply.php', {
             getNextStory: "<?php echo $userid ?>",
             order: orderr,
